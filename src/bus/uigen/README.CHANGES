@@ -1,0 +1,34 @@
+
+Changes
+-------
+
+May 5th
+-------
++ Tested LocalAttributeDescriptor functionality
+  . eg. elideStrings can be decided by the object.
++ Gave names to vector elements, so attributes can be set for
+  vector elements now
+  . eg. 3.elideString = "hidden Number"
++ Added a title to the main frame which has become a Frame. It used
+  to be a JFrame
++ Fixed some problems with Method Invocation. 
+  . parameter specialisations were not being remembered. now fixed
++ Classes can be horizontal
+  . fixed the ClassDescriptorBeanInfo so that it looks better
++ Provided an option to switch between editing BeanInfo mode and
+  interactive Class attribute editting 
++ Cleaned up uiGenerator, so that there is one main generator function
+  called by others with default args
++ Added BeanDescriptor attributes. These are attributes that a Bean uses
+  to describe itself.  (as opposed to PropertyDescriptor attributes for
+  attributes of a property). Added to the BeanInfo editor fields for this
++ Helper objects - both as a static class method and as an instance method
+  this might be impossible to specify from the BeanInfoEditor as the values
+  are java.lang.Method s for now
+
+May 6th
+-------
++ added a method uiGenerator.generateUI(Object, Container)
+  works, but refresh on method invocation doesnt exist at this moment
++ added an AdapterVisitor class
++ tested LocalAttributeDescriptors with vectors

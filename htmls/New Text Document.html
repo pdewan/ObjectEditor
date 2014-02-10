@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+
+<HTML>
+
+<HEAD>
+
+<LINK REL=STYLESHEET TYPE="text/css" HREF="../../stylesheet.css" TITLE="Style">
+
+<META NAME="GENERATOR" CONTENT="Java2HTML Version 1.5">
+
+<TITLE>examples.state.ABMISpreadsheet (Java2HTML)</TITLE>
+
+</HEAD>
+
+<BODY><TABLE id="Header" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+<tr>
+
+<td colspan="2" width="33%">&nbsp;</td>
+
+<td align="center" colspan="2" width="33%">
+
+<font size="4">ABMISpreadsheet.java</font>
+
+</td>
+
+<td align="right" colspan="2" width="33%">&nbsp;</td>
+
+</tr>
+
+</TABLE>
+
+<pre ID="Classes">
+
+<A NAME="1"></A><FONT ID="Package">package</FONT> examples.state;
+
+<A NAME="2"></A>
+
+<A NAME="3"></A><FONT ID="Import">import</FONT> <A HREF="../../util/annotations/Explanation.java.html">util.annotations.Explanation</A>;
+
+<A NAME="4"></A><FONT ID="Import">import</FONT> <A HREF="../../util/annotations/StructurePattern.java.html">util.annotations.StructurePattern</A>;
+
+<A NAME="5"></A><FONT ID="Import">import</FONT> <A HREF="../../util/annotations/StructurePatternNames.java.html">util.annotations.StructurePatternNames</A>;
+
+<A NAME="6"></A>@<A HREF="../../util/annotations/StructurePattern.java.html">StructurePattern</A>(StructurePatternNames.BEAN_PATTERN)
+
+<A NAME="7"></A>@<A HREF="../../util/annotations/Explanation.java.html">util.annotations.Explanation</A>(<FONT ID="StringLiteral">"Calculates BMI from height in metres and weight in kgs, and infers overweight/underweight/normal status"</FONT>)
+
+<A NAME="8"></A>@<A HREF="../../util/annotations/Keywords.java.html">util.annotations.Keywords</A> ({ <FONT ID="StringLiteral">"Application.Spreadsheet"</FONT>, <FONT ID="StringLiteral">"Misc.State"</FONT>, <FONT ID="StringLiteral">"Misc.Undo"</FONT>} )
+
+<A NAME="9"></A>@<A HREF="../../util/annotations/HTMLDocumentation.java.html">util.annotations.HTMLDocumentation</A>({<A HREF="http://www.cs.unc.edu/~carterjl/teaching/notes/4_State_Notes.pdf">"4_State_Notes.pdf",
+
+<A NAME="10"></A>    <A HREF="http://delivery.acm.org/10.1145/2160000/2157159/p69-dewan.pdf?ip=152.2.128.61&amp;acc=ACTIVE%20SERVICE&amp;CFID=88842060&amp;CFTOKEN=32985736&amp;__acm__=1331662176_de4ded7d47b745b5f8c6f6256cf58c25">"http://delivery.acm.org/10.1145/2160000/2157159/p69-dewan.pdf?ip=152.2.128.61&amp;acc=ACTIVE%20SERVICE&amp;CFID=88842060&amp;CFTOKEN=32985736&amp;__acm__=1331662176_de4ded7d47b745b5f8c6f6256cf58c25"
+
+<A NAME="11"></A>    })
+
+<A NAME="12"></A>
+
+<A NAME="13"></A><FONT ID="SingleLineComment">//@util.annotations.HTMLDocumentation({"http://www.cs.unc.edu/~carterjl/teaching/notes/4_State_Notes.pdf"})
+
+<A NAME="14"></A><FONT ID="Public">public</FONT> <FONT ID="Class">class</FONT> ABMISpreadsheet <FONT ID="Implements">implements</FONT> <A HREF="../../examples/state/BMISpreadsheet.java.html">BMISpreadsheet</A>   {
+
+<A NAME="15"></A>    <FONT ID="Double">double</FONT> height, weight;
+
+<A NAME="16"></A>    <FONT ID="Double">double</FONT> initialHeight, initialWeight;
+
+<A NAME="17"></A>    <FONT ID="Public">public</FONT> ABMISpreadsheet(<FONT ID="Double">double</FONT> theInitialHeight, <FONT ID="Double">double</FONT> theInitialWeight) {
+
+<A NAME="18"></A>        height = theInitialHeight;
+
+<A NAME="19"></A>        weight = theInitialWeight;
+
+<A NAME="20"></A>        initialHeight = theInitialHeight;
+
+<A NAME="21"></A>        initialWeight = theInitialWeight;       
+
+<A NAME="22"></A>    }
+
+<A NAME="23"></A>    <FONT ID="Public">public</FONT> ABMISpreadsheet() {} 
+
+<A NAME="24"></A>    <FONT ID="Public">public</FONT> <FONT ID="Double">double</FONT> getHeight() {<FONT ID="Return">return</FONT> height;}  
+
+<A NAME="25"></A>    <FONT ID="Public">public</FONT> <FONT ID="Void">void</FONT> setHeight(<FONT ID="Double">double</FONT> newHeight) {height = newHeight;}
+
+<A NAME="26"></A>    @<A HREF="../../util/annotations/Explanation.java.html">util.annotations.Explanation</A>("Weight is in Kilograms. "</FONT>)
+
+<A NAME="27"></A>    <FONT ID="Public">public</FONT> <FONT ID="Double">double</FONT> getWeight() {<FONT ID="Return">return</FONT> weight;}  
+
+<A NAME="28"></A>    <FONT ID="Public">public</FONT> <FONT ID="Boolean">boolean</FONT> preSetWeight (<FONT ID="Double">double</FONT> newWeight) {<FONT ID="Return">return</FONT> newWeight &gt; <FONT ID="IntegerLiteral">0</FONT>;}
+
+<A NAME="29"></A>    @<A HREF="../../util/annotations/Explanation.java.html">util.annotations.Explanation</A>(<FONT ID="StringLiteral">"Changing weight automatically recalulates BMI."</FONT>)
+
+<A NAME="30"></A>    <FONT ID="Public">public</FONT> <FONT ID="Void">void</FONT> setWeight(<FONT ID="Double">double</FONT> newWeight) {weight = newWeight;}   
+
+<A NAME="31"></A>    <FONT ID="Public">public</FONT> <FONT ID="Boolean">boolean</FONT> preGetBMI() {<FONT ID="Return">return</FONT> weight &gt; <FONT ID="IntegerLiteral">0</FONT> &amp;&amp; height &gt; <FONT ID="IntegerLiteral">0</FONT>;}   
+
+<A NAME="32"></A>    <FONT ID="Public">public</FONT> <FONT ID="Double">double</FONT> getBMI() {assert preGetBMI(); <FONT ID="Return">return</FONT> weight/(height*height);} 
+
+<A NAME="33"></A>    <FONT ID="Public">public</FONT> <FONT ID="Boolean">boolean</FONT> preRestoreHeightAndWeight() {<FONT ID="Return">return</FONT> height != initialHeight || weight != initialWeight;  }
+
+<A NAME="34"></A>    @<A HREF="../../util/annotations/Explanation.java.html">Explanation</A>(<FONT ID="StringLiteral">"Restores weight and height to initial values"</FONT>)
+
+<A NAME="35"></A>    <FONT ID="Public">public</FONT> <FONT ID="Void">void</FONT> restoreHeightAndWeight() {
+
+<A NAME="36"></A>        assert preRestoreHeightAndWeight();
+
+<A NAME="37"></A>        height = initialHeight;
+
+<A NAME="38"></A>        weight = initialWeight;     
+
+<A NAME="39"></A>    }
+
+<A NAME="40"></A>    <FONT ID="Public">public</FONT> <FONT ID="Boolean">boolean</FONT> preGetOverWeight() {<FONT ID="Return">return</FONT> preGetBMI();}
+
+<A NAME="41"></A>    <FONT ID="Public">public</FONT> <FONT ID="Boolean">boolean</FONT> getOverWeight() {<FONT ID="Return">return</FONT> getBMI() &gt; HIGH_BMI;}
+
+<A NAME="42"></A>    <FONT ID="Public">public</FONT> <FONT ID="Boolean">boolean</FONT> preGetBMIClassification() {<FONT ID="Return">return</FONT> preGetBMI();}
+
+<A NAME="43"></A>    <FONT ID="Public">public</FONT> <A HREF="../../examples/state/BMIClassification.java.html">BMIClassification</A> getBMIClassification() {
+
+<A NAME="44"></A>        <FONT ID="Double">double</FONT> bmi = getBMI();
+
+<A NAME="45"></A>        <FONT ID="If">if</FONT> (bmi &lt;= MAX_UNDERWEIGHT_BMI)
+
+<A NAME="46"></A>            <FONT ID="Return">return</FONT> BMIClassification.UNDER_WEIGHT;
+
+<A NAME="47"></A>        <FONT ID="Else">else</FONT> <FONT ID="If">if</FONT> (bmi &lt;= MAX_NORMAL_BMI)
+
+<A NAME="48"></A>            <FONT ID="Return">return</FONT> BMIClassification.NORMAL;
+
+<A NAME="49"></A>        <FONT ID="Else">else</FONT> <FONT ID="If">if</FONT> (bmi &lt;= MAX_OVERWEIGHT_BMI)
+
+<A NAME="50"></A>            <FONT ID="Return">return</FONT> BMIClassification.OVER_WEIGHT;
+
+<A NAME="51"></A>        <FONT ID="Else">else</FONT> <FONT ID="If">if</FONT> (bmi &lt;= MAX_OBESE_BMI)
+
+<A NAME="52"></A>            <FONT ID="Return">return</FONT> BMIClassification.OBESE;
+
+<A NAME="53"></A>        <FONT ID="Else">else</FONT>
+
+<A NAME="54"></A>            <FONT ID="Return">return</FONT> BMIClassification.EXTREMELY_OBESE;
+
+<A NAME="55"></A>    }   
+
+<A NAME="56"></A>    <FONT ID="Public">public</FONT> <FONT ID="Static">static</FONT> <FONT ID="Void">void</FONT> main (String[] args) {
+
+<A NAME="57"></A>        <FONT ID="Try">try</FONT> {
+
+<A NAME="58"></A><FONT ID="SingleLineComment">//      java.awt.Desktop.getDesktop().browse(java.net.URI.create("http://www.cs.unc.edu/~carterjl/teaching/notes/4_State_Notes.pdf"));
+
+<A NAME="59"></A></FONT><FONT ID="SingleLineComment">//      java.awt.Desktop.getDesktop().browse(java.net.URI.create("http://www.cs.unc.edu/~carterjl/teaching/slides/1_Theater_Slides.pptx"));
+
+<A NAME="60"></A></FONT>
+
+<A NAME="61"></A>        bus.uigen.ObjectEditor.edit(<FONT ID="New">new</FONT> <A HREF="../../examples/state/ABMISpreadsheet.java.html">ABMISpreadsheet</A>(<FONT ID="FloatPointLiteral">1.77</FONT>, <FONT ID="IntegerLiteral">75</FONT>));
+
+<A NAME="62"></A>        } <FONT ID="Catch">catch</FONT> (Exception e) {
+
+<A NAME="63"></A>            e.printStackTrace();
+
+<A NAME="64"></A>        }
+
+<A NAME="65"></A>    }
+
+<A NAME="66"></A>}</pre>
+
+</BODY>
+
+</HTML>
+
+ 
+
+ 

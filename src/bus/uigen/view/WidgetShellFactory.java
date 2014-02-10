@@ -1,0 +1,3 @@
+package bus.uigen.view;import bus.uigen.oadapters.*;import bus.uigen.widgets.VirtualContainer;import bus.uigen.uiFrame;import java.util.Hashtable;import java.util.Vector;import bus.uigen.ars.*;import bus.uigen.controller.menus.MenuSetter;public interface WidgetShellFactory {
+  public WidgetShell createWidgetShell  ();  public WidgetShell createWidgetShell (VirtualContainer container, ObjectAdapter objectAdapter);  public WidgetShell createWidgetShell (ObjectAdapter objectAdapter);  //public uiGenericWidget createWidgetShell (uiObjectAdapter objectAdapter, Hashtable ignorePs);  public WidgetShell createWidgetShell (VirtualContainer container);   
+ }

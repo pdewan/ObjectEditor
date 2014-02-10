@@ -1,0 +1,176 @@
+package bus.uigen.adapters;
+import bus.uigen.*;//import bus.uigen.widgets.*;
+
+import javax.swing.*;
+import javax.swing.text.*;
+import javax.swing.event.*;
+import java.awt.*;
+import java.awt.event.*;
+
+
+//public class uiJTextFieldAdapter extends uiWidgetAdapter public class PropAltWidgetAdapter extends uiWidgetAdapterimplements ItemListener, FocusListener { //uiJTextComponentAdapter {
+//implements DocumentListener, ActionListener, FocusListener, KeyListener {
+  
+ /*
+  public uiJTextFieldAdapter() {
+  }	
+  
+  // Implementation of 
+  // abstract methods
+
+  public String getType() {
+    return "java.lang.String";
+  }
+  //JTextField jtf;  JTextComponent jtf;
+  String text;
+	*/
+	
+ 	
+  JComboBox cb = null;  
+  //boolean modelCreated = false;  //JButton upB = null;
+  //JButton downB = null;  //public static int DECINCUNIT = 1;  
+    
+  //ModelClass modelObject = null;			   
+    public Component instantiateComponent(Class cclass) {	  //modelObject = new ModelClass(getObjectAdapter().getPropertyClass());  //expecting to inherit the getObjAdpt() from super.super...uiWidgetAdaptper
+
+	  System.out.println("instantiating jcombobox");	  //jDItf = new DecIncWidget("", NUM_COLUMNS, DECINCUNIT);  //pass in object
+	  
+	  //Enumeration propertyList = uiBean.getAllPropertyNames(getObjectAdapter().getRealObject());  //assume getRealObject is what we need	  	  Vector defaultStrings = uiBean.getPropertyAlternatives(getObjectAdapter().getParent().getRealObject(),getObjectAdapter().getPropertyName());	  //assume getting parent will return the class that creates this property. and hence where	  //we can call the method <propertyName>Alternatives
+	  	  if (defaultStrings == null) {  //if no properties
+		  cb = new JComboBox();
+		  cb.setEditable(true);		  return cb;
+	  }
+	  
+	  //else there are some so fill
+	  	  cb = new JComboBox(defaultStrings);
+	  cb.setEditable(true);	  
+	  //jtf = jDItf.getJTextField();  //need to give this thing a jtf
+									//so that the inherited methods can use it	  
+	  	  return cb;
+      //return new JTextField("", NUM_COLUMNS);
+  }   public void setUIComponentTypedValue(Object newval) {
+	 
+	 	 /*	 if (!modelCreated)  { 
+		 if (getObjectAdapter() != null) {
+
+	    //	System.out.println("instantiating jtextfield for class " + getObjectAdapter().getPropertyClass().getName());			 			modelObject = new ModelClass(getObjectAdapter().getPropertyClass());  //expecting to inherit the getObjAdpt() from super.super...uiWidgetAdaptper			jDItf.setModelObject(modelObject);			modelCreated = true;		 }		 else			System.out.println("XXXXXXXXXattempt to make model failed");
+		 	 }	 */	 	try {		cb.setSelectedItem(newval);  //should add and select (make visible the item)		//jtf.setText((String) newval);
+	  text = (String) newval;    } catch (ClassCastException e) {
+    }	 
+//JComboBox cb1 = (JComboBox) cb;//	cb1.setColumns(Math.max(jtf1.getColumns(), numColumns ((String) newval)));
+ }   public Object getUIComponentValue() {
+    String val = new String("");
+    try {
+     // jtf = (JTextField) getUIComponent();
+      //val = jtf.getText();	  val = cb.getSelectedItem().toString();	  
+    } catch (ClassCastException e) {
+    }
+    return val;
+  }
+  
+  public void setUIComponentEditable() {
+    //jtf.setEditable(true);	//upB.setEnabled(true);	//downB.setEnabled(true);	  cb.setEditable(true);
+  }
+  
+  public void setUIComponentUneditable() {
+    //jtf.setEditable(false);	//upB.setEnabled(false);	//downB.setEnabled(false);
+	  cb.setEditable(false);  
+ }
+  
+
+  Color oldColor = Color.white;
+  
+  public void setUIComponentSelected() {	super.setUIComponentSelected();
+    if (getUIComponent().getBackground() != SELECTION_COLOR)
+      oldColor = getUIComponent().getBackground();	else oldColor = getOriginalBackground(getUIComponent());
+    getUIComponent().setBackground(SELECTION_COLOR);
+    // Repaint the component to get the color right
+    getUIComponent().repaint();
+  }  
+  public void setUIComponentDeselected() {	super.setUIComponentDeselected();
+    getUIComponent().setBackground(oldColor);
+    getUIComponent().repaint();
+  }  
+  
+  public void linkUIComponentToMe(Component comb) {
+    if (comb instanceof JComboBox) {
+      JComboBox c = (JComboBox) comb;	  //c.addActionListener(this);	  //c.addKeyListener(this);	  c.addItemListener(this);
+      c.addFocusListener(this);
+	  
+	  //don't think we want item listener cuz user should have press enter first before doing anything...our confirmation	}  }
+     
+    //at this point  /*
+  uiObjectAdapter adapter;
+  uiGenericWidget genericWidget;	*/	
+  public void uiComponentValueChanged() {
+	  if (textChanged()) {  //wanna make sure we don't waste invocations on object if something is done but
+							//doesn't ultimately change the value of the widget		super.uiComponentValueChanged();	  }
+  }  /*
+  public void uiComponentValueEdited() {
+	  //if (textChanged())		super.uiComponentValueEdited();	
+  }*/  
+  boolean textChanged() {
+	  if (text == null) return true;	  	  return !text.equals(cb.getSelectedItem().toString());	  
+  }  
+  /*
+  	boolean actionPerformed = false;
+  						     public void actionPerformed(ActionEvent e) {
+	  
+	//	System.out.println("adapter actionperformed called");		 
+		if (e.getSource() == upB) {
+		  //increment textfield						
+		}
+	  
+		if (e.getSource() == downB) {
+		  //decrement textfield
+		
+		
+		}
+		
+		if (e.getSource() == jtf) {
+			
+		//	System.out.println("jtextfield fires an event");
+			
+		}		
+		super.actionPerformed(e);
+     	
+  }
+
+  public boolean processAttribute(Attribute attrib) {
+    if (attrib.getName().equals("actionMode")) {
+      if (attrib.getValue() instanceof Boolean) {
+	actionMode = ((Boolean) attrib.getValue()).booleanValue();
+      }
+      return true;
+    }
+    else
+      return super.processAttribute(attrib);
+  }
+  
+  public void keyReleased(KeyEvent k) {  }  public void keyPressed(KeyEvent k) {  }  public void keyTyped (KeyEvent k) {	  if (actionPerformed)		  actionPerformed = false;	  else
+	      super.uiComponentValueEdited();	  }  */
+  
+  public void itemStateChanged(ItemEvent ev) {    System.out.println("itemstatechangeEvent");
+    uiComponentValueChanged();
+  }
+    // Methods invoked on focus gain/loss in the view
+  public void focusGained(FocusEvent e) {
+    if (e.isTemporary())
+      return;
+    else {
+      uiComponentFocusGained();
+    }
+  }
+
+  public void focusLost(FocusEvent e) {
+    if (e.isTemporary())
+      return;
+    else {
+      uiComponentFocusLost();
+    }
+  }
+    
+}
+
+
+

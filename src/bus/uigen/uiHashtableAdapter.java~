@@ -1,0 +1,588 @@
+package bus.uigen;
+import java.awt.*;
+import java.util.*;import java.lang.reflect.*;
+import bus.uigen.editors.*;
+
+//public class uiHashtableAdapter extends uiContainerAdapterpublic class uiHashtableAdapter extends uiClassAdapter
+implements /*VectorListener,*/ uiReplaceableChildren {	public static boolean COMPRESS = false;
+    Method elementsMethod = null;  Method putMethod = null;    Method removeMethod = null;
+  Method getMethod = null ;  Method sizeMethod = null;
+    public Method getElementsMethod() {
+    return elementsMethod;
+  }
+  public void setElementsMethod(Method newVal) {
+    elementsMethod = newVal;
+  }
+    public Method getPutMethod() {
+    return putMethod;
+  }  public void setPutMethod(Method newVal) {
+    putMethod = newVal;
+  }  public Method getRemoveMethod() {
+    return removeMethod;
+  }  public void setRemoveMethod(Method newVal) {
+    removeMethod = newVal;
+  }
+   
+    public Method getGetMethod() {
+    return getMethod;
+  }
+
+  public void setGetMethod(Method newVal) {
+    getMethod = newVal;
+  }
+    public Method getSizeMethod() {
+    return sizeMethod;
+  }
+
+  public void setSizeMethod(Method newVal) {
+    sizeMethod = newVal;
+  }
+ /*
+  public uiHashtableAdapter() {
+    adapterMapping = new Vector();
+  }  */
+  
+  
+
+  // Method defined in VectorListener
+  // through which a listenable Vector
+  // informs the UI of any changes
+
+  public void updateVector(uiVectorEvent evt) {
+    switch (evt.getEventType()) {
+    case uiVectorEvent.AddComponentEvent:
+      addComponent(evt.getPosition(),
+		   evt.getNewValue());
+      break;
+    case uiVectorEvent.DeleteComponentEvent:
+      deleteComponent(evt.getPosition());
+      break;
+    case uiVectorEvent.ChangeComponentEvent:
+      changeComponent(evt.getPosition(), evt.getNewValue());
+      break;
+    }
+  }
+  public boolean processDirection(String direction) {	  Container awtComponent = (Container) getWidgetAdapter().getUIComponent();
+	  try {		  
+		  uiGridLayout lm = (uiGridLayout)(awtComponent.getLayout());
+		  // Check to see if direction is horizontal or
+		  // vertical.
+		  if (direction == null) {
+		direction = "horizontal";
+				  }
+		  if (direction.equals("horizontal")) {
+		lm.setColumns(lm.getColumns()+1);		lm.setRows(2);
+		  } else {
+		lm.setRows(lm.getRows()+1);
+		lm.setColumns(2);		  }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+	  awtComponent.doLayout();
+	  return false;  }
+  
+  // Add a new component to the Vector
+  //
+  public void addComponent(int position, Object obj) {
+    // Add an element at the position specified in evt
+    // First create a UI component corresponding to
+    // the object being added.
+
+    Container awtComponent = (Container) getWidgetAdapter().getUIComponent();
+   
+    uiObjectAdapter adapter = uiGenerator.uiAddComponents(awtComponent, this, obj, obj.getClass(), position, getViewObject(), false);
+    setChildAdapterMapping(Integer.toString(position), adapter);
+    adapter.setParentAdapter(this);	processDirection((String) getAttributeValue("direction"));	/*
+
+    // Reset the number of columns in the LayoutManager
+    try {
+      uiGridLayout lm = (uiGridLayout)(awtComponent.getLayout());
+      // Check to see if direction is horizontal or
+      // vertical.
+      String direction = (String) getAttributeValue("direction");
+      if (direction == null)
+	direction = "horizontal";
+      if (direction.equals("horizontal"))
+	lm.setColumns(lm.getColumns()+1);
+      else
+	lm.setRows(lm.getRows()+1);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    awtComponent.doLayout();	*/
+    
+  }
+  
+  // Delete an existing element from the Vector
+
+  public void deleteComponent(int position) {
+    // Remove the corresponding children from the 
+    // AWT component.
+    ((Container) getWidgetAdapter().getUIComponent()).remove(position);
+    
+    // adjust the mapping
+    adapterMapping.removeElementAt(position);    
+  }
+
+  
+  // Change an existing element.
+  // in the Vector. The new element may be of a different
+  // Class.  // incremetal stuff - handle this later
+  public void changeComponent(int position, Object newValue) {
+    uiObjectAdapter a = getChildAdapterMapping(Integer.toString(position)); 	/*
+	boolean isKeyAdapter = keyAdapterMapping.contains(a);	boolean isElementAdapter = elementAdapterMapping.contains(a);
+	*/	
+    if (a.getPropertyClass().equals(newValue.getClass())) {
+      // Dont need a new ui repn
+      uiObjectAdapter adapter = getChildAdapterMapping(Integer.toString(position));
+      adapter.setValue(newValue);
+    }
+    else {
+      // Delete the components
+      // representing the old Object
+      try {
+	String fieldName = Integer.toString(position);
+	uiObjectAdapter oldAdapter = getChildAdapterMapping(fieldName);
+	((Container) getUIComponent()).remove(oldAdapter.getGenericWidget());
+	deleteChildAdapter(fieldName);
+	uiObjectAdapter adapter = uiGenerator.uiAddComponents((Container)(getUIComponent()), this, newValue, newValue.getClass(), position, getViewObject(), false);
+	setChildAdapterMapping(fieldName, adapter);
+	adapter.setParentAdapter(this);
+	moveGenericWidget(adapter.getGenericWidget(), position);
+      } catch (Exception e) {
+	e.printStackTrace();
+      }
+    }
+  }
+
+  public Vector toVector(Enumeration e) {
+	  Vector retVal = new Vector();
+	  while (e.hasMoreElements())
+		  retVal.addElement(e.nextElement());
+	  return retVal;  }
+  // Abstract methods for properties
+  // setValue() should partition the newValue
+  // to the fields of the Vector.
+  // Has to be corrected.
+  public void setValue(Object newValue1, boolean forceUpdate) {	  //System.out.println("new value");
+	  //System.out.println ("vector set value called" + newValue1);
+	  super.setValue(newValue1, forceUpdate);	  if (newValue1 == null) return;
+    
+    Object newV = uiGenerator.getViewObject(newValue1);		 Hashtable newValue = uiBean.toHashtable( newV); 
+	 // System.out.println ("vector new value" + newValue1);
+
+    //if (newV instanceof Vector) { 	// if (newValue != null){
+      //Vector newValue = (Vector) newV;
+      // First check to see if the Vector has changed
+      Hashtable currentValue = (Hashtable) getValue();
+      // Do a better than equals() check here
+	  //pd addition	  //Object viewObject = uiGenerator.getViewObject(newValue1);
+    //setViewObject(viewObject);	  setViewObject(newV);
+    //setRealObject(newValue);
+	  setRealObject(newValue1);	//end pd addition
+      boolean rebuild = true;	  Vector newKeys = toVector(newValue.keys());	  	  Vector newElements = toVector(newValue.elements());	  Vector curElements = null;	  
+	  Vector curKeys = null;
+	  if (currentValue != null) {	     curElements = toVector(currentValue.elements());	  
+	     curKeys = toVector(currentValue.keys());	  }
+	  //boolean rebuild = true;	  	  int rebuildFrom = 0;	  if (currentValue == null) {		  rebuild = true;	  } else if (currentValue.size() == newValue.size()) {		  if (currentValue.size() == 0) return;
+		  /*		  curKeys = toVector(currentValue.keys());		  newKeys = toVector(newValue.keys());		  Vector curElements = toVector(currentValue.elements());		  Vector newElements = toVector(newValue.elements());		  */
+	for (int i=0; i<currentValue.size(); i++) {
+				Object curKey = curKeys.elementAt(i);		Object newKey = newKeys.elementAt(i);
+				Object curElement = curElements.elementAt(i);		Object newElement= newElements.elementAt(i);		
+				/*
+		Object curElement = vectorElementAt (currentValue, i);		Object newElement = vectorElementAt (newValue, i);
+		*/		if ((curElement == newElement) && (curKey == newKey)) break;		if ((curElement == null) || (newElement == null) || (curKey == null) || (newKey == null)) {			rebuild = true;			break;		}
+	  //if (!currentValue.elementAt(i).getClass().equals(newValue.elementAt(i).getClass())) {	  if (!curElement.getClass().equals(newElement.getClass()) ||		  !curKey.getClass().equals(newKey.getClass())) {
+	    rebuild = true;
+	    break;
+	  }
+	}
+      }
+      else {
+	rebuild = true;
+      }
+
+      if (rebuild) {		  //System.out.println("doing rebuild");
+	// First delete all contained components
+	Container widget = (Container) getUIComponent();	
+	if (currentValue != null && currentValue.size() != 0 && childrenCreated) {
+		//System.out.println("checking widget");		if (widget != null)
+		  //widget.removeAll();			removeIndexedChildren(widget);
+		// Remember to remove the Adapter children!!
+		//System.out.println("checking adapter mapping");		if ((adapterMapping != null) && (adapterMapping.size() != 0)) {
+		  adapterMapping.removeAllElements();		  keyAdapterMapping.clear();		  elementAdapterMapping.clear();
+		}		resetChildrenVector(numFeatures);
+		// Redraw the whole Vector		/*
+		uiGenerator.uiAddVectorComponents(widget, 
+						  this, 
+						  newValue);		*/
+	}
+	 //System.out.println("before try");	//try {
+		this.uiAddHashtableComponents(0);
+		//System.out.println("invaqlidating");
+	widget.invalidate();
+	//System.out.println("redoing exapnd");	uiFrame.deepRedoExpand(this);
+	//System.out.println("deep eliding");
+	//System.out.println(this.getGenericWidget());
+	//System.out.println(this.getGenericWidget().getUIFrame());
+	if (getGenericWidget() != null && getGenericWidget().getUIFrame() != null)	  this.getGenericWidget().getUIFrame().deepElide(this);	//} catch (Exception e) {
+	//		System.out.println("Strange exception again");
+	//}
+	
+      } else {
+	uiObjectAdapter keyAdapter, elementAdapter;
+	for (int i=0; i<newKeys.size(); i++) {
+	  //keyAdapter = getKeyAdapterMapping(newKeys.elementAt(i));
+	  keyAdapter = getChildAdapterMapping(Integer.toString(2*i));	  elementAdapter = getChildAdapterMapping(Integer.toString(2*i + 1));	  //keyAdapter.setValue(newKeys.elementAt(i));	  //elementAdapter.setValue(newElements.elementAt(i));
+	}
+      }	/*  
+    } else {
+      System.out.println("Non vector type passed to Vector adapter in a setValue()");  
+    }
+	  */	if (checkIfNoVisibleChildren(this))		return;
+  }
+
+  public Object getValue() {	  //System.out.println("get value called");
+    
+        //return getRealObject();	   
+     
+    	  //if (getViewObject() instanceof Vector) {
+      Hashtable h = new Hashtable();
+      for (int i=0; i< adapterMapping.size(); i = i + 2) {
+	uiObjectAdapter keyAdapter = getChildAdapterMapping(Integer.toString(i));	uiObjectAdapter elementAdapter = getChildAdapterMapping(Integer.toString(i + 1));
+	Object key = keyAdapter.getValue();	Object element = elementAdapter.getValue();	if (key != null && element != null)
+		h.put(key, element);
+      }
+      return h;
+    //} 
+    //return null;
+			
+    
+  }
+  Vector adapterMapping = new Vector();   Hashtable keyAdapterMapping = new Hashtable();   Hashtable elementAdapterMapping = new Hashtable();   /*
+  public Enumeration getChildren () {	  return adapterMapping.elements();  }  */
+  public Enumeration getChildren () {
+	  Vector v = new Vector();
+	  Enumeration properties = super.getChildren();
+	  while (properties.hasMoreElements())
+		  v.addElement(properties.nextElement());
+	  properties = adapterMapping.elements();
+	  while (properties.hasMoreElements())
+		  v.addElement(properties.nextElement());
+	  return v.elements();	  //return adapterMapping.elements();
+	  //return mapping.elements();  }  public Enumeration getKeys () {	  return keyAdapterMapping.elements();  }  public Enumeration getElements() {	  return elementAdapterMapping.elements();  }
+
+  // Abstract method implementation for naming
+  // mechanism.
+  public uiObjectAdapter getChildAdapterMapping(String fieldName) {
+	  uiObjectAdapter retVal;		  try {
+			  int index = Integer.parseInt(fieldName);
+			  return (uiObjectAdapter) adapterMapping.elementAt(index);
+		  } catch (NumberFormatException e) {			  retVal = super.getChildAdapterMapping(fieldName);			  if (retVal == null) {
+				  //System.out.println("Illegal argument passed to uiHashtablerAdapter:getChildAdapterMapping():" + fieldName);				  //System.out.println("Super ChidlrenCreated" + super.childrenCreated);				  System.out.println("mapping:" +  super.mapping);
+				  return null;			  } else				  return retVal;
+		  }
+  }
+
+  public void setChildAdapterMapping(String fieldName, uiObjectAdapter adapter) {
+    try {
+      int index = Integer.parseInt(fieldName);
+      adapterMapping.insertElementAt(adapter, index);
+    } catch (NumberFormatException e) {		super.setChildAdapterMapping(fieldName, adapter);
+       System.out.println("Set mapping" + super.mapping);
+		//System.out.println("Illegal argument passed to uiHashtableAdapter:getChildAdapterMapping():" + fieldName);
+    }
+  }  /*
+  public uiObjectAdapter getChildAdapterMapping(String fieldName) {
+    try {
+      int index = Integer.parseInt(fieldName);
+      return (uiObjectAdapter) adapterMapping.elementAt(index);
+    } catch (NumberFormatException e) {
+      System.out.println("Illegal argument passed to uiHashtableAdapter:getChildAdapterMapping()");
+      return null;
+    }
+  }
+
+  public void setChildAdapterMapping(String fieldName, uiObjectAdapter adapter) {
+    try {
+      int index = Integer.parseInt(fieldName);
+      adapterMapping.insertElementAt(adapter, index);
+    } catch (NumberFormatException e) {
+      System.out.println("Illegal argument passed to uiVectorAdapter:getChildAdapterMapping()");
+    }
+  }  */
+
+  public String getChildAdapterIndex(uiObjectAdapter adapter) {
+    return Integer.toString(adapterMapping.indexOf(adapter));
+  }
+
+  public void deleteChildAdapter(String fieldName) {
+    int position;
+    try {
+      position = Integer.parseInt(fieldName);
+      adapterMapping.removeElementAt(position);
+    } catch (NumberFormatException e) {
+    }
+  }   public Enumeration getChildAdapters() {	  return getChildren();
+    //return adapterMapping.elements();
+  }   /*
+
+  public Enumeration getChildAdapters() {
+    return adapterMapping.elements();
+  }
+   */  public uiObjectAdapter getKeyAdapterMapping(Object key) {
+    try {
+      return (uiObjectAdapter) keyAdapterMapping.get(key);
+    } catch (NumberFormatException e) {
+      System.out.println("Illegal argument passed to uiHashtableAdapter:getKeyAdapterMapping()");
+      return null;
+    }
+  }
+
+  public void setKeyAdapterMapping(Object key, uiObjectAdapter adapter) {
+    try {
+      keyAdapterMapping.put(key, adapter);
+    } catch (NumberFormatException e) {
+      System.out.println("Illegal argument passed to uiHashtableAdapter:setKeyAdapterMapping()");
+    }
+  }
+
+
+  public void deleteKeyAdapter(Object key) {
+    int position;
+    try {
+      uiObjectAdapter keyAdapter = getKeyAdapterMapping(key);	  uiObjectAdapter elementAdapter = getElementAdapterMapping(key);
+	  adapterMapping.removeElement(keyAdapter);
+	  adapterMapping.removeElement(elementAdapter);
+	  keyAdapterMapping.remove(key);
+	  elementAdapterMapping.remove(key);
+    } catch (NumberFormatException e) {
+    }
+  }
+
+  public Enumeration getKeyAdapters() {
+    return keyAdapterMapping.elements();
+  }  public uiObjectAdapter getElementAdapterMapping(Object key) {
+    try {
+      return (uiObjectAdapter) elementAdapterMapping.get(key);
+    } catch (NumberFormatException e) {
+      System.out.println("Illegal argument passed to uiHashtableAdapter:getKeyAdapterMapping()");
+      return null;
+    }
+  }
+
+  public void setElementAdapterMapping(Object key, uiObjectAdapter adapter) {
+    try {
+      keyAdapterMapping.put(key, adapter);
+    } catch (NumberFormatException e) {
+      System.out.println("Illegal argument passed to uiHashtableAdapter:setKeyAdapterMapping()");
+    }
+  }
+
+
+
+  public Enumeration getElementAdapters() {
+    return keyAdapterMapping.elements();
+  }
+
+
+  // Method from uiReplaceableChildren
+  public void replaceAttributedObject(uiObjectAdapter child,
+				      Object newValue) {
+    int position = adapterMapping.indexOf(child);
+    changeComponent(position, newValue);
+  }
+  public  void createChildren() {
+	  
+	  if (this.childrenCreated)
+		  return;
+	  super.createChildren();	  uiAddHashtableComponents(0);
+  }
+  /*  public  void createChildren() {
+	  
+	  if (this.childrenCreated)
+		  return;	  uiAddHashtableComponents(0);
+  }  */
+  
+  static boolean showHashtableComponentLabels = true;
+    public  void uiAddHashtableComponents(int from) {
+	  //System.out.println("add vector in vector adapter:" + this);	uiContainerAdapter adaptor = this;
+	//Container containW = getGenericWidget();	uiWidgetAdapterInterface wa = adaptor.getWidgetAdapter();	if (wa == null)
+		return;    Container containW = (Container) adaptor.getWidgetAdapter().getUIComponent();
+	//System.out.println("real object: " + getRealObject());
+	Object obj = uiGenerator.getViewObject(getRealObject());	//System.out.println("new value: " + obj);
+    adaptor.setViewObject(obj);	   	boolean foundUnlabeledComposite = false;
+	int maxLabelLength = 0;
+	if (obj == null) return;	Class inputClass =  obj.getClass();		if (EditorRegistry.getEditorClass(inputClass) != null)
+		 return;
+       
+    //if (obj instanceof Vector) {
+	//if (obj instanceof Object) {		
+      Hashtable h = uiBean.toHashtable( obj);	  Vector keys = toVector(h.keys());	  Vector elements = toVector(h.elements());
+	  if (h != null) {
+	    //Vector v = (Vector) obj;
+		 //Vector v = uiBean.toVector( obj);		
+      //containW.setLayout(new uiGridLayout(1, v.size()));	  	  //containW.setLayout(new uiGridLayout(1, v.size(), uiGridLayout.DEFAULT_HGAP, 0));
+      boolean horizontalChildren = true;
+	  boolean homogeneousTable = true;
+	  Class oldElemClass = null;
+	  Class curElemClass = null;	  Class oldKeyClass = null;
+	  Class curKeyClass = null;
+	  //int vSize = vectorSize(obj);
+	  int hSize = h.size();	  //for (int i=0; i< v.size(); i++) {	  //for (int i=from; i< v.size(); i++) {	  
+	  for (int i=from; i< h.size(); i++) {
+		  /*		  Object obj1 = null;
+		  		  try {		  		  System.out.println(elementAtMethod);
+		  if (elementAtMethod != null) {
+		  Object[] params = {new Integer(i)};		  obj1 = elementAtMethod.invoke(obj, params);		  }		  } catch (Exception e) {
+		  System.out.println(e);
+		  break;		  }		  */
+		  		  
+		  Object obj1 = keys.elementAt(i);
+		  //Object obj1 = this.vectorElementAt(v, i);		  
+		  uiObjectAdapter a;		  if (obj1 == null)			  //a = uiGenerator.uiAddComponents(containW, adaptor, obj1, uiMethodInvocationManager.OBJECT_CLASS, 2*i, Integer.toString(i), obj, false);
+		     a = uiGenerator.uiAddComponents(containW, adaptor, obj1, uiMethodInvocationManager.OBJECT_CLASS, 2*i, "key", obj, false);		  else
+			  //a = uiGenerator.uiAddComponents(containW, adaptor, obj1, obj1.getClass(), 2*i, Integer.toString(i), obj, false);			  a = uiGenerator.uiAddComponents(containW, adaptor, obj1, obj1.getClass(), 2*i, "key", obj, false);
+		  // Add to the mapping table here
+		  adaptor.setChildAdapterMapping(Integer.toString(2*i), a);
+		  adaptor.setChildAdapterMapping(a);		  a.setAdapterType(KEY_TYPE);
+		  this.setKeyAdapterMapping(obj1, a);		  //String label = "key:" + (i + 1) + ". ";
+		  		  String label = "Key";
+		  /*		  a.setTempAttributeValue(AttributeNames.LABEL, label);
+		  a.getGenericWidget().setLabel(label);
+		  */		  //if (showHashtableComponentLabels && i == 0)
+		  /*		  Object isLabelled = a.getMergedAttributeValue(AttributeNames.LABELLED); 
+		  if ((isLabelled == null || ClassDescriptorCache.toBoolean(isLabelled)) && i == 0)
+		  */
+		  if (a.isLabelled() && i == 0)		    a.getGenericWidget().setLabelVisible(true);		  else
+		    a.getGenericWidget().setLabelVisible(false);
+		  		  //System.out.println("Adapter" + a + " " + a.getAttributeValue(AttributeNames.LABEL));
+		  //maxLabelLength = Math.max(maxLabelLength, ((String) a.getAttributeValue(AttributeNames.LABEL)).length());		  //maxLabelLength = Math.max(maxLabelLength, a.getGenericWidget().getLabel().length());		  /*
+		  maxLabelLength = Math.max(maxLabelLength, label.length());
+		  */		  //System.out.println(maxLabelLength + " " + a.getGenericWidget().getLabel().length());
+		  if (obj1 != null && !(a instanceof uiPrimitiveAdapter)) {			  //System.out.println("found non primitive");			
+			  curKeyClass = obj1.getClass();			  ViewInfo childDesc = ClassDescriptorCache.getClassDescriptor(curKeyClass);			  			  
+			  //System.out.println(childDesc);			
+			  //System.out.println(childDesc.getBeanDescriptor().getValue("direction"));			  //System.out.println("vector child " + a.getMergedAttributeValue("direction"));
+			  if (//childDesc.getBeanDescriptor() != null &&				  !a.getGenericWidget().isLabelVisible() &&
+				  //!"horizontal".equals(childDesc.getBeanDescriptor().getValue("direction"))) {
+				  !"horizontal".equals(a.getMergedAttributeValue("direction"))) {
+				  //!("horizontal".equals(a.getDirection()))) {				  foundUnlabeledComposite = true;							  //System.out.println ("found composite");
+				  horizontalChildren = false;			  } 			  if (oldKeyClass != null && oldKeyClass != curKeyClass)				  homogeneousTable = false;			  oldKeyClass = curKeyClass;
+		  }
+		  //a.setParentAdapter(adaptor);
+		   //label = "Value:" + (i + 1) + ". ";		  label = "Value";
+		  /*		  String label = "" + (i + 1);		  */		  /*
+		  if (obj1 instanceof String)
+		    label = (String) obj1;
+		  */
+		  Object key = obj1;		 obj1 = elements.elementAt(i);
+		  //Object obj1 = this.vectorElementAt(v, i);		  if (obj1 == null)			  //a = uiGenerator.uiAddComponents(containW, adaptor, obj1, uiMethodInvocationManager.OBJECT_CLASS, 2*i +1, Integer.toString(i), obj, false);
+			   a = uiGenerator.uiAddComponents(containW, adaptor, obj1, uiMethodInvocationManager.OBJECT_CLASS, 2*i +1, "value", obj, false);		  else
+			  //a = uiGenerator.uiAddComponents(containW, adaptor, obj1, obj1.getClass(), 2*i + 1, Integer.toString(i), obj, false);		      a = uiGenerator.uiAddComponents(containW, adaptor, obj1, obj1.getClass(), 2*i + 1, "value", obj, false);
+		  // Add to the mapping table here
+		  		  a.setAdapterType(VALUE_TYPE);		  adaptor.setChildAdapterMapping(Integer.toString(2*i + 1), a);
+		  adaptor.setChildAdapterMapping(a);
+		  this.setElementAdapterMapping(obj1, a);
+		 
+		  /*		  a.setTempAttributeValue(AttributeNames.LABEL, label);
+		  a.getGenericWidget().setLabel(label);		  */
+		  a.setKey(key);		  /*
+		  isLabelled = a.getMergedAttributeValue(AttributeNames.LABELLED); 
+		  if ((isLabelled == null || ClassDescriptorCache.toBoolean(isLabelled)) && i == 0)
+		  */		  //if (showHashtableComponentLabels && i == 0)
+		  if (a.isLabelled() && i == 0)		    a.getGenericWidget().setLabelVisible(true);		  else
+		    a.getGenericWidget().setLabelVisible(false);
+		  		  //System.out.println("Adapter" + a + " " + a.getAttributeValue(AttributeNames.LABEL));
+		  //maxLabelLength = Math.max(maxLabelLength, ((String) a.getAttributeValue(AttributeNames.LABEL)).length());		  //maxLabelLength = Math.max(maxLabelLength, a.getGenericWidget().getLabel().length());		  /*
+		  maxLabelLength = Math.max(maxLabelLength, label.length());
+		  */		  //System.out.println(maxLabelLength + " " + a.getGenericWidget().getLabel().length());
+		  if (obj1 != null && !(a instanceof uiPrimitiveAdapter)) {			  //System.out.println("found non primitive");			
+			  curElemClass = obj1.getClass();			  ViewInfo childDesc = ClassDescriptorCache.getClassDescriptor(curElemClass);			  			  
+			  //System.out.println(childDesc);			
+			  //System.out.println(childDesc.getBeanDescriptor().getValue("direction"));			  //System.out.println("vector child " + a.getMergedAttributeValue("direction"));
+			  if (//childDesc.getBeanDescriptor() != null &&				  !a.getGenericWidget().isLabelVisible() &&
+				  //!"horizontal".equals(childDesc.getBeanDescriptor().getValue("direction"))) {
+				  !"horizontal".equals(a.getMergedAttributeValue("direction"))) {
+				  //!("horizontal".equals(a.getDirection()))) {				  foundUnlabeledComposite = true;							  //System.out.println ("found composite");
+				  horizontalChildren = false;			  } 			  if (oldElemClass != null && oldElemClass != curElemClass)				  homogeneousTable = false;			  oldElemClass = curElemClass;
+		  }
+	  }	  /*
+	  for (int i=from; i< h.size(); i++) {
+		  
+		  		  
+		  Object obj1 = elements.elementAt(i);
+		  //Object obj1 = this.vectorElementAt(v, i);		  
+		  uiObjectAdapter a;		  if (obj1 == null)			  a = uiGenerator.uiAddComponents(containW, adaptor, obj1, uiMethodInvocationManager.OBJECT_CLASS, i, Integer.toString(i), obj, false);		  else
+			  a = uiGenerator.uiAddComponents(containW, adaptor, obj1, obj1.getClass(), i, Integer.toString(i), obj, false);
+		  // Add to the mapping table here
+		  adaptor.setChildAdapterMapping(Integer.toString(h.size() + i), a);
+		  adaptor.setChildAdapterMapping(a);
+		  this.setElementAdapterMapping(obj1, a);		  //String label = "" + (i + 1) + ". ";
+		 		  //System.out.println("Adapter" + a + " " + a.getAttributeValue(AttributeNames.LABEL));
+		  //maxLabelLength = Math.max(maxLabelLength, ((String) a.getAttributeValue(AttributeNames.LABEL)).length());		  //maxLabelLength = Math.max(maxLabelLength, a.getGenericWidget().getLabel().length());		  
+		  maxLabelLength = Math.max(maxLabelLength, label.length());
+		  		  //System.out.println(maxLabelLength + " " + a.getGenericWidget().getLabel().length());
+		  if (obj1 != null && !(a instanceof uiPrimitiveAdapter)) {			  //System.out.println("found non primitive");			
+			  curElemClass = obj1.getClass();			  ViewInfo childDesc = ClassDescriptorCache.getClassDescriptor(curElemClass);			  			  
+			  //System.out.println(childDesc);			
+			  //System.out.println(childDesc.getBeanDescriptor().getValue("direction"));			  //System.out.println("vector child " + a.getMergedAttributeValue("direction"));
+			  if (//childDesc.getBeanDescriptor() != null &&				  !a.getGenericWidget().isLabelVisible() &&
+				  //!"horizontal".equals(childDesc.getBeanDescriptor().getValue("direction"))) {
+				  !"horizontal".equals(a.getMergedAttributeValue("direction"))) {
+				  //!("horizontal".equals(a.getDirection()))) {				  foundUnlabeledComposite = true;							  //System.out.println ("found composite");
+				  horizontalChildren = false;			  } 			  if (oldElemClass != null && oldElemClass != curElemClass)				  homogeneousTable = false;			  oldElemClass = curElemClass;
+		  }
+		  //a.setParentAdapter(adaptor);
+	  		  
+	  } 	  */
+	  		//containW.setLayout(new uiGridLayout(1, v.size(), uiGridLayout.DEFAULT_HGAP, 0));  
+        // why here?		//adaptor.processAttributeList();		if (horizontalChildren && homogeneousTable )
+			adaptor.makeColumnTitles();
+		//else	
+		    //adaptor.padChildrenLabels(maxLabelLength);		ViewInfo cdesc = ClassDescriptorCache.getClassDescriptor(obj.getClass());
+	   		boolean alignHorizontal = false;		//if (adaptor != topAdapter) 
+			if ("horizontal".equals (adaptor.getMergedAttributeValue("direction")))
+				alignHorizontal = true;
+			else if (adaptor.getMergedAttributeValue("direction") == null /*&& adaptor.getTopAdapter(adaptor).getLevel() <= uiFrame.DEEP_ELIDE_LEVEL*/) {				uiObjectAdapter parentAdaptor = adaptor.getParentAdapter();
+				if ((parentAdaptor != null) &&					(parentAdaptor instanceof uiVectorAdapter)&&					!"horizontal".equals(parentAdaptor.getMergedAttributeValue("direction")))						alignHorizontal = true;
+				//System.out.println(" " + alignHorizontal + parentAdaptor + parentAdaptor.getMergedAttributeValue("direction"));			}			//System.out.println("" + alignHorizontal+ adaptor.getTopAdapter(adaptor).getLevel());
+			if (alignHorizontal) {
+				
+				adaptor.processDirection("horizontal");			//System.out.println("horizontal " + adaptor.getMergedAttributeValue("direction"));
+			}		if (//cdesc.getBeanDescriptor() != null &&
+		//"horizontal".equals(cdesc.getBeanDescriptor().getValue("direction")))			//"horizontal".equals(adaptor.getMergedAttributeValue("direction"))) 
+		    //containW.setLayout(new uiGridLayout(1, v.size()));
+			alignHorizontal)
+			/*			containW.setLayout(new uiGridLayout(1, v.size(), uiGridLayout.DEFAULT_HGAP, 0));
+		    */
+			containW.setLayout(new uiGridLayout(2, hSize + numFeatures, uiGridLayout.DEFAULT_HGAP, 0));		else 
+		  //containW.setLayout(new uiGridLayout(features.length, 1));			
+			//if (foundUnlabeledComposite && v.size() > 1)
+			if (foundUnlabeledComposite && hSize > 1)			  //containW.setLayout(new uiGridLayout(v.size(), 1, 0, uiGridLayout.DEFAULT_VGAP));
+			  containW.setLayout(new uiGridLayout(hSize + numFeatures, 2, 0, uiGridLayout.DEFAULT_VGAP));		    else				//containW.setLayout(new uiGridLayout(v.size(), 1)); 		        containW.setLayout(new uiGridLayout(hSize + numFeatures, 2)); 
+		
+			}
+    	this.childrenCreated = true;
+  }
+    public boolean isLeaf() {	  if (!super.isLeaf())		  return false;
+	  //System.out.println("Get Value of" + this + " " + getValue());
+	  //System.out.println("Get Reeal Obkect of" + this + " " + getRealObject());
+	  //System.out.println("GetView Obkect of" + this + " " + getViewObject());	  if (this.getRealObject() == null) return true;	  Hashtable h = uiBean.toHashtable(getRealObject());	  if (h == null) return true;
+	  //return ((Vector) this.getRealObject()).size() == 0;
+	  return h.size() == 0;  }
+  public boolean isLeafAdapter() {	  if (!super.isLeaf())		  return false;
+	  //System.out.println("Get Value of" + this + " " + getValue());
+	  //System.out.println("Get Reeal Obkect of" + this + " " + getRealObject());
+	  //System.out.println("GetView Obkect of" + this + " " + getViewObject());	  if (this.getRealObject() == null) return true;	  Hashtable h = uiBean.toHashtable(getRealObject());	  if (h == null) return true;
+	  //return ((Vector) this.getRealObject()).size() == 0;
+	  return h.size() == 0;  }  
+  void removeIndexedChildren (Container widget) {	 int numElements = widget.getComponentCount();
+	  if (numFeatures == 0)
+		  widget.removeAll();
+	  else while (widget.getComponentCount() > numFeatures)			   widget.remove(widget.getComponentCount() - 1);
+		  /*
+		  for (int i = numFeatures; i < numElements; i++)			   widget.remove(numFeatures);		  */
+		   }  public  boolean reparentChild() {	  return false;  }
+  
+}

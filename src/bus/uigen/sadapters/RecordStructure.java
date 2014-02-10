@@ -1,0 +1,27 @@
+package bus.uigen.sadapters;
+import bus.uigen.uiFrame;
+import bus.uigen.introspect.Attribute;
+import bus.uigen.introspect.IntrospectUtility;
+import bus.uigen.reflect.ClassProxy;
+import bus.uigen.undo.CommandListener;
+import java.util.Set;
+import java.util.Vector;
+//import java.util.Enumeration;public interface RecordStructure extends ConcreteType  {
+	public Vector componentNames();
+	public Vector nonGraphicsComponentNames();
+	public Vector graphicsComponentNames();	
+	public boolean isGraphics(String componentName) ;
+	public Object get (String componentName);	
+	public ClassProxy componentType (String componentName);	public boolean isReadOnly (String componentName);	public boolean preRead (String componentName);	public boolean preWrite (String componentName);
+	public Object set (String componentName, Object value, CommandListener commandListener);	public Object set (String componentName, Object value);
+	public Object getUserObject ();
+	public void setUserObject ( Object newVal);
+	public boolean hasUserObject();
+	public boolean hasEditableUserObject();
+	public boolean validate (String componentAnyCaseName, Object newVal);
+	public boolean isEditable ();
+	public Object getExpansionObject ();
+	public  Vector<Attribute>getComponentAttributes(String componentName);
+	public Set<String> getPropertyNames() ;
+	public Set<String> getEdtitablePropertyNames();
+}

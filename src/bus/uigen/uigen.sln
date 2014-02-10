@@ -1,0 +1,13 @@
+Microsoft Visual Studio Solution File, Format Version 1.00
+Project("{66355F20-A65B-11D0-BFB5-00A0C91EBFA0}") = "uigen", "uigen.vjp", "{BB63F582-433E-11D3-83B6-00008634FAF0}"
+EndProject
+Global
+	GlobalSection(LocalDeployment) = postSolution
+		StartupProject = {BB63F582-433E-11D3-83B6-00008634FAF0}
+	EndGlobalSection
+	GlobalSection(BuildOrder) = postSolution
+		0 = {BB63F582-433E-11D3-83B6-00008634FAF0}
+	EndGlobalSection
+	GlobalSection(DeploymentRoot) = postSolution
+	EndGlobalSection
+EndGlobal

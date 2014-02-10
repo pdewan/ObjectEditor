@@ -1,0 +1,23 @@
+package bus.uigen.trace;
+
+import util.trace.TraceableWarning;
+import util.trace.Tracer;
+import bus.uigen.reflect.ClassProxy;
+import bus.uigen.reflect.MethodProxy;
+
+public class UnknownPropertyNotification extends ObjectPropertyWarning {
+	public UnknownPropertyNotification(String aMessage, String aProperty, Object aTarget, Object aFinder) {
+		super(aMessage, aProperty, aTarget, aFinder);	
+	}	
+
+	
+
+	public static void newCase(String aProperty, Object aTarget, Object aFinder) {
+		String aMessage = "Received notification(s) for unknown (possibly invisible or unrecognized atomic-shape) property: "
+						+ aProperty + " of object: " + aTarget + ". Updating complete object.";
+//		Tracer.warning("Received notification for unknown property: "
+//				+ changedPrpertyName + " of object " + evt.getSource() + ". Updating complete object.");
+		new UnknownPropertyNotification(aMessage, aProperty, aTarget, aFinder);
+	}
+
+}

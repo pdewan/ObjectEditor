@@ -1,0 +1,11 @@
+ClassTranslator.java
+DefaultRegistry.java
+FormatException.java
+IllegalTranslatorClassException.java
+IntegerToBoolean.java
+StringToBoolean.java
+StringToCharacter.java
+StringToFloat.java
+StringToInteger.java
+Translator.java
+TranslatorRegistry.java
