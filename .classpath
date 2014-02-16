@@ -20,10 +20,10 @@
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/poi-bin-3.9-20121203/poi-3.9/ooxml-lib/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/poi-bin-3.9-20121203/poi-3.9/poi-ooxml-schemas-3.9-20121203.jar"/>
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/poi-bin-3.9-20121203/poi-3.9/ooxml-lib/dom4j-1.6.1.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/virtualtoolkit"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jung"/>
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/collections-generic-4.01.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/object-diff"/>
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/logging.zip"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/virtualtoolkit"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/object-diff"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
