@@ -179,7 +179,7 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 	public static final String WIDGET_KEYWORD = "Widget";
 	public static final String PROPERTY_ATTRIBUTES_KEYWORD = AttributeNames.ATTRIBUTES_KEYWORD  + AttributeNames.KEYWORD_SEPARATOR + "Property";
 	public static final String METHOD_ATTRIBUTES_KEYWORD = AttributeNames.ATTRIBUTES_KEYWORD  + AttributeNames.KEYWORD_SEPARATOR + "Method";
-	
+	public static final String SUPPRESS_PROPERTY = "Suppress Property Notifications";
 	static MenuSetter defaultMenuSetter = new MenuSetter(); // does not really make a difference
 	/*
 	private static uiFrame createNano(){

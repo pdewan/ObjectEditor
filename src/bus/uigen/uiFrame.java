@@ -287,6 +287,7 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 	AModelRegistry modelRegistry = new AModelRegistry();
 	
 	List<MethodInvocationFrameCreationListener> methodInvocationFrameCreationListeners = new ArrayList();
+	boolean suppressPropertyNotifications;
 
 	public AModelRegistry getModelRegistry() {
 		return modelRegistry;
@@ -5670,6 +5671,20 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 		  drawing.setLocked(newVal);
 		  
 	  }
+	@Override
+	public boolean isSuppressPropertyNotifications() {
+		return suppressPropertyNotifications;
+	}
+	@Override
+	public void setSuppressPropertyNotifications(
+			boolean newVal) {
+		if (suppressPropertyNotifications == newVal)
+			return;
+		if (!newVal ) // resuming notifications 
+			refresh();
+		this.suppressPropertyNotifications = newVal;
+		
+	}
 	  
 	  
 

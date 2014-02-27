@@ -16,6 +16,7 @@ import bus.uigen.widgets.VirtualFrame;
 import bus.uigen.widgets.VirtualPoint;
 
 public interface OEFrame {
+	public static final String SUPPRESS_NOTIFICATION_PROCESSING = "Suppress  Notification Processing";
 //	public void addMenuObject(Object menuObject);
 	public VirtualContainer getDrawPanel() ;
 	public Component getDrawComponent();
@@ -48,5 +49,7 @@ public interface OEFrame {
 	 public  void notifyMethodInvocationFrameCreated (OEFrame aParentFrame, OEFrame anInvocationFrame, InteractiveMethodInvoker anInteractiveMethodInvoker);
 
 	 public  void setGraphicsWindowLocked( boolean newVal);
+	boolean isSuppressPropertyNotifications();
+	void setSuppressPropertyNotifications(boolean suppressPropertyNotifications);
 
 }

@@ -40,6 +40,7 @@ import util.models.RemotePropertyChangeListener;
 import util.trace.Tracer;
 import bus.uigen.ComponentDictionary;
 import bus.uigen.Connector;
+import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.ObjectRegistry;
 import bus.uigen.ReplaceableChildren;
@@ -4205,7 +4206,19 @@ ObjectAdapterInterface, Remote, Serializable
 			attributeChanged(evt);
 			return;
 		}
-//		ClassAdapterReceivedPropertyChangeEvent.newCase((ClassAdapter) this, evt) ;
+		
+		 if (evt.getPropertyName().equalsIgnoreCase(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING)) {
+			 if (evt.getNewValue() == null)
+				 return;
+			 getUIFrame().setSuppressPropertyNotifications((Boolean) evt.getNewValue());
+			 	return; // do not want to repeat the refresh
+				 
+		 }
+		 // need to check this after setting the value
+		 if (getUIFrame().isSuppressPropertyNotifications())
+				return;
+		//		ClassAdapterReceivedPropertyChangeEvent.newCase((ClassAdapter) this, evt) ;
+		// should put in some property to suppress and resume events
 		// maybe I should  event information
 		if (!ObjectEditor.shareBeans()) {
 			subPropertyChange(evt);
