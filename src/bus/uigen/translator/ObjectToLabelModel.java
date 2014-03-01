@@ -2,9 +2,9 @@ package bus.uigen.translator;
 
 import javax.swing.ImageIcon;
 
-import util.models.ALabelModel;
+import util.models.ALabelBeanModel;
 import util.models.Hashcodetable;
-import util.models.LabelModel;
+import util.models.LabelBeanModel;
 
 public class ObjectToLabelModel implements Translator {
 
@@ -17,7 +17,7 @@ public class ObjectToLabelModel implements Translator {
 //			stringToLabelModel.put(obj, retVal);
 //		}
 //		return retVal.to;
-		return new ALabelModel( obj.toString());
+		return new ALabelBeanModel( obj.toString());
 
 
 	}

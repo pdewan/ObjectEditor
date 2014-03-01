@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import javax.swing.ImageIcon;
 
 import util.models.Hashcodetable;
-import util.models.LabelModel;
+import util.models.LabelBeanModel;
 import bus.uigen.reflect.ClassProxy;
 import bus.uigen.reflect.StandardProxyTypes;
 import bus.uigen.translator.IllegalTranslatorClassException;
@@ -40,8 +40,8 @@ public class DefaultRegistry extends Hashcodetable {
     register("java.lang.String", "java.util.Date", new StringToDate());
     register("java.lang.String", "util.ATimeWithIncrementDecrement", new StringToATimeWithIncrementDecrement());
 //    register(String.class, LabelModel.class, new StringToLabelModel());
-    register(ImageIcon.class, LabelModel.class, new ImageIconToLabelModel());
-    register(Object.class, LabelModel.class, new ObjectToLabelModel());
+    register(ImageIcon.class, LabelBeanModel.class, new ImageIconToLabelModel());
+    register(Object.class, LabelBeanModel.class, new ObjectToLabelModel());
 	initPrimitiveToWrapper();
   }  void initPrimitiveToWrapper () {
 	  /*

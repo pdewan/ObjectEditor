@@ -3,7 +3,7 @@ package bus.uigen.editors;
 import java.util.Hashtable;
 
 import shapes.AWTShapeModel;
-import util.models.ALabelModel;
+import util.models.ALabelBeanModel;
 import bus.uigen.ComponentDictionary;
 import bus.uigen.adapters.LabelAdapter;
 import bus.uigen.reflect.ClassProxy;
@@ -156,7 +156,7 @@ static void registerEditors() {
 		registerWidget("shapes.CurveModel", "shapes.CurveModel", "bus.uigen.editors.ShapeAdapter");
 		registerWidget("shapes.ImageModel", "shapes.ImageModel", "bus.uigen.editors.ShapeAdapter");
 	
-		registerWidget(ALabelModel.class.getName(), ALabelModel.class.getName(), LabelAdapter.class.getName());
+		registerWidget(ALabelBeanModel.class.getName(), ALabelBeanModel.class.getName(), LabelAdapter.class.getName());
 		registerWidget(AWTShapeModel.class.getName(), (AWTShapeModel.class.getName()), ShapeAdapter.class.getName());
 
 		//bus.uigen.editors.EditorRegistry.registerWidget("shapes.ArcModel_Stub", "shapes.ArcModel_Stub", "bus.uigen.editors.ShapeAdapter");

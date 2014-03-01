@@ -4,18 +4,18 @@ import javax.swing.ImageIcon;
 
 import com.adobe.acrobat.gui.tree.Icon;
 
-import util.models.ALabelModel;
+import util.models.ALabelBeanModel;
 import util.models.Hashcodetable;
-import util.models.LabelModel;
+import util.models.LabelBeanModel;
 
-public class StringToLabelModel implements Translator<String, LabelModel> {
+public class StringToLabelModel implements Translator<String, LabelBeanModel> {
 
-	static Hashcodetable<String, LabelModel> stringToLabelModel = new Hashcodetable<>();
+	static Hashcodetable<String, LabelBeanModel> stringToLabelModel = new Hashcodetable<>();
 
-	public LabelModel translate(String obj) throws FormatException {
-		LabelModel retVal = stringToLabelModel.get((String) obj);
+	public LabelBeanModel translate(String obj) throws FormatException {
+		LabelBeanModel retVal = stringToLabelModel.get((String) obj);
 		if (retVal == null)
-			retVal = new ALabelModel((String) obj);
+			retVal = new ALabelBeanModel((String) obj);
 		stringToLabelModel.put((String) obj, retVal);
 		return retVal;
 //		return new ALabelModel((String) obj);

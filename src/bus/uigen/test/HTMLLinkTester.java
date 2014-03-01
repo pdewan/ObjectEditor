@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 
 import util.misc.Common;
-import util.models.ALabelModel;
-import util.models.LabelModel;
+import util.models.ALabelBeanModel;
+import util.models.LabelBeanModel;
 import bus.uigen.ObjectEditor;
 
 public class HTMLLinkTester {
@@ -39,8 +39,10 @@ public class HTMLLinkTester {
 		}
 		ObjectEditor.edit(example);
 		ImageIcon icon = new ImageIcon("holygrail2.PNG");
+		LabelBeanModel labelModel = new ALabelBeanModel(html);
+		ObjectEditor.edit(labelModel);
 		
-		LabelModel labelModel = new ALabelModel(html, icon);
+		 labelModel = new ALabelBeanModel(html, icon);
 		ObjectEditor.edit(labelModel);
 	}
 
