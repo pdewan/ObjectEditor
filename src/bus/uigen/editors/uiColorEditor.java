@@ -368,6 +368,11 @@ public boolean hasCommands() {
 	// TODO Auto-generated method stub
 	return false;
 }
+@Override
+public void setAttributes() {
+	// TODO Auto-generated method stub
+	
+}
 
 
 }

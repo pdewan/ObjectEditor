@@ -47,7 +47,7 @@ public interface OEFrame {
 	public void dispose();
 	public void addMethodInvocationFrameCreationListener (MethodInvocationFrameCreationListener aListener) ;
 	 public  void notifyMethodInvocationFrameCreated (OEFrame aParentFrame, OEFrame anInvocationFrame, InteractiveMethodInvoker anInteractiveMethodInvoker);
-
+	ObjectAdapter getObjectAdapter(Object anObject);	
 	 public  void setGraphicsWindowLocked( boolean newVal);
 	boolean isSuppressPropertyNotifications();
 	void setSuppressPropertyNotifications(boolean suppressPropertyNotifications);

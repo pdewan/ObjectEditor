@@ -1614,7 +1614,7 @@ public class AGenericWidgetShell implements
 //		VirtualComponent container = getContainer();
 		
 	}
-	
+	// duplicates code in widget adapter to set color, can perhaps remove code in widget adapter
 	void setColor (VirtualComponent aComponent, Color componentBackground, Color containerBackground) {
 		if (aComponent == null)
 			return;

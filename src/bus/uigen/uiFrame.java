@@ -5606,7 +5606,9 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 	}
 	// pathToObjectAdapter in ObjectAdapter is a more space efficient scheme
 	public ObjectAdapter getObjectAdapterFromPath(String path) {
-		return pathToObjectAdapter.get(path);
+//		return pathToObjectAdapter.get(path);
+//		return getTopAdapter().pathToObjectAdapter(path);
+		return ObjectAdapter.pathToObjectAdapter(getTopAdapter(), path);
 	}
 		public Object getObjectFromPath(String path) {
 			ObjectAdapter objectAdapter = getObjectAdapter(path);
@@ -5675,13 +5677,17 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 	public boolean isSuppressPropertyNotifications() {
 		return suppressPropertyNotifications;
 	}
+	
+	
 	@Override
 	public void setSuppressPropertyNotifications(
 			boolean newVal) {
 		if (suppressPropertyNotifications == newVal)
 			return;
-		if (!newVal ) // resuming notifications 
+		if (!newVal ) { // resuming notifications  
 			refresh();
+		}
+	
 		this.suppressPropertyNotifications = newVal;
 		
 	}

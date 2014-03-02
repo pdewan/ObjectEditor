@@ -4185,6 +4185,14 @@ ObjectAdapterInterface, Remote, Serializable
 		getWidgetAdapter().processAttribute(attribute);
 		
 	}
+	
+	public void refreshAttributes() {
+		propagateAttributesToWidgetAdapter();
+		propagateAttributesToWidgetShell();
+//		getUIFrame().refresh();
+	}
+	
+
 
 	// Method invoked when a bound property changes
 	//
@@ -4196,6 +4204,14 @@ ObjectAdapterInterface, Remote, Serializable
 //		System.out.println ("Synchronized Property Change Listener Started");
 		// System.out.println("Property change:
 		// "+evt.getPropertyName()+"="+evt.getNewValue());
+		if (evt.getSource() == null) {
+			Tracer.error("Null source in:" + evt);
+			return;
+		}
+		if (evt.getPropertyName() == null) {
+			Tracer.error("Null property in:" + evt);
+			return;
+		}
 		if (isDisposed())
 			return;	
 		notifyAttributeDependencies(evt);
@@ -4206,6 +4222,19 @@ ObjectAdapterInterface, Remote, Serializable
 			attributeChanged(evt);
 			return;
 		}
+		// we will not suppress these
+		 // allow color and other changes to be made dynamically
+		 Object newValue = evt.getNewValue();
+		 if (newValue instanceof Attribute) {
+			 Attribute attribute = (Attribute) newValue;
+			 ObjectAdapter adapter = getUIFrame().getObjectAdapterFromPath(evt.getPropertyName());
+			 // makes no sense why local does not work but  temp does
+//			 adapter.setLocalAttribute(attribute);
+			 adapter.setTempAttributeValue(attribute.getAttributeName(), attribute.getValue());
+
+			 adapter.refreshAttributes();
+			 return;
+		 }
 		
 		 if (evt.getPropertyName().equalsIgnoreCase(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING)) {
 			 if (evt.getNewValue() == null)
@@ -4219,7 +4248,14 @@ ObjectAdapterInterface, Remote, Serializable
 				return;
 		//		ClassAdapterReceivedPropertyChangeEvent.newCase((ClassAdapter) this, evt) ;
 		// should put in some property to suppress and resume events
+		 // done
+		 
+		
+		 
+			 
+		 
 		// maybe I should  event information
+		 
 		if (!ObjectEditor.shareBeans()) {
 			subPropertyChange(evt);
 //			System.out.println ("Synchronized Property Change Listener Left");
@@ -7214,7 +7250,7 @@ ObjectAdapterInterface, Remote, Serializable
 		 */
 	}
 
-	public ObjectAdapter pathToObjectAdapter(ObjectAdapter topAdapter,
+	public static ObjectAdapter pathToObjectAdapter(ObjectAdapter topAdapter,
 			Vector path) {
 		try {
 			ObjectAdapter retVal = topAdapter;
@@ -7229,12 +7265,12 @@ ObjectAdapterInterface, Remote, Serializable
 			return null;
 		}
 	}
-	public ObjectAdapter pathToObjectAdapter(ObjectAdapter topAdapter,
+	public static ObjectAdapter pathToObjectAdapter(ObjectAdapter topAdapter,
 			String path) {
 		return pathToObjectAdapter(topAdapter, pathToVector(path));
 	}
 
-	public ObjectAdapter pathToObjectAdapter(String path) {
+	public  ObjectAdapter pathToObjectAdapter(String path) {
 		return pathToObjectAdapter(pathToVector(path));
 	}
 

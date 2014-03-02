@@ -136,6 +136,8 @@ void rebuildPanel();
 public int defaultWidth();
 public int defaultHeight();
 public boolean hasCommands();
+public void setAttributes();
+
 
 //Vector<uiObjectAdapter> getDisplayChildrenAdapters();
 

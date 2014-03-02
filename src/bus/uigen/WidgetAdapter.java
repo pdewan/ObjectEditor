@@ -931,6 +931,9 @@ public abstract class WidgetAdapter implements WidgetAdapterInterface,
 		
 
 	}
+	public void setAttributes() {
+		setAttributes(getUIComponent());
+	}
 	public void setColors(VirtualComponent component) {
 		// this was commented out
 		setColors(component, adapter);
