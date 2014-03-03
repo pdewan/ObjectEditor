@@ -807,6 +807,7 @@ public class AGenericWidgetShell implements
 			((CompositeAdapter) adapter).createChildrenPropagating();
 			if (adapter.hasNoComponents() 
 					&& !adapter.isTopAdapter()
+					&& adapter.getElideIfNoComponents()
 					) {
 				internalElide();
 				return false;

@@ -6,6 +6,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.FocusListener;
@@ -317,6 +319,95 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			return -1;
 
 	}
+	
+	Object getComputedAddConstraint(Object o) {
+		Object c1 = getAddConstraint(o);
+		if (c1 != null)
+			return c1;
+		if (adapter.isGridBagLayout())
+			return getGridBagConstraints(o);
+		return null;
+	}
+	
+	 GridBagConstraints getGridBagConstraints(Object o) {
+		Object c1 = getAddConstraint(o);
+		if (c1 != null)
+			return (GridBagConstraints) c1;
+		 GridBagConstraints c = new GridBagConstraints();
+		 c.gridx = getCol(o);
+		 c.gridy = getRow(o);
+		 Double weightX = getAddWeightXConstraint(o);
+		 Double weightY = getAddWeightYConstraint(o);
+		 Integer width = getAddWidthConstraint(o);
+		 Integer anchor = getAddAnchorConstraint(o);
+		 if (weightX != null)
+			 c.weightx = weightX;
+		 else
+			 c.weightx = 1.0;
+		 if (weightY != null)
+			 c.weighty = weightY;
+		 if (width != null)
+			 c.gridwidth = width;
+		 if (anchor != null)
+			 c.anchor = anchor;
+		 else
+			 c.anchor = GridBagConstraints.EAST;
+		 c.fill = GridBagConstraints.HORIZONTAL;
+		 
+//		 if (adapter.getAlignment().equals(AttributeNames.HORIZONTAL))
+//			 c.fill = GridBagConstraints.HORIZONTAL;
+//		 else if (adapter.getAlignment().equals(AttributeNames.VERTICAL))
+//			 c.fill = GridBagConstraints.VERTICAL;
+			 
+
+		 return c;
+	}
+	
+	static Integer getAddWidthConstraint(Object o) {
+		if (o instanceof ObjectAdapter)
+			return ((ObjectAdapter) o).getAddWidthConstraint();
+		else if (o instanceof ButtonCommand)
+			return((ButtonCommand) o).getAddWidthConstraint();
+		else
+			return null;
+	}
+	
+	static Object getAddConstraint(Object o) {
+		if (o instanceof ObjectAdapter)
+			return ((ObjectAdapter) o).getAddConstraint();
+		else if (o instanceof ButtonCommand)
+			return((ButtonCommand) o).getAddConstraint();
+		else
+			return null;
+	}
+	
+	static Double getAddWeightXConstraint(Object o) {
+		if (o instanceof ObjectAdapter)
+			return ((ObjectAdapter) o).getAddWeightXConstraint();
+		else if (o instanceof ButtonCommand)
+			return((ButtonCommand) o).getAddWeightXConstraint();
+		else
+			return null;
+	}
+	static Double getAddWeightYConstraint(Object o) {
+		if (o instanceof ObjectAdapter)
+			return ((ObjectAdapter) o).getAddWeightYConstraint();
+		else if (o instanceof ButtonCommand)
+			return((ButtonCommand) o).getAddWeightYConstraint();
+		else
+			return null;
+	}
+	
+	static Integer getAddAnchorConstraint(Object o) {
+		if (o instanceof ObjectAdapter)
+			return ((ObjectAdapter) o).getAddAnchorConstraint();
+		else if (o instanceof ButtonCommand)
+			return((ButtonCommand) o).getAddAnchorConstraint();
+		else
+			return null;
+	}
+	
+	
 	
 	static int getPosition(Object o) {
 		if (o instanceof ObjectAdapter)
@@ -1843,6 +1934,20 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 
 		int row = getRow(attributed);
 		int col = getCol(attributed);
+		if (adapter.isGridBagLayout()) {
+		// we will handle it specially, assuming it goes to the childComponents matrix
+			if (row < 0 ) {
+				Tracer.warning("No row number for grid bag component:" + adapter + " assuming it is 0");
+				row = 0;
+			}
+			if (col < 0) {
+				Tracer.warning("No column number for grid bag component:" + adapter + " assuming it is 0");
+				col = 0;
+
+			}
+			
+			
+		}
 //		if (row < 0 && attributed instanceof ButtonCommand) {
 //			row = getPosition(attributed);
 //		}
@@ -2115,11 +2220,19 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			//c.setLayout(new FlowLayout());
 		else
 		if (adapter.isFlowLayout()) {
-			c.setLayout(new FlowLayout(adapter.getAlignment(), adapter.getHorizontalGap(), adapter.getVerticalGap()));
-		} else
-		
+			FlowLayout flowLayout = new FlowLayout(adapter.getAlignment(), adapter.getHorizontalGap(), adapter.getVerticalGap());
+//			c.setLayout(new FlowLayout(adapter.getAlignment(), adapter.getHorizontalGap(), adapter.getVerticalGap()));
+			c.setLayout(flowLayout);
 
-		if (/* numCols == 1 || */adapter.getStretchRows()) {
+		} if (adapter.isBorderLayout()) {
+			BorderLayout borderLayout = new BorderLayout();
+			c.setLayout(borderLayout);
+		} else if (adapter.isGridBagLayout()) {
+			GridBagLayout gridBagLayout = new GridBagLayout();
+			c.setLayout(gridBagLayout);
+		}
+		
+		else if (/* numCols == 1 || */adapter.getStretchRows()) {
 			// if (numCols == 1 || adapter.getStretchRows()) {
 			c.setLayout(new GridLayout(numRows, numCols));
 
@@ -4502,6 +4615,30 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 //			System.out.println("adding" + c.getName() + " to " + unboundButtonsPanel.getName());
 		}
 	}
+	
+	void manualBuildPanel() {
+		addUnsortedProperties(componentPanel);
+		addUnsortedCommands(componentPanel);
+		addSortedProperties(componentPanel);
+		addSortedCommands(componentPanel);		
+	}
+	
+	void buildGridBagPanel() {
+		int currentRow = childComponents.firstFilledRow(0);
+		while (currentRow <= childComponents.size() && currentRow != -1) {
+			int currentColumn = childComponents.firstFilledColumn(currentRow, 0);
+			while (currentColumn != -1 && currentColumn < childComponents.numCols(currentRow)) {
+				Object element = childComponents.get(currentRow, currentColumn);
+				add(componentPanel, element);
+
+				currentColumn = childComponents.firstFilledColumn(currentRow, currentColumn + 1);
+			}
+			currentRow = childComponents.firstFilledRow(currentRow + 1);	
+			
+			
+		}
+		
+	}
 
 	public void forceBuildPanel() {
 
@@ -4520,10 +4657,15 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 		// componentPanel = new JPanel();
 		UIComponentCreationStarted.newCase(getObjectAdapter().getRealObject(), this);
 		if (manualAdds) {
-			addUnsortedProperties(componentPanel);
-			addUnsortedCommands(componentPanel);
-			addSortedProperties(componentPanel);
-			addSortedCommands(componentPanel);
+//			manualBuildPanel();
+//			addUnsortedProperties(componentPanel);
+//			addUnsortedCommands(componentPanel);
+//			addSortedProperties(componentPanel);
+//			addSortedCommands(componentPanel);
+			return;
+		}
+		if (adapter.isGridBagLayout()) {
+			buildGridBagPanel();
 			return;
 		}
 		if (!initialized)
@@ -4835,8 +4977,12 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 		VirtualComponent component = getComponent(o);
 		if (component.getParent() != null)
 			return;
+		Object constraint = getComputedAddConstraint(o);
+		if (constraint == null)
 		// c.add(getComponent(o));
 		c.add(component);
+		else
+			c.add(component, constraint);
 //		System.out.println("Added component:" + component.getName() + " to " + c.getName());
 		UIComponentAdded.newCase(c, component, this);
 		if (o instanceof ObjectAdapter)

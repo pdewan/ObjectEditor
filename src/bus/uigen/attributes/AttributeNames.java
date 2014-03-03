@@ -32,6 +32,17 @@ public class AttributeNames {
 	public static final String VERTICAL_GAP = "Vertical Gap";
 
 	public static final String ADD_CONSTRAINT = "Add Constraint";
+	
+	public static final String ADD_WIDTH_CONSTRAINT = "Add Width Constraint";
+	
+	public static final String ADD_ANCHOR_CONSTRAINT = "Add Anchor Constraint";
+	
+
+	public static final String ADD_WEIGHT_X_CONSTRAINT = "Add Width X Constraint";
+	
+	public static final String ADD_WEIGHT_Y_CONSTRAINT = "Add Width Y Constraint";
+
+
 
 	public static final String CONTAINER_FACTORY = "Container Factory";
 
@@ -82,6 +93,9 @@ public class AttributeNames {
 	public static final String SEPARATE_UNBOUND_TITLES = "Separate Unbound Titles";
 	
 	public static final String BORDER_LAYOUT = "Border Layout";
+	
+	public static final String GRID_BAG_LAYOUT = "Grid Bag Layout";
+
 	
 	public static final String NO_LAYOUT = "No Layout";
 
@@ -171,6 +185,8 @@ public class AttributeNames {
 	public static final String SHOW_READONLY_NAME_CHILD_AS_LABEL = "Show Readonly Name Child As Label";
 
 	public static final String TRUE_LABEL = "True Label";
+	public static final String ELIDE_IF_NO_COMPONENTS = "Elide If No Components";
+
 	public static final String ELIDED = "Elided";
 	public static final String ELIDE_STRING = "Elide String";
 	public static final String ELIDE_STRING_IS_TOSTRING = "Elide String Is ToString";
@@ -982,6 +998,7 @@ static final String[] attributeNameArray = {
 		systemDefaults.put(IS_COMPOSITE_SHAPE, false);
 		systemDefaults.put(IS_SHAPE_SPECIFICATION_REQUIRED, false);
 		systemDefaults.put(INVISIBLE_IF_NULL, false);
+		systemDefaults.put(ELIDE_IF_NO_COMPONENTS, true);
 
 
 

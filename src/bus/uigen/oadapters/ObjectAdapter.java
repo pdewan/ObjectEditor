@@ -2827,6 +2827,11 @@ ObjectAdapterInterface, Remote, Serializable
 		return(AttributeNames.BORDER_LAYOUT.equals(getLayout()));
 	}
 	
+	public boolean isGridBagLayout() {		
+		return(AttributeNames.GRID_BAG_LAYOUT.equals(getLayout()));
+	}
+	
+	
 	public boolean isNoLayout() {		
 		return(AttributeNames.NO_LAYOUT.equals(getLayout()));
 	}
@@ -2853,6 +2858,8 @@ ObjectAdapterInterface, Remote, Serializable
 	public boolean isGridLayout() {		
 		return(AttributeNames.GRID_LAYOUT.equals(getLayout()));
 	}
+	
+	
 
 	public boolean getShowUnboundButtons() {
 		return ((Boolean) getMergedTempOrDefaultAttributeValue(AttributeNames.SHOW_UNBOUND_BUTTONS))
@@ -2926,6 +2933,26 @@ ObjectAdapterInterface, Remote, Serializable
 	public int getEmptyBorderHeight() {
 		return ((Integer) getMergedTempOrDefaultAttributeValue(AttributeNames.EMPTY_BORDER_HEIGHT))
 				.intValue();
+	}
+	
+	public Integer getAddWidthConstraint() {
+		return ((Integer) getMergedTempOrDefaultAttributeValue(AttributeNames.ADD_WIDTH_CONSTRAINT));
+			
+	}
+	
+	public Double getAddWeightXConstraint() {
+		return ((Double) getMergedTempOrDefaultAttributeValue(AttributeNames.ADD_WEIGHT_X_CONSTRAINT));
+			
+	}
+	
+	public Double getAddWeightYConstraint() {
+		return ((Double) getMergedTempOrDefaultAttributeValue(AttributeNames.ADD_WEIGHT_Y_CONSTRAINT));
+			
+	}
+	
+	public Integer getAddAnchorConstraint() {
+		return ((Integer) getMergedTempOrDefaultAttributeValue(AttributeNames.ADD_ANCHOR_CONSTRAINT));
+			
 	}
 
 	public boolean getStretchRows() {
@@ -3033,6 +3060,10 @@ ObjectAdapterInterface, Remote, Serializable
 		isFlatTable = newVal;
 	}
 
+	public boolean getElideIfNoComponents() {
+		return (Boolean) getMergedTempOrDefaultAttributeValue(AttributeNames.ELIDE_IF_NO_COMPONENTS);
+
+	}
 	public boolean isFlatTableRow() {
 		return ((Boolean) getMergedTempOrDefaultAttributeValue(AttributeNames.IS_FLAT_TABLE_ROW));
 
