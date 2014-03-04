@@ -340,6 +340,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 		 Double weightY = getAddWeightYConstraint(o);
 		 Integer width = getAddWidthConstraint(o);
 		 Integer anchor = getAddAnchorConstraint(o);
+		 Integer fill = getAddFillConstraint(o);
 		 if (weightX != null)
 			 c.weightx = weightX;
 		 else
@@ -350,15 +351,17 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			 c.gridwidth = width;
 		 if (anchor != null)
 			 c.anchor = anchor;
-		 else
-			 c.anchor = GridBagConstraints.EAST;
-		 c.fill = GridBagConstraints.HORIZONTAL;
+//		 else
+//			 c.anchor = GridBagConstraints.EAST;
+//		 if ()
+		 if (fill != null)
+		    c.fill = fill;
 		 
 //		 if (adapter.getAlignment().equals(AttributeNames.HORIZONTAL))
 //			 c.fill = GridBagConstraints.HORIZONTAL;
 //		 else if (adapter.getAlignment().equals(AttributeNames.VERTICAL))
 //			 c.fill = GridBagConstraints.VERTICAL;
-			 
+//			 
 
 		 return c;
 	}
@@ -405,6 +408,26 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			return((ButtonCommand) o).getAddAnchorConstraint();
 		else
 			return null;
+	}
+	
+	static Boolean getStretchableByParent(Object o) {
+		if (o instanceof ObjectAdapter)
+			return ((ObjectAdapter) o).getStretchableByParent();
+		else if (o instanceof ButtonCommand)
+			return((ButtonCommand) o).getStretchableByParent();
+		else
+			return null;
+	}
+	
+	 Integer getAddFillConstraint(Object o) {
+		Boolean stretchable = getStretchableByParent(o);
+		if (stretchable == null || !stretchable) return null;
+		if (adapter.getDirection().equals(AttributeNames.VERTICAL))
+			return GridBagConstraints.HORIZONTAL;
+		else if (adapter.getDirection().equals(AttributeNames.HORIZONTAL))
+			return GridBagConstraints.VERTICAL;
+		return null;
+			
 	}
 	
 	
@@ -6392,14 +6415,50 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 					}
 					colsPanel.setLayout(new BorderLayout());
 					if (columnItems.size() == 1) {
-						colsPanel.add(getComponent(columnItems.get(0)));
+						Object element = columnItems.get(0);						
+						Object constraint = getAddConstraint(element);
+						if (constraint != null) {
+							colsPanel.add(getComponent(element), constraint);
+						} else {
+							colsPanel.add(getComponent(element));
+						}
+							
+//						colsPanel.add(getComponent(columnItems.get(0)));
 					} else  {
-						colsPanel.add(getComponent(columnItems.get(0)), BorderLayout.WEST);
-						colsPanel.add(getComponent(columnItems.get(1)));
-						if (columnItems.size() == 3)
-							colsPanel.add(getComponent(columnItems.get(2)), BorderLayout.EAST);
-
+						Object element1 = columnItems.get(0);						
+						Object constraint1 = getAddConstraint(element1);
+						Object element2 = columnItems.get(1);						
+						Object constraint2 = getAddConstraint(element2);
+						if (constraint1 != null) {
+							colsPanel.add(getComponent(element1), constraint1);
+						} else {
+							colsPanel.add(getComponent(element1), BorderLayout.WEST);
+						}
+						if (constraint2 != null) {
+							colsPanel.add(getComponent(element2), constraint2);
+						} else {
+							colsPanel.add(getComponent(element2));
+						}
+						if (columnItems.size() == 3) {
+							Object element3 = columnItems.get(2);
+							Object constraint3 = getAddConstraint(element3);
+							if (constraint3 != null) {
+								colsPanel.add(getComponent(element3), constraint3);
+							} else {
+								colsPanel.add(getComponent(element3), BorderLayout.EAST);
+							}
+							
+							
+						}
 					}
+					
+//					} else  {
+//						colsPanel.add(getComponent(columnItems.get(0)), BorderLayout.WEST);
+//						colsPanel.add(getComponent(columnItems.get(1)));
+//						if (columnItems.size() == 3)
+//							colsPanel.add(getComponent(columnItems.get(2)), BorderLayout.EAST);
+//
+//					}
 					//return;
 				} 
 				else

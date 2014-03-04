@@ -31,16 +31,7 @@ public class AttributeNames {
 	
 	public static final String VERTICAL_GAP = "Vertical Gap";
 
-	public static final String ADD_CONSTRAINT = "Add Constraint";
-	
-	public static final String ADD_WIDTH_CONSTRAINT = "Add Width Constraint";
-	
-	public static final String ADD_ANCHOR_CONSTRAINT = "Add Anchor Constraint";
-	
 
-	public static final String ADD_WEIGHT_X_CONSTRAINT = "Add Width X Constraint";
-	
-	public static final String ADD_WEIGHT_Y_CONSTRAINT = "Add Width Y Constraint";
 
 
 
@@ -148,6 +139,19 @@ public class AttributeNames {
 	public static final String STRETCH_UNBOUND_COLUMNS = "Stretch Unbound Columns";
 	
 	public static final String STRETCHABLE_BY_PARENT = "Stretchable By Parent";
+	
+	public static final String ADD_CONSTRAINT = "Add Constraint";
+	
+	public static final String ADD_WIDTH_CONSTRAINT = "Add Width Constraint";
+	
+	public static final String ADD_ANCHOR_CONSTRAINT = "Add Anchor Constraint";
+	
+
+	public static final String ADD_WEIGHT_X_CONSTRAINT = "Add Width X Constraint";
+	
+	public static final String ADD_WEIGHT_Y_CONSTRAINT = "Add Width Y Constraint";
+	
+	public static final String ADD_FILL_CONSTRAINT = STRETCHABLE_BY_PARENT;
 
 
 	public static final String ROWS_FULL_SIZE = "Rows Full Size";
