@@ -1957,14 +1957,17 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 
 		int row = getRow(attributed);
 		int col = getCol(attributed);
-		if (adapter.isGridBagLayout()) {
-		// we will handle it specially, assuming it goes to the childComponents matrix
+		if (adapter.isGridBagLayout()) { // we will handle it specially, assuming it goes to the childComponents matrix
+
+			if (attributed instanceof ButtonCommand && row < 0 && col < 0) { // show method in menu 
+				return false;
+			}
 			if (row < 0 ) {
-				Tracer.warning("No row number for grid bag component:" + adapter + " assuming it is 0");
+//				Tracer.warning("No row number for grid bag component:" + adapter + " assuming it is 0");
 				row = 0;
 			}
 			if (col < 0) {
-				Tracer.warning("No column number for grid bag component:" + adapter + " assuming it is 0");
+//				Tracer.warning("No column number for grid bag component:" + adapter + " assuming it is 0");
 				col = 0;
 
 			}

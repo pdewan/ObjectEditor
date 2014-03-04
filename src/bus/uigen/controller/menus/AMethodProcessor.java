@@ -167,18 +167,109 @@ public class AMethodProcessor {
 		
 		
 	}
+	
+	
+	public static boolean isButtonMethod(uiFrame frame, MethodDescriptorProxy md,
+			MethodProxy method, Object targetObject, ObjectAdapter adapter) {
+		
+		Integer rowNum = (Integer) AttributeManager	.getInheritedAttribute(
+				frame,
+				md,
+				AttributeNames.ROW,
+				adapter).getValue();
+		Integer colNum = (Integer)  AttributeManager	.getInheritedAttribute(
+				frame,
+				md,
+				AttributeNames.COLUMN,
+				adapter).getValue();
+		return (rowNum != null && rowNum >= 0) || (colNum != null && colNum >= 0);		
+		
+	}
+	
+	
+	public static boolean isMainMenuMethod(uiFrame frame, MethodDescriptorProxy md,
+			MethodProxy method, Object targetObject, ObjectAdapter adapter) {
+		try {
+			boolean isPatternMethod = adapter.getConcreteObject().isPatternMethod(method);
+			boolean isButtonMethod = isButtonMethod(frame, md, method, targetObject, adapter);
+			
+			return adapter.unparseAsToString() 
+					|| adapter.getConcreteObject().getTargetObject() != targetObject
+					|| (!isPatternMethod && !isButtonMethod)
+					|| (isPatternMethod && AttributeManager.getInheritedAttribute(
+									frame,
+									md,
+									AttributeNames.PATTERN_METHODS_IN_MAIN_MENU,
+									adapter).getValue().equals(Boolean.TRUE))
+					|| (isButtonMethod && AttributeManager.getInheritedAttribute(
+							frame,
+							md,
+							AttributeNames.BUTTON_METHODS_IN_MAIN_MENU,
+							adapter).getValue().equals(Boolean.TRUE));
+
+//			return 
+//					adapter.unparseAsToString() ||
+//					adapter.getConcreteObject().getTargetObject() != targetObject
+//					|| (!adapter.getConcreteObject().isPatternMethod(method)) && 
+//					 // in case of menu object this is not the case
+//					(!adapter.getConcreteObject().isPatternMethod(method) 
+//							|| AttributeManager	.getInheritedAttribute(
+//									frame,
+//									md,
+//									AttributeNames.PATTERN_METHODS_IN_MAIN_MENU,
+//									adapter).getValue().equals(Boolean.TRUE))
+//			|| // chec
+//			 (isButtonMethod(frame, md, method, targetObject, adapter)
+//					 
+//					&& AttributeManager	.getInheritedAttribute(
+//							frame,
+//							md,
+//							AttributeNames.BUTTON_METHODS_IN_MAIN_MENU,
+//							adapter).getValue().equals(Boolean.TRUE));
+
+
+		} catch (Exception e) {
+			return true; // in case of drawing this path will be taken. Is this
+							// really an exception?
+		}		
+	}
 	public static boolean isRightMenuMethod(uiFrame frame, MethodDescriptorProxy md,
 			MethodProxy method, Object targetObject, ObjectAdapter adapter) {
 		try {
-
-			return adapter.getConcreteObject().getTargetObject() != targetObject
-					|| // in case of menu object this is not the case
-					(!adapter.getConcreteObject().isPatternMethod(method) 
-							|| AttributeManager	.getInheritedAttribute(
+			boolean isPatternMethod = adapter.getConcreteObject().isPatternMethod(method);
+			boolean isButtonMethod = isButtonMethod(frame, md, method, targetObject, adapter);
+			
+			return  adapter.getConcreteObject().getTargetObject() != targetObject
+					|| (!isPatternMethod && !isButtonMethod)
+					|| (isPatternMethod && AttributeManager.getInheritedAttribute(
 									frame,
 									md,
 									AttributeNames.PATTERN_METHODS_IN_RIGHT_MENU,
-									adapter).getValue().equals(Boolean.TRUE));
+									adapter).getValue().equals(Boolean.TRUE))
+					|| (isButtonMethod && AttributeManager.getInheritedAttribute(
+							frame,
+							md,
+							AttributeNames.BUTTON_METHODS_IN_RIGHT_MENU,
+							adapter).getValue().equals(Boolean.TRUE));
+
+//			return adapter.getConcreteObject().getTargetObject() != targetObject
+//					|| // in case of menu object this is not the case
+//					(!adapter.getConcreteObject().isPatternMethod(method) 
+//							|| AttributeManager	.getInheritedAttribute(
+//									frame,
+//									md,
+//									AttributeNames.PATTERN_METHODS_IN_RIGHT_MENU,
+//									adapter).getValue().equals(Boolean.TRUE))
+//					||	(isButtonMethod(frame, md, method, targetObject, adapter)
+//							 
+//							&& AttributeManager	.getInheritedAttribute(
+//									frame,
+//									md,
+//									AttributeNames.BUTTON_METHODS_IN_RIGHT_MENU,
+//									adapter).getValue().equals(Boolean.TRUE));
+			
+			// this was commented out earlier
+									
 //					|| (!adapter.getConcreteObject().isEditingMethod(method) 
 //							|| AttributeManager.getInheritedAttribute(
 //									frame,
@@ -191,30 +282,24 @@ public class AMethodProcessor {
 							// really an exception?
 		}		
 	}
-	public static boolean isMainMenuMethod(uiFrame frame, MethodDescriptorProxy md,
-			MethodProxy method, Object targetObject, ObjectAdapter adapter) {
-		try {
-
-			return 
-					adapter.unparseAsToString() ||
-					adapter.getConcreteObject().getTargetObject() != targetObject
-					|| // in case of menu object this is not the case
-					(!adapter.getConcreteObject().isPatternMethod(method) 
-							|| AttributeManager	.getInheritedAttribute(
-									frame,
-									md,
-									AttributeNames.PATTERN_METHODS_IN_MAIN_MENU,
-									adapter).getValue().equals(Boolean.TRUE));
-
-
-		} catch (Exception e) {
-			return true; // in case of drawing this path will be taken. Is this
-							// really an exception?
-		}		
-	}
 	public static boolean isToolBarMethod(uiFrame frame, MethodDescriptorProxy md,
 			MethodProxy method, Object targetObject, ObjectAdapter adapter) {
 		try {
+//			boolean isPatternMethod = adapter.getConcreteObject().isPatternMethod(method);
+//			boolean isButtonMethod = isButtonMethod(frame, md, method, targetObject, adapter);
+//			
+//			return  adapter.getConcreteObject().getTargetObject() != targetObject
+//					|| (!isPatternMethod && !isButtonMethod)
+//					|| (isPatternMethod && AttributeManager.getInheritedAttribute(
+//									frame,
+//									md,
+//									AttributeNames.PATTERN_METHODS_IN_TOOL_BAR,
+//									adapter).getValue().equals(Boolean.TRUE))
+//					|| (isButtonMethod && AttributeManager.getInheritedAttribute(
+//							frame,
+//							md,
+//							AttributeNames.BUTTON_METHODS_IN_TOOL_BAR,
+//							adapter).getValue().equals(Boolean.TRUE));
 
 			return adapter.getConcreteObject().getTargetObject() != targetObject
 					|| // in case of menu object this is not the case
@@ -223,7 +308,16 @@ public class AMethodProcessor {
 									frame,
 									md,
 									AttributeNames.PATTERN_METHODS_IN_TOOL_BAR,
-									adapter).getValue().equals(Boolean.TRUE));
+									adapter).getValue().equals(Boolean.TRUE))
+			|| // chec
+			 (isButtonMethod(frame, md, method, targetObject, adapter)
+					 
+					&& AttributeManager	.getInheritedAttribute(
+							frame,
+							md,
+							AttributeNames.BUTTON_METHODS_IN_TOOL_BAR,
+							adapter).getValue().equals(Boolean.TRUE));
+			
 //					|| (!adapter.getConcreteObject().isEditingMethod(method) 
 //							|| AttributeManager.getInheritedAttribute(
 //									frame,
@@ -753,6 +847,9 @@ public class AMethodProcessor {
 			// one that we don't care for
 			if (!isDisplayedCommand(frame, methods[i], method, object, adapter))
 				continue;
+			// why not allow command to be in toolbar and inside
+			// commenting this out causes issues
+			// this stuff needs to be cleaned at some pt
 			if (!isToolBarMethod(frame, methods[i], method, object, adapter))
 				continue;
 			//Boolean showButton = (Boolean) AttributeManager.getInheritedAttribute(methods[i], AttributeNames.SHOW_BUTTON, null).getValue();

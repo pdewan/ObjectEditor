@@ -225,6 +225,14 @@ public class AttributeNames {
 	public static final String PATTERN_METHODS_IN_TOOL_BAR = "Pattern Methods In ToolBar";
 		
 //	public static final String EDITING_METHODS_IN_TOOL_BAR = "Editing Methods In ToolBar";
+	
+    public static final String BUTTON_METHODS_IN_MAIN_MENU = "Button Methods In Main Menu";
+    
+    public static final String BUTTON_METHODS_IN_RIGHT_MENU = "Button Methods In Right Menu";
+    
+    public static final String BUTTON_METHODS_IN_TOOL_BAR = "Button Methods In Right Menu";
+
+
 
 	public static final String TOOLBAR = "Toolbar";
 
@@ -827,12 +835,21 @@ static final String[] attributeNameArray = {
 		systemDefaults.put(INCREMENTAL, new Boolean(false));
 		// systemDefaults.put(LABELLED, new Boolean(true));
 		systemDefaults.put(TOOLBAR_METHOD, new Boolean(false));
+		
 //		systemDefaults.put(EDITING_METHODS_IN_RIGHT_MENU, new Boolean(true));
 		systemDefaults.put(PATTERN_METHODS_IN_RIGHT_MENU, new Boolean(true));
 //		systemDefaults.put(EDITING_METHODS_IN_MAIN_MENU, new Boolean(false));
 		systemDefaults.put(PATTERN_METHODS_IN_MAIN_MENU, new Boolean(false));
 //		systemDefaults.put(EDITING_METHODS_IN_TOOL_BAR, new Boolean(true));
-		systemDefaults.put(PATTERN_METHODS_IN_TOOL_BAR, new Boolean(false));		
+		systemDefaults.put(PATTERN_METHODS_IN_TOOL_BAR, new Boolean(false));
+		
+//		systemDefaults.put(EDITING_METHODS_IN_RIGHT_MENU, new Boolean(true));
+		systemDefaults.put(BUTTON_METHODS_IN_RIGHT_MENU, new Boolean(true));
+//		systemDefaults.put(EDITING_METHODS_IN_MAIN_MENU, new Boolean(false));
+		systemDefaults.put(BUTTON_METHODS_IN_MAIN_MENU, new Boolean(false));
+//		systemDefaults.put(EDITING_METHODS_IN_TOOL_BAR, new Boolean(true));
+		systemDefaults.put(BUTTON_METHODS_IN_TOOL_BAR, new Boolean(false));
+		
 		systemDefaults.put(PLACE_TOOLBAR,  AttributeNames.TOOLBAR_PANEL_NAME);
 		systemDefaults.put(LABEL_CASE, AttributeNames.MIXED_CASE);
 
