@@ -1069,10 +1069,12 @@ public abstract class WidgetAdapter implements WidgetAdapterInterface,
 			    OEMisc.setSize(component, width, height);
 			return;
 		}
-  		if (width != 0)
+		if (width > 0)
+//  		if (width != 0)
   			OEMisc.setWidth(component, width, x, y);
   		//int height = adapter.getComponentHeight();
-  		if (height != 0)
+		if (height > 0)
+//  		if (height != 0)
   			OEMisc.setHeight(component, height, x, y);
 	}
 	

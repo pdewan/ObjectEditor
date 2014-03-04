@@ -46,6 +46,7 @@ import bus.uigen.trace.NotSerializable;
 import bus.uigen.widgets.VirtualComponent;
 import bus.uigen.widgets.VirtualContainer;
 import bus.uigen.widgets.VirtualDimension;
+import bus.uigen.widgets.VirtualLabel;
 
 
 public class OEMisc {
@@ -456,7 +457,12 @@ public class OEMisc {
 	public static void setHeight (VirtualComponent c, int height) {
 		if (height == 0) 
 			return;
+		
 		int width =   c.getPreferredSize().getWidth();
+//		if (c instanceof VirtualLabel) {
+//			c.setPreferredSize(new VirtualDimension(width, height)); 
+//			return;
+//		}
 		int width2 = c.getSize().getWidth();
 		int width3 =  c.getMinimumSize().getWidth();
 		//height = Misc.SWING_DEFAULT_HEIGHT;		
