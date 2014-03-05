@@ -5573,7 +5573,8 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			rowsPanel.setLayout(new BorderLayout());
 			rowsPanel.add(rowItemsPanel, BorderLayout.CENTER);
 		}
-		if (rowItemsPanel != boundComponentsPanel)
+		if (rowItemsPanel != boundComponentsPanel || 
+				boundComponentsPanel.getLayout() instanceof OEGridLayout) // assume this means the default layout in instantiate component that has only one row and columnb
 		setLayoutColumn(getObjectAdapter(), rowItemsPanel, nextEmptyRow - curRowNum);
 		
 		//VirtualContainer rowsPanel = boundComponentsPanel;
