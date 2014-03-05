@@ -5573,6 +5573,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			rowsPanel.setLayout(new BorderLayout());
 			rowsPanel.add(rowItemsPanel, BorderLayout.CENTER);
 		}
+		if (rowItemsPanel != boundComponentsPanel)
 		setLayoutColumn(getObjectAdapter(), rowItemsPanel, nextEmptyRow - curRowNum);
 		
 		//VirtualContainer rowsPanel = boundComponentsPanel;
@@ -5594,16 +5595,63 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 //				createEmptyColumnBoundary(leftLabelPanel);
 				rowsPanel.add(rightLabelPanel, BorderLayout.EAST);
 		}
-		
+		int numRows = nextEmptyRow - curRowNum;
 
+		if (numRows <= 3 && adapter.isBorderLayout() && rowItemsPanel == boundComponentsPanel ) {
+			
+		
+		if (numRows == 1) {
+			Object element = rowItems.get(numRows);						
+			Object constraint = getAddConstraint(element);
+			if (constraint != null) {
+				rowItemsPanel.add(getComponent(element), constraint);
+			} else {
+				rowItemsPanel.add(getComponent(element));
+			}
+				
+//			colsPanel.add(getComponent(columnItems.get(0)));
+		} else  {
+			Object element1 = rowItems.get(curRowNum);						
+			Object constraint1 = getAddConstraint(element1);
+			Object element2 = rowItems.get(curRowNum + 1);						
+			Object constraint2 = getAddConstraint(element2);
+			if (constraint1 != null) {
+				rowItemsPanel.add(getComponent(element1), constraint1);
+			} else {
+				rowItemsPanel.add(getComponent(element1), BorderLayout.NORTH);
+			}
+			if (constraint2 != null) {
+				rowItemsPanel.add(getComponent(element2), constraint2);
+			} else {
+				rowItemsPanel.add(getComponent(element2));
+			}
+			if (numRows == 3) {
+				Object element3 = rowItems.get(curRowNum + 2);
+				Object constraint3 = getAddConstraint(element3);
+				if (constraint3 != null) {
+					rowItemsPanel.add(getComponent(element3), constraint3);
+				} else {
+					rowItemsPanel.add(getComponent(element3), BorderLayout.SOUTH);
+				}
+				
+				
+			}
+		}}
+		
+		else {
 		for (int i = curRowNum; i < nextEmptyRow; i++) {
 			//VirtualContainer borderPanel = null;
+			// special hack for BorderLayout			
 
 			Object rowItem = list.get(i);
 			//rowsPanel.add(getComponent(rowItem));
+			
+
 			add(rowItemsPanel, getComponent(rowItem));
 			
 			
+			
+		}
 		}
 		return rowsPanel;
 

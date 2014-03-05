@@ -2967,7 +2967,15 @@ ObjectAdapterInterface, Remote, Serializable
 	}
 	
 	public boolean getStretchableByParent() {
-		return (Boolean) getMergedTempOrDefaultAttributeValue(AttributeNames.STRETCHABLE_BY_PARENT);			
+//		return (Boolean) getMergedTempOrDefaultAttributeValue(AttributeNames.STRETCHABLE_BY_PARENT);
+		Boolean retVal = (Boolean) getMergedAttributeValue(AttributeNames.STRETCHABLE_BY_PARENT);
+		if (retVal != null) return retVal;
+		
+			Object layout = getLayout();
+			if (layout != null) return true; // they have asked for a layout, dont change it
+		
+			return (Boolean) getTempAttributeValue(AttributeNames.STRETCHABLE_BY_PARENT);
+
 	}
 
 	public boolean getStretchUnboundRows() {
