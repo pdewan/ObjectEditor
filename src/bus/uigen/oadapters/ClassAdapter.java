@@ -510,6 +510,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 
 			if (adapter == null)
 				return false;
+			 componentName = adapter.getPropertyName(); // normalize the name
 			if (forceUpdate)
 				adapter.setEdited(false);
 			// if (adapter != null) {
@@ -560,9 +561,15 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 				// a.getGenericWidget().getLabel().length());
 
 				newAdapter.setAdapterType(ObjectAdapter.PROPERTY_TYPE);
+				
 				// Set the propertyName
 				// newAdapter.setPropertyName(property.getName());
-				newAdapter.setPropertyName(componentName);
+				// not sure if we need this as the name has been set already. In any case it should be name of child
+				// not string sent by yser
+//				newAdapter.setPropertyName(componentName);
+				
+				
+				
 				// newAdapter.setPropertyReadMethod(property.getReadMethod());
 				// newAdapter.setPropertyWriteMethod(property.getWriteMethod());
 				/*

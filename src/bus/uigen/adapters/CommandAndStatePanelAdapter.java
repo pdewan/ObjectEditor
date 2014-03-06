@@ -3112,9 +3112,10 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 
 		if (replaceParent != null) { // we are replacing removed adapter with
 			// this one.
-			replaceParent.add(compAdapter.getGenericWidget().getContainer(),
-					replacePos);
-			compAdapter.getWidgetAdapter().setParentContainer(replaceParent);
+			constrainedAdd(replaceParent, compAdapter, compAdapter.getGenericWidget().getContainer());
+//			replaceParent.add(compAdapter.getGenericWidget().getContainer(),
+//					replacePos);
+//			compAdapter.getWidgetAdapter().setParentContainer(replaceParent);
 			replaceParent = null;
 			return;
 		}
@@ -3642,6 +3643,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 		}
 		// this stuff should be in widget adapter also
 		replaceParent = childAdapter.getWidgetAdapter().getParentContainer();
+		if (replaceParent == null) replaceParent = parent; // hack till I understand why it is null
 		VirtualComponent replaceComponent = childAdapter.getGenericWidget()
 				.getContainer();
 		replacePos = OEMisc.indexOf(replaceParent, replaceComponent);
@@ -5001,6 +5003,30 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 		// enclosingPanel.add(getComponent(o));
 		// c.add(enclosingPanel);
 		VirtualComponent component = getComponent(o);
+		constrainedAdd(c, o, component);
+//		if (component.getParent() != null)
+//			return;
+//		Object constraint = getComputedAddConstraint(o);
+//		if (constraint == null)
+//		// c.add(getComponent(o));
+//		c.add(component);
+//		else
+//			c.add(component, constraint);
+////		System.out.println("Added component:" + component.getName() + " to " + c.getName());
+//		UIComponentAdded.newCase(c, component, this);
+//		if (o instanceof ObjectAdapter)
+//			((ObjectAdapter) o).getWidgetAdapter().setParentContainer(c);
+	}
+	
+	void constrainedAdd(VirtualContainer c, Object o, VirtualComponent component) {
+//		// this makes no sense!
+//		/*
+//		 * if (c.getParent() != null) return;
+//		 */
+//		// JPanel enclosingPanel = new JPanel();
+//		// enclosingPanel.add(getComponent(o));
+//		// c.add(enclosingPanel);
+//		VirtualComponent component = getComponent(o);
 		if (component.getParent() != null)
 			return;
 		Object constraint = getComputedAddConstraint(o);
