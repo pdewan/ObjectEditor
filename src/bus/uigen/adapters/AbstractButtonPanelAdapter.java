@@ -157,6 +157,7 @@ import bus.uigen.widgets.events.VirtualActionEvent;
   	
   	//int numCols = getObjectAdapter().getUnboundButtonsRowSize();
   	setLayout();
+  	setColors(buttonsPanel);
   	/*
   	buttonsPanel.setLayout(new GridLayout (0, numCols));
   	oldSize = getSize();
