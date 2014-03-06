@@ -142,6 +142,7 @@ import bus.uigen.widgets.events.VirtualActionEvent;
   		String itemString = item.toString();
   		//AbstractButton button = new JRadioButton(itemString);
   	    VirtualButton button = createButton (itemString);
+  	    setColors(button);
   	    //VirtualButton button = createButton (itemString);
   		button.setActionCommand(itemString);
   		stringToObjects.put(itemString, item);
@@ -157,7 +158,8 @@ import bus.uigen.widgets.events.VirtualActionEvent;
   	
   	//int numCols = getObjectAdapter().getUnboundButtonsRowSize();
   	setLayout();
-  	setColors(buttonsPanel);
+  	// not sure we need this as color is set before this 
+ // 	setColors(buttonsPanel);
   	/*
   	buttonsPanel.setLayout(new GridLayout (0, numCols));
   	oldSize = getSize();
