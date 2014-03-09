@@ -4231,7 +4231,7 @@ ObjectAdapterInterface, Remote, Serializable
 //		getUIFrame().refresh();
 	}
 	
-
+	boolean attributeChangePending;
 
 	// Method invoked when a bound property changes
 	//
@@ -4263,6 +4263,7 @@ ObjectAdapterInterface, Remote, Serializable
 		}
 		// we will not suppress these
 		 // allow color and other changes to be made dynamically
+		// changing this to suppress them and make refresh refresh attributes
 		 Object newValue = evt.getNewValue();
 		 if (newValue instanceof Attribute) {
 			 Attribute attribute = (Attribute) newValue;
@@ -4270,8 +4271,11 @@ ObjectAdapterInterface, Remote, Serializable
 			 // makes no sense why local does not work but  temp does
 //			 adapter.setLocalAttribute(attribute);
 			 adapter.setTempAttributeValue(attribute.getAttributeName(), attribute.getValue());
-
+			 // no refresh if suppessing
+			 if (!getUIFrame().isSuppressPropertyNotifications())
 			 adapter.refreshAttributes();
+			 else 	
+				 adapter.setAttributeChangePending(true);
 			 return;
 		 }
 		
@@ -4285,12 +4289,26 @@ ObjectAdapterInterface, Remote, Serializable
 		 // need to check this after setting the value
 		 if (getUIFrame().isSuppressPropertyNotifications())
 				return;
+		 attributeChangePending = false;
 		//		ClassAdapterReceivedPropertyChangeEvent.newCase((ClassAdapter) this, evt) ;
 		// should put in some property to suppress and resume events
 		 // done
 		 
 		
-		 
+//		// we will not suppress these
+//				 // allow color and other changes to be made dynamically
+//				// changing this to suppress them and make refresh refresh attributes
+//				 Object newValue = evt.getNewValue();
+//				 if (newValue instanceof Attribute) {
+//					 Attribute attribute = (Attribute) newValue;
+//					 ObjectAdapter adapter = getUIFrame().getObjectAdapterFromPath(evt.getPropertyName());
+//					 // makes no sense why local does not work but  temp does
+////					 adapter.setLocalAttribute(attribute);
+//					 adapter.setTempAttributeValue(attribute.getAttributeName(), attribute.getValue());
+//
+//					 adapter.refreshAttributes();
+//					 return;
+//				 }
 			 
 		 
 		// maybe I should  event information
@@ -5339,7 +5357,6 @@ ObjectAdapterInterface, Remote, Serializable
 
 		return 0;
 	}
-
 	public void implicitRefresh(boolean adapterInitiated) {
 		// System.out.println(" normal objectadapter refresh" + this);
 		// if (isAtomic() || isParentedTopAdapter()){
@@ -5367,6 +5384,9 @@ ObjectAdapterInterface, Remote, Serializable
 		}
 		// setValue(getViewObject());
 		refreshValue(getRealObject(), getUIFrame().isFullRefresh());
+//		if (getUIFrame().isFullRefresh()) {
+//			refreshAttributes();
+//		}
 		if (isAtomic())
 			atomicRefresh();
 		
@@ -8561,6 +8581,14 @@ ObjectAdapterInterface, Remote, Serializable
 	}
 	public boolean hasCommands() {
 		return getWidgetAdapter() != null && getWidgetAdapter().hasCommands();
+	}
+
+	public boolean isAttributeChangePending() {
+		return attributeChangePending;
+	}
+
+	public void setAttributeChangePending(boolean attributeChangePending) {
+		this.attributeChangePending = attributeChangePending;
 	}
 	
 }

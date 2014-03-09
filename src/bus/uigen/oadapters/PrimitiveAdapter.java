@@ -227,7 +227,11 @@ implements PrimitiveAdapterInterface {
 	  propagatePreConditions();	  Object newValue = getViewObject(newValue1);	  
 	  if (haveChangedClass(newValue)) {		  if (getParentAdapter() instanceof uiReplaceableChildren)
 				  ((uiReplaceableChildren) getParentAdapter()).replaceAttributedObject(this, newValue);	  } else		  refreshUIComponentOfSameClass (newValue);
-		  	   */	  processNameChild(newValue1);	 
+		  	   */	  processNameChild(newValue1);
+	  if (attributeChangePending && forceUpdate ) {
+			refreshAttributes();
+			attributeChangePending = false;
+		}	 
   }
   void processNameChild(Object newValue) {	  if (isNameChild || ((keyAdapter != null) && keyAdapter.isNameKey())) {		  ((CompositeAdapter) getParentAdapter()).nameChildChanged((String) newValue);	  }
 	  
