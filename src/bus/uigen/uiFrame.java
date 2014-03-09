@@ -4483,7 +4483,7 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 	}
 
 	void doMyImplicitRefresh() {
-		if (disposed)
+		if (disposed || isSuppressPropertyNotifications())
 			return;
 
 		// System.out.println("before refresh");
@@ -4576,7 +4576,7 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 			implicitRefresh = true;
 			return;
 		}
-		if (refreshing)
+		if (refreshing || isSuppressPropertyNotifications()) // unless they are resumed do not update
 			return;
 		refreshing = true;
 
@@ -5684,11 +5684,12 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 			boolean newVal) {
 		if (suppressPropertyNotifications == newVal)
 			return;
+		this.suppressPropertyNotifications = newVal;
+
 		if (!newVal ) { // resuming notifications  
 			refresh();
 		}
 	
-		this.suppressPropertyNotifications = newVal;
 		
 	}
 	  
