@@ -356,7 +356,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		refreshValueButNotAtomic(newValue, forceUpdate);
 		if (isAtomic())
 			setValueOfAtomicOrPrimitive(newValue);
-		if (attributeChangePending && forceUpdate ) {
+		if (isAttributeChangePending() && forceUpdate ) {
 			refreshAttributes();
 			attributeChangePending = false;
 		}
