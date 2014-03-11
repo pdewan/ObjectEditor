@@ -356,7 +356,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		refreshValueButNotAtomic(newValue, forceUpdate);
 		if (isAtomic())
 			setValueOfAtomicOrPrimitive(newValue);
-		if (isAttributeChangePending() && forceUpdate ) {
+		if (isAttributeChangePending() /* && forceUpdate*/ ) {
 			refreshAttributes();
 			attributeChangePending = false;
 		}
@@ -466,11 +466,19 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		/*
 		 * CONTINUE HERE
 		 */
-		Object value = getRecordStructure().get(componentName);
-		// if (value instanceof AnIdentifiableLoggable &&
-		// !(value instanceof ACompositeLoggable) )
-		// System.out.println( "refreshChild output" );
-		return refresh(value, componentName, forceUpdate);
+		ObjectAdapter childAdapter = getVisibleOrDeletedObjectAdapter(componentName);
+		boolean childHasPendingValue = childAdapter.hasPendingValue();
+		Object value;
+		if (childHasPendingValue)
+			value = childAdapter.getPendingFutureRealObject();
+		else value = getRecordStructure().get(componentName);
+
+//		Object value = getRecordStructure().get(componentName);
+		boolean retVal = refresh(value, componentName, forceUpdate);
+		if (childHasPendingValue)
+			childAdapter.pendingValueProcessed();
+//		return refresh(value, componentName, forceUpdate);
+		return retVal;
 
 	}
 
@@ -3265,6 +3273,37 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		return getVirtualParent().getEditedObjectAdapter(changedPropertyName);
 	}
 	
+    void handleSuppressedNotification(PropertyChangeEvent evt) { // cache this value in child adapter
+    	ObjectAdapter childAdapter = getAdapterForNotifiedProperty( evt);
+    	childAdapter.setPendingFutureRealObject(evt.getNewValue()); // does it make sense to store cache this changes
+    	
+		
+	}
+    
+    ObjectAdapter getAdapterForNotifiedProperty(PropertyChangeEvent evt) {
+    	String changedPrpertyName = evt.getPropertyName();
+    	ObjectAdapter childAdapter = getVisibleOrDeletedObjectAdapter(changedPrpertyName);
+		if (childAdapter != null && childAdapter instanceof CompositeAdapter) {
+			Tracer.warning("Received notification about change to composite property: " + changedPrpertyName  +" .It is usually more efficient to notify about changes to atomic properties." );
+		}
+
+		if (childAdapter == null) {
+			if (changedPrpertyName.equals("this"))
+				childAdapter = this;
+			else {
+				if (evt.getSource() != getViewObject())
+					IllegalSourceOfPropertyNotification.newCase(evt, getViewObject(), this);
+				else
+				UnknownPropertyNotification.newCase(changedPrpertyName, evt.getSource(), this);
+//				Tracer.warning("Received notification for unknown property: "
+//						+ changedPrpertyName + " of object " + evt.getSource() + ". Updating complete object.");
+				childAdapter = this;
+//				return;
+			}
+		}
+		return childAdapter;
+    	
+    }
 
 	// the one in uiObjectAdapter does not work as far as I can tell
 	@Override
@@ -3284,25 +3323,26 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		String changedPrpertyName = evt.getPropertyName();
 		// ObjectAdapter childAdapter =
 		// getStaticChildAdapterMapping(changedPrpertyName);
-		ObjectAdapter childAdapter = getVisibleOrDeletedObjectAdapter(changedPrpertyName);
-		if (childAdapter != null && childAdapter instanceof CompositeAdapter) {
-			Tracer.warning("Received notification about change to composite property: " + changedPrpertyName  +" .It is usually more efficient to notify about changes to atomic properties." );
-		}
-
-		if (childAdapter == null) {
-			if (changedPrpertyName.equals("this"))
-				childAdapter = this;
-			else {
-				if (evt.getSource() != getViewObject())
-					IllegalSourceOfPropertyNotification.newCase(evt, getViewObject(), this);
-				else
-				UnknownPropertyNotification.newCase(changedPrpertyName, evt.getSource(), this);
-//				Tracer.warning("Received notification for unknown property: "
-//						+ changedPrpertyName + " of object " + evt.getSource() + ". Updating complete object.");
-				childAdapter = this;
-//				return;
-			}
-		}
+		ObjectAdapter childAdapter = getAdapterForNotifiedProperty(evt);
+//		ObjectAdapter childAdapter = getVisibleOrDeletedObjectAdapter(changedPrpertyName);
+//		if (childAdapter != null && childAdapter instanceof CompositeAdapter) {
+//			Tracer.warning("Received notification about change to composite property: " + changedPrpertyName  +" .It is usually more efficient to notify about changes to atomic properties." );
+//		}
+//
+//		if (childAdapter == null) {
+//			if (changedPrpertyName.equals("this"))
+//				childAdapter = this;
+//			else {
+//				if (evt.getSource() != getViewObject())
+//					IllegalSourceOfPropertyNotification.newCase(evt, getViewObject(), this);
+//				else
+//				UnknownPropertyNotification.newCase(changedPrpertyName, evt.getSource(), this);
+////				Tracer.warning("Received notification for unknown property: "
+////						+ changedPrpertyName + " of object " + evt.getSource() + ". Updating complete object.");
+//				childAdapter = this;
+////				return;
+//			}
+//		}
 		haveReceivedNotification();
 		ObjectAdapter nearestAdapter = getNearestObjectAdapterWithWidgetAdapter();
 		if (nearestAdapter == null) {

@@ -5569,7 +5569,11 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 	}
 
 	public boolean isFullRefresh() {
-		return explicitRefresh || fullRefreshOnEachOperation;
+		return 
+//				!isProcessingSuppressedNotifications() && // by removing this condition this value we can see the effect of efficient notification processing
+//				(
+				explicitRefresh || fullRefreshOnEachOperation;
+//				);
 	}
 	
 	
@@ -5678,7 +5682,17 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 		return suppressPropertyNotifications;
 	}
 	
+	boolean processingSuppressedNotifications;
 	
+	public boolean isProcessingSuppressedNotifications() {
+		return processingSuppressedNotifications;
+	}
+
+	public void setProcessingSuppressedNotifications(
+			boolean processingSuppressedNotifications) {
+		this.processingSuppressedNotifications = processingSuppressedNotifications;
+	}
+
 	@Override
 	public void setSuppressPropertyNotifications(
 			boolean newVal) {
@@ -5687,7 +5701,10 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 		this.suppressPropertyNotifications = newVal;
 
 		if (!newVal ) { // resuming notifications  
+			processingSuppressedNotifications = true;
 			refresh();
+			processingSuppressedNotifications = false;
+
 		}
 	
 		

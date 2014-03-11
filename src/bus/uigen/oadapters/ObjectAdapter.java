@@ -4232,6 +4232,9 @@ ObjectAdapterInterface, Remote, Serializable
 	}
 	
 	boolean attributeChangePending;
+	void handleSuppressedNotification(PropertyChangeEvent evt) { // subclasses will handle this
+		
+	}
 
 	// Method invoked when a bound property changes
 	//
@@ -4287,8 +4290,10 @@ ObjectAdapterInterface, Remote, Serializable
 				 
 		 }
 		 // need to check this after setting the value
-		 if (getUIFrame().isSuppressPropertyNotifications())
+		 if (getUIFrame().isSuppressPropertyNotifications()) {
+			    handleSuppressedNotification(evt);
 				return;
+		 }
 		 attributeChangePending = false;
 		//		ClassAdapterReceivedPropertyChangeEvent.newCase((ClassAdapter) this, evt) ;
 		// should put in some property to suppress and resume events
@@ -5330,8 +5335,12 @@ ObjectAdapterInterface, Remote, Serializable
 	}
 
 	public boolean uiChanged(Object newValue) {
+		// the following optimization makes lazy programs not work as some properties may not notified
+//		if (getUIFrame().isProcessingSuppressedNotifications() && !hasPendingValue())
+//			return false;
 		if (this instanceof CompositeAdapter)
 			return true;
+		
 		String oldString = getWidgetAdapter().getUIComponentValue().toString();
 		String newString = newValue.toString();
 		return !oldString.equals(newString) && !isEdited();
@@ -7393,6 +7402,22 @@ ObjectAdapterInterface, Remote, Serializable
 	public abstract Object getValue();
 
 	Object previousRealObject;
+	Object pendingFutureRealObject;
+
+	public Object getPendingFutureRealObject() {
+		return pendingFutureRealObject;
+	}
+
+	public void setPendingFutureRealObject(Object pendingFutureRealObject) {
+		this.pendingFutureRealObject = pendingFutureRealObject;
+	}
+	public boolean hasPendingValue() {
+		return pendingFutureRealObject != null;
+	}
+
+	public void pendingValueProcessed() {
+		 setPendingFutureRealObject(null);
+	}
 
 	public Object getOriginalValue() {
 		// return previousRealObject;
