@@ -4271,6 +4271,10 @@ ObjectAdapterInterface, Remote, Serializable
 		 if (newValue instanceof Attribute) {
 			 Attribute attribute = (Attribute) newValue;
 			 ObjectAdapter adapter = getUIFrame().getObjectAdapterFromPath(evt.getPropertyName());
+			 if (adapter == null) {
+				 Tracer.error("No component  of: " + this + " with path:" + evt.getPropertyName());
+				 return;
+			 }
 			 // makes no sense why local does not work but  temp does
 //			 adapter.setLocalAttribute(attribute);
 			 adapter.setTempAttributeValue(attribute.getAttributeName(), attribute.getValue());
