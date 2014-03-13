@@ -354,6 +354,8 @@ public class AttributeNames {
 	public static final String DECINCUNIT = "Dec Inc Unit";
 
 	public static final String INCREMENTAL = "Incremental Feedback";
+	
+	public static final String ACTION_MODE = "actionMode";
 
 	public static final String DOUBLE_CLICK_METHOD = "Double Click Method";
 	

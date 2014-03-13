@@ -1,6 +1,10 @@
 package bus.uigen.adapters;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JTextArea;
 
+import bus.uigen.attributes.AttributeNames;
+import bus.uigen.introspect.Attribute;
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.reflect.ClassProxy;
 import bus.uigen.widgets.ScrollPaneSelector;
@@ -25,6 +29,7 @@ public class TextAreaAdapter	extends TextComponentAdapter {
 	  jtf.setName(adapter.toText());
 	  ((VirtualTextArea) jtf).setLineWrap(true);
 	  ((VirtualTextArea) jtf).setWrapStyleWord(true);
+	  
 	  //VirtualContainer panel = PanelSelector.createPanel();
 	  //panel.add(jtf);
 	  //spane.setScrolledComponent(jtf);
@@ -88,6 +93,23 @@ public class TextAreaAdapter	extends TextComponentAdapter {
 		 jTextArea.setCaretPosition(newVal.length());
 //	  }
 
+  }
+  
+  public void keyTyped (KeyEvent k) { // received after action performed event, key = \n
+	  if (keyTyped) return;
+	  if (actionPerformed) {
+		  actionPerformed = false; // super action
+		  //keyTyped = false;
+	  } else if (jtf.isEditable()) {
+		  if (supplementaryActionMode && k.getKeyChar() == '\n') {
+			  actionPerformed(null);
+			  actionPerformed = false;
+		  }else { // super action
+		  keyTyped = true;
+	      super.uiComponentValueEdited(true);
+	      keyTyped = false; // somehow it is not set to false automatically
+		  }
+	  }
   }
   
   

@@ -1,7 +1,7 @@
 package bus.uigen.adapters;import java.awt.Color;import java.awt.event.KeyEvent;import java.awt.event.KeyListener;import java.awt.event.TextEvent;import java.awt.event.TextListener;import javax.swing.event.DocumentEvent;import javax.swing.event.DocumentListener;import javax.swing.text.PlainDocument;import util.trace.Tracer;import bus.uigen.WidgetAdapter;import bus.uigen.attributes.AttributeNames;import bus.uigen.introspect.Attribute;import bus.uigen.oadapters.PrimitiveAdapter;import bus.uigen.view.SelectionColorSelector;import bus.uigen.view.WidgetShell;import bus.uigen.widgets.VirtualComponent;import bus.uigen.widgets.VirtualTextComponent;import bus.uigen.widgets.events.VirtualActionEvent;import bus.uigen.widgets.events.VirtualActionListener;import bus.uigen.widgets.events.VirtualFocusEvent;import bus.uigen.widgets.events.VirtualFocusListener;public abstract class TextComponentAdapter extends WidgetAdapter 
 implements DocumentListener, VirtualActionListener, TextListener, VirtualFocusListener, KeyListener {
   
-  private boolean actionMode = true;  public static int NUM_COLUMNS = 5;    public static int NUM_ROWS = 5;  boolean linked = false;  boolean mutatingString = false;  String prompt;  boolean sendUnchangedText = true;  boolean isString = true;  boolean isPrimitive = true;
+  protected boolean actionMode = true;  protected boolean supplementaryActionMode = false; // for text area because actionMode seems to be overloaded  public static int NUM_COLUMNS = 5;    public static int NUM_ROWS = 5;  boolean linked = false;  boolean mutatingString = false;  String prompt;  boolean sendUnchangedText = true;  boolean isString = true;  boolean isPrimitive = true;
  
   public boolean isComponentAtomic() {  	return true;  }
   
@@ -116,9 +116,9 @@ implements DocumentListener, VirtualActionListener, TextListener, VirtualFocusLi
     } 
   }
 
-  public boolean processAttribute(Attribute attrib) {  	if (attrib.getName().equals("actionMode") ||    		attrib.getName().equals(AttributeNames.INCREMENTAL)) {
+  public boolean processAttribute(Attribute attrib) {	 if (attrib.getName().equals(AttributeNames.ACTION_MODE) ||//  	if (attrib.getName().equals("actionMode") ||    		attrib.getName().equals(AttributeNames.INCREMENTAL)) {
       if (attrib.getValue() instanceof Boolean) {
-	actionMode = ((Boolean) attrib.getValue()).booleanValue();
+	actionMode = ((Boolean) attrib.getValue()).booleanValue();	supplementaryActionMode = actionMode;
       }
       return true;
     }
