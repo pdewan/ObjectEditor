@@ -3275,6 +3275,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 	
     void handleSuppressedNotification(PropertyChangeEvent evt) { // cache this value in child adapter
     	ObjectAdapter childAdapter = getAdapterForNotifiedProperty( evt);
+    	if (childAdapter == null) return;
     	childAdapter.setPendingFutureRealObject(evt.getNewValue()); // does it make sense to store cache this changes
     	
 		
@@ -3293,11 +3294,14 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			else {
 				if (evt.getSource() != getViewObject())
 					IllegalSourceOfPropertyNotification.newCase(evt, getViewObject(), this);
-				else
+				else {
 				UnknownPropertyNotification.newCase(changedPrpertyName, evt.getSource(), this);
+				return null;
+//				childAdapter = this;
+				}
 //				Tracer.warning("Received notification for unknown property: "
 //						+ changedPrpertyName + " of object " + evt.getSource() + ". Updating complete object.");
-				childAdapter = this;
+//				childAdapter = this;
 //				return;
 			}
 		}
@@ -3324,6 +3328,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		// ObjectAdapter childAdapter =
 		// getStaticChildAdapterMapping(changedPrpertyName);
 		ObjectAdapter childAdapter = getAdapterForNotifiedProperty(evt);
+		if (childAdapter == null) return;
 //		ObjectAdapter childAdapter = getVisibleOrDeletedObjectAdapter(changedPrpertyName);
 //		if (childAdapter != null && childAdapter instanceof CompositeAdapter) {
 //			Tracer.warning("Received notification about change to composite property: " + changedPrpertyName  +" .It is usually more efficient to notify about changes to atomic properties." );

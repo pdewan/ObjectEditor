@@ -14,7 +14,9 @@ public class UnknownPropertyNotification extends ObjectPropertyWarning {
 
 	public static void newCase(String aProperty, Object aTarget, Object aFinder) {
 		String aMessage = "Received notification(s) for unknown (possibly invisible or unrecognized atomic-shape) property: "
-						+ aProperty + " of object: " + aTarget + ". Updating complete object.";
+						+ aProperty + " of object: " + aTarget 
+//						+ ". Updating complete object.";
+						+ ". Ignoring notification.";
 //		Tracer.warning("Received notification for unknown property: "
 //				+ changedPrpertyName + " of object " + evt.getSource() + ". Updating complete object.");
 		new UnknownPropertyNotification(aMessage, aProperty, aTarget, aFinder);

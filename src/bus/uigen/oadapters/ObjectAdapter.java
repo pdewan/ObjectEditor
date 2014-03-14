@@ -83,6 +83,7 @@ import bus.uigen.sadapters.ConcreteType;
 import bus.uigen.sadapters.EnumToEnumeration;
 import bus.uigen.sadapters.RecordStructure;
 import bus.uigen.trace.LogicalStructureNodeCreated;
+import bus.uigen.trace.UnknownPropertyNotification;
 import bus.uigen.view.WidgetShell;
 import bus.uigen.viewgroups.OEView;
 import bus.uigen.visitors.AddListenersAdapterVisitor;
@@ -4272,7 +4273,8 @@ ObjectAdapterInterface, Remote, Serializable
 			 Attribute attribute = (Attribute) newValue;
 			 ObjectAdapter adapter = getUIFrame().getObjectAdapterFromPath(evt.getPropertyName());
 			 if (adapter == null) {
-				 Tracer.error("No component  of: " + this + " with path:" + evt.getPropertyName());
+				 UnknownPropertyNotification.newCase(evt.getPropertyName(), evt.getSource(), this);
+//				 Tracer.war("No component  of: " + getRealObject() + " with path:" + evt.getPropertyName());
 				 return;
 			 }
 			 // makes no sense why local does not work but  temp does
