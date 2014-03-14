@@ -4271,7 +4271,9 @@ ObjectAdapterInterface, Remote, Serializable
 		 Object newValue = evt.getNewValue();
 		 if (newValue instanceof Attribute) {
 			 Attribute attribute = (Attribute) newValue;
-			 ObjectAdapter adapter = getUIFrame().getObjectAdapterFromPath(evt.getPropertyName());
+//			 ObjectAdapter adapter = getUIFrame().getObjectAdapterFromPath(evt.getPropertyName());
+			 ObjectAdapter adapter = pathToObjectAdapter(this, evt.getPropertyName());
+
 			 if (adapter == null) {
 				 UnknownPropertyNotification.newCase(evt.getPropertyName(), evt.getSource(), this);
 //				 Tracer.war("No component  of: " + getRealObject() + " with path:" + evt.getPropertyName());
