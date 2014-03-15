@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import util.annotations.Column;
+import util.annotations.ComponentsVisible;
 import util.annotations.DisplayToString;
 import util.annotations.EditablePropertyNames;
 import util.annotations.IsAtomicShape;
@@ -81,6 +82,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 	MethodProxy addTableListener;
 	MethodProxy addTreeListener;
 	MethodProxy addRemotePropertyListener;
+	boolean componentsVisible = true;
 	public static final String[] ignoreProperties = {"class", "bounds"};
 
 	protected FeatureDescriptorProxy[] features = null;
@@ -726,11 +728,13 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 
 	}
 
-	public static boolean isVisible(MethodProxy aMethod) {
+	public  boolean isVisible(MethodProxy aMethod) {
 		util.annotations.Visible visible = (util.annotations.Visible) aMethod
 				.getAnnotation(util.annotations.Visible.class);
 		if (visible == null)
-			return true;
+//			return true;
+			return componentsVisible;
+
 		else
 			return visible.value();
 
@@ -796,6 +800,10 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 	}
 
 	void initClass() {
+		util.annotations.ComponentsVisible aComponentsVisible = (util.annotations.ComponentsVisible) realClass
+				.getAnnotation(util.annotations.ComponentsVisible.class);
+		if (aComponentsVisible != null)
+			componentsVisible = aComponentsVisible.value();
 		List<ClassProxy> superTypes = IntrospectUtility
 				.getSuperTypes(realClass);
 		String explanations = getExplanationAnnotation(superTypes);
@@ -1677,13 +1685,62 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 		// return md.getValue(attribute);
 		// return getMethodAttribute(md, attribute);
 	}
+	@Override
+	public Object getNonDefaultMethodAttribute(String method, String attribute) {
+		if (method == null)
+			return null;
+		MethodDescriptorProxy md = this.getMethodDescriptor(method);
+		if (md == null) {
+			// System.out.println("Unknown method " + method);
+			/*
+			 * VirtualMethodDescriptor vmd =
+			 * namesToMethodDescriptors.get(method); if (vmd == null) { vmd =
+			 * new VirtualMethodDescriptor();
+			 * namesToMethodDescriptors.put(method, vmd); } md = vmd;
+			 */
+			md = createVirtualMethodDescriptor(method);
+		}
+		Object retVal = getNonDefaultMethodAttribute(md, attribute);
+		if (retVal == null)
+			retVal = allMethods.getValue(attribute);
+		return retVal;
+		// return md.getValue(attribute);
+		// return getMethodAttribute(md, attribute);
+	}
+	
+	public static Object getNonDefaultMethodAttribute(MethodDescriptorProxy md,
+			String attribute) {
+		if (md == null)
+			return null; // taking care of excluded methods for undo
+		Object retVal = md.getValue(attribute);
+		if (retVal != null) return retVal;
+//		if (retVal == null) {
+		else {
+			// Hashtable<String, Integer> intAttributeTable = (Hashtable)
+			// md.getValue(AttributeNames.INT_ATTRIBUTES_ANNOTATION);
+			Vector<Attribute> intAttributeTable = (Vector) md
+					.getValue(AttributeNames.MERGED_ATTRIBUTES_ANNOTATIONS);
+			if (intAttributeTable == null)
+//				return AttributeNames.getDefaultOrSystemDefault(attribute);
+			 return null;
+			// return intAttributeTable.get(attribute);
+			return Attribute.getAttribute(intAttributeTable, attribute);
+		}
+		// this was duplciated code
+//		retVal = md.getValue(attribute);
+//		if (retVal == null)
+//			return retVal;
+//		return md.getValue(attribute);
+	}
 
 	public static Object getMethodAttribute(MethodDescriptorProxy md,
 			String attribute) {
 		if (md == null)
 			return null; // taking care of excluded methods for undo
 		Object retVal = md.getValue(attribute);
-		if (retVal == null) {
+		if (retVal != null) return retVal;
+//		if (retVal == null) {
+		else {
 			// Hashtable<String, Integer> intAttributeTable = (Hashtable)
 			// md.getValue(AttributeNames.INT_ATTRIBUTES_ANNOTATION);
 			Vector<Attribute> intAttributeTable = (Vector) md
@@ -1694,10 +1751,11 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			// return intAttributeTable.get(attribute);
 			return Attribute.getAttribute(intAttributeTable, attribute);
 		}
-		retVal = md.getValue(attribute);
-		if (retVal == null)
-			return retVal;
-		return md.getValue(attribute);
+		// this was duplciated code
+//		retVal = md.getValue(attribute);
+//		if (retVal == null)
+//			return retVal;
+//		return md.getValue(attribute);
 	}
 
 	public void setMethodAttribute(MethodProxy method, String attribute,
@@ -1726,6 +1784,8 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 		allMethods.setValue(attribute, value);
 		for (int i = 0; i < methods.length; i++) {
 			MethodDescriptorProxy md = methods[i];
+			Object existing = md.getValue(attribute);
+			if (existing == null) // do not overwrite specific value
 			md.setValue(attribute, value);
 		}
 
@@ -2063,7 +2123,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 		return (excludedPropertiesVector.contains(property));
 	}
 
-	static boolean ignoredProperty(PropertyDescriptorProxy p, ClassProxy c,
+	 boolean ignoredProperty(PropertyDescriptorProxy p, ClassProxy c,
 			String name) {
 		if (excluded(name))
 			return true;
@@ -2090,7 +2150,8 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 		 * Generic vector should remove this if (uiBean.isVector(c) &&
 		 * name.equals("empty")) return true;
 		 */
-		return false;
+//		return false;
+		return !componentsVisible;
 	}
 	
 	static boolean displayToString(ClassProxy c) {
@@ -3489,6 +3550,14 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 
 	public static boolean excludeMethod(MethodProxy method) {
 		return excludeMethods.contains(method.getName());
+	}
+	@Override
+	public boolean isComponentsVisible() {
+		return componentsVisible;
+	}
+	@Override
+	public void setComponentsVisible(boolean componentsVisible) {
+		this.componentsVisible = componentsVisible;
 	}
 
 	/*

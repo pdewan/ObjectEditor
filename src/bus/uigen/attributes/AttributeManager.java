@@ -66,7 +66,10 @@ public static AnInheritedAttributeValue  getInheritedAttribute(uiFrame theFrame,
 			   retVal = objectAdapter.getMultiLevelPathAttributeOfMethod(METHOD_PREFIX + md.getName(), attribute);
 		  }
 		  if (retVal == null)  
-		  retVal = AClassDescriptor.getMethodAttribute(md, attribute);
+//		  retVal = AClassDescriptor.getMethodAttribute(md, attribute); 
+		  // why get default value!
+		  retVal = AClassDescriptor.getNonDefaultMethodAttribute(md, attribute);
+
 	  //Object retVal = getMethodAttribute(md, attribute);
 	  if (retVal != null) return new AnInheritedAttributeValue (retVal, AnInheritedAttributeValue.InheritanceKind.INSTANCE);
 	 //Class c = getMostSpecificType( VirtualMethodDescriptor.getVirtualMethod(md));
@@ -76,7 +79,9 @@ public static AnInheritedAttributeValue  getInheritedAttribute(uiFrame theFrame,
 	  Object realObject = objectAdapter.getRealObject();
 	  if (realObject != null) {
 		  ClassDescriptorInterface  cd = ClassDescriptorCache.getClassDescriptor(realObject.getClass()); 
-			 retVal = cd.getMethodAttribute(md.getName(), attribute);
+//			 retVal = cd.getMethodAttribute(md.getName(), attribute);
+			 retVal = cd.getNonDefaultMethodAttribute(md.getName(), attribute);
+
 			 if (retVal != null)
 				 return new AnInheritedAttributeValue (retVal, AnInheritedAttributeValue.InheritanceKind.INSTANCE);
 				 	

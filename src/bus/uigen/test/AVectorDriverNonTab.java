@@ -31,7 +31,7 @@ public class AVectorDriverNonTab {
 	}
 	
 	public void addTemplate() {
-		list.add(new ACompositeExample(template.getAString(), template.getAnInt()));
+		list.add(new ACompositeExample(template.getString(), template.getInt()));
 	}
 
 	public static void main (String[] args) {

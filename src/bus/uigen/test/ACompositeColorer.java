@@ -16,8 +16,8 @@ public class ACompositeColorer extends ACompositeObservable {
 //		frame = aFrame;
 //	}
 //	
-	public void setAString(String newVal) {
-		super.setAString(newVal);
+	public void setString(String newVal) {
+		super.setString(newVal);
 		if (newVal.isEmpty()) {
 			propertyChangeSupport.firePropertyChange("AString", null,
 					new Attribute(AttributeNames.CONTAINER_BACKGROUND, Color.PINK));

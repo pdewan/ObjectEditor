@@ -25,12 +25,12 @@ public class ACompositeObservable extends ACompositeExample  implements Property
 		
 		
 	}
-	public void setAString(String newVal) {
+	public void setString(String newVal) {
 		String oldVal = string;
 
-		super.setAString(newVal);
+		super.setString(newVal);
 		propertyChangeSupport.firePropertyChange("AString", oldVal, newVal);
-		propertyChangeSupport.firePropertyChange("AnIntAndString", null, getAnIntAndString());
+		propertyChangeSupport.firePropertyChange("AnIntAndString", null, getIntAndString());
 
 
 	}
@@ -44,11 +44,11 @@ public class ACompositeObservable extends ACompositeExample  implements Property
 //		return intVal;
 //	}
 
-	public void setAnInt(int newVal) {
+	public void setInt(int newVal) {
 		int oldVal = intVal;
-		super.setAnInt(newVal);
+		super.setInt(newVal);
 		propertyChangeSupport.firePropertyChange("AnInt", oldVal, newVal);
-		propertyChangeSupport.firePropertyChange("AnIntAndString", null, getAnIntAndString());
+		propertyChangeSupport.firePropertyChange("AnIntAndString", null, getIntAndString());
 
 	}
 	
@@ -58,7 +58,7 @@ public class ACompositeObservable extends ACompositeExample  implements Property
 		super.set(newString, newInt);
 		propertyChangeSupport.firePropertyChange("AnInt", oldInt, newInt);
 		propertyChangeSupport.firePropertyChange("AString", oldString, newString);
-		propertyChangeSupport.firePropertyChange("AnIntAndString", null, getAnIntAndString());
+		propertyChangeSupport.firePropertyChange("AnIntAndString", null, getIntAndString());
 
 
 	}
@@ -79,9 +79,9 @@ public class ACompositeObservable extends ACompositeExample  implements Property
 		example.set("hello", 2);
 		ThreadSupport.sleep(1000);
 		example.toggleNotifications();
-		example.setAString("bye");
+		example.setString("bye");
 		ThreadSupport.sleep(1000);		
-		example.setAnInt(1);
+		example.setInt(1);
 		example.toggleNotifications();
 
 		

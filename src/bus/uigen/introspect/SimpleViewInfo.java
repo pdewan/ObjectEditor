@@ -238,6 +238,21 @@ public void initPropertyMergedAttributes(PropertyDescriptorProxy pd) {
 	// TODO Auto-generated method stub
 	
 }
+@Override
+public Object getNonDefaultMethodAttribute(String method, String attribute) {
+	// TODO Auto-generated method stub
+	return null;
+}
+@Override
+public boolean isComponentsVisible() {
+	// TODO Auto-generated method stub
+	return false;
+}
+@Override
+public void setComponentsVisible(boolean componentsVisible) {
+	// TODO Auto-generated method stub
+	
+}
 
 
 }

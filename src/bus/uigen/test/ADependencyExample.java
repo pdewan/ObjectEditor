@@ -37,11 +37,11 @@ public class ADependencyExample  extends ACompositeExample{
 		return textAttributes;
 	}
 	
-	public void setAString(String string) {
+	public void setString(String string) {
 		this.string = string;
 	}
 //	@PreferredWidgetClass(JLabel.class)
-	public String getAString() {
+	public String getString() {
 		return string;
 	}
 

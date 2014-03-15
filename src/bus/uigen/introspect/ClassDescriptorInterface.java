@@ -65,6 +65,9 @@ MethodProxy getAddObserverMethod();
 MethodProxy getAddRefresherMethod();
 public Hashtable getAttributes();
 public void initPropertyMergedAttributes(PropertyDescriptorProxy pd);
+Object getNonDefaultMethodAttribute(String method, String attribute);
+boolean isComponentsVisible();
+void setComponentsVisible(boolean componentsVisible);
 
 //public PropertyDescriptorProxy[] getPropertyDesciptors();
 }

@@ -23,7 +23,7 @@ public class HTMLLinkTester {
 //		example.setString("<HTML>Click the <FONT color=\"#000099\"><U>http://sourceforge.net/projects/jhyperlink/</U></FONT>"
 //        + " to go to the Java website.</HTML>");
 //		example.setString(link);
-		example.setAString(html);
+		example.setString(html);
 
 //		example.setString("<html><ahref=http://www.cs.unc.edu/~dewan/401/current/Lectures/AnimationThreadsWaitNotify.pptx>PowerPoint</a></html>");
 		Pattern pattern = Pattern.compile(regexp2);

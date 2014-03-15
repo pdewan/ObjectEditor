@@ -24,7 +24,10 @@ public class ACompositeExample  {
 		
 		
 	}
-	public void setAString(String newVal) {
+	public void incInt() {
+		intVal++;
+	}
+	public void setString(String newVal) {
 		String oldVal = string;
 
 		this.string = newVal;
@@ -35,15 +38,15 @@ public class ACompositeExample  {
 	}
 	@Explanation("A String")
 //	@PreferredWidgetClass(JLabel.class)
-	public String getAString() {
+	public String getString() {
 		return string;
 	}
 	@Explanation("An Int")
-	public int getAnInt() {
+	public int getInt() {
 		return intVal;
 	}
 
-	public void setAnInt(int newVal) {
+	public void setInt(int newVal) {
 		this.intVal = newVal;
 		
 	}
@@ -56,7 +59,7 @@ public class ACompositeExample  {
 
 
 	}
-	public String getAnIntAndString() {
+	public String getIntAndString() {
 		return string + intVal;
 	}
 //	boolean notificationsSuppressed;
@@ -73,9 +76,9 @@ public class ACompositeExample  {
 		example.set("hello", 2);
 		ThreadSupport.sleep(1000);
 //		example.toggleNotifications();
-		example.setAString("bye");
+		example.setString("bye");
 		ThreadSupport.sleep(1000);		
-		example.setAnInt(1);
+		example.setInt(1);
 //		example.toggleNotifications();
 
 		

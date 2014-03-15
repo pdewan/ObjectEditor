@@ -640,6 +640,7 @@ public class AttributeNames {
 	public static final Color DEFAULT_MENUBAR_COLOR = CAROLINA_BLUE; // not used so far
 //	public static final Color DEFAULT_SELECTION_COLOR = new Color (153, 153, 255);
 	public static final Color DEFAULT_SELECTION_COLOR = Color.CYAN;
+	public static final String IGNORE_NOTIFICATION = "ObjectEditor ignore notification";
 	
 
 	

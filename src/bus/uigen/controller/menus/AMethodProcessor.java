@@ -11,6 +11,7 @@ import util.models.Hashcodetable;
 import bus.uigen.WidgetAdapter;
 import bus.uigen.uiFrame;
 import bus.uigen.attributes.AnInheritedAttributeValue;
+import bus.uigen.attributes.AnInheritedAttributeValue.InheritanceKind;
 import bus.uigen.attributes.AttributeManager;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.compose.ButtonCommand;
@@ -385,14 +386,28 @@ public class AMethodProcessor {
 				);
 	}
 	
+	public static boolean isComponentVisible(MethodDescriptorProxy md,  ObjectAdapter adapter) {
+		if (adapter.getRealObject() == null) return true; // default is visible;
+		ClassDescriptorInterface cd = ClassDescriptorCache.getClassDescriptor(adapter.getRealObject().getClass());
+		return cd.isComponentsVisible();
+	}
+	
 	public static boolean isDisplayedCommand (uiFrame frame, MethodDescriptorProxy md, MethodProxy m, Object object, ObjectAdapter adapter) {
 		//Class cl = object.getClass();
-		Object isVisibleObject = AttributeManager.getInheritedAttribute(frame, md,
-				AttributeNames.VISIBLE, adapter).getValue();
-		if (isVisibleObject != null) {
-			boolean isVisible = (Boolean) isVisibleObject;
-			if (!isVisible)
-				return false;
+		AnInheritedAttributeValue attributeObject =  AttributeManager.getInheritedAttribute(frame, md,
+				AttributeNames.VISIBLE, adapter);
+		
+//		Object isVisibleObject = AttributeManager.getInheritedAttribute(frame, md,
+//				AttributeNames.VISIBLE, adapter).getValue();
+		Boolean isVisibleObject = (Boolean) attributeObject.getValue();
+		
+		if (isVisibleObject != null && 
+				attributeObject.getInheritanceKind() != InheritanceKind.DEFAULT && 
+				attributeObject.getInheritanceKind() !=  InheritanceKind.SYSTEM_DEFAULT) {
+//			boolean isVisible = (Boolean) isVisibleObject;
+//			if (!isVisibleObject)
+//				return false;
+			return isVisibleObject; // overridden
 		}
 		
 		if (IntrospectUtility.isPre(m))
@@ -404,7 +419,15 @@ public class AMethodProcessor {
 				return false;
 //		if (adapter != null && adapter.getConcreteObject().isPatternMethod(m))
 //			return false;
-		return true;
+		if (isVisibleObject != null && 
+				attributeObject.getInheritanceKind() != InheritanceKind.DEFAULT ) {
+//			boolean isVisible = (Boolean) isVisibleObject;
+//			if (!isVisibleObject)
+//				return false;
+			return isVisibleObject; // give it more precedence over annotation
+		}
+		return isComponentVisible(md, adapter);
+//		return true;
 		
 	}
 	

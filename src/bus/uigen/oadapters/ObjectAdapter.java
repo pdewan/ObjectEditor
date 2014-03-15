@@ -4247,6 +4247,7 @@ ObjectAdapterInterface, Remote, Serializable
 //		System.out.println ("Synchronized Property Change Listener Started");
 		// System.out.println("Property change:
 		// "+evt.getPropertyName()+"="+evt.getNewValue());
+		
 		if (evt.getSource() == null) {
 			Tracer.error("Null source in:" + evt);
 			return;
@@ -4257,6 +4258,10 @@ ObjectAdapterInterface, Remote, Serializable
 		}
 		if (isDisposed())
 			return;	
+		if (AttributeNames.IGNORE_NOTIFICATION == evt.getSource() ||
+				AttributeNames.IGNORE_NOTIFICATION == evt.getPropertyName() ||
+				AttributeNames.IGNORE_NOTIFICATION == evt.getOldValue())
+			return; // not an OE notification, meant for other observers
 		notifyAttributeDependencies(evt);
 		if (!isVisibleComponent()) {
 			return;
