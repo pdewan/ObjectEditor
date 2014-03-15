@@ -28,6 +28,7 @@ import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.reflect.ClassProxy;
 import bus.uigen.reflect.MethodProxy;
 import bus.uigen.reflect.StandardProxyTypes;
+import bus.uigen.reflect.local.AClassProxy;
 import bus.uigen.reflect.local.ReflectUtil;
 import bus.uigen.trace.MenuAdditionEnded;
 import bus.uigen.trace.MenuAdditionStarted;
@@ -386,9 +387,19 @@ public class AMethodProcessor {
 				);
 	}
 	
-	public static boolean isComponentVisible(MethodDescriptorProxy md,  ObjectAdapter adapter) {
-		if (adapter.getRealObject() == null) return true; // default is visible;
-		ClassDescriptorInterface cd = ClassDescriptorCache.getClassDescriptor(adapter.getRealObject().getClass());
+	public static boolean isComponentVisible(MethodDescriptorProxy md, Object object, ObjectAdapter adapter) {
+		Class aClass;
+		if (object != null)
+			aClass = object.getClass();
+		else if (adapter.getRealObject() != null) {
+			aClass = adapter.getRealObject().getClass();
+		} else {
+			return true; // default is visible;
+		}
+//		ClassProxy declaringClass = md.getMethod().getDeclaringClass();
+//		ClassProxy dynamicClass = md.getMethod().getDynamicClass();
+//		if (adapter.getRealObject() == null) return true; // default is visible;
+		ClassDescriptorInterface cd = ClassDescriptorCache.getClassDescriptor(aClass);
 		return cd.isComponentsVisible();
 	}
 	
@@ -426,7 +437,7 @@ public class AMethodProcessor {
 //				return false;
 			return isVisibleObject; // give it more precedence over annotation
 		}
-		return isComponentVisible(md, adapter);
+		return isComponentVisible(md, object, adapter);
 //		return true;
 		
 	}

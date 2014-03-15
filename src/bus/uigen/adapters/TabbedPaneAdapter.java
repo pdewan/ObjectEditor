@@ -35,7 +35,7 @@ public class TabbedPaneAdapter extends PanelAdapter implements
 	public VirtualComponent instantiateComponent(ClassProxy cclass, ObjectAdapter adapter) {
 		//tabbedPane = new JTabbedPane();
 		tabbedPane = TabbedPaneSelector.createTabbedPane();
-		tabbedPane.setTabPlacement(JTabbedPane.BOTTOM);
+//		tabbedPane.setTabPlacement(JTabbedPane.BOTTOM);
 		  instantiatedComponent = true;
 		  tabbedPane.setName(adapter.toText());
 		return (tabbedPane);
