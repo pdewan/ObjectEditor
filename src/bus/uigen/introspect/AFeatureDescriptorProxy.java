@@ -1,13 +1,18 @@
 package bus.uigen.introspect;
 
 import java.beans.FeatureDescriptor;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Enumeration;
 import java.util.Hashtable;
+
+import bus.uigen.trace.AttributeSetInfo;
 
 public class AFeatureDescriptorProxy implements FeatureDescriptorProxy {
 	FeatureDescriptor fd;	
 	String name, displayName;
 	Hashtable<String, Object> attributes = new Hashtable();
+	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 	public AFeatureDescriptorProxy (String theName, String theDisplayName ) {
 		name = theName;
 		displayName = theDisplayName;
@@ -67,7 +72,11 @@ public class AFeatureDescriptorProxy implements FeatureDescriptorProxy {
 //		if (fd != null)
 //			fd.setValue(attributeName, value);
 //		else
+			Object oldValue = attributes.get(attributeName);
 			attributes.put(attributeName, value);
+			AttributeSetInfo.newCase(this, attributeName, value, this);
+			propertyChangeSupport.firePropertyChange(attributeName, oldValue, value);
+			
 		
 	}
 
@@ -84,6 +93,11 @@ public class AFeatureDescriptorProxy implements FeatureDescriptorProxy {
 			return name;
 		else
 			return super.toString();
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener aListener) {
+		propertyChangeSupport.addPropertyChangeListener(aListener);
 	}
 
 }
