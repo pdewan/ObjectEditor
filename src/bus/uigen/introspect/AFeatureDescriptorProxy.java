@@ -76,7 +76,7 @@ public class AFeatureDescriptorProxy implements FeatureDescriptorProxy {
 			attributes.put(attributeName, value);
 			AttributeSetInfo.newCase(this, attributeName, value, this);
 			propertyChangeSupport.firePropertyChange(attributeName, oldValue, value);
-			
+//			
 		
 	}
 

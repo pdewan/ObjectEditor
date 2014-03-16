@@ -29,12 +29,20 @@ public class AttributeSetInfo extends TraceableInfo {
 	public FeatureDescriptorProxy getFeature() {
 		return feature;
 	}
-	
+	// for some reason this screws up attribute settings
 	public static AttributeSetInfo newCase(FeatureDescriptorProxy aFeature, String anAttributeName, Object anAttributeValue, Object aFinder) {
-		String aMessage = "Setting attribute: " + anAttributeName + " to: " + anAttributeValue + " of feature:" + aFeature;
+// the lines below cause strange issues with attributes
+//		String aMessage = "Setting attribute: " + anAttributeName + " to: " + anAttributeValue + " of feature: " + aFeature;
+//		String aMessage = "Setting attribute: " + anAttributeName + " to: " + anAttributeValue + " of feature:" + aFeature.getName();
+		String aMessage = "Setting attribute: " + anAttributeName + " to: " + anAttributeValue ;
+
+
+//		String aMessage = "foo";
 		AttributeSetInfo retVal = new AttributeSetInfo(aMessage, aFeature, anAttributeName, anAttributeValue, aFinder);
 		retVal.announce();		
+		
 		return retVal;
+//		return null;
 	}
 	
 //	public void setAttributeValue(Object attributeValue) {

@@ -5702,7 +5702,7 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 
 		if (!newVal ) { // resuming notifications  
 			processingSuppressedNotifications = true;
-			refresh();
+			doRefresh();
 			processingSuppressedNotifications = false;
 
 		}

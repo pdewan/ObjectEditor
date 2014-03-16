@@ -3296,7 +3296,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 					IllegalSourceOfPropertyNotification.newCase(evt, getViewObject(), this);
 				else {
 				UnknownPropertyNotification.newCase(changedPrpertyName, evt.getSource(), this);
-				return null;
+//				return null;
 //				childAdapter = this;
 				}
 //				Tracer.warning("Received notification for unknown property: "

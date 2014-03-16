@@ -89,8 +89,8 @@ public class TextAreaAdapter	extends TextComponentAdapter {
 	  super.setText(newVal);
 //	  if (spane != null) {
 		 VirtualTextArea vta = (VirtualTextArea) jtf;		 
-		 JTextArea jTextArea = (JTextArea) vta.getPhysicalComponent();
-		 jTextArea.setCaretPosition(newVal.length());
+//		 JTextArea jTextArea = (JTextArea) vta.getPhysicalComponent();
+//		 jTextArea.setCaretPosition(newVal.length());
 //	  }
 
   }
