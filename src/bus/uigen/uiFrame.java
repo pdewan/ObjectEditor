@@ -1032,6 +1032,8 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 	boolean disposed;
 
 	public void dispose() {
+		if (disposed)
+			return;
 		disposed = true;
 		myFrame.dispose();
 		ObjectAdapter rootAdapter = this.getRootAdapter();
