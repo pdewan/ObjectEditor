@@ -5,6 +5,7 @@ import bus.uigen.widgets.ButtonGroupSelector;
 import bus.uigen.widgets.RadioButtonSelector;
 import bus.uigen.widgets.VirtualButton;
 import bus.uigen.widgets.VirtualButtonGroup;
+import bus.uigen.widgets.VirtualComboBox;
 import bus.uigen.widgets.VirtualRadioButton;
 import bus.uigen.widgets.events.VirtualActionEvent;
 
@@ -251,10 +252,29 @@ import bus.uigen.widgets.events.VirtualActionEvent;
 							//doesn't ultimately change the value of the widget		super.uiComponentValueChanged();	  //}
   }
   
-    */  
+    */  boolean isEditable;
   boolean textChanged() {	  if (haveSetModel) return false;
 	  if (text == null) return true;	  	  return !text.equals(getSelectedButtonString());	  
-  }  
+  }
+  
+  public void setUIComponentEditable() {
+		isEditable = true;
+//		 ((VirtualButtonGroup) getUIComponent()).setEditable(true);
+//		 ((VirtualButtonGroup) getUIComponent()).setEnabled(true);
+	}
+
+	public void setUIComponentUneditable() {
+		isEditable = false;
+//		 ((VirtualComboBox) getUIComponent()).setEditable(false);
+//		 ((VirtualComboBox) getUIComponent()).setEnabled(false);
+	}
+
+	void resetUIComponentEditable() {
+		if (!isEditable)
+			setUIComponentUneditable();
+		// ((VirtualComboBox) getUIComponent()).setEnabled(false);
+
+	}  
   /*
   						     public void actionPerformed(ActionEvent e) {
 	  
