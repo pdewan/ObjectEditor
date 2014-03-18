@@ -423,7 +423,8 @@ public class ComboBoxAdapter extends AbstractEnumerationWidgetAdapter {
 	 */
 
 	public void itemStateChanged(ItemEvent ev) {
-		if (haveSetModel)
+		if (haveSetModel ||
+				!isEditable)
 			return;
 		noItemState = false;
 		uiComponentValueChanged();
@@ -493,11 +494,13 @@ public class ComboBoxAdapter extends AbstractEnumerationWidgetAdapter {
 	public void setUIComponentEditable() {
 		isEditable = true;
 		 ((VirtualComboBox) getUIComponent()).setEditable(true);
+		 ((VirtualComboBox) getUIComponent()).setEnabled(true);
 	}
 
 	public void setUIComponentUneditable() {
 		isEditable = false;
 		 ((VirtualComboBox) getUIComponent()).setEditable(false);
+		 ((VirtualComboBox) getUIComponent()).setEnabled(false);
 	}
 
 	void resetUIComponentEditable() {
