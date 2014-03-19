@@ -803,6 +803,10 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		while (keys.hasMoreElements()) {
 			String componentName = keys.nextElement();
 			ObjectAdapter child = mapping.get(componentName);
+			if (child == null) {
+				Tracer.error("Null child, shoulld not happen");
+				continue;
+			}
 			deletedChildren.put(componentName, child);
 			/*
 			 * mapping.remove(child);
