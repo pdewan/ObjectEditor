@@ -223,7 +223,7 @@ import bus.uigen.widgets.events.VirtualActionEvent;
 		   currentModel = newval;
 		   if (newSize != oldSize)
 		   		rebuildButtons();
-		   if (newval != currentModel)
+		   if (newval != currentModel || firstTime) // similar check is being done in radio button panel
 			   refreshPanel(newval);
 
 //		   oldSize = newSize;
@@ -238,7 +238,7 @@ import bus.uigen.widgets.events.VirtualActionEvent;
 		  	}
 		  	*/
 //		  refreshPanel(newval);
-		  
+		  firstTime = false; // maybe let subclass handle this
 		  
 	  }
 	 

@@ -376,7 +376,7 @@ public abstract class WidgetAdapter implements WidgetAdapterInterface,
 		//System.out.println(this);
 	}
 
-	boolean firstTime = true;
+	protected boolean firstTime = true;
 
 	// Method to be invoked by an actual instance of
 	// this class when a change occurs in the widget
