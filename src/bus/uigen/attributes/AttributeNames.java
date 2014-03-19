@@ -151,7 +151,7 @@ public class AttributeNames {
 	
 	public static final String ADD_WEIGHT_Y_CONSTRAINT = "Add Width Y Constraint";
 	
-	public static final String ADD_FILL_CONSTRAINT = STRETCHABLE_BY_PARENT;
+	public static final String ADD_FILL_CONSTRAINT = "Add Fill Constraint";
 
 
 	public static final String ROWS_FULL_SIZE = "Rows Full Size";

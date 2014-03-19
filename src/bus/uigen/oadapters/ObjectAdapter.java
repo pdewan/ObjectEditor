@@ -2955,6 +2955,11 @@ ObjectAdapterInterface, Remote, Serializable
 		return ((Integer) getMergedTempOrDefaultAttributeValue(AttributeNames.ADD_ANCHOR_CONSTRAINT));
 			
 	}
+	
+	public Integer getAddFillConstraint() {
+		return ((Integer) getMergedTempOrDefaultAttributeValue(AttributeNames.ADD_FILL_CONSTRAINT));
+			
+	}
 
 	public boolean getStretchRows() {
 
@@ -5881,13 +5886,15 @@ ObjectAdapterInterface, Remote, Serializable
 			return getDefaultAttributeValue(name);
 		try {
 			if (mergedAttributeList == null) {
-				System.out.println("Merged AttributeList is null at start of loop");
+				Tracer.error("Merged AttributeList is null at start of loop");
 				return null;
 			}
 				
 		for (int i = 0; i < mergedAttributeList.size(); i++) {
-			if (mergedAttributeList == null) // dont understand when this will happen
-				System.out.println("Merged AttributeList is null on iteration: " + i);
+			if (mergedAttributeList == null) { // dont understand when this will happen 
+				Tracer.error("Merged AttributeList is null on iteration: " + i);
+				return null;
+			}
 			try {
 			Attribute a = (Attribute) mergedAttributeList.elementAt(i);
 			

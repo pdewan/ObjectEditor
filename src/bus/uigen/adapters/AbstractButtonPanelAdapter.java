@@ -137,7 +137,10 @@ import bus.uigen.widgets.events.VirtualActionEvent;
   	stringToButtons = new Hashtable();
   	buttonsPanel.removeAll();
   	//buttonGroup = new ButtonGroup();
-  	for (int i = 0; i < getSize(); i ++) {
+  	int newSize = getSize();
+//  	for (int i = 0; i < getSize(); i ++) {
+  	for (int i = 0; i < newSize; i ++) {
+
   		Object item = getElementAt(i);
   		String itemString = item.toString();
   		//AbstractButton button = new JRadioButton(itemString);
@@ -164,6 +167,7 @@ import bus.uigen.widgets.events.VirtualActionEvent;
   	buttonsPanel.setLayout(new GridLayout (0, numCols));
   	oldSize = getSize();
   	*/
+  	oldSize = newSize;
   	
   	
   }
@@ -212,10 +216,17 @@ import bus.uigen.widgets.events.VirtualActionEvent;
 	 //Component c = getUIComponent();
 	 	 
 			 	  if ( this.getObjectAdapter() instanceof EnumerationAdapter) {		  //enumerationAdapter = (uiEnumerationAdapter) this.getObjectAdapter();
-		  boolean rebuild = (newval != currentModel) || (oldSize != getSize() );
+		  int newSize = getSize();
+//		  boolean rebuild = (newval != currentModel) || (oldSize != getSize() );
+//		  boolean rebuild = (newval != currentModel) || (oldSize != newSize );
+
 		   currentModel = newval;
-		   if (rebuild)
-		   	rebuildButtons();
+		   if (newSize != oldSize)
+		   		rebuildButtons();
+		   if (newval != currentModel)
+			   refreshPanel(newval);
+
+//		   oldSize = newSize;
 			 //Object initialItem = this.getSelectedItem();	
 		  /*
 		  for (int i = 0; i < getSize(); i ++ ) {
@@ -226,7 +237,7 @@ import bus.uigen.widgets.events.VirtualActionEvent;
 		  		buttonGroup.add
 		  	}
 		  	*/
-		  refreshPanel(newval);
+//		  refreshPanel(newval);
 		  
 		  
 	  }

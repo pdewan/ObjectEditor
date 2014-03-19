@@ -410,6 +410,18 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			return null;
 	}
 	
+	 Integer getAddFillConstraint(Object o) {
+		Integer retVal = null;
+		if (o instanceof ObjectAdapter)
+			retVal = ((ObjectAdapter) o).getAddFillConstraint();
+		else if (o instanceof ButtonCommand)
+			retVal = ((ButtonCommand) o).getAddFillConstraint();
+		if (retVal == null)
+			return getComputedAddFillConstraint(o);
+		
+		return retVal;
+	}
+	
 	static Boolean getStretchableByParent(Object o) {
 		if (o instanceof ObjectAdapter)
 			return ((ObjectAdapter) o).getStretchableByParent();
@@ -419,7 +431,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			return null;
 	}
 	
-	 Integer getAddFillConstraint(Object o) {
+	 Integer getComputedAddFillConstraint(Object o) {
 		Boolean stretchable = getStretchableByParent(o);
 		if (stretchable == null || !stretchable) return null;
 		if (adapter.getDirection().equals(AttributeNames.VERTICAL))
