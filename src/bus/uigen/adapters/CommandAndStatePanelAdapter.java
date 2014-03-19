@@ -344,9 +344,11 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 		 if (weightX != null)
 			 c.weightx = weightX;
 		 else
-			 c.weightx = 1.0;
+			 c.weightx = 1.0; // should this depend on direction
 		 if (weightY != null)
 			 c.weighty = weightY;
+//		 else 
+//			 c.weighty = 0; //newval != currentModel
 		 if (width != null)
 			 c.gridwidth = width;
 		 if (anchor != null)
