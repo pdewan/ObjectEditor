@@ -981,11 +981,11 @@ public class AMethodProcessor {
 		  if (menuName != null)
 			  return (String) menuName;
 		  			  
-		  return AMethodProcessor.getMethodMenuName (md.getVirtualMethod(), adapter, cl);
+		  return AMethodProcessor.getMethodMenuName (md, md.getVirtualMethod(), adapter, cl);
 		  
 		  
 	  }
-	public static String getMethodMenuName(MethodProxy m, ObjectAdapter adapter, ClassProxy cl) {
+	public static String getMethodMenuName(VirtualMethodDescriptor md, MethodProxy m, ObjectAdapter adapter, ClassProxy cl) {
 		String menuName = adapter.getMenuName();
 		if (menuName != null) return menuName;		
 		if (adapter.getShowInterfaceMenus())
@@ -994,6 +994,11 @@ public class AMethodProcessor {
 		  return AClassDescriptor.getLabel (AClassDescriptor.getMostSpecificClass(m));		
 		else
 			return AClassDescriptor.getLabel(cl);
+//		 return (String) AttributeManager	.getInheritedAttribute(
+//				adapter.getUIFrame(),
+//				md,
+//				AttributeNames.LABEL,
+//				adapter).getValue();
 			
 	}
 

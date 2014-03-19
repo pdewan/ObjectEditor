@@ -1576,6 +1576,10 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 		Object retVal = getBeanDescriptor().getValue(attribute);
 		if (retVal == null && AttributeNames.NAME_PROPERTY.equals(attribute))
 			return AttributeNames.KEY_LABEL;
+//		// hope this does not cause issues
+//		if (retVal == null)
+//			retVal = getAnnotationAttribute(getBeanDescriptor(), attribute);
+			
 
 		return retVal;
 	}
@@ -3262,7 +3266,11 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 	public static String getLabel(ClassProxy c) {
 		ClassDescriptorInterface cd = ClassDescriptorCache
 				.getClassDescriptor(c);
-		String name = (String) cd.getAttribute(AttributeNames.LABEL);
+		String name = (String) cd.getAttribute(AttributeNames.LABEL);	
+		if (name == null)
+			// hope this does not cause issues
+			
+				name = (String) getAnnotationAttribute(cd.getBeanDescriptor(), AttributeNames.LABEL);
 		if (name == null)
 			name = toShortName(c.getName());
 		return name;
