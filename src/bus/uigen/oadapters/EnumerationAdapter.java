@@ -184,7 +184,8 @@ public class EnumerationAdapter extends PrimitiveAdapter  implements PrimitiveAd
 		haveReceivedNotification();
 		if (evt.getPropertyName().equals("choices")) {
 			setChoices(evt.getNewValue());
-			return;
+			// why return, let us update the UI
+//			return;
 		} else if (evt.getPropertyName().equals("value")){
 			setChoiceValue(evt.getNewValue());
 		} else {
