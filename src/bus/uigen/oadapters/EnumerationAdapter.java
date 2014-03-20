@@ -5,6 +5,7 @@ import java.lang.reflect.*;
 import java.rmi.RemoteException;
 import java.util.*;import java.beans.*;
 
+import util.models.DynamicEnum;
 import util.models.RemotePropertyChangeListener;
 import util.trace.Tracer;
 import bus.uigen.*;import bus.uigen.ars.*;
@@ -12,6 +13,7 @@ import bus.uigen.attributes.AttributeNames;
 import bus.uigen.introspect.*;import bus.uigen.loggable.ACompositeLoggable;
 import bus.uigen.reflect.ClassProxy;
 import bus.uigen.sadapters.ConcreteEnumeration;import bus.uigen.sadapters.ConcreteType;
+
 import java.util.List;
 public class EnumerationAdapter extends PrimitiveAdapter  implements PrimitiveAdapterInterface
 //implements ObjectValueChangedListener, RemotePropertyChangeListener 
@@ -184,6 +186,8 @@ public class EnumerationAdapter extends PrimitiveAdapter  implements PrimitiveAd
 		haveReceivedNotification();
 		if (evt.getPropertyName().equals("choices")) {
 			setChoices(evt.getNewValue());
+			DynamicEnum dynamicEnum = (DynamicEnum) evt.getSource();
+			setChoiceValue(dynamicEnum.getValue());
 			// why return, let us update the UI
 //			return;
 		} else if (evt.getPropertyName().equals("value")){
