@@ -1009,8 +1009,12 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 		// if (myContainer == null) return 0;
 		return myContainer.getComponentCount();
 	}
-
+	
+	List<WindowListener> windowListeners = new ArrayList();
+	@Override
 	public void addWindowListener(WindowListener newVal) {
+//		if (windowListeners.contains(newVal)) return;
+//		windowListeners.add(newVal);
 		if (myFrame != null)
 			myFrame.addWindowListener(newVal);
 	}
@@ -3243,9 +3247,13 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 	
 
 	boolean exitEnabled = true;
-
+	@Override
 	public void setAutoExitEnabled(boolean newVal) {
 		exitEnabled = newVal;
+	}
+	@Override
+	public boolean getAutoExitEnabled() {
+		return exitEnabled;
 	}
 
 	boolean myMode;

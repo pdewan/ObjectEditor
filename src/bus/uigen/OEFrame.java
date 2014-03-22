@@ -1,6 +1,7 @@
 package bus.uigen;
 
 import java.awt.Component;
+import java.awt.event.WindowListener;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -51,5 +52,8 @@ public interface OEFrame {
 	 public  void setGraphicsWindowLocked( boolean newVal);
 	boolean isSuppressPropertyNotifications();
 	void setSuppressPropertyNotifications(boolean suppressPropertyNotifications);
+	void setAutoExitEnabled(boolean newVal);
+	boolean getAutoExitEnabled();
+	void addWindowListener(WindowListener newVal);
 
 }
