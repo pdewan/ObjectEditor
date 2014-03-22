@@ -55,5 +55,6 @@ public interface OEFrame {
 	void setAutoExitEnabled(boolean newVal);
 	boolean getAutoExitEnabled();
 	void addWindowListener(WindowListener newVal);
+	public void addMenuObject(Object menuObject);
 
 }

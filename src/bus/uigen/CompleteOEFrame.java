@@ -7,7 +7,7 @@ import bus.uigen.widgets.events.VirtualActionListener;
 
 public interface CompleteOEFrame extends OEFrame, VirtualActionListener,  Runnable, HistoryUndoerListener, 
 KeyListener{
-	public void addMenuObject(Object menuObject);
+//	public void addMenuObject(Object menuObject);
 //	public void addMenuObject(Object menuObject);
 //	public void showDrawPanel() ;
 //	public void hideMainPanel();
