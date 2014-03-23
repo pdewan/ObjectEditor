@@ -32,6 +32,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import javax.swing.WindowConstants;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
@@ -591,6 +592,7 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 		// mainPanel.add(childPanel);
 		// spane.add(mainPanel);
 		final uiFrame me = this;
+		 getFrame().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -859,6 +861,7 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 		// mainPanel.add(childPanel);
 		// spane.add(mainPanel);
 		final uiFrame me = this;
+		 getFrame().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -868,11 +871,11 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 					OEMisc.saveState(topAdapter.getRealObject());
 				if (isTopFrame() && exitEnabled)
 					System.exit(0);
-				else {
-					uiFrameList.removeFrame(me);
-					setVisible(false);
-					dispose();
-				}
+//				else {
+//					uiFrameList.removeFrame(me);
+//					setVisible(false);
+//					dispose();
+//				}
 			}
 		});
 
