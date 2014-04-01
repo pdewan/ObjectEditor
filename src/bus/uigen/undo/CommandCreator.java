@@ -247,12 +247,12 @@ public class CommandCreator {
 		//System.out.println("Trying symmetic command: " + method);
 		if (!Util.equal(method.getParameterTypes(), inverse.getParameterTypes()))
 			return null;
-		Tracer.info(inverse + "considered inverse of " +  method + ". Use annotation or attribute " + AttributeNames.INVERSE + " to override.");
+		Tracer.info(CommandCreator.class, inverse + "considered inverse of " +  method + ". Use annotation or attribute " + AttributeNames.INVERSE + " to override.");
 		return new SymmetricCommand(listener, method, object, params, inverse);
 	}
 	public static Command makeAddSubractLast(CommandListener listener, MethodProxy adder, Object object, Object[] params, MethodProxy subtracter) {
 		if (isLastAddSubtractPair(adder, subtracter)) {
-			Tracer.info(subtracter + "  considered undoing indexed subtacter last for " + adder + ". Use attribute or annotation to disambiguate" );
+			Tracer.info(CommandCreator.class, subtracter + "  considered undoing indexed subtacter last for " + adder + ". Use attribute or annotation to disambiguate" );
 
 			return new AddSubtractLastCommand(listener, adder, object, params, subtracter);
 		}
@@ -260,7 +260,7 @@ public class CommandCreator {
 	}
 	public static Command makeAddSubtractFirst(CommandListener listener, MethodProxy adder, Object object, Object[] params, MethodProxy subtracter) {
 		if (isFirstAddSubtractPair(adder, subtracter)) {
-			Tracer.info(subtracter + "  considered undoing indexed subtacter first for " + adder + ". Use attribute or annotation to disambiguate" );
+			Tracer.info(CommandCreator.class, subtracter + "  considered undoing indexed subtacter first for " + adder + ". Use attribute or annotation to disambiguate" );
 
 			return new AddSubtractFirstCommand(listener, adder, object, params, subtracter);
 		} else return null;
@@ -273,7 +273,7 @@ public class CommandCreator {
 	}
 	public static Command makeSubtractAddLast(CommandListener listener, MethodProxy subtracter, Object object, Object[] params, MethodProxy adder, MethodProxy elementAt) {
 		if (isLastSubtractAddPair(adder, subtracter)) {
-			Tracer.info(adder + "  considered undoing indexed add last for " + subtracter + ". Use attribute or annotation to disambiguate" );
+			Tracer.info(CommandCreator.class, adder + "  considered undoing indexed add last for " + subtracter + ". Use attribute or annotation to disambiguate" );
 
 			return new SubtractAddLastCommand(listener, subtracter, object, params, adder);
 		}
@@ -302,7 +302,7 @@ public class CommandCreator {
 	}
 	public static Command makeVoidSubtractAddLast(CommandListener listener, MethodProxy subtracter, Object object, Object[] params, MethodProxy adder, MethodProxy elementAt) {
 		if (isVoidLastSubtractAddPair(adder, subtracter, elementAt)) {
-			Tracer.info(adder + "  considered undoing indexed add las for " + subtracter + ". Use attribute or annotation to disambiguate" );
+			Tracer.info(CommandCreator.class, adder + "  considered undoing indexed add las for " + subtracter + ". Use attribute or annotation to disambiguate" );
 
 			return new VoidSubtractAddLastCommand(listener, subtracter, object, params, adder, elementAt);
 		}
@@ -332,7 +332,7 @@ public class CommandCreator {
 			subtracter.getReturnType() != adderParamTypes[adderParamTypes.length-1])
 			return false;
 		*/
-		Tracer.info(subtracter + "  considered undoing indexed subtacter for add last " + adder + ". Use attribute or annotation to disambiguate" );
+		Tracer.info(CommandCreator.class, subtracter + "  considered undoing indexed subtacter for add last " + adder + ". Use attribute or annotation to disambiguate" );
 
 		return true;
 	}
@@ -346,7 +346,7 @@ public class CommandCreator {
 			subtracter.getReturnType() != adderParamTypes[0])
 			return false;
 		*/
-		Tracer.info(subtracter + "  considered undoing indexed subtacter for add first" + adder + ". Use attribute or annotation to disambiguate" );
+		Tracer.info(CommandCreator.class, subtracter + "  considered undoing indexed subtacter for add first" + adder + ". Use attribute or annotation to disambiguate" );
 
 		return true;
 	}
