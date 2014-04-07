@@ -3151,7 +3151,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			"removePropertyChangeVetoer", "mouseClicked", "addRefresher",
 			"addObserver", "notifyObservers", "deleteObserver",
 			"deleteObservers", "countObservers", "main", "hasChanged",
-			"initSerializedObject", "updateVector",
+			"initSerializedObject", "updateVector", "propertyChange",
 			DynamicMethods.GET_DYNAMIC_COMMANDS,
 			// "getDynamicProperty",
 			// "setDynamicProperty",
