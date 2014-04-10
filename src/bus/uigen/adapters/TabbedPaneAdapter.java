@@ -5,18 +5,25 @@ import bus.uigen.ars.*;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.compose.ComponentPanel;
 import bus.uigen.introspect.Attribute;
+import bus.uigen.models.PropertyFocusListener;
 import bus.uigen.oadapters.*;
 import bus.uigen.reflect.ClassProxy;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import util.models.ADynamicSparseList;
+
+
+
 
 
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.*;
 import java.util.*;
+
 import bus.uigen.visitors.*;
 import bus.uigen.widgets.PanelSelector;
 import bus.uigen.widgets.TabbedPaneSelector;
@@ -26,9 +33,11 @@ import bus.uigen.widgets.VirtualTabbedPane;
 import bus.uigen.widgets.swing.SwingPanelFactory;
 
 public class TabbedPaneAdapter extends PanelAdapter implements
-		FocusListener {
+		FocusListener, ChangeListener {
 	ADynamicSparseList unSortedPropertiesList = new  ADynamicSparseList();
 	ADynamicSparseList sortedPropertiesList = new  ADynamicSparseList();
+	Map<Integer, String> indexToProperty = new HashMap();
+	Map<String, Integer> propertyToIndex = new HashMap();
 	public TabbedPaneAdapter() {
 	}
 	VirtualTabbedPane tabbedPane;
@@ -49,6 +58,7 @@ public class TabbedPaneAdapter extends PanelAdapter implements
 		  
 	    super.linkUIComponentToMe(c);
 	    tabbedPane = (VirtualTabbedPane) super.getUIComponent();
+	    tabbedPane.addChangeListener(this);
 		  
 	  }
 	
@@ -125,6 +135,12 @@ public class TabbedPaneAdapter extends PanelAdapter implements
 		//parent.setSize(comp.getPreferredSize());
 		//parent.setSize(new Dimension(30, 40));
 	}
+	
+	public void setSelectedProperty(String aProperty) {
+		Integer index = propertyToIndex.get(aProperty.toLowerCase());
+		if (index != null)
+			tabbedPane.setSelectedIndex(index);
+	}
 	void addToTabbedPane (ObjectAdapter compAdapter ) {
 		//JPanel enclosingPanel = new JPanel(); // so no strecthing occurs
 		VirtualContainer enclosingPanel = PanelSelector.createPanel();
@@ -143,7 +159,13 @@ public class TabbedPaneAdapter extends PanelAdapter implements
 			enclosingPanel.add(comp);
 			comp = enclosingPanel;
 		}
+		int index = tabbedPane.getTabCount();
+		String property = compAdapter.getPropertyName().toLowerCase();		
 		tabbedPane.addTab(compAdapter.getLabelWithoutSuffix(), comp);
+		indexToProperty.put(index, property);
+		propertyToIndex.put(property, index);
+		
+		
 		//((JTabbedPane) parent).addTab(compAdapter.getLabel(), enclosingPanel);		
 		//compAdapter.setShowBorder(false);
 		compAdapter.setOverrideLabelVisible(true);
@@ -188,6 +210,20 @@ public class TabbedPaneAdapter extends PanelAdapter implements
 
 	public boolean processDirection(String direction) {
 		return true;
+	}
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		Object realObject = getObjectAdapter().getRealObject();
+		int index = tabbedPane.getSelectedIndex();
+		String property = indexToProperty.get(index);
+		if (property == null) // we have not added tabs
+			return;
+		if (realObject instanceof PropertyFocusListener)
+			((PropertyFocusListener) realObject).newFocus(property);
+			
+		
+		
+		
 	}
 
 }

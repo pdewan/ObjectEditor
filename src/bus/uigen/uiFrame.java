@@ -50,6 +50,7 @@ import util.trace.TraceableClassToInstancesFactory;
 import util.trace.TraceableLogFactory;
 import util.trace.Tracer;
 import util.undo.ExecutedCommand;
+import bus.uigen.adapters.TabbedPaneAdapter;
 import bus.uigen.attributes.AttributeManager;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.attributes.HashtableToInstanceAttributes;
@@ -5672,6 +5673,23 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 		  }
 		  childAdapter.replaceSelectionsEvent();
 	  }
+	  @Override
+	  public  void focus (Object object, String property) {
+		  ObjectAdapter adapter = getObjectAdapter(object);
+		  if (adapter == null)
+			  return;
+		  WidgetAdapterInterface widgetAdapter = adapter.getWidgetAdapter();
+		  if (widgetAdapter == null) 
+			  return;
+		  if (widgetAdapter instanceof TabbedPaneAdapter) {
+			  ((TabbedPaneAdapter) widgetAdapter).setSelectedProperty(property);
+		  } else {
+			  Tracer.error("Focus supported on tabbed displays only (at least for now");
+		  }
+		  
+		  
+	  }
+	  
 	  
 	 public void addMethodInvocationFrameCreationListener (MethodInvocationFrameCreationListener aListener) {
 		  if (methodInvocationFrameCreationListeners.contains(aListener))

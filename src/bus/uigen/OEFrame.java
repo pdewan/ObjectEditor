@@ -56,5 +56,6 @@ public interface OEFrame {
 	boolean getAutoExitEnabled();
 	void addWindowListener(WindowListener newVal);
 	public void addMenuObject(Object menuObject);
+	void focus(Object object, String property);
 
 }
