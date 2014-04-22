@@ -148,7 +148,8 @@ import bus.uigen.widgets.events.VirtualActionEvent;
   }
   void refreshPanel (Object newVal) {
 
-	  Object newSelectedItem = getSelectedItem();
+//	  Object newSelectedItem = getSelectedItem(); //why was this line there?
+	  Object newSelectedItem = newVal;
 	  //if (!getSelectedItem().equals(lastSelectedItem)) {
 	  if (!newSelectedItem.equals(lastSelectedItem) || uninitialized) {
 	  	/*

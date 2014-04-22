@@ -220,11 +220,15 @@ import bus.uigen.widgets.events.VirtualActionEvent;
 //		  boolean rebuild = (newval != currentModel) || (oldSize != getSize() );
 //		  boolean rebuild = (newval != currentModel) || (oldSize != newSize );
 
-		   currentModel = newval;
-		   if (newSize != oldSize)
+		   if (newSize != oldSize) {
+			   currentModel = newval;
+
 		   		rebuildButtons();
-		   if (newval != currentModel || firstTime) // similar check is being done in radio button panel
+		   } if (newval != currentModel || firstTime) { // similar check is being done in radio button panel
 			   refreshPanel(newval);
+			   currentModel = newval;
+
+		   }
 
 //		   oldSize = newSize;
 			 //Object initialItem = this.getSelectedItem();	
