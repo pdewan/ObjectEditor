@@ -160,8 +160,12 @@ public class TabbedPaneAdapter extends PanelAdapter implements
 			comp = enclosingPanel;
 		}
 		int index = tabbedPane.getTabCount();
-		String property = compAdapter.getPropertyName().toLowerCase();		
-		tabbedPane.addTab(compAdapter.getLabelWithoutSuffix(), comp);
+		String property = compAdapter.getPropertyName().toLowerCase();	
+		String tooltip = compAdapter.getToolTipText();
+		if (tooltip == null || tooltip.isEmpty())
+			tabbedPane.addTab(compAdapter.getLabelWithoutSuffix(), comp);
+		else
+			tabbedPane.addTab(compAdapter.getLabelWithoutSuffix(), null, comp, tooltip);
 		indexToProperty.put(index, property);
 		propertyToIndex.put(property, index);
 		
