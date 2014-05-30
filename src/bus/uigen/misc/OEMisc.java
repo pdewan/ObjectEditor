@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
+import util.models.AConsoleModel;
 import util.models.ConsoleModel;
 import util.remote.AProcessExecer;
 import util.remote.ProcessExecer;
@@ -560,8 +561,10 @@ public class OEMisc {
 			return false;
 		
 	}
-	public static int CONSOLE_WIDTH = 320;
-	public static int CONSOLE_HEIGHT =350;
+//	public static int CONSOLE_WIDTH = 320;
+//	public static int CONSOLE_HEIGHT =350;
+	public static int CONSOLE_WIDTH_MARGIN = 15;
+	public static int CONSOLE_HEIGHT_MARGIN =0;
 
 	
 	public static ProcessExecer runWithObjectEditorConsole(Class aJavaClass, String args) {
@@ -570,7 +573,8 @@ public class OEMisc {
 		Process process = processExecer.execProcess();
 		ConsoleModel consoleModel = processExecer.consoleModel();
 		OEFrame frame = ObjectEditor.edit(consoleModel);
-		frame.setSize(CONSOLE_WIDTH, CONSOLE_HEIGHT);
+		frame.setSize(AConsoleModel.CONSOLE_WIDTH + CONSOLE_WIDTH_MARGIN, 
+				AConsoleModel.CONSOLE_HEIGHT + CONSOLE_HEIGHT_MARGIN);
 		consoleModel.initFrame((Frame) frame.getFrame().getPhysicalComponent());
 		frame.setTitle(consoleModel.getTitle());
 		return processExecer;
