@@ -251,6 +251,8 @@ public class AttributeNames {
 	
 	public static final String SCROLLED = "Scrolled";
 	
+	public static final String AUTO_SCROLLED_DOWN = "Auto Scrolled Down";
+	
 	public static final String METHODS_VISIBLE = "Methods Visible";
 
 	public static final String LABELLED = "Is Labelled";
@@ -832,6 +834,7 @@ static final String[] attributeNameArray = {
 		// initialized = true;
 		systemDefaults.put(LABELLED, new Boolean(true));
 		systemDefaults.put(SCROLLED, new Boolean(false));
+		systemDefaults.put(AUTO_SCROLLED_DOWN, new Boolean(false));
 		systemDefaults.put(POSITION, new Integer(-1));
 		systemDefaults.put(VISIBLE, new Boolean(true));
 		systemDefaults.put(ELIDED, new Boolean(false));

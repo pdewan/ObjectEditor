@@ -572,8 +572,12 @@ ObjectAdapterInterface, Remote, Serializable
 		return retVal;
 	}
 	public boolean isScrolled() {
-		// Object isLabelled = getMergedAttributeValue(AttributeNames.LABELLED);
 		Boolean retVal = (Boolean) getMergedTempOrDefaultAttributeValue(AttributeNames.SCROLLED);
+		return retVal;
+	}
+	
+	public boolean isAutoScrolledDown() {
+		Boolean retVal = (Boolean) getMergedTempOrDefaultAttributeValue(AttributeNames.AUTO_SCROLLED_DOWN);
 		return retVal;
 	}
 	

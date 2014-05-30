@@ -15,6 +15,7 @@ public class AConsoleModelAR implements ExecutableCommand {
 		ObjectEditor.setPropertyAttribute(AConsoleModel.class, "input", AttributeNames.LABELLED, false);
 		ObjectEditor.setPropertyAttribute(AConsoleModel.class, "output", AttributeNames.LABELLED, false);
 		ObjectEditor.setPropertyAttribute(AConsoleModel.class, "output", AttributeNames.SCROLLED, true);
+		ObjectEditor.setPropertyAttribute(AConsoleModel.class, "output", AttributeNames.AUTO_SCROLLED_DOWN, true);
 
 
 //		ObjectEditor.setPreferredWidget(StringBuilder.class, JTextArea.class);

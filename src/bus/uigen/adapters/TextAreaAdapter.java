@@ -2,6 +2,8 @@ package bus.uigen.adapters;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JTextArea;
+import javax.swing.text.Caret;
+import javax.swing.text.DefaultCaret;
 
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.introspect.Attribute;
@@ -40,6 +42,10 @@ public class TextAreaAdapter	extends TextComponentAdapter {
 	  if (adapter.isScrolled()) {
 		  spane = ScrollPaneSelector.createScrollPane();		  
 		  spane.setScrolledComponent(jtf);
+		  if (adapter.isAutoScrolledDown()) {
+			 DefaultCaret caret = (DefaultCaret) ((VirtualTextArea) jtf).getCaret();
+			 caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		  }
 		  //spane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		  return spane;
 	  }
