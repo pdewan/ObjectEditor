@@ -9,7 +9,7 @@ import util.models.LabelBeanModel;
 
 
 public class ImageIconToLabelModel implements Translator {
-	static Hashcodetable<Icon, LabelBeanModel> imageToLabelModel = new Hashcodetable<>();
+	static Hashcodetable<Icon, LabelBeanModel> imageToLabelModel = new Hashcodetable();
 	@Override
 	public Object translate(Object obj) throws FormatException {
 		LabelBeanModel retVal = imageToLabelModel.get((Icon) obj);
