@@ -16,5 +16,7 @@ public interface MainClassListLauncher extends /*ListenableVector<Class>,*/ Runn
 	ProcessExecer nonInteractiveExecute(Class element);
 	String getTranscriptFile();
 	void setTranscriptFile(String logFileDirectory);
+	void executeAll();
+	void executeAll(long aWaitTime);
 
 }

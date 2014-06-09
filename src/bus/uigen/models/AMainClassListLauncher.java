@@ -1,7 +1,11 @@
 package bus.uigen.models;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import util.annotations.Visible;
+import util.misc.Common;
+import util.misc.ThreadSupport;
 import util.models.AListenableVector;
 import util.models.VectorChangeSupport;
 import util.remote.ProcessExecer;
@@ -11,6 +15,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	List<ProcessExecer> executed = new ArrayList();	
 	List<Class> mainClasses  = new ArrayList();
 	List<String> mainArgs = new ArrayList();
+	public static final int DEFAULT_WAIT_TIME = 3000;
 	transient protected VectorChangeSupport<Class> vectorChangeSupport = new VectorChangeSupport(
 			this);
 	protected String transcriptFile;
@@ -23,7 +28,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	}
 	
 	public AMainClassListLauncher(String aLogFile) {
-		transcriptFile = aLogFile;
+		setTranscriptFile(aLogFile);
 		trackTermination();
 //		Thread thread = new Thread(this);
 //		Runtime.getRuntime().addShutdownHook(thread);
@@ -115,7 +120,24 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	}
 	@Visible(false)
 	@Override
-	public void setTranscriptFile(String logFileDirectory) {
-		this.transcriptFile = logFileDirectory;
+	public void setTranscriptFile(String aTranscriptFile) {
+		this.transcriptFile = aTranscriptFile;
+		try {
+			Common.writeText(transcriptFile, "");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Override
+	public void executeAll() {
+		executeAll(DEFAULT_WAIT_TIME);
+	}
+	@Override
+	public void executeAll(long aWaitTime) {
+		for (Class aMainClass:mainClasses) {
+			execute(aMainClass);
+			ThreadSupport.sleep (aWaitTime);
+		}
 	}
 }
