@@ -568,9 +568,10 @@ public class OEMisc {
 
 	
 	public static ProcessExecer runWithObjectEditorConsole(Class aJavaClass, String args) {
-		ProcessExecer processExecer = 
-				new AProcessExecer(aJavaClass, args);
-		Process process = processExecer.execProcess();
+//		ProcessExecer processExecer = 
+//				new AProcessExecer(aJavaClass, args);
+//		Process process = processExecer.execProcess();
+		ProcessExecer processExecer = runWithProcessExecer(aJavaClass, args);
 		ConsoleModel consoleModel = processExecer.consoleModel();
 		OEFrame frame = ObjectEditor.edit(consoleModel);
 		frame.setSize(AConsoleModel.CONSOLE_WIDTH + CONSOLE_WIDTH_MARGIN, 
@@ -579,6 +580,12 @@ public class OEMisc {
 		frame.setTitle(consoleModel.getTitle());
 		return processExecer;
 	}	
+	public static ProcessExecer runWithProcessExecer(Class aJavaClass, String args) {
+		ProcessExecer processExecer = 
+				new AProcessExecer(aJavaClass, args);
+		Process process = processExecer.execProcess();
+		return processExecer;
+	}
 	public static Object defaultValue(ClassProxy cp) {
 		
 		if (cp instanceof AClassProxy) {
