@@ -13,7 +13,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	List<String> mainArgs = new ArrayList();
 	transient protected VectorChangeSupport<Class> vectorChangeSupport = new VectorChangeSupport(
 			this);
-	protected String logFileDirectory;
+	protected String transcriptFile;
 	
 
 	public AMainClassListLauncher() {
@@ -22,8 +22,8 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 //		Runtime.getRuntime().addShutdownHook(thread);
 	}
 	
-	public AMainClassListLauncher(String aLogFileDirectory) {
-		logFileDirectory = aLogFileDirectory;
+	public AMainClassListLauncher(String aLogFile) {
+		transcriptFile = aLogFile;
 		trackTermination();
 //		Thread thread = new Thread(this);
 //		Runtime.getRuntime().addShutdownHook(thread);
@@ -44,7 +44,9 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	public ProcessExecer open(Class element) {
 		ProcessExecer anExecuted = OEMisc.runWithObjectEditorConsole(element, "");
 //		executed.add(OEMisc.runWithObjectEditorConsole(element, ""));
-		executed.add(anExecuted);
+//		executed.add(anExecuted);
+		add(anExecuted);
+		
 		return anExecuted;
 	}	
 	// if we want to for instance gater output of all processes
@@ -52,11 +54,19 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	public ProcessExecer nonInteractiveExecute(Class element) {
 		ProcessExecer anExecuted = OEMisc.runWithProcessExecer(element, "");
 //		executed.add(OEMisc.runWithObjectEditorConsole(element, ""));
-		executed.add(anExecuted);
+//		executed.add(anExecuted);
+		add(anExecuted);
 		return anExecuted;
 	}
 	
+	protected void add (ProcessExecer aProcessExecer) {		
+		executed.add(aProcessExecer);
+		aProcessExecer.consoleModel().setTranscriptFile(transcriptFile);
+	}
+	
+	
 	// why do we need this? better name than open?
+	// yes, in the menu it sounds better, open is for double click
 	public void execute(Class element) {
 		open(element);
 	}	
@@ -72,6 +82,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 		}
 	}
 	@Override
+	@Visible(false)
 	public List<ProcessExecer> getProcessExecers() {
 		return executed;
 	}
@@ -97,12 +108,14 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 		vectorChangeSupport.elementAdded(element);
 		return retVal;
 	}
+	@Visible(false)
 	@Override
-	public String getLogFileDirectory() {
-		return logFileDirectory;
+	public String getTranscriptFile() {
+		return transcriptFile;
 	}
+	@Visible(false)
 	@Override
-	public void setLogFileDirectory(String logFileDirectory) {
-		this.logFileDirectory = logFileDirectory;
+	public void setTranscriptFile(String logFileDirectory) {
+		this.transcriptFile = logFileDirectory;
 	}
 }

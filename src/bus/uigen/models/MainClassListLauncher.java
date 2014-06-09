@@ -14,7 +14,7 @@ public interface MainClassListLauncher extends /*ListenableVector<Class>,*/ Runn
 	boolean add(Class element, String args);
 	List<ProcessExecer> getProcessExecers();
 	ProcessExecer nonInteractiveExecute(Class element);
-	String getLogFileDirectory();
-	void setLogFileDirectory(String logFileDirectory);
+	String getTranscriptFile();
+	void setTranscriptFile(String logFileDirectory);
 
 }
