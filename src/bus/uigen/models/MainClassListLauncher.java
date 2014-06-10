@@ -2,6 +2,7 @@ package bus.uigen.models;
 
 import java.util.List;
 
+import util.models.ConsoleModel;
 import util.models.ListenableVector;
 import util.remote.ProcessExecer;
 
@@ -18,5 +19,6 @@ public interface MainClassListLauncher extends /*ListenableVector<Class>,*/ Runn
 	void setTranscriptFile(String logFileDirectory);
 	void executeAll();
 	void executeAll(long aWaitTime);
+	List<ConsoleModel> createConsoleModels();
 
 }

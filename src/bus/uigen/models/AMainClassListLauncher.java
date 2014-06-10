@@ -6,16 +6,19 @@ import java.util.List;
 import util.annotations.Visible;
 import util.misc.Common;
 import util.misc.ThreadSupport;
+import util.models.AConsoleModel;
 import util.models.AListenableVector;
+import util.models.ConsoleModel;
 import util.models.VectorChangeSupport;
 import util.remote.ProcessExecer;
 import bus.uigen.misc.OEMisc;
 @util.annotations.StructurePattern(util.annotations.StructurePatternNames.LIST_PATTERN)
 public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implements MainClassListLauncher {
-	List<ProcessExecer> executed = new ArrayList();	
+	List<ProcessExecer> execers = new ArrayList();
+	List<ConsoleModel> consoleModels = new ArrayList();
 	List<Class> mainClasses  = new ArrayList();
 	List<String> mainArgs = new ArrayList();
-	public static final int DEFAULT_WAIT_TIME = 3000;
+	public static final int DEFAULT_WAIT_TIME = 4000;
 	transient protected VectorChangeSupport<Class> vectorChangeSupport = new VectorChangeSupport(
 			this);
 	protected String transcriptFile;
@@ -46,13 +49,22 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	public Class get(int index) {
 		return mainClasses.get(index);
 	}
-	public ProcessExecer open(Class element) {
-		ProcessExecer anExecuted = OEMisc.runWithObjectEditorConsole(element, "");
+	public ProcessExecer execute(Class element, ConsoleModel aConsoleModel) {
+		ProcessExecer anExecuted = OEMisc.runWithObjectEditorConsole(element, "", aConsoleModel);
 //		executed.add(OEMisc.runWithObjectEditorConsole(element, ""));
 //		executed.add(anExecuted);
 		add(anExecuted);
 		
 		return anExecuted;
+	}
+	public ProcessExecer open(Class element) {
+		return execute(element, new AConsoleModel());
+//		ProcessExecer anExecuted = OEMisc.runWithObjectEditorConsole(element, "");
+////		executed.add(OEMisc.runWithObjectEditorConsole(element, ""));
+////		executed.add(anExecuted);
+//		add(anExecuted);
+//		
+//		return anExecuted;
 	}	
 	// if we want to for instance gater output of all processes
 	@Override
@@ -65,7 +77,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	}
 	
 	protected void add (ProcessExecer aProcessExecer) {		
-		executed.add(aProcessExecer);
+		execers.add(aProcessExecer);
 		aProcessExecer.consoleModel().setTranscriptFile(transcriptFile);
 	}
 	
@@ -82,14 +94,14 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 		System.exit(0);
 	}	
 	void killAllChildren() {
-		for (ProcessExecer processExecer: executed) {
+		for (ProcessExecer processExecer: execers) {
 			processExecer.getProcess().destroy();
 		}
 	}
 	@Override
 	@Visible(false)
 	public List<ProcessExecer> getProcessExecers() {
-		return executed;
+		return execers;
 	}
 	
 	// this is a runnable run
@@ -136,9 +148,21 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	}
 	@Override
 	public void executeAll(long aWaitTime) {
+		if (consoleModels.size() == 0)
+			createConsoleModels();
+		int i = 0;
 		for (Class aMainClass:mainClasses) {
-			execute(aMainClass);
+			execute(aMainClass, consoleModels.get(i));
+			i++;
 			ThreadSupport.sleep (aWaitTime);
 		}
 	}
+	public List<ConsoleModel> createConsoleModels() {
+		for (Class aMainClass:mainClasses) {
+			ConsoleModel consoleModel = new AConsoleModel();
+			consoleModels.add(consoleModel);
+		}
+		return consoleModels;
+	}
+	
 }
