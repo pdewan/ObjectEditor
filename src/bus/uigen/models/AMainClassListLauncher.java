@@ -122,6 +122,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	@Override
 	public void setTranscriptFile(String aTranscriptFile) {
 		this.transcriptFile = aTranscriptFile;
+		if (aTranscriptFile == null) return;
 		try {
 			Common.writeText(transcriptFile, "");
 		} catch (IOException e) {
