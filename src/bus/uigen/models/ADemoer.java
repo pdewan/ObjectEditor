@@ -157,7 +157,18 @@ public abstract class ADemoer implements Demoer {
 	public void propertyChange(PropertyChangeEvent aConsoleModelEvent) {	
 		
 	}
-	
+
+	@Override
+	public List<List<Traceable>> getLocalTraceableLists() {
+		return localTraceableLists;
+	}
+
+	@Override
+	public List<Traceable> getGlobalTraceableList() {
+		return globalTraceableList;
+	}
+
+
 	
 	
 	
