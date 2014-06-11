@@ -15,6 +15,8 @@ public interface Demoer extends PropertyChangeListener{
 	void generateCorrectTranscripts();
 
 	void generateTestTranscripts();
+
+	void loadTraceables();
 	
 
 }

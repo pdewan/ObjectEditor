@@ -1,8 +1,11 @@
 package bus.uigen.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import util.models.ConsoleModel;
+import util.trace.TraceUtility;
+import util.trace.Traceable;
 
 public abstract class ADemoer implements Demoer {
 //	protected boolean aliceJoined, bobJoined, cathyJoined;
@@ -10,6 +13,8 @@ public abstract class ADemoer implements Demoer {
 //	protected ConsoleModel aliceConsole, bobConsole, cathyConsole, sessionManagerConsole;
 ////	protected List<ProcessExecer> processExecers;
 	protected List<ConsoleModel> consoleModels;
+	protected List<List<Traceable>> localTraceableLists;
+	protected List<Traceable> globalTraceableList;
 //	protected boolean inputOver;
 //	protected String finalOutput;
 
@@ -130,6 +135,22 @@ public abstract class ADemoer implements Demoer {
 	@Override
 	public void generateTestTranscripts() {
 		launcher.logConsoles(generateTestDirectory());
+	}
+	@Override
+	public void loadTraceables () {
+		
+		if (consoleModels == null || consoleModels.size() == 0)
+			return;
+		localTraceableLists = new ArrayList();
+
+		for (int index = 0; index < consoleModels.size(); index++) {
+			String aLocalTranscriptFile =  consoleModels.get(index).getLocalTranscriptFile();
+			List<Traceable> traceableList = TraceUtility.toTraceableList(aLocalTranscriptFile);
+			localTraceableLists.add(traceableList);			
+		}
+		String aGlobalTrancriptFile = consoleModels.get(0).getGlobalTranscriptFile();
+		globalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
+		
 	}
 	
 	
