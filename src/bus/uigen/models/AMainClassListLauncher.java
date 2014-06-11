@@ -1,4 +1,6 @@
 package bus.uigen.models;
+import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +16,12 @@ import util.remote.ProcessExecer;
 import bus.uigen.misc.OEMisc;
 @util.annotations.StructurePattern(util.annotations.StructurePatternNames.LIST_PATTERN)
 public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implements MainClassListLauncher {
+	public static final String GLOBAL_FILE_NAME = "globalTranscript.txt";
 	List<ProcessExecer> execers = new ArrayList();
-	List<ConsoleModel> consoleModels = new ArrayList();
+	List<ConsoleModel> consoleModels; 
 	List<Class> mainClasses  = new ArrayList();
 	List<String> mainArgs = new ArrayList();
+	
 	public static final int DEFAULT_WAIT_TIME = 4000;
 	transient protected VectorChangeSupport<Class> vectorChangeSupport = new VectorChangeSupport(
 			this);
@@ -78,7 +82,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	
 	protected void add (ProcessExecer aProcessExecer) {		
 		execers.add(aProcessExecer);
-		aProcessExecer.consoleModel().setTranscriptFile(transcriptFile);
+//		aProcessExecer.consoleModel().setGlobalTranscriptFile(transcriptFile);
 	}
 	
 	
@@ -148,8 +152,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	}
 	@Override
 	public void executeAll(long aWaitTime) {
-		if (consoleModels.size() == 0)
-			createConsoleModels();
+		getOrCreateConsoleModels();
 		int i = 0;
 		for (Class aMainClass:mainClasses) {
 			execute(aMainClass, consoleModels.get(i));
@@ -157,12 +160,55 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 			ThreadSupport.sleep (aWaitTime);
 		}
 	}
+	@Visible(false)
 	public List<ConsoleModel> createConsoleModels() {
+		consoleModels = new ArrayList();
 		for (Class aMainClass:mainClasses) {
 			ConsoleModel consoleModel = new AConsoleModel();
 			consoleModels.add(consoleModel);
 		}
 		return consoleModels;
+	}
+	@Override
+	@Visible(false)
+	public List<ConsoleModel> getOrCreateConsoleModels() {
+		if (consoleModels == null) {
+			createConsoleModels();
+		}
+		return consoleModels;
+	}
+	
+	@Override
+	@Visible(false)
+	public void addConsolesPropertyChangeListener(PropertyChangeListener aPropertyChangeListener) {
+		getOrCreateConsoleModels();
+		for (ConsoleModel aConsoleModel:consoleModels) {
+			aConsoleModel.addPropertyChangeListener(aPropertyChangeListener);
+		}
+	}
+	@Override
+	public void logConsoles(String aLogDirectory) {
+		String aGlobalTranscriptFile = aLogDirectory + "/" + GLOBAL_FILE_NAME;
+		
+		try {
+			Common.clearOrCreateFile(aGlobalTranscriptFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		getOrCreateConsoleModels();
+		for (int i = 0; i < consoleModels.size(); i++) {
+			ConsoleModel aConsoleModel = consoleModels.get(i);
+			aConsoleModel.setGlobalTranscriptFile(aGlobalTranscriptFile);
+			String aLocalTranscriptFile= aLogDirectory + "/" + mainClasses.get(i).getSimpleName() + ".txt";
+			try {
+				Common.clearOrCreateFile(aLocalTranscriptFile);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			aConsoleModel.setLocalTranscriptFile(aLocalTranscriptFile);
+		}
 	}
 	
 }

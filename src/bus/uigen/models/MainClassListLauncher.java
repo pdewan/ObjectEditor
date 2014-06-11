@@ -1,5 +1,6 @@
 package bus.uigen.models;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import util.models.ConsoleModel;
@@ -20,5 +21,9 @@ public interface MainClassListLauncher extends /*ListenableVector<Class>,*/ Runn
 	void executeAll();
 	void executeAll(long aWaitTime);
 	List<ConsoleModel> createConsoleModels();
+	List<ConsoleModel> getOrCreateConsoleModels();
+	void addConsolesPropertyChangeListener(
+			PropertyChangeListener aPropertyChangeListener);
+	void logConsoles(String aLogDirectory);
 
 }
