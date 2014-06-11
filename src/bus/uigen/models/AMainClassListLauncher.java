@@ -25,7 +25,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	public static final int DEFAULT_WAIT_TIME = 4000;
 	transient protected VectorChangeSupport<Class> vectorChangeSupport = new VectorChangeSupport(
 			this);
-	protected String transcriptFile;
+//	protected String transcriptFile;
 	
 
 	public AMainClassListLauncher() {
@@ -34,12 +34,12 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 //		Runtime.getRuntime().addShutdownHook(thread);
 	}
 	
-	public AMainClassListLauncher(String aLogFile) {
-		setTranscriptFile(aLogFile);
-		trackTermination();
-//		Thread thread = new Thread(this);
-//		Runtime.getRuntime().addShutdownHook(thread);
-	}
+//	public AMainClassListLauncher(String aLogFile) {
+//		setTranscriptFile(aLogFile);
+//		trackTermination();
+////		Thread thread = new Thread(this);
+////		Runtime.getRuntime().addShutdownHook(thread);
+//	}
 	
 	
 	void trackTermination() {
@@ -129,23 +129,23 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 		vectorChangeSupport.elementAdded(element);
 		return retVal;
 	}
-	@Visible(false)
-	@Override
-	public String getTranscriptFile() {
-		return transcriptFile;
-	}
-	@Visible(false)
-	@Override
-	public void setTranscriptFile(String aTranscriptFile) {
-		this.transcriptFile = aTranscriptFile;
-		if (aTranscriptFile == null) return;
-		try {
-			Common.writeText(transcriptFile, "");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@Visible(false)
+//	@Override
+//	public String getTranscriptFile() {
+//		return transcriptFile;
+//	}
+//	@Visible(false)
+//	@Override
+//	public void setTranscriptFile(String aTranscriptFile) {
+//		this.transcriptFile = aTranscriptFile;
+//		if (aTranscriptFile == null) return;
+//		try {
+//			Common.writeText(transcriptFile, "");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	@Override
 	public void executeAll() {
 		executeAll(DEFAULT_WAIT_TIME);
