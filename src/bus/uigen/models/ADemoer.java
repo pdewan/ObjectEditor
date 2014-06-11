@@ -1,5 +1,6 @@
 package bus.uigen.models;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -150,6 +151,10 @@ public abstract class ADemoer implements Demoer {
 		}
 		String aGlobalTrancriptFile = consoleModels.get(0).getGlobalTranscriptFile();
 		globalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
+		
+	}
+	// null method for those who do not want to listen to console input
+	public void propertyChange(PropertyChangeEvent aConsoleModelEvent) {	
 		
 	}
 	
