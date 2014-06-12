@@ -4,8 +4,8 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import bus.uigen.trace.TraceUtility;
 import util.models.ConsoleModel;
-import util.trace.TraceUtility;
 import util.trace.Traceable;
 
 public abstract class ADemoer implements Demoer {
