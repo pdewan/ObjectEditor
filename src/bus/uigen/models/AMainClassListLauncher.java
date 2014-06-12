@@ -151,6 +151,12 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 		executeAll(DEFAULT_WAIT_TIME);
 	}
 	@Override
+	public void waitForAll() throws InterruptedException {
+		for (ProcessExecer aProcessExecer:execers) {
+			aProcessExecer.getProcess().waitFor();
+		}
+	}
+	@Override
 	public void executeAll(long aWaitTime) {
 		getOrCreateConsoleModels();
 		int i = 0;

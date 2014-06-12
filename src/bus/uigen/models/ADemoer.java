@@ -16,6 +16,7 @@ public abstract class ADemoer implements Demoer {
 	protected List<ConsoleModel> consoleModels;
 	protected List<List<Traceable>> localTraceableLists;
 	protected List<Traceable> globalTraceableList;
+	boolean terminated;
 //	protected boolean inputOver;
 //	protected String finalOutput;
 
@@ -65,59 +66,25 @@ public abstract class ADemoer implements Demoer {
 		
 	}
 	
+	@Override
+	public synchronized void notifyInteractionTermination() {
+		terminated = true;
+		this.notify();
+		
+	}
+	@Override
+	public synchronized void waitForInteractionTermination() {
+		try {
+			while (!terminated)
+			this.wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
+
 	
-//	public static boolean clientJoined(PropertyChangeEvent aConsoleModelEvent, String aUserName) {
-//		String aText = aConsoleModelEvent.getNewValue().toString();
-////		if (!Tracer.isInfo(aText))
-////			return false;
-//		ClientJoined aClientJoined = null;
-//		try {
-//		 aClientJoined = ClientJoined.toTraceable(aText);
-//		} catch (Exception e) {
-//			return false;
-//		}
-//		if (aClientJoined != null) {
-//			return aClientJoined.getUserName().equals(aUserName);
-//		}
-//		return false;
-//	}
-	
-	
-//	public static boolean isOutputLine(PropertyChangeEvent aConsoleModelEvent) {
-//		return aConsoleModelEvent.getPropertyName().equals(ConsoleModel.OUTPUT_LINE);
-//	}
-//	public static boolean isOutput(PropertyChangeEvent aConsoleModelEvent) {
-//		return aConsoleModelEvent.getPropertyName().equals("output");
-//	}
-//	public static boolean remoteEchoOf(PropertyChangeEvent aConsoleModelEvent, String anInput, String aUserName ) {
-//		if (!isOutputLine(aConsoleModelEvent)) return false;
-//		String aText = aConsoleModelEvent.getNewValue().toString();
-//		return aText.contains(AHistoryInCoupler.remoteEcho(anInput, aUserName));
-//		
-//	}
-//	public static String getText(PropertyChangeEvent aConsoleModelEvent) {
-//		return aConsoleModelEvent.getNewValue().toString();
-//	}
-//	public static boolean isInfo(PropertyChangeEvent aConsoleModelEvent) {
-//		return Tracer.isInfo(getText(aConsoleModelEvent));
-//	}
-//	public static boolean isInput(PropertyChangeEvent aConsoleModelEvent) {
-//		return aConsoleModelEvent.getPropertyName().equalsIgnoreCase("input");
-//	}
-//	public static boolean textEquals(PropertyChangeEvent aConsoleModelEvent, String aText) {
-//		return aConsoleModelEvent.getNewValue().equals(aText);
-//	}
-//	
-//	public static boolean textContains(PropertyChangeEvent aConsoleModelEvent, String aText) {
-//		return aConsoleModelEvent.getNewValue().toString().contains(aText);
-//	}
-	
-	
-	
-//	void maybeFirstAliceInput() {
-//		aliceConsole.setInput(poem[0]);	
-//	}
 	
 	
 	public static final String CORRECT_CONSOLE_TRANSCRIPTS = "correctTranscripts";

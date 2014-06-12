@@ -25,5 +25,6 @@ public interface MainClassListLauncher extends /*ListenableVector<Class>,*/ Runn
 	void addConsolesPropertyChangeListener(
 			PropertyChangeListener aPropertyChangeListener);
 	void logConsoles(String aLogDirectory);
+	void waitForAll() throws InterruptedException;
 
 }

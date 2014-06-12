@@ -15,7 +15,7 @@ public class TraceUtility {
 	public static Traceable toTraceable(String aMessage) {
 //		if (!aMessage.startsWith("I***"))
 //			continue;
-		if (!Tracer.isInfo(aMessage))
+		if (!Tracer.isInfo(aMessage) || Tracer.isShowInfo(aMessage))
 			return null;
 		try {
 		Class traceableClass = TraceableInfo.toEvtTypeClass(aMessage);

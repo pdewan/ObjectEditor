@@ -23,6 +23,10 @@ public interface Demoer extends PropertyChangeListener{
 	List<List<Traceable>> getLocalTraceableLists();
 
 	List<Traceable> getGlobalTraceableList();
+
+	void notifyInteractionTermination();
+
+	void waitForInteractionTermination();
 	
 
 }
