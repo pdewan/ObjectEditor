@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import util.misc.Common;
 import util.trace.Traceable;
 import util.trace.TraceableInfo;
 import util.trace.Tracer;
@@ -63,7 +64,7 @@ public class TraceUtility {
 	}
 	
 	
-	public boolean allValid(Integer[] anIndexList) {
+	public boolean allValid(List<Integer> anIndexList) {
 		return indexOfInvalidIndex(anIndexList) < 0;		
 	}
 	public static  List<Class> missingClasses(
@@ -75,17 +76,50 @@ public class TraceUtility {
 		return retVal;
 	}
 	
-	public static Integer indexOfInvalidIndex(Integer[] anIndexList, int aStartIndex) {
-		for (int anIndexIndex = aStartIndex; anIndexIndex < anIndexList.length; anIndexIndex++) {
-			if (anIndexList[anIndexIndex] < 0) return anIndexIndex;
+	public static Integer indexOfInvalidIndex(List<Integer> anIndexList, int aStartIndex) {
+		for (int anIndexIndex = aStartIndex; anIndexIndex < anIndexList.size(); anIndexIndex++) {
+			if (anIndexList.get(anIndexIndex) < 0) return anIndexIndex;
 		}
 		return -1;
 	}
-	public static List<Integer> indicesOfInvalidIndices(Integer[] anIndexList) {
+	
+	public static Integer indexOfOutOfOrderIndex(List<Integer> anIndexList, int aStartIndex) {
+	
+		for (int anIndexIndex = aStartIndex; anIndexIndex < (anIndexList.size() -1); anIndexIndex++) {
+			if (anIndexList.get(anIndexIndex) > anIndexList.get(anIndexIndex+1)) return anIndexIndex;
+		}
+		return -1;
+	}
+	public static List<Integer> indicesOfOutOfOrderIndices(List<Integer> anIndexList) {
 		List<Integer> retVal = new ArrayList();
 		int aStartIndex = 0;
 		while (true) {
-			if (aStartIndex >= anIndexList.length)
+			if (aStartIndex >= anIndexList.size())
+				return retVal;
+			Integer nextOutOfOrderIndex = indexOfOutOfOrderIndex(anIndexList, aStartIndex);
+			if (nextOutOfOrderIndex < 0)
+				return retVal;
+			retVal.add(nextOutOfOrderIndex);
+			aStartIndex = nextOutOfOrderIndex+1;
+			
+		}
+	}
+	
+	public static List<Integer> degreeOfOutOfOrderIndices(List<Integer> anIndexList, List<Integer> anOutOfOrderList) {
+		List<Integer> retVal = new ArrayList();
+		for (Integer anOutOfOrderIndex:anOutOfOrderList) {
+			int indexOfOutOfOrderIndex = Common.indexOf(anIndexList, anOutOfOrderIndex);
+			retVal.add(anOutOfOrderIndex - indexOfOutOfOrderIndex);
+		}
+		return retVal;
+		
+	}
+	
+	public static List<Integer> indicesOfInvalidIndices(List<Integer> anIndexList) {
+		List<Integer> retVal = new ArrayList();
+		int aStartIndex = 0;
+		while (true) {
+			if (aStartIndex >= anIndexList.size())
 				return retVal;
 			Integer nextInvalidIndex = indexOfInvalidIndex(anIndexList, aStartIndex);
 			if (nextInvalidIndex < 0)
@@ -95,39 +129,55 @@ public class TraceUtility {
 			
 		}
 	}
-	public static int indexOfInvalidIndex(Integer[] anIndexList) {
+	public static int indexOfInvalidIndex(List<Integer> anIndexList) {
 		return indexOfInvalidIndex(anIndexList, 0);
 	}
-	
-	
-	
 	// look for elements of query in the same order but not necessarily consecutive in the traceable list
-	// allow for missing elements
-	public static Integer[]  indicesOf(List<Traceable> aTraceableList, TraceableQuery[] aQueryList, int aStartIndex, int aStopIndex) {
-		Integer[] retVal = new Integer[aQueryList.length];
+		// allow for missing elements
+	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, TraceableQuery[] aQueryList, int aStartIndex, int aStopIndex) {
+		return indicesOf(aTraceableList, aQueryList, true, aStartIndex, aStopIndex);
+	}
+	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, TraceableQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex) {
+		return indicesOf(aTraceableList, aQueryList, true, aStartIndex, aTraceableList.size());
+	}
+
+	
+	// look for elements of query in between the start and stop index
+	// allows for missing elements
+	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, TraceableQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
+		List<Integer> retVal = new ArrayList(aQueryList.length);
 		int aCurrentStartIndex = aStartIndex;
 		for (int aQueryIndex = 0; aQueryIndex < aQueryList.length && aCurrentStartIndex < aStopIndex; aQueryIndex++) {
 			
 			int aRetVal = indexOf(aTraceableList, aQueryList[aQueryIndex], aCurrentStartIndex, aStopIndex);
-			retVal[aQueryIndex] = aRetVal;
-			if (aRetVal >= 0)
+			retVal.add(aRetVal);
+			if (aRetVal >= 0 && anOrderedQueryList)
 				aCurrentStartIndex = aRetVal + 1; 
 			// else look for the next matching element after same index
 		}
 		return retVal;	
 	}
-	public static Integer[]  indicesOf(List<Traceable> aTraceableList, Class[] aClassList, int aStartIndex, int aStopIndex) {
+	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, Class[] aClassList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
 		TraceableQuery[] aQueryList = new TraceableQuery[aClassList.length];
 		for (int aClassIndex = 0; aClassIndex < aClassList.length; aClassIndex++) {
 			aQueryList[aClassIndex] = new ATraceableQuery(aClassList[aClassIndex]);
 		}
 		return indicesOf(aTraceableList, aQueryList, aStartIndex, aStopIndex);
 	}
+	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, Class[] aClassList, int aStartIndex, int aStopIndex) {
+		return indicesOf(aTraceableList, aClassList, true, aStartIndex, aStopIndex);
+	}
+	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, Class[] aClassList, boolean aOrderedQueryList, int aStartIndex) {
+		return indicesOf(aTraceableList, aClassList, aOrderedQueryList, aStartIndex, aTraceableList.size());
+	}
+	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, Class[] aClassList, boolean aOrderedQueryList) {
+		return indicesOf(aTraceableList, aClassList, aOrderedQueryList, 0, aTraceableList.size());
+	}
 	
-	public static Integer[]  indicesOf(List<Traceable> aTraceableList, Class[] aClassList, int aStartIndex) {
+	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, Class[] aClassList, int aStartIndex) {
 		return indicesOf(aTraceableList, aClassList, aStartIndex, aTraceableList.size());
 	}
-	public static Integer[]  indicesOf(List<Traceable> aTraceableList, Class[] aClassList) {
+	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, Class[] aClassList) {
 		return indicesOf(aTraceableList, aClassList, 0, aTraceableList.size());
 	}
 	
