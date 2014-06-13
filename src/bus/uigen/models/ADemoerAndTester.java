@@ -8,40 +8,26 @@ import bus.uigen.trace.TraceUtility;
 import util.models.ConsoleModel;
 import util.trace.Traceable;
 
-public abstract class ADemoer implements Demoer {
-//	protected boolean aliceJoined, bobJoined, cathyJoined;
-//	protected boolean aliceCorrect, bobCorrect, cathyCorrect;
-//	protected ConsoleModel aliceConsole, bobConsole, cathyConsole, sessionManagerConsole;
-////	protected List<ProcessExecer> processExecers;
+public abstract class ADemoerAndTester implements DemoerAndTester {
+
 	protected List<ConsoleModel> consoleModels;
 	protected List<List<Traceable>> localTraceableLists;
 	protected List<Traceable> globalTraceableList;
 	boolean terminated;
-//	protected boolean inputOver;
-//	protected String finalOutput;
-
+	boolean interactive;
 	protected MainClassListLauncher launcher;
-//	protected String[] poem = {
-//			"The woods are lovely dark and deep",			 
-//			"But I have promises to keep",  			 
-//			"And miles to go before I sleep"
-//	};
+
 	
-//	public ADemoer() {
-////		computeFinalHistory();
-//	}
+
+
+	public ADemoerAndTester() {
+		interactive = true;
+	}
 	
-//	 void computeFinalHistory() {
-////		History aHistory = new AHistory();
-////		aHistory.add(0, poem[0]);
-////		aHistory.add(1, poem[1]);
-////		aHistory.add(2, poem[2]);
-////		finalOutput = AnEchoerInteractor.toString(aHistory);
-//
-//	}
+
 	
-	public ADemoer() {
-		
+	public ADemoerAndTester(boolean anInteractive) {
+		interactive = anInteractive;
 	}
 	
 	
@@ -136,7 +122,89 @@ public abstract class ADemoer implements Demoer {
 	}
 
 
+
+	@Override
+	public MainClassListLauncher demo() {
+		createAndDisplayLauncher();
+		executeAll();
+		return launcher;
+	}
+
+	// override this method to work on the transcripts
+	public Boolean test(Boolean aCorrectTranscripts) {
+		createAndDisplayLauncher();
+		if (aCorrectTranscripts)
+			generateCorrectTranscripts();
+		else
+			generateTestTranscripts();
+		executeAll();
+		waitForInteractionTermination();
+		loadTraceables();
+		return true; // in general a test should be superclass tests added with subclsas ones
+	}
+
+	public List<ConsoleModel> getConsoleModels() {
+		return consoleModels;
+	}
+
+
+
+	public void setConsoleModels(List<ConsoleModel> consoleModels) {
+		this.consoleModels = consoleModels;
+	}
+
+
+
+	public boolean isTerminated() {
+		return terminated;
+	}
+
+
+
+	public void setTerminated(boolean terminated) {
+		this.terminated = terminated;
+	}
+
+
+
+	public boolean isInteractive() {
+		return interactive;
+	}
+
+
+
+	public void setInteractive(boolean interactive) {
+		this.interactive = interactive;
+	}
+
+
+
+	public MainClassListLauncher getLauncher() {
+		return launcher;
+	}
+
+
+
+	public void setLauncher(MainClassListLauncher launcher) {
+		this.launcher = launcher;
+	}
+
+
+
+	public void setLocalTraceableLists(List<List<Traceable>> localTraceableLists) {
+		this.localTraceableLists = localTraceableLists;
+	}
+
+
+
+	public void setGlobalTraceableList(List<Traceable> globalTraceableList) {
+		this.globalTraceableList = globalTraceableList;
+	}
 	
+	public void terminate() {
+		launcher.terminateAll();
+	}
+
 	
 	
 
