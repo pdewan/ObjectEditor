@@ -104,11 +104,11 @@ public class TraceUtility {
 			
 		}
 	}
-	
+	// degree is actual position - expected position
 	public static List<Integer> degreeOfOutOfOrderIndices(List<Integer> anIndexList, List<Integer> anOutOfOrderList) {
 		List<Integer> retVal = new ArrayList();
 		for (Integer anOutOfOrderIndex:anOutOfOrderList) {
-			int indexOfOutOfOrderIndex = Common.indexOf(anIndexList, anOutOfOrderIndex);
+			int indexOfOutOfOrderIndex = anIndexList.indexOf( anOutOfOrderIndex);
 			retVal.add(anOutOfOrderIndex - indexOfOutOfOrderIndex);
 		}
 		return retVal;
@@ -162,7 +162,7 @@ public class TraceUtility {
 		for (int aClassIndex = 0; aClassIndex < aClassList.length; aClassIndex++) {
 			aQueryList[aClassIndex] = new ATraceableQuery(aClassList[aClassIndex]);
 		}
-		return indicesOf(aTraceableList, aQueryList, aStartIndex, aStopIndex);
+		return indicesOf(aTraceableList, aQueryList, anOrderedQueryList, aStartIndex, aStopIndex);
 	}
 	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, Class[] aClassList, int aStartIndex, int aStopIndex) {
 		return indicesOf(aTraceableList, aClassList, true, aStartIndex, aStopIndex);
