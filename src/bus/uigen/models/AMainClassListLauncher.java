@@ -25,11 +25,19 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	public static final int DEFAULT_WAIT_TIME = 4000;
 	transient protected VectorChangeSupport<Class> vectorChangeSupport = new VectorChangeSupport(
 			this);
-//	protected String transcriptFile;
-	
+	boolean interactive;
+
+
+	//	protected String transcriptFile;
+	public AMainClassListLauncher(boolean anInteractive) {
+		interactive = anInteractive;
+		trackTermination();
+//		Thread thread = new Thread(this);
+//		Runtime.getRuntime().addShutdownHook(thread);
+	}
 
 	public AMainClassListLauncher() {
-		trackTermination();
+		this(true);
 //		Thread thread = new Thread(this);
 //		Runtime.getRuntime().addShutdownHook(thread);
 	}
@@ -44,6 +52,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	
 	void trackTermination() {
 		Thread thread = new Thread(this);
+		thread.setName("Shut down hook");
 		Runtime.getRuntime().addShutdownHook(thread);
 	}
 	
@@ -54,7 +63,11 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 		return mainClasses.get(index);
 	}
 	public ProcessExecer execute(Class element, ConsoleModel aConsoleModel) {
-		ProcessExecer anExecuted = OEMisc.runWithObjectEditorConsole(element, "", aConsoleModel);
+		ProcessExecer anExecuted;
+		if (interactive)
+		 anExecuted = OEMisc.runWithObjectEditorConsole(element, "", aConsoleModel);
+		else
+			anExecuted = OEMisc.runWithProcessExecer(element, "", aConsoleModel);
 //		executed.add(OEMisc.runWithObjectEditorConsole(element, ""));
 //		executed.add(anExecuted);
 		add(anExecuted);
@@ -215,6 +228,14 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 			}
 			aConsoleModel.setLocalTranscriptFile(aLocalTranscriptFile);
 		}
+	}
+	@Visible(false)
+	public boolean isInteractive() {
+		return interactive;
+	}
+	@Visible(false)
+	public void setInteractive(boolean interactive) {
+		this.interactive = interactive;
 	}
 	
 }

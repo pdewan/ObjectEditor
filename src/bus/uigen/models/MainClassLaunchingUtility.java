@@ -11,12 +11,13 @@ public class MainClassLaunchingUtility {
 //		ObjectEditor.edit(retVal);
 //		return retVal;
 //	}
-	public static MainClassListLauncher interactiveLaunch(Class[] classes) {
+	public static MainClassListLauncher createInteractiveLauncher(Class[] classes) {
 //		ListenableVector<Class> classList = new AMainClassListLauncher();
 //		for (Class aClass:classes) {
 //			classList.add(aClass);
 //		}
 		MainClassListLauncher retVal = createLauncher(classes);
+		retVal.setInteractive(true);
 		ObjectEditor.edit(retVal);
 		return retVal;
 	}
@@ -39,10 +40,12 @@ public class MainClassLaunchingUtility {
 //	}
 	
 	public static MainClassListLauncher createLauncher(Class[] classes) {
-		MainClassListLauncher classList = new AMainClassListLauncher();
+		MainClassListLauncher aLauncher = new AMainClassListLauncher();
 		for (Class aClass:classes) {
-			classList.add(aClass);
+			aLauncher.add(aClass);
 		}
-		return classList;
+		aLauncher.setInteractive(false);
+
+		return aLauncher;
 	}
 }

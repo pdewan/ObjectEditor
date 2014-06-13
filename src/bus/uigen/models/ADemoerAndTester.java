@@ -21,7 +21,7 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 
 
 	public ADemoerAndTester() {
-		interactive = true;
+		this(true);
 	}
 	
 
@@ -44,7 +44,11 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 		Class[] classes = composeMainClasses();
 
 //		launcher = MainClassLaunchingUtility.interactiveLaunch(classes, "DemoerOfIM_Transcript.txt");
-		launcher = MainClassLaunchingUtility.interactiveLaunch(classes);
+		if (interactive)
+			launcher = MainClassLaunchingUtility.createInteractiveLauncher(classes);
+		else
+			launcher = MainClassLaunchingUtility.createLauncher(classes);
+		
 		consoleModels = launcher.getOrCreateConsoleModels();		
 
 
@@ -178,7 +182,6 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 	}
 
 
-
 	public MainClassListLauncher getLauncher() {
 		return launcher;
 	}
@@ -191,15 +194,7 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 
 
 
-	public void setLocalTraceableLists(List<List<Traceable>> localTraceableLists) {
-		this.localTraceableLists = localTraceableLists;
-	}
-
-
-
-	public void setGlobalTraceableList(List<Traceable> globalTraceableList) {
-		this.globalTraceableList = globalTraceableList;
-	}
+	
 	
 	public void terminate() {
 		launcher.terminateAll();

@@ -59,10 +59,8 @@ public interface DemoerAndTester extends PropertyChangeListener{
 	public void setLauncher(MainClassListLauncher launcher) ;
 
 
-	public void setLocalTraceableLists(List<List<Traceable>> localTraceableLists) ;
-
-
-	public void setGlobalTraceableList(List<Traceable> globalTraceableList) ;
+	
+	
 	void terminate();
 	
 
