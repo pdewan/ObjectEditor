@@ -1,4 +1,4 @@
-package bus.uigen.trace;
+package bus.uigen.query;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
