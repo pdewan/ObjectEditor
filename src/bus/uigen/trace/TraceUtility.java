@@ -202,13 +202,7 @@ public class TraceUtility {
 	public static Integer indexOf (List<Traceable> aTraceableList, Class aClass, int aStartIndex) {
 		return indexOf(aTraceableList, aClass, aStartIndex, aTraceableList.size());
 		
-//		for (int i = anIndex; i < aTraceableList.size(); i++) {
-//			Traceable element = aTraceableList.get(i);
-////			if (element.getEventSource().equals(aClass.toString()))
-//			if (element.getClass() == aClass)
-//				return i;
-//		}
-//		return -1;
+
 	}
 	public static boolean valid(List<Integer> anIndexList) {
 		List<Integer> anInvalidIndices = indicesOfInvalidIndices(anIndexList);
@@ -222,23 +216,16 @@ public class TraceUtility {
 	public static boolean inOrder(List<Integer> anIndexList) {
 		List<Integer> anOutOfOrderList = indicesOfOutOfOrderIndices(anIndexList);
 		if (anOutOfOrderList.size() != 0) {
-//			System.out.println("Out of order indices:" + anOutOfOrderList);
 			return false;
 		}
 
-//		List<Integer> anInvalidIndices = indicesOfInvalidIndices(anIndexList);
-//		if (anInvalidIndices.size() != 0) {
-////			System.out.println("Missing events:" + missingClasses(anExpectedClasses, anInvalidIndices));
-//			return false;
-//		}
+
 		return true;
 		
 	}
 	public static boolean inOrder(List<Traceable> aTraceableList, TraceableQuery[] aQueryList,  int aStartIndex, int aStopIndex) {
 		List<Integer> anIndexList = indicesOf(aTraceableList, aQueryList, false, aStartIndex, aStopIndex);
-		boolean valid = valid(anIndexList);
-		boolean inOrder = inOrder(anIndexList);
-		return  valid && inOrder;
+		return valid(anIndexList) & inOrder(anIndexList); // want both computed
 	}
 	public static boolean inOrder(List<Traceable> aTraceableList, Class[] anExpectedClasses,  int aStartIndex, int aStopIndex) {
 		List<Integer> anIndexList = indicesOf(aTraceableList, anExpectedClasses, false, aStartIndex, aStopIndex);
@@ -258,25 +245,6 @@ public class TraceUtility {
 	public static boolean inOrder(List<Traceable> aTraceableList, Class[] aTargetClasses) {
 		return inOrder(aTraceableList, aTargetClasses, 0);
 	}
-	public static boolean checkInputEcho(List<Traceable> aTraceableList, ConsoleInput anInput, int anInputIndex ) {
-		Class[] anExpectedClasses = {
-				ConsoleOutput.class,
-		};
-		List<Integer> anIndexList = indicesOf(aTraceableList, anExpectedClasses, false, anInputIndex + 1);
-		List<Integer> anOutOfOrderList = TraceUtility.indicesOfOutOfOrderIndices(anIndexList);
-		if (anOutOfOrderList.size() != 0) {
-			System.out.println("Out of order indices:" + anOutOfOrderList);
-			return false;
-		}
-
-		List<Integer> anInvalidIndices = indicesOfInvalidIndices(anIndexList);
-		if (anInvalidIndices.size() != 0) {
-			System.out.println("Missing events:" + missingClasses(anExpectedClasses, anInvalidIndices));
-			return false;
-		}
-		ConsoleOutput anOutput = (ConsoleOutput) aTraceableList.get(anIndexList.get(0));
-		return anOutput.getOutput().toLowerCase().contains(anInput.getInput().toLowerCase());		
-		
-	}
+	
 
 }

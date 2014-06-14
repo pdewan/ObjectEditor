@@ -12,6 +12,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7110,6 +7111,33 @@ ObjectAdapterInterface, Remote, Serializable
 			index = dotIndex + 1;
 		}
 		return retVal;
+	}
+	public static  Map<String, Object> objectAdapterToPropertyMap (ObjectAdapter aBean, String[] aProperties) {
+		Map<String, Object> retVal = new HashMap();
+		for (String aProperty:aProperties) {
+			ObjectAdapter aChildAdapter = aBean.pathToObjectAdapter(aProperty);
+			if (aChildAdapter == null )
+				retVal.put(aProperty, null);
+			else 
+				retVal.put(aProperty, aChildAdapter.getValue());		
+			
+		}
+		
+		return retVal;	
+		
+	}
+	
+	public static  Map<String, Object> objectAdapterToPropertyMap (ObjectAdapter aBean, Collection<String> aProperties) {
+		return objectAdapterToPropertyMap(aBean, aProperties.toArray(new String[aProperties.size()]));
+		
+	}
+	public static  Map<String, Object> beanToPropertyMap (Object aBean, String[] aProperties) {
+		return objectAdapterToPropertyMap(ObjectEditor.toObjectAdapter(aBean), aProperties);
+		
+	}
+	public static  Map<String, Object> beanToPropertyMap (Object aBean, Collection<String> aProperties) {
+		return objectAdapterToPropertyMap(ObjectEditor.toObjectAdapter(aBean), aProperties);
+		
 	}
 
 	public static String vectorToPath(Vector pathVector) {
