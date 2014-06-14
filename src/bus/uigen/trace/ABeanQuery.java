@@ -18,27 +18,30 @@ import bus.uigen.sadapters.BeanToRecord;
 import bus.uigen.sadapters.BeanToRecordFactory;
 import bus.uigen.sadapters.RecordStructure;
 
-public class ATraceableQuery implements TraceableQuery{
+public class ABeanQuery implements BeanQuery{
 	protected Class expectedClass;
-	protected Traceable expectedTraceable;
+	protected Object expectedObject;
 	protected Map<String, Object> propertyToExpectedValue = new HashMap();
+	protected Map<String, Object> propertyToNotExpectedValue = new HashMap();
 
-	protected String[] matchedTraceableProperties;
+	protected String[] matchedObjectProperties;
+	protected String[] unmatchedObjectProperties;
 	
-	public ATraceableQuery(Class anExpectedClass) {
+	public ABeanQuery(Class anExpectedClass) {
 		expectedClass = anExpectedClass;
 	}
-	public ATraceableQuery(Traceable anExpectedTraceable) {
-		expectedTraceable = anExpectedTraceable;
+	public ABeanQuery(Object anExpectedObject) {
+		expectedObject = anExpectedObject;
 	}
-	public ATraceableQuery(Class anExpectedClass, Map<String, Object> aPropertyToExpectedValue) {
+	public ABeanQuery(Class anExpectedClass, 
+			Map<String, Object> aPropertyToExpectedValue) {
 		expectedClass = anExpectedClass;
 		propertyToExpectedValue = aPropertyToExpectedValue;
 	}
-	public ATraceableQuery(Traceable anExpectedTraceable, String[] aMatchedProperties) {
-		expectedTraceable = anExpectedTraceable;
-		matchedTraceableProperties = aMatchedProperties;
-		propertyToExpectedValue = ObjectAdapter.beanToPropertyMap(anExpectedTraceable, aMatchedProperties);
+	public ABeanQuery(Object anExpectedObject, String[] aMatchedProperties) {
+		expectedObject = anExpectedObject;
+		matchedObjectProperties = aMatchedProperties;
+		propertyToExpectedValue = ObjectAdapter.beanToPropertyMap(anExpectedObject, aMatchedProperties);
 		
 	}
 //	public static  Map<String, Object> beanToExpectedValues (Object aBean, String[] aProperties) {
@@ -70,21 +73,21 @@ public class ATraceableQuery implements TraceableQuery{
 			Map<String, Object> propertyToExpectedValue) {
 		this.propertyToExpectedValue = propertyToExpectedValue;
 	}
-	public boolean matchesClass (Traceable aTraceable) {
+	public boolean matchesClass (Object aObject) {
 		if (expectedClass == null) return true;
-		return expectedClass.isAssignableFrom(aTraceable.getClass());
+		return expectedClass.isAssignableFrom(aObject.getClass());
 	}
-	public boolean matchesTraceable (Traceable aTraceable) {
-		if (expectedTraceable == null) return true;
+	public boolean matchesObject (Object aObject) {
+		if (expectedObject == null) return true;
 		return false;
 //		return expectedClass.isAssignableFrom(aTraceable.getClass());
 	}
-	public boolean matchesPropertiesSAdapter (Traceable aTraceable) {
+	public boolean matchesPropertiesSAdapter (Object aObject) {
 		
 		if (propertyToExpectedValue == null || propertyToExpectedValue.size() == 0)
 			return true;
-		ClassProxy aClassProxy = AClassProxy.classProxy(aTraceable.getClass());
-		RecordStructure aRecord = new BeanToRecord (aClassProxy, aTraceable, null);	
+		ClassProxy aClassProxy = AClassProxy.classProxy(aObject.getClass());
+		RecordStructure aRecord = new BeanToRecord (aClassProxy, aObject, null);	
 		Set<String> aPoperties = propertyToExpectedValue.keySet();
 		for (String aProperty:aPoperties) {
 			Object anExpectedValue = propertyToExpectedValue.get(aProperty);
@@ -108,21 +111,21 @@ public class ATraceableQuery implements TraceableQuery{
 		return retVal;
 		
 	}
-	public boolean matchesProperties (Traceable aTraceable) {
+	public boolean matchesProperties (Object aObject) {
 		
 		if (propertyToExpectedValue == null || propertyToExpectedValue.size() == 0)
 			return true;
 		 Set<String> aProperties = propertyToExpectedValue.keySet();
 		 
 
-		 Map<String, Object> propertyToActualValue = ObjectAdapter.beanToPropertyMap(aTraceable, aProperties);
+		 Map<String, Object> propertyToActualValue = ObjectAdapter.beanToPropertyMap(aObject, aProperties);
 		 return matchesProperties(propertyToActualValue, propertyToExpectedValue);
 				 
 //				 propertyToExpectedValue.equals(propertyToActualValue);
 		
 	}
-	public boolean matches (Traceable aTraceable) {
-		return matchesClass(aTraceable) && matchesProperties(aTraceable);
+	public boolean matches (Object aObject) {
+		return matchesClass(aObject) && matchesProperties(aObject);
 //		if (!(expectedClass.isAssignableFrom(aTraceable.getClass())))
 //				return false;
 //		if (propertyToExpectedValue == null || propertyToExpectedValue.size() == 0)
@@ -140,6 +143,9 @@ public class ATraceableQuery implements TraceableQuery{
 		
 		
 	}
+	
+	
+	
 	
 
 }

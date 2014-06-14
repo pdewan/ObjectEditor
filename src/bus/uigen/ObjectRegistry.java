@@ -38,6 +38,15 @@ public class ObjectRegistry implements GenericLoggableInterface
 	public static ObjectAdapter getObjectAdapter(Object obj) {
 		return basicObjectRegistry.getObjectAdapter(obj);
 	}
+	
+	public static ObjectAdapter getOrCreateObjectAdapter(Object obj) {
+		ObjectAdapter retVal = basicObjectRegistry.getObjectAdapter(obj);
+		if (retVal == null) {
+			retVal = ObjectEditor.toObjectAdapter(obj);
+			mapObjectToAdapter(obj, retVal);
+		}
+		return retVal;
+	}
 
 	public static String getAdapterPathFor(Object obj){
 //		ObjectAdapter uioa = (ObjectAdapter) objectToObjectAdapterMapping.get(obj);

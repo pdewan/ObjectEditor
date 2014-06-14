@@ -7132,11 +7132,24 @@ ObjectAdapterInterface, Remote, Serializable
 		
 	}
 	public static  Map<String, Object> beanToPropertyMap (Object aBean, String[] aProperties) {
-		return objectAdapterToPropertyMap(ObjectEditor.toObjectAdapter(aBean), aProperties);
+		return objectAdapterToPropertyMap(ObjectRegistry.getOrCreateObjectAdapter(aBean), aProperties);
 		
 	}
+	public static  Object getPropertyValue (Object aBean, String aProperty) {
+		String[] aProperties = {aProperty};
+		Map<String, Object>  retVal = objectAdapterToPropertyMap(ObjectRegistry.getOrCreateObjectAdapter(aBean), aProperties);
+		return retVal.get(aProperty);
+		
+	}
+	public static  List<Object> getPropertyValues (List<Object> aBeans, String aProperty) {
+		List retVal = new ArrayList();
+		for (Object aBean:aBeans) {
+			retVal.add(getPropertyValue(aBean, aProperty));
+		}
+		return retVal;
+	}
 	public static  Map<String, Object> beanToPropertyMap (Object aBean, Collection<String> aProperties) {
-		return objectAdapterToPropertyMap(ObjectEditor.toObjectAdapter(aBean), aProperties);
+		return objectAdapterToPropertyMap(ObjectRegistry.getOrCreateObjectAdapter(aBean), aProperties);
 		
 	}
 

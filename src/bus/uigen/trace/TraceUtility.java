@@ -140,17 +140,17 @@ public class TraceUtility {
 	}
 	// look for elements of query in the same order but not necessarily consecutive in the traceable list
 		// allow for missing elements
-	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, TraceableQuery[] aQueryList, int aStartIndex, int aStopIndex) {
+	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, BeanQuery[] aQueryList, int aStartIndex, int aStopIndex) {
 		return indicesOf(aTraceableList, aQueryList, true, aStartIndex, aStopIndex);
 	}
-	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, TraceableQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex) {
+	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, BeanQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex) {
 		return indicesOf(aTraceableList, aQueryList, true, aStartIndex, aTraceableList.size());
 	}
 
 	
 	// look for elements of query in between the start and stop index
 	// allows for missing elements
-	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, TraceableQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
+	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, BeanQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
 		List<Integer> retVal = new ArrayList(aQueryList.length);
 		int aCurrentStartIndex = aStartIndex;
 		for (int aQueryIndex = 0; aQueryIndex < aQueryList.length && aCurrentStartIndex < aStopIndex; aQueryIndex++) {
@@ -164,9 +164,9 @@ public class TraceUtility {
 		return retVal;	
 	}
 	public static List<Integer>  indicesOf(List<Traceable> aTraceableList, Class[] aClassList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
-		TraceableQuery[] aQueryList = new TraceableQuery[aClassList.length];
+		BeanQuery[] aQueryList = new BeanQuery[aClassList.length];
 		for (int aClassIndex = 0; aClassIndex < aClassList.length; aClassIndex++) {
-			aQueryList[aClassIndex] = new ATraceableQuery(aClassList[aClassIndex]);
+			aQueryList[aClassIndex] = new ABeanQuery(aClassList[aClassIndex]);
 		}
 		return indicesOf(aTraceableList, aQueryList, anOrderedQueryList, aStartIndex, aStopIndex);
 	}
@@ -187,7 +187,7 @@ public class TraceUtility {
 		return indicesOf(aTraceableList, aClassList, 0, aTraceableList.size());
 	}
 	
-	public static Integer indexOf(List<Traceable> aTraceableList, TraceableQuery aQuery, int aStartIndex, int aStopIndex) {
+	public static Integer indexOf(List<Traceable> aTraceableList, BeanQuery aQuery, int aStartIndex, int aStopIndex) {
 		
 		for (int anIndex = aStartIndex; anIndex < aStopIndex; anIndex++) {
 			if (aQuery.matches(aTraceableList.get(anIndex)))
@@ -196,7 +196,7 @@ public class TraceUtility {
 		return -1;	
 	}
 	public static Integer indexOf(List<Traceable> aTraceableList, Class aClass, int aStartIndex, int aStopIndex) {
-		return indexOf(aTraceableList, new ATraceableQuery(aClass), aStartIndex, aStopIndex);
+		return indexOf(aTraceableList, new ABeanQuery(aClass), aStartIndex, aStopIndex);
 	}
 	
 	public static Integer indexOf (List<Traceable> aTraceableList, Class aClass, int aStartIndex) {
@@ -223,28 +223,57 @@ public class TraceUtility {
 		return true;
 		
 	}
-	public static boolean inOrder(List<Traceable> aTraceableList, TraceableQuery[] aQueryList,  int aStartIndex, int aStopIndex) {
+	public static boolean inOrder(List<Traceable> aTraceableList, BeanQuery[] aQueryList,  int aStartIndex, int aStopIndex) {
 		List<Integer> anIndexList = indicesOf(aTraceableList, aQueryList, false, aStartIndex, aStopIndex);
 		return valid(anIndexList) & inOrder(anIndexList); // want both computed
 	}
+	
 	public static boolean inOrder(List<Traceable> aTraceableList, Class[] anExpectedClasses,  int aStartIndex, int aStopIndex) {
 		List<Integer> anIndexList = indicesOf(aTraceableList, anExpectedClasses, false, aStartIndex, aStopIndex);
 		boolean valid = valid(anIndexList);
 		boolean inOrder = inOrder(anIndexList);
 		return  valid && inOrder;
 	}
-	public static boolean inOrder(List<Traceable> aTraceableList, TraceableQuery[] aQueryList,  int aStartIndex) {
+	public static boolean inOrder(List<Traceable> aTraceableList, BeanQuery[] aQueryList,  int aStartIndex) {
 		return inOrder(aTraceableList, aQueryList, aStartIndex, aTraceableList.size());
 	}
 	public static boolean inOrder(List<Traceable> aTraceableList, Class[] aTargetClasses,  int aStartIndex) {
 		return inOrder(aTraceableList, aTargetClasses, aStartIndex, aTraceableList.size());
 	}
-	public static boolean inOrder(List<Traceable> aTraceableList, TraceableQuery[] aQueryList) {
+	public static boolean inOrder(List<Traceable> aTraceableList, BeanQuery[] aQueryList) {
 		return inOrder(aTraceableList, aQueryList, 0);
 	}
 	public static boolean inOrder(List<Traceable> aTraceableList, Class[] aTargetClasses) {
 		return inOrder(aTraceableList, aTargetClasses, 0);
 	}
 	
+	public static List<Traceable> toTraceableList (List<Traceable> aTraceableList, List<Integer> anIndexList) {
+		List<Traceable> retVal = new ArrayList();
+		for (Integer anIndex: anIndexList) {
+			if (anIndex >= 0)
+				retVal.add(aTraceableList.get(anIndex));
+			else
+				retVal.add(null);
+		}
+		return retVal;
+	}
+	public static boolean matches (Object anActualBean, Object anExpectedBean, String[] aProperties) {
+		return (new ABeanQuery(anExpectedBean, aProperties)).matches(anActualBean);
+	}
+	public static boolean matches (List anActualBeans, Object anExpectedBean, String[] aProperties) {
+		boolean retVal = true;
+		for (Object anActualBean:anActualBeans) {
+			if (!matches (anActualBean, anExpectedBean, aProperties)) {
+				retVal = false;
+			}
+		}
+		return true;
+	}
+	public static boolean matches (List anActualBeans, String[] aProperties) {
+		if (anActualBeans.size() <= 1) return true;
+		Object anExpectedBean = anActualBeans.get(0);
+//		anActualBeans.remove(0); // ouch inefficient!			
+		return matches(anActualBeans, anExpectedBean, aProperties);
+	}
 
 }

@@ -4,12 +4,12 @@ import java.util.Map;
 
 import util.trace.Traceable;
 
-public interface TraceableQuery {
+public interface BeanQuery {
 	public void setExpectedClass(Class expectedClass) ;
 	public Map<String, Object> getPropertyToExpectedValue() ;
 	public void setPropertyToExpectedValue(
 			Map<String, Object> propertyToExpectedValue) ;
-	public boolean matches (Traceable aTraceable);
+	public boolean matches (Object aTraceable);
 
 
 }
