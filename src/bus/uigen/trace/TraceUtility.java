@@ -1,5 +1,9 @@
 package bus.uigen.trace;
 
+import static bus.uigen.trace.TraceUtility.indicesOf;
+import static bus.uigen.trace.TraceUtility.indicesOfInvalidIndices;
+import static bus.uigen.trace.TraceUtility.missingClasses;
+
 import java.io.FileInputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -10,6 +14,8 @@ import util.misc.Common;
 import util.trace.Traceable;
 import util.trace.TraceableInfo;
 import util.trace.Tracer;
+import util.trace.console.ConsoleInput;
+import util.trace.console.ConsoleOutput;
 
 public class TraceUtility {
 	
@@ -203,6 +209,74 @@ public class TraceUtility {
 //				return i;
 //		}
 //		return -1;
+	}
+	public static boolean valid(List<Integer> anIndexList) {
+		List<Integer> anInvalidIndices = indicesOfInvalidIndices(anIndexList);
+		if (anInvalidIndices.size() != 0) {
+//			System.out.println("Missing events:" + missingClasses(anExpectedClasses, anInvalidIndices));
+			return false;
+		}
+		return true;
+		
+	}
+	public static boolean inOrder(List<Integer> anIndexList) {
+		List<Integer> anOutOfOrderList = indicesOfOutOfOrderIndices(anIndexList);
+		if (anOutOfOrderList.size() != 0) {
+//			System.out.println("Out of order indices:" + anOutOfOrderList);
+			return false;
+		}
+
+//		List<Integer> anInvalidIndices = indicesOfInvalidIndices(anIndexList);
+//		if (anInvalidIndices.size() != 0) {
+////			System.out.println("Missing events:" + missingClasses(anExpectedClasses, anInvalidIndices));
+//			return false;
+//		}
+		return true;
+		
+	}
+	public static boolean inOrder(List<Traceable> aTraceableList, TraceableQuery[] aQueryList,  int aStartIndex, int aStopIndex) {
+		List<Integer> anIndexList = indicesOf(aTraceableList, aQueryList, false, aStartIndex, aStopIndex);
+		boolean valid = valid(anIndexList);
+		boolean inOrder = inOrder(anIndexList);
+		return  valid && inOrder;
+	}
+	public static boolean inOrder(List<Traceable> aTraceableList, Class[] anExpectedClasses,  int aStartIndex, int aStopIndex) {
+		List<Integer> anIndexList = indicesOf(aTraceableList, anExpectedClasses, false, aStartIndex, aStopIndex);
+		boolean valid = valid(anIndexList);
+		boolean inOrder = inOrder(anIndexList);
+		return  valid && inOrder;
+	}
+	public static boolean inOrder(List<Traceable> aTraceableList, TraceableQuery[] aQueryList,  int aStartIndex) {
+		return inOrder(aTraceableList, aQueryList, aStartIndex, aTraceableList.size());
+	}
+	public static boolean inOrder(List<Traceable> aTraceableList, Class[] aTargetClasses,  int aStartIndex) {
+		return inOrder(aTraceableList, aTargetClasses, aStartIndex, aTraceableList.size());
+	}
+	public static boolean inOrder(List<Traceable> aTraceableList, TraceableQuery[] aQueryList) {
+		return inOrder(aTraceableList, aQueryList, 0);
+	}
+	public static boolean inOrder(List<Traceable> aTraceableList, Class[] aTargetClasses) {
+		return inOrder(aTraceableList, aTargetClasses, 0);
+	}
+	public static boolean checkInputEcho(List<Traceable> aTraceableList, ConsoleInput anInput, int anInputIndex ) {
+		Class[] anExpectedClasses = {
+				ConsoleOutput.class,
+		};
+		List<Integer> anIndexList = indicesOf(aTraceableList, anExpectedClasses, false, anInputIndex + 1);
+		List<Integer> anOutOfOrderList = TraceUtility.indicesOfOutOfOrderIndices(anIndexList);
+		if (anOutOfOrderList.size() != 0) {
+			System.out.println("Out of order indices:" + anOutOfOrderList);
+			return false;
+		}
+
+		List<Integer> anInvalidIndices = indicesOfInvalidIndices(anIndexList);
+		if (anInvalidIndices.size() != 0) {
+			System.out.println("Missing events:" + missingClasses(anExpectedClasses, anInvalidIndices));
+			return false;
+		}
+		ConsoleOutput anOutput = (ConsoleOutput) aTraceableList.get(anIndexList.get(0));
+		return anOutput.getOutput().toLowerCase().contains(anInput.getInput().toLowerCase());		
+		
 	}
 
 }
