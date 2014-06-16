@@ -44,6 +44,72 @@ public class ABeanQuery implements BeanQuery{
 		propertyToExpectedValue = ObjectAdapter.beanToPropertyMap(anExpectedObject, aMatchedProperties);
 		
 	}
+	public ABeanQuery(Class anExpectedClass, Object anExpectedObject, String[] aMatchedProperties) {
+		expectedClass = anExpectedClass;
+		expectedObject = anExpectedObject;
+		matchedObjectProperties = aMatchedProperties;
+		propertyToExpectedValue = ObjectAdapter.beanToPropertyMap(anExpectedObject, aMatchedProperties);
+		
+	}
+	public static final String EXPECTED_CLASS = "Expected Class";
+	public static final String EXPECTED_PROPERTIES = "Properties";
+	public static final String EXPECTED_VALUES = "Values";
+
+	public  String classToString() {
+		return expectedClass == null?"": EXPECTED_CLASS + "(" + 
+				expectedClass.getName() + ")";
+		
+	}
+	public  String propertiesToString() {
+		if (propertyToExpectedValue == null) return null;
+		Set<String> aPropertyNameSet = propertyToExpectedValue.keySet();
+		String[] aPropertyNames = aPropertyNameSet.toArray(
+				new String[aPropertyNameSet.size()]);
+		String aPropertyNamesString = EXPECTED_PROPERTIES + "(";
+		String aPropertyValuesString = EXPECTED_VALUES + "(";
+		for (int i = 0; i < aPropertyNames.length; i++) {
+			if (i != 0) {
+				aPropertyNamesString += ", ";
+				aPropertyValuesString += ", ";
+			}
+			aPropertyNamesString += aPropertyNames[i];
+			aPropertyValuesString += propertyToExpectedValue.get(aPropertyNames[i]);						
+		}
+		aPropertyNamesString += ")";
+		aPropertyValuesString += ")";
+		return aPropertyNamesString + " " + aPropertyValuesString;		
+		
+	}
+	public String toString() {
+		return classToString() + " " + propertiesToString();	
+	}
+	public static BeanQuery toBeanQuery(String aString) {
+		Class aClass = null;
+		List<String> anExpectedClassArgs = Traceable.getArgs(aString, EXPECTED_CLASS);
+		if (anExpectedClassArgs != null || anExpectedClassArgs.size() != 0) {
+			try {
+				aClass = Class.forName(anExpectedClassArgs.get(0));
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		Map<String, Object> aPropertyToExpectedValues = null;
+		List<String> aPropertyNames = Traceable.getArgs(aString, EXPECTED_PROPERTIES);
+		if (aPropertyNames != null || aPropertyNames.size() != 0) {
+			aPropertyToExpectedValues = new HashMap<String, Object>();
+			List<String> aPropertyValues = Traceable.getArgs(aString, EXPECTED_VALUES);
+			for (int i = 0; i < aPropertyNames.size(); i++) {
+				aPropertyToExpectedValues.put(aPropertyNames.get(i), aPropertyValues.get(i));
+				
+			}			
+		}
+		return new ABeanQuery(aClass, aPropertyToExpectedValues);		
+	}
+	@Override
+	public boolean isClassQuery() {
+		return expectedClass != null && (propertyToExpectedValue == null || propertyToExpectedValue.size() == 0);
+	}
+	
 //	public static  Map<String, Object> beanToExpectedValues (Object aBean, String[] aProperties) {
 //		ObjectAdapter aTopAdapter = ObjectEditor.toObjectAdapter(aBean);
 //		Map<String, Object> retVal = new HashMap();
@@ -59,16 +125,19 @@ public class ABeanQuery implements BeanQuery{
 //		return retVal;	
 //		
 //	}
-	
+	@Override
 	public Class getExpectedClass() {
 		return expectedClass;
 	}
+	@Override
 	public void setExpectedClass(Class expectedClass) {
 		this.expectedClass = expectedClass;
 	}
+	@Override
 	public Map<String, Object> getPropertyToExpectedValue() {
 		return propertyToExpectedValue;
 	}
+	@Override
 	public void setPropertyToExpectedValue(
 			Map<String, Object> propertyToExpectedValue) {
 		this.propertyToExpectedValue = propertyToExpectedValue;

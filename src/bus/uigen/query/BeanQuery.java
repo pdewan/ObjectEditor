@@ -10,6 +10,8 @@ public interface BeanQuery {
 	public void setPropertyToExpectedValue(
 			Map<String, Object> propertyToExpectedValue) ;
 	public boolean matches (Object aTraceable);
+	boolean isClassQuery();
+	Class getExpectedClass();
 
 
 }
