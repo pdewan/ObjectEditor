@@ -11,8 +11,11 @@ import java.util.Scanner;
 import bus.uigen.query.ABeanQuery;
 import bus.uigen.query.BeanQuery;
 import util.misc.Common;
+import util.trace.ATraceableLog;
 import util.trace.Traceable;
+import util.trace.TraceableBus;
 import util.trace.TraceableInfo;
+import util.trace.TraceableLog;
 import util.trace.Tracer;
 import util.trace.console.ConsoleInput;
 import util.trace.console.ConsoleOutput;
@@ -67,6 +70,17 @@ public class TraceUtility {
 			e.printStackTrace();
 		}
 		return null;		
+	}
+	
+	public static TraceableLog startNewTrace() {
+		TraceableLog retVal = new ATraceableLog(100);
+		TraceableBus.addTraceableListener(retVal);
+		return retVal;
+	}
+	
+		
+	public static void stopNewTrace(TraceableLog aTraceableLog) {
+		TraceableBus.removeTraceableListener(aTraceableLog);
 	}
 	
 	

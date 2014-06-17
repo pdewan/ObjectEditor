@@ -8463,7 +8463,8 @@ ObjectAdapterInterface, Remote, Serializable
 	Boolean isTreeNode;
 
 	public boolean isTreeNode() {
-		if (getUIFrame().hasOnlyTreeManualContainer())
+		if (getUIFrame() != null && // for non interactive
+				getUIFrame().hasOnlyTreeManualContainer())
 			return true;
 		if (getWidgetAdapter() != null
 				&& getWidgetAdapter().getClass() == TreeAdapter.class)
