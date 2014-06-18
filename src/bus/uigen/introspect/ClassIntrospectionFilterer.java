@@ -15,6 +15,7 @@ import bus.uigen.models.AComponentDrawer;
 import bus.uigen.reflect.ClassProxy;
 import bus.uigen.sadapters.RowToRecord;
 import bus.uigen.test.ALogo;
+import bus.uigen.trace.ATraceableDisplayAndWaitManager;
 
 public class ClassIntrospectionFilterer {
 	static Set<String> ignoreComponentsPackages = new HashSet();
@@ -210,7 +211,11 @@ public class ClassIntrospectionFilterer {
 			  "bus.uigen.controller.models", "bus.uigen.test", "bus.uigen.util", 
 			  "bus.uigen.viewgroups", "bus.uigen.shapes", "bus.uigen.widgets.display", 
 			  "bus.uigen.jung", "java.awt.geom", "bus.uigen.test.vehicle"};
-	  final Class[] doNotIgnoreClasses = {Rectangle.class, AChangeDescription.class, ALogo.class, RowToRecord.class};
+	  final Class[] doNotIgnoreClasses = {Rectangle.class, 
+			  AChangeDescription.class, 
+			  ALogo.class, 
+			  RowToRecord.class,
+			  ATraceableDisplayAndWaitManager.class};
 	  doNoIgnoreComponentsOfPackages(doNotIgnorePackages);
 	  doNotIgnoreOperationsOfPackages(doNotIgnorePackages);
 	  doNotIgnoreComponentsOfClasses (doNotIgnoreClasses);
