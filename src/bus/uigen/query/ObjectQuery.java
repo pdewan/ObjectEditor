@@ -4,7 +4,7 @@ import java.util.Map;
 
 import util.trace.Traceable;
 
-public interface BeanQuery {
+public interface ObjectQuery {
 	public void setExpectedClass(Class expectedClass) ;
 	public Map<String, Object> getPropertyToExpectedValue() ;
 	public void setPropertyToExpectedValue(
@@ -12,6 +12,8 @@ public interface BeanQuery {
 	public boolean matches (Object aTraceable);
 	boolean isClassQuery();
 	Class getExpectedClass();
+	boolean isObjectQuery();
+	Object getExpectedObject();
 
 
 }

@@ -18,7 +18,7 @@ import bus.uigen.sadapters.BeanToRecord;
 import bus.uigen.sadapters.BeanToRecordFactory;
 import bus.uigen.sadapters.RecordStructure;
 
-public class ABeanQuery implements BeanQuery{
+public class AnObjectQuery implements ObjectQuery{
 	protected Class expectedClass;
 	protected Object expectedObject;
 	protected Map<String, Object> propertyToExpectedValue = new HashMap();
@@ -27,24 +27,24 @@ public class ABeanQuery implements BeanQuery{
 	protected String[] matchedObjectProperties;
 	protected String[] unmatchedObjectProperties;
 	
-	public ABeanQuery(Class anExpectedClass) {
+	public AnObjectQuery(Class anExpectedClass) {
 		expectedClass = anExpectedClass;
 	}
-	public ABeanQuery(Object anExpectedObject) {
+	public AnObjectQuery(Object anExpectedObject) {
 		expectedObject = anExpectedObject;
 	}
-	public ABeanQuery(Class anExpectedClass, 
+	public AnObjectQuery(Class anExpectedClass, 
 			Map<String, Object> aPropertyToExpectedValue) {
 		expectedClass = anExpectedClass;
 		propertyToExpectedValue = aPropertyToExpectedValue;
 	}
-	public ABeanQuery(Object anExpectedObject, String[] aMatchedProperties) {
+	public AnObjectQuery(Object anExpectedObject, String[] aMatchedProperties) {
 		expectedObject = anExpectedObject;
 		matchedObjectProperties = aMatchedProperties;
 		propertyToExpectedValue = ObjectAdapter.beanToPropertyMap(anExpectedObject, aMatchedProperties);
 		
 	}
-	public ABeanQuery(Class anExpectedClass, Object anExpectedObject, String[] aMatchedProperties) {
+	public AnObjectQuery(Class anExpectedClass, Object anExpectedObject, String[] aMatchedProperties) {
 		expectedClass = anExpectedClass;
 		expectedObject = anExpectedObject;
 		matchedObjectProperties = aMatchedProperties;
@@ -83,7 +83,7 @@ public class ABeanQuery implements BeanQuery{
 	public String toString() {
 		return classToString() + " " + propertiesToString();	
 	}
-	public static BeanQuery toBeanQuery(String aString) {
+	public static ObjectQuery toBeanQuery(String aString) {
 		Class aClass = null;
 		List<String> anExpectedClassArgs = Traceable.getArgs(aString, EXPECTED_CLASS);
 		if (anExpectedClassArgs != null || anExpectedClassArgs.size() != 0) {
@@ -103,12 +103,17 @@ public class ABeanQuery implements BeanQuery{
 				
 			}			
 		}
-		return new ABeanQuery(aClass, aPropertyToExpectedValues);		
+		return new AnObjectQuery(aClass, aPropertyToExpectedValues);		
 	}
 	@Override
 	public boolean isClassQuery() {
 		return expectedClass != null && (propertyToExpectedValue == null || propertyToExpectedValue.size() == 0);
 	}
+	@Override
+	public boolean isObjectQuery() {
+		return expectedClass == null && (propertyToExpectedValue == null || propertyToExpectedValue.size() == 0) && (expectedObject != null);
+	}
+	
 	
 //	public static  Map<String, Object> beanToExpectedValues (Object aBean, String[] aProperties) {
 //		ObjectAdapter aTopAdapter = ObjectEditor.toObjectAdapter(aBean);
@@ -125,6 +130,10 @@ public class ABeanQuery implements BeanQuery{
 //		return retVal;	
 //		
 //	}
+	@Override
+	public Object getExpectedObject() {
+		return expectedObject;
+	}
 	@Override
 	public Class getExpectedClass() {
 		return expectedClass;
@@ -180,14 +189,18 @@ public class ABeanQuery implements BeanQuery{
 		return retVal;
 		
 	}
-	public boolean matchesProperties (Object aObject) {
+	public boolean matchesProperties (Object anObject) {
 		
-		if (propertyToExpectedValue == null || propertyToExpectedValue.size() == 0)
+		if (propertyToExpectedValue == null || propertyToExpectedValue.size() == 0) {
+			if (expectedObject != null)
+				return expectedObject.equals(anObject);
+		
 			return true;
+		}
 		 Set<String> aProperties = propertyToExpectedValue.keySet();
 		 
 
-		 Map<String, Object> propertyToActualValue = ObjectAdapter.beanToPropertyMap(aObject, aProperties);
+		 Map<String, Object> propertyToActualValue = ObjectAdapter.beanToPropertyMap(anObject, aProperties);
 		 return matchesProperties(propertyToActualValue, propertyToExpectedValue);
 				 
 //				 propertyToExpectedValue.equals(propertyToActualValue);

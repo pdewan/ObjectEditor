@@ -1,31 +1,31 @@
 package bus.uigen.trace.query;
 
-import bus.uigen.query.ABeanQuery;
-import bus.uigen.query.BeanQuery;
+import bus.uigen.query.AnObjectQuery;
+import bus.uigen.query.ObjectQuery;
 import util.trace.Traceable;
-import util.trace.query.ObjectFound;
-import util.trace.query.ObjectMissing;
+import util.trace.query.TraceableFound;
+import util.trace.query.TraceableMissing;
 
 public class OrderedQueryTargetFound extends QueryTargetFound {
-	public OrderedQueryTargetFound(String aMessage, BeanQuery aPreviousObject, BeanQuery anExpectedObject, BeanQuery aLaterObject, Object aFinder) {
+	public OrderedQueryTargetFound(String aMessage, ObjectQuery aPreviousObject, ObjectQuery anExpectedObject, ObjectQuery aLaterObject, Object aFinder) {
 		super(aMessage, aPreviousObject, anExpectedObject, aLaterObject, aFinder);
 	}
-	public OrderedQueryTargetFound(String aMessage, BeanQuery aPreviousObject,
-			BeanQuery anExpectedObject, BeanQuery aLaterObject) {
+	public OrderedQueryTargetFound(String aMessage, ObjectQuery aPreviousObject,
+			ObjectQuery anExpectedObject, ObjectQuery aLaterObject) {
 		super(aMessage, aPreviousObject, anExpectedObject, aLaterObject);
 	}
 	public static OrderedQueryTargetFound toTraceable(String aMessage) {
 		try {
 			return new OrderedQueryTargetFound (aMessage, 
-					ABeanQuery.toBeanQuery(getPrevious(aMessage)),
-					ABeanQuery.toBeanQuery(getExpected(aMessage)),
-					ABeanQuery.toBeanQuery(getLater(aMessage)));
+					AnObjectQuery.toBeanQuery(getPrevious(aMessage)),
+					AnObjectQuery.toBeanQuery(getExpected(aMessage)),
+					AnObjectQuery.toBeanQuery(getLater(aMessage)));
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
 			}
 	}
-	public static OrderedQueryTargetFound newCase (BeanQuery aPreviousObject, BeanQuery anExpectedObject, BeanQuery aLaterObject, Object aFinder) {
+	public static OrderedQueryTargetFound newCase (ObjectQuery aPreviousObject, ObjectQuery anExpectedObject, ObjectQuery aLaterObject, Object aFinder) {
 		String aMessage = toString(aPreviousObject, anExpectedObject, aLaterObject);
 		OrderedQueryTargetFound retVal = new OrderedQueryTargetFound(aMessage, aPreviousObject, anExpectedObject, aLaterObject, aFinder);
 		retVal.announce();

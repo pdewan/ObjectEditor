@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.thoughtworks.qdox.tools.QDoxTester.Reporter;
 
-import bus.uigen.query.ABeanQuery;
+import bus.uigen.query.AnObjectQuery;
 import bus.uigen.trace.query.OrderedQueryTargetDisplaced;
 import bus.uigen.trace.query.OrderedQueryTargetFound;
 import bus.uigen.trace.query.OrderedQueryTargetMissing;
@@ -22,9 +22,14 @@ import util.trace.console.ConsoleInput;
 import util.trace.console.ConsoleOutput;
 import util.trace.query.ClassInstanceFound;
 import util.trace.query.ClassInstanceMissing;
+import util.trace.query.EqualObjectFound;
+import util.trace.query.EqualObjectMissing;
 import util.trace.query.OrderedClassInstanceDisplaced;
 import util.trace.query.OrderedClassInstanceFound;
 import util.trace.query.OrderedClassInstanceMissing;
+import util.trace.query.OrderedEqualObjectDisplaced;
+import util.trace.query.OrderedEqualObjectFound;
+import util.trace.query.OrderedEqualObjectMissing;
 
 public class QueryUtility {
 	
@@ -155,14 +160,14 @@ public class QueryUtility {
 	}
 	// look for elements of query in the same order but not necessarily consecutive in the traceable list
 		// allow for missing elements
-	public static List<Integer>  indicesOf(List anObjectList, BeanQuery[] aQueryList, int aStartIndex, int aStopIndex) {
+	public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, int aStartIndex, int aStopIndex) {
 		return indicesOf(anObjectList, aQueryList, true, aStartIndex, aStopIndex);
 	}
-	public static List<Integer>  indicesOf(List anObjectList, BeanQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex) {
+	public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex) {
 		return indicesOf(anObjectList, aQueryList, true, aStartIndex, anObjectList.size());
 	}
 
-	public void reportMissing(List anObjectList, BeanQuery[] aQueryList, boolean anOrderedQueryList, int aQueryIndex) {
+	public void reportMissing(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, int aQueryIndex) {
 		
 		
 	}
@@ -173,16 +178,16 @@ public class QueryUtility {
 		}
 		return -1;
 	}
-	public static BeanQuery findPreviousValidObject (List<Integer> anIndexList, 
+	public static ObjectQuery findPreviousValidObject (List<Integer> anIndexList, 
 			int aQueryIndex,
-			BeanQuery[] aQueryList) {
+			ObjectQuery[] aQueryList) {
 		int anIndex = findPreviousValidIndex(anIndexList, aQueryIndex);
 		return anIndex < 0? null:aQueryList[anIndex];
 	}
 	
-	public static BeanQuery findNextValidObject (List<Integer> anIndexList, 
+	public static ObjectQuery findNextValidObject (List<Integer> anIndexList, 
 			int aQueryIndex,
-			BeanQuery[]  aQueryList) {
+			ObjectQuery[]  aQueryList) {
 		int anIndex = findNextValidIndex(anIndexList, aQueryIndex);
 		return anIndex < 0? null:aQueryList[anIndex];
 	}
@@ -195,73 +200,89 @@ public class QueryUtility {
 		return -1;
 	}
 	
-	public static void traceSearchResult(List anObjectList, BeanQuery[] aQueryList,  boolean anOrderedQueryList, int aQueryIndex,  List<Integer> anIndexList) {
-		BeanQuery anExpectedObject = aQueryList[aQueryIndex];
+	public static void traceSearchResult(List anObjectList, ObjectQuery[] aQueryList,  boolean anOrderedQueryList, int aQueryIndex,  List<Integer> anIndexList) {
+		ObjectQuery anExpectedObject = aQueryList[aQueryIndex];
 		boolean aSuccess =  anIndexList.get(aQueryIndex) >= 0;		
-		BeanQuery aPreviousObject = findPreviousValidObject(anIndexList, aQueryIndex, aQueryList);
-		BeanQuery aLaterObject = findNextValidObject(anIndexList, aQueryIndex, aQueryList);
+		ObjectQuery aPreviousObject = findPreviousValidObject(anIndexList, aQueryIndex, aQueryList);
+		ObjectQuery aLaterObject = findNextValidObject(anIndexList, aQueryIndex, aQueryList);
 		if (aSuccess)
 			traceSearchSuccess(anExpectedObject, aPreviousObject, aLaterObject, anOrderedQueryList);
 		else
 			traceSearchFailure(anExpectedObject, aPreviousObject, aLaterObject, anOrderedQueryList);
 			
 	}
-	public static void traceOrderedSearchDisplacement(List anObjectList, BeanQuery[] aQueryList,  int aQueryIndex,  List<Integer> anIndexList, Integer aDisplacement) {
-		BeanQuery anExpectedObject = aQueryList[aQueryIndex];
+	public static void traceOrderedSearchDisplacement(List anObjectList, ObjectQuery[] aQueryList,  int aQueryIndex,  List<Integer> anIndexList, Integer aDisplacement) {
+		ObjectQuery anExpectedObject = aQueryList[aQueryIndex];
 		boolean aSuccess =  anIndexList.get(aQueryIndex) >= 0;		
-		BeanQuery aPreviousObject = findPreviousValidObject(anIndexList, aQueryIndex, aQueryList);
-		BeanQuery aLaterObject = findNextValidObject(anIndexList, aQueryIndex, aQueryList);
+		ObjectQuery aPreviousObject = findPreviousValidObject(anIndexList, aQueryIndex, aQueryList);
+		ObjectQuery aLaterObject = findNextValidObject(anIndexList, aQueryIndex, aQueryList);
 		
 		traceOrderedSearchDisplacement(anExpectedObject, aPreviousObject, aLaterObject, aDisplacement);
 			
 	}
 	
-	static void traceSearchSuccess(BeanQuery anExpectedObject, BeanQuery aPreviousObject, BeanQuery aLaterObject, boolean anOrderedQueryList) {
+	static void traceSearchSuccess(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject, boolean anOrderedQueryList) {
 		if (anOrderedQueryList)
 			traceOrderedSearchSuccess(anExpectedObject, aPreviousObject, aLaterObject);
 		else
 			traceUnorderedSearchSuccess(anExpectedObject, aPreviousObject, aLaterObject);
 	}
 	
-	public static void traceSearchFailure(BeanQuery anExpectedObject, BeanQuery aPreviousObject, BeanQuery aLaterObject, boolean anOrderedQueryList) {
+	public static void traceSearchFailure(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject, boolean anOrderedQueryList) {
 		if (anOrderedQueryList)
 			traceOrderedSearchFailure(anExpectedObject, aPreviousObject, aLaterObject);
 		else
 			traceUnorderedSearchFailure(anExpectedObject, aPreviousObject, aLaterObject);
 	}
 	
-	public static void traceOrderedSearchDisplacement(BeanQuery anExpectedObject, BeanQuery aPreviousObject, BeanQuery aLaterObject, Integer aDisplacement) {
+	public static void traceOrderedSearchDisplacement(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject, Integer aDisplacement) {
+		if (anExpectedObject.isObjectQuery())
+			OrderedEqualObjectDisplaced.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), aDisplacement, QueryUtility.class);
+
 		if (anExpectedObject.isClassQuery()) 	
 			OrderedClassInstanceDisplaced.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), aDisplacement, QueryUtility.class);
-
+		
 		else
 			OrderedQueryTargetDisplaced.newCase(aPreviousObject, anExpectedObject, aLaterObject, aDisplacement, QueryUtility.class);
 	}
 	
-	public static void traceOrderedSearchFailure(BeanQuery anExpectedObject, BeanQuery aPreviousObject, BeanQuery aLaterObject) {
+	public static void traceOrderedSearchFailure(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
+		if (anExpectedObject.isObjectQuery())
+			OrderedEqualObjectMissing.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
+
 		if (anExpectedObject.isClassQuery()) 			
 			OrderedClassInstanceMissing.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
 		else
 			OrderedQueryTargetMissing.newCase(aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
 	}
-	public static void traceUnorderedSearchFailure(BeanQuery anExpectedObject, BeanQuery aPreviousObject, BeanQuery aLaterObject) {
+	public static void traceUnorderedSearchFailure(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
+		if (anExpectedObject.isObjectQuery())
+			EqualObjectMissing.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
 		if (anExpectedObject.isClassQuery()) 			
 			ClassInstanceMissing.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
 		else
 			QueryTargetMissing.newCase(aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
 	}
 	
-	public static Class expectedClass(BeanQuery aBeanQuery) {
+	public static Class expectedClass(ObjectQuery aBeanQuery) {
 		return aBeanQuery == null?null:aBeanQuery.getExpectedClass();
 	}
 	
-	public static void traceOrderedSearchSuccess(BeanQuery anExpectedObject, BeanQuery aPreviousObject, BeanQuery aLaterObject) {
+	public static Object expectedObject(ObjectQuery aBeanQuery) {
+		return aBeanQuery == null?null:aBeanQuery.getExpectedObject();
+	}
+	
+	public static void traceOrderedSearchSuccess(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
+		if (anExpectedObject.isObjectQuery())
+			OrderedEqualObjectFound.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
 		if (anExpectedObject.isClassQuery()) 			
 			OrderedClassInstanceFound.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
 		else
 			OrderedQueryTargetFound.newCase(aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
 	}
-	public static void traceUnorderedSearchSuccess(BeanQuery anExpectedObject, BeanQuery aPreviousObject, BeanQuery aLaterObject) {
+	public static void traceUnorderedSearchSuccess(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
+		if (anExpectedObject.isObjectQuery())
+			EqualObjectFound.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
 		if (anExpectedObject.isClassQuery()) 			
 			ClassInstanceFound.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
 		else
@@ -270,7 +291,7 @@ public class QueryUtility {
 	
 	
 	
-	public static void traceSearchResults(List anObjectList, BeanQuery[] aQueryList, boolean anOrderedQueryList, List<Integer> anIndexList) {
+	public static void traceSearchResults(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, List<Integer> anIndexList) {
 		for (int aQueryIndex = 0; aQueryIndex < aQueryList.length; aQueryIndex++) {
 			traceSearchResult(anObjectList, aQueryList, anOrderedQueryList, aQueryIndex, anIndexList);
 		}
@@ -278,7 +299,7 @@ public class QueryUtility {
 	
 	// look for elements of query in between the start and stop index
 	// allows for missing elements
-	public static List<Integer>  indicesOf(List anObjectList, BeanQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
+	public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
 		List<Integer> retVal = new ArrayList(aQueryList.length);
 		int aCurrentStartIndex = aStartIndex;
 		boolean aFoundMissing = false;
@@ -309,10 +330,17 @@ public class QueryUtility {
 		}
 		return retVal;	
 	}
-	public static BeanQuery[] toQueries (Class[] aClassList) {
-		BeanQuery[] aQueryList = new BeanQuery[aClassList.length];
+	public static ObjectQuery[] toQueries (Class[] aClassList) {
+		ObjectQuery[] aQueryList = new ObjectQuery[aClassList.length];
 		for (int aClassIndex = 0; aClassIndex < aClassList.length; aClassIndex++) {
-			aQueryList[aClassIndex] = new ABeanQuery(aClassList[aClassIndex]);
+			aQueryList[aClassIndex] = new AnObjectQuery(aClassList[aClassIndex]);
+		}
+		return aQueryList;
+	}
+	public static ObjectQuery[] toQueries (Object[] anObjectList) {
+		ObjectQuery[] aQueryList = new ObjectQuery[anObjectList.length];
+		for (int anObjectIndex = 0; anObjectIndex < anObjectList.length; anObjectIndex++) {
+			aQueryList[anObjectIndex] = new AnObjectQuery(anObjectList[anObjectIndex]);
 		}
 		return aQueryList;
 	}
@@ -323,6 +351,27 @@ public class QueryUtility {
 //		}
 		return indicesOf(anObjectList, toQueries(aClassList), anOrderedQueryList, aStartIndex, aStopIndex);
 	}
+	public static List<Integer>  indicesOf(List anObjectList, Object[] aSecondObjectList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
+
+		return indicesOf(anObjectList, toQueries(aSecondObjectList), anOrderedQueryList, aStartIndex, aStopIndex);
+	}
+	
+	public static List<Integer>  indicesOf(List anObjectList, List aSecondObjectList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
+
+		return indicesOf(anObjectList, 
+				toQueries(aSecondObjectList.toArray(new Object[aSecondObjectList.size()])), 
+				anOrderedQueryList, aStartIndex, aStopIndex);
+	}
+	public static List<Integer>  indicesOf(List anObjectList, List aSecondObjectList, boolean anOrderedQueryList, int aStartIndex) {
+
+		return indicesOf(anObjectList, aSecondObjectList, anOrderedQueryList, aStartIndex, aSecondObjectList.size());
+	}
+	public static List<Integer>  indicesOf(List anObjectList, List aSecondObjectList, boolean anOrderedQueryList) {
+
+		return indicesOf(anObjectList, aSecondObjectList, anOrderedQueryList, 0, aSecondObjectList.size());
+	}
+	
+	
 	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, int aStartIndex, int aStopIndex) {
 		return indicesOf(anObjectList, aClassList, true, aStartIndex, aStopIndex);
 	}
@@ -340,7 +389,7 @@ public class QueryUtility {
 		return indicesOf(anObjectList, aClassList, 0, anObjectList.size());
 	}
 	
-	public static Integer indexOf(List anObjectList, BeanQuery aQuery, int aStartIndex, int aStopIndex) {
+	public static Integer indexOf(List anObjectList, ObjectQuery aQuery, int aStartIndex, int aStopIndex) {
 		
 		for (int anIndex = aStartIndex; anIndex < aStopIndex; anIndex++) {
 			if (aQuery.matches(anObjectList.get(anIndex)))
@@ -348,7 +397,7 @@ public class QueryUtility {
 		}
 		return -1;	
 	}
-	public static List<Integer> indicesOf(List anObjectList, BeanQuery aQuery, int aStartIndex, int aStopIndex) {
+	public static List<Integer> indicesOf(List anObjectList, ObjectQuery aQuery, int aStartIndex, int aStopIndex) {
 		List<Integer> retVal = new ArrayList();
 		int aNextStartIndex = aStartIndex;
 		while (true) {
@@ -380,14 +429,14 @@ public class QueryUtility {
 		return indicesOf(anObjectList, aClass, 0, anObjectList.size());
 	}
 
-	public static List<Integer> indicesOf(List anObjectList, BeanQuery aQuery, int aStartIndex) {
+	public static List<Integer> indicesOf(List anObjectList, ObjectQuery aQuery, int aStartIndex) {
 		return indicesOf(anObjectList, aQuery, aStartIndex, anObjectList.size());
 	}
-	public static List<Integer> indicesOf(List anObjectList, BeanQuery aQuery) {
+	public static List<Integer> indicesOf(List anObjectList, ObjectQuery aQuery) {
 		return indicesOf(anObjectList, aQuery, 0, anObjectList.size());
 	}
 	public static Integer indexOf(List anObjectList, Class aClass, int aStartIndex, int aStopIndex) {
-		return indexOf(anObjectList, new ABeanQuery(aClass), aStartIndex, aStopIndex);
+		return indexOf(anObjectList, new AnObjectQuery(aClass), aStartIndex, aStopIndex);
 	}
 	
 	public static Integer indexOf (List anObjectList, Class aClass, int aStartIndex) {
@@ -424,7 +473,7 @@ public class QueryUtility {
 //		return true;
 //		
 //	}
-	public static boolean inOrder(List anObjectList, BeanQuery[] aQueryList,  int aStartIndex, int aStopIndex) {
+	public static boolean inOrder(List anObjectList, ObjectQuery[] aQueryList,  int aStartIndex, int aStopIndex) {
 //		List<Integer> anIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
 //		return valid(anIndexList) & inOrder(/*anObjectList,*/ anIndexList); // want both computed
 		List<Integer> anOrderedIndexList = indicesOf(anObjectList, aQueryList, true, aStartIndex, aStopIndex);
@@ -457,13 +506,13 @@ public class QueryUtility {
 //		return  valid && inOrder;
 //	}
 	
-	public static boolean inOrder(List anObjectList, BeanQuery[] aQueryList,  int aStartIndex) {
+	public static boolean inOrder(List anObjectList, ObjectQuery[] aQueryList,  int aStartIndex) {
 		return inOrder(anObjectList, aQueryList, aStartIndex, anObjectList.size());
 	}
 	public static boolean inOrder(List anObjectList, Class[] aTargetClasses,  int aStartIndex) {
 		return inOrder(anObjectList, aTargetClasses, aStartIndex, anObjectList.size());
 	}
-	public static boolean inOrder(List anObjectList, BeanQuery[] aQueryList) {
+	public static boolean inOrder(List anObjectList, ObjectQuery[] aQueryList) {
 		return inOrder(anObjectList, aQueryList, 0);
 	}
 	public static boolean inOrder(List anObjectList, Class[] aTargetClasses) {
@@ -481,7 +530,7 @@ public class QueryUtility {
 		return retVal;
 	}
 	public static boolean matches (Object anActualBean, Object anExpectedBean, String[] aProperties) {
-		return (new ABeanQuery(anExpectedBean, aProperties)).matches(anActualBean);
+		return (new AnObjectQuery(anExpectedBean, aProperties)).matches(anActualBean);
 	}
 	public static boolean matches (List anActualBeans, Object anExpectedBean, String[] aProperties) {
 		boolean retVal = true;

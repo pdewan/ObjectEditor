@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import bus.uigen.query.ABeanQuery;
-import bus.uigen.query.BeanQuery;
+import bus.uigen.query.AnObjectQuery;
+import bus.uigen.query.ObjectQuery;
 import util.misc.Common;
 import util.trace.ATraceableLog;
 import util.trace.Traceable;
