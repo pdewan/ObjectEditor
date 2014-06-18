@@ -30,6 +30,7 @@ import util.trace.query.OrderedClassInstanceMissing;
 import util.trace.query.OrderedEqualObjectDisplaced;
 import util.trace.query.OrderedEqualObjectFound;
 import util.trace.query.OrderedEqualObjectMissing;
+import util.trace.query.UnmatchedObject;
 
 public class QueryUtility {
 	
@@ -314,11 +315,12 @@ public class QueryUtility {
 				aCurrentStartIndex = aReturnIndex + 1; 
 			// else look for the next matching element after same index
 		}
+		List<Integer> unOrderedIndexList = null;
 		traceSearchResults(anObjectList, aQueryList, anOrderedQueryList, retVal);
 		if (aFoundMissing && anOrderedQueryList) {
 			// try again to find which elements were not even in the range
-			List<Integer> unOrderedIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
-			// we can now find the separation perhaps between actual and real position
+			unOrderedIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
+			// we can now find the separation  between actual and real position
 			for (int i = 0; i < aQueryList.length; i++) {
 				if (retVal.get(i) < 0 && unOrderedIndexList.get(i) >= 0) { // not in order
 					int aDisplacement = unOrderedIndexList.get(i) - 1;
@@ -326,6 +328,16 @@ public class QueryUtility {
 				}
 					
 				
+			}
+		}
+		if (anOrderedQueryList) {
+			for (int i=0; i< anObjectList.size(); i++) {
+				boolean matched = (unOrderedIndexList == null)?
+									retVal.contains(i):
+									unOrderedIndexList.contains(i);
+				if (!matched) {
+					UnmatchedObject.newCase(anObjectList.get(i), QueryUtility.class);
+				}
 			}
 		}
 		return retVal;	
