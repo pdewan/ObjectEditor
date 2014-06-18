@@ -239,7 +239,7 @@ public class QueryUtility {
 		if (anExpectedObject.isObjectQuery())
 			OrderedEqualObjectDisplaced.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), aDisplacement, QueryUtility.class);
 
-		if (anExpectedObject.isClassQuery()) 	
+		else if (anExpectedObject.isClassQuery()) 	
 			OrderedClassInstanceDisplaced.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), aDisplacement, QueryUtility.class);
 		
 		else
@@ -250,7 +250,7 @@ public class QueryUtility {
 		if (anExpectedObject.isObjectQuery())
 			OrderedEqualObjectMissing.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
 
-		if (anExpectedObject.isClassQuery()) 			
+		else if (anExpectedObject.isClassQuery()) 			
 			OrderedClassInstanceMissing.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
 		else
 			OrderedQueryTargetMissing.newCase(aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
@@ -258,7 +258,7 @@ public class QueryUtility {
 	public static void traceUnorderedSearchFailure(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
 		if (anExpectedObject.isObjectQuery())
 			EqualObjectMissing.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
-		if (anExpectedObject.isClassQuery()) 			
+		else if (anExpectedObject.isClassQuery()) 			
 			ClassInstanceMissing.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
 		else
 			QueryTargetMissing.newCase(aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
@@ -275,7 +275,7 @@ public class QueryUtility {
 	public static void traceOrderedSearchSuccess(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
 		if (anExpectedObject.isObjectQuery())
 			OrderedEqualObjectFound.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
-		if (anExpectedObject.isClassQuery()) 			
+		else if (anExpectedObject.isClassQuery()) 			
 			OrderedClassInstanceFound.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
 		else
 			OrderedQueryTargetFound.newCase(aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
@@ -283,7 +283,7 @@ public class QueryUtility {
 	public static void traceUnorderedSearchSuccess(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
 		if (anExpectedObject.isObjectQuery())
 			EqualObjectFound.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
-		if (anExpectedObject.isClassQuery()) 			
+		else if (anExpectedObject.isClassQuery()) 			
 			ClassInstanceFound.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
 		else
 			QueryTargetFound.newCase(aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
@@ -355,6 +355,20 @@ public class QueryUtility {
 
 		return indicesOf(anObjectList, toQueries(aSecondObjectList), anOrderedQueryList, aStartIndex, aStopIndex);
 	}
+	public static List<Integer>  indicesOf(Object[] anObjectList, Object[] aSecondObjectList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
+
+		return indicesOf(Common.arrayToArrayList(anObjectList), toQueries(aSecondObjectList), anOrderedQueryList, aStartIndex, aStopIndex);
+	}
+	public static List<Integer>  indicesOf(Object[] anObjectList, Object[] aSecondObjectList, boolean anOrderedQueryList, int aStartIndex) {
+
+		return indicesOf(Common.arrayToArrayList(anObjectList), toQueries(aSecondObjectList), anOrderedQueryList, aStartIndex, aSecondObjectList.length);
+	}
+	
+	public static List<Integer>  indicesOf(Object[] anObjectList, Object[] aSecondObjectList, boolean anOrderedQueryList) {
+
+		return indicesOf(Common.arrayToArrayList(anObjectList), toQueries(aSecondObjectList), anOrderedQueryList, 0, aSecondObjectList.length);
+	}
+	
 	
 	public static List<Integer>  indicesOf(List anObjectList, List aSecondObjectList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
 
@@ -370,6 +384,8 @@ public class QueryUtility {
 
 		return indicesOf(anObjectList, aSecondObjectList, anOrderedQueryList, 0, aSecondObjectList.size());
 	}
+	
+	
 	
 	
 	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, int aStartIndex, int aStopIndex) {
@@ -483,8 +499,26 @@ public class QueryUtility {
 		List<Integer> anIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
 		return valid(anIndexList);
 	}
-	
-	
+	public static boolean inOrder(List anObjectList, Object[] aSecondList,  int aStartIndex, int aStopIndex) {
+//		List<Integer> anIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
+//		return valid(anIndexList) & inOrder(/*anObjectList,*/ anIndexList); // want both computed
+		List<Integer> anOrderedIndexList = indicesOf(anObjectList, aSecondList, true, aStartIndex, aStopIndex);
+		boolean orderedValid = valid(anOrderedIndexList);
+		if (orderedValid) return true; 
+		// do another search to see what elements were found but not in order
+		List<Integer> anIndexList = indicesOf(anObjectList, aSecondList, false, aStartIndex, aStopIndex);
+		return valid(anIndexList);
+	}
+	public static boolean inOrder(Object[] anObjectList, Object[] aSecondList,  int aStartIndex, int aStopIndex) {
+//		List<Integer> anIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
+//		return valid(anIndexList) & inOrder(/*anObjectList,*/ anIndexList); // want both computed
+		List<Integer> anOrderedIndexList = indicesOf(anObjectList, aSecondList, true, aStartIndex, aStopIndex);
+		boolean orderedValid = valid(anOrderedIndexList);
+		if (orderedValid) return true; 
+		// do another search to see what elements were found but not in order
+		List<Integer> anIndexList = indicesOf(anObjectList, aSecondList, false, aStartIndex, aStopIndex);
+		return valid(anIndexList);
+	}
 	
 	
 	public static boolean inOrder(List anObjectList, Class[] anExpectedClasses,  int aStartIndex, int aStopIndex) {
@@ -511,6 +545,15 @@ public class QueryUtility {
 	}
 	public static boolean inOrder(List anObjectList, Class[] aTargetClasses,  int aStartIndex) {
 		return inOrder(anObjectList, aTargetClasses, aStartIndex, anObjectList.size());
+	}
+	public static boolean inOrder(List anObjectList, Object[] aSecondList,  int aStartIndex) {
+		return inOrder(anObjectList, aSecondList, aStartIndex, anObjectList.size());
+	}
+	public static boolean inOrder(Object[] anObjectList, Object[] aSecondList,  int aStartIndex) {
+		return inOrder(anObjectList, aSecondList, aStartIndex, anObjectList.length);
+	}
+	public static boolean inOrder(Object[] anObjectList, Object[] aSecondList) {
+		return inOrder(anObjectList, aSecondList, 0, anObjectList.length);
 	}
 	public static boolean inOrder(List anObjectList, ObjectQuery[] aQueryList) {
 		return inOrder(anObjectList, aQueryList, 0);

@@ -79,7 +79,7 @@ public class TraceUtility {
 	}
 	
 		
-	public static void startExistingTrace(TraceableLog aTraceableLog) {
+	public static void stopExistingTrace(TraceableLog aTraceableLog) {
 		TraceableBus.removeTraceableListener(aTraceableLog);
 	}
 	
