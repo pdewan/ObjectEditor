@@ -9,6 +9,7 @@ import java.util.List;
 import com.thoughtworks.qdox.tools.QDoxTester.Reporter;
 
 import bus.uigen.query.ABeanQuery;
+import bus.uigen.trace.query.OrderedQueryTargetDisplaced;
 import bus.uigen.trace.query.OrderedQueryTargetFound;
 import bus.uigen.trace.query.OrderedQueryTargetMissing;
 import bus.uigen.trace.query.QueryTargetFound;
@@ -21,6 +22,7 @@ import util.trace.console.ConsoleInput;
 import util.trace.console.ConsoleOutput;
 import util.trace.query.ClassInstanceFound;
 import util.trace.query.ClassInstanceMissing;
+import util.trace.query.OrderedClassInstanceDisplaced;
 import util.trace.query.OrderedClassInstanceFound;
 import util.trace.query.OrderedClassInstanceMissing;
 
@@ -204,6 +206,15 @@ public class QueryUtility {
 			traceSearchFailure(anExpectedObject, aPreviousObject, aLaterObject, anOrderedQueryList);
 			
 	}
+	public static void traceOrderedSearchDisplacement(List anObjectList, BeanQuery[] aQueryList,  int aQueryIndex,  List<Integer> anIndexList, Integer aDisplacement) {
+		BeanQuery anExpectedObject = aQueryList[aQueryIndex];
+		boolean aSuccess =  anIndexList.get(aQueryIndex) >= 0;		
+		BeanQuery aPreviousObject = findPreviousValidObject(anIndexList, aQueryIndex, aQueryList);
+		BeanQuery aLaterObject = findNextValidObject(anIndexList, aQueryIndex, aQueryList);
+		
+		traceOrderedSearchDisplacement(anExpectedObject, aPreviousObject, aLaterObject, aDisplacement);
+			
+	}
 	
 	static void traceSearchSuccess(BeanQuery anExpectedObject, BeanQuery aPreviousObject, BeanQuery aLaterObject, boolean anOrderedQueryList) {
 		if (anOrderedQueryList)
@@ -219,7 +230,13 @@ public class QueryUtility {
 			traceUnorderedSearchFailure(anExpectedObject, aPreviousObject, aLaterObject);
 	}
 	
-	
+	public static void traceOrderedSearchDisplacement(BeanQuery anExpectedObject, BeanQuery aPreviousObject, BeanQuery aLaterObject, Integer aDisplacement) {
+		if (anExpectedObject.isClassQuery()) 	
+			OrderedClassInstanceDisplaced.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), aDisplacement, QueryUtility.class);
+
+		else
+			OrderedQueryTargetDisplaced.newCase(aPreviousObject, anExpectedObject, aLaterObject, aDisplacement, QueryUtility.class);
+	}
 	
 	public static void traceOrderedSearchFailure(BeanQuery anExpectedObject, BeanQuery aPreviousObject, BeanQuery aLaterObject) {
 		if (anExpectedObject.isClassQuery()) 			
@@ -283,8 +300,8 @@ public class QueryUtility {
 			// we can now find the separation perhaps between actual and real position
 			for (int i = 0; i < aQueryList.length; i++) {
 				if (retVal.get(i) < 0 && unOrderedIndexList.get(i) >= 0) { // not in order
-					int offset = unOrderedIndexList.get(i) - 1;
-					
+					int aDisplacement = unOrderedIndexList.get(i) - 1;
+					traceOrderedSearchDisplacement(anObjectList, aQueryList, i, retVal, aDisplacement);
 				}
 					
 				
