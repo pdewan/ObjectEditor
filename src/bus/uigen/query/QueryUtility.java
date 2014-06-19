@@ -332,7 +332,13 @@ public class QueryUtility {
 			for (int i = 0; i < aQueryList.length; i++) {
 				if (retVal.get(i) < 0 && unOrderedIndexList.get(i) >= 0) { // not in order
 					// the displacement is actual position  - the position of the max in order index before this element
-					int aDisplacement = unOrderedIndexList.get(i) - max(retVal, 0, i-1);
+					
+					int aDisplacement;
+					aDisplacement = unOrderedIndexList.get(i) - i;
+//					if ( i == 0)
+//						aDisplacement = unOrderedIndexList.get(i);
+//					else
+//						aDisplacement = unOrderedIndexList.get(i) - max(retVal, 0, i-1);
 					
 					traceOrderedSearchDisplacement(i, retVal.get(i), anObjectList, aQueryList, i, retVal, aDisplacement);
 				}
@@ -346,7 +352,7 @@ public class QueryUtility {
 									retVal.contains(i):
 									unOrderedIndexList.contains(i);
 				if (!matched) {
-					UnmatchedObject.newCase(anObjectList.get(i), QueryUtility.class);
+					UnmatchedObject.newCase(i, -1, anObjectList.get(i), QueryUtility.class);
 				}
 			}
 		}

@@ -1,17 +1,28 @@
 package bus.uigen.query;
 
+import java.util.List;
+
+import util.trace.Traceable;
 import util.trace.TraceableLog;
 import bus.uigen.trace.TraceUtility;
 
 public class QueryUtilityTest {
 	public static void main(String[] anArgs) {
-		String[] list1 = {"hello", "goodbye"};
-		String[] list2 = {"hello", "goodbye"};
+		String[] list1 = {"b", "a", "d", "c"};
+		String[] list2 = {"a", "b"};
 		TraceableLog aTraceableLog = TraceUtility.startNewTrace();
 		boolean retVal = QueryUtility.inOrder(list1, list2);
 		TraceUtility.stopExistingTrace(aTraceableLog);
 		System.out.println(retVal);
-		System.out.println(aTraceableLog);
+//		System.out.println(aTraceableLog);
+		printLog(aTraceableLog.getLog());
+	}
+	
+	public static void printLog(List aList) {
+		for (Object aTraceable:aList) {
+			System.out.println(aTraceable);
+		}
+		
 	}
 
 }
