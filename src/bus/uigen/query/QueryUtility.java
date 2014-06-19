@@ -297,7 +297,15 @@ public class QueryUtility {
 			traceSearchResult(anObjectList, aQueryList, anOrderedQueryList, aQueryIndex, anIndexList);
 		}
 	}
-	
+	public static int max (List<Integer> anIndexList, Integer aStartIndex, Integer aStopIndex) {
+		Integer retVal = 0;
+		for (int i = aStartIndex; i < aStopIndex; i++) {
+			int curVal = anIndexList.get(i);
+			if (curVal > retVal)
+				retVal = curVal;
+		}		
+		return retVal;
+	}
 	// look for elements of query in between the start and stop index
 	// allows for missing elements
 	public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
@@ -323,7 +331,9 @@ public class QueryUtility {
 			// we can now find the separation  between actual and real position
 			for (int i = 0; i < aQueryList.length; i++) {
 				if (retVal.get(i) < 0 && unOrderedIndexList.get(i) >= 0) { // not in order
-					int aDisplacement = unOrderedIndexList.get(i) - 1;
+					// the displacement is actual position  - the position of the max in order index before this element
+					int aDisplacement = unOrderedIndexList.get(i) - max(retVal, 0, i-1);
+					
 					traceOrderedSearchDisplacement(i, retVal.get(i), anObjectList, aQueryList, i, retVal, aDisplacement);
 				}
 					
