@@ -4,19 +4,31 @@ import bus.uigen.query.AnObjectQuery;
 import bus.uigen.query.ObjectQuery;
 import util.trace.Traceable;
 import util.trace.query.TraceableFound;
+import util.trace.query.TraceableIndices;
 import util.trace.query.TraceableMissing;
+import util.trace.query.TraceableSearch;
 
-public class QueryTargetFound extends TraceableMissing {
-	public QueryTargetFound(String aMessage, ObjectQuery aPreviousObject, ObjectQuery anExpectedObject, ObjectQuery aLaterObject, Object aFinder) {
-		super(aMessage, aPreviousObject, anExpectedObject, aLaterObject, aFinder);
+public class QueryTargetFound extends TraceableSearch {
+	public QueryTargetFound(String aMessage, 
+			Integer aTestIndex,
+			Integer aReferenceIndex,
+			ObjectQuery aPreviousObject, ObjectQuery anExpectedObject, ObjectQuery aLaterObject, Object aFinder) {
+		super(aMessage, aTestIndex, aReferenceIndex, aPreviousObject, anExpectedObject, aLaterObject, aFinder);
 	}
-	public QueryTargetFound(String aMessage, ObjectQuery aPreviousObject,
+	public QueryTargetFound(String aMessage, 
+			Integer aTestIndex,
+			Integer aReferenceIndex,
+			
+			ObjectQuery aPreviousObject,
 			ObjectQuery anExpectedObject, ObjectQuery aLaterObject) {
-		super(aMessage, aPreviousObject, anExpectedObject, aLaterObject);
+		super(aMessage, aTestIndex, aReferenceIndex, aPreviousObject, anExpectedObject, aLaterObject);
 	}
+	
 	public static QueryTargetFound toTraceable(String aMessage) {
 		try {
 			return new QueryTargetFound (aMessage, 
+					TraceableIndices.getIndex1(aMessage),
+					TraceableIndices.getIndex2(aMessage),
 					AnObjectQuery.toBeanQuery(getPrevious(aMessage)),
 					AnObjectQuery.toBeanQuery(getExpected(aMessage)),
 					AnObjectQuery.toBeanQuery(getLater(aMessage)));
@@ -25,9 +37,12 @@ public class QueryTargetFound extends TraceableMissing {
 				return null;
 			}
 	}
-	public static QueryTargetFound newCase (ObjectQuery aPreviousObject, ObjectQuery anExpectedObject, ObjectQuery aLaterObject, Object aFinder) {
-		String aMessage = toString(aPreviousObject, anExpectedObject, aLaterObject);
-		QueryTargetFound retVal = new QueryTargetFound(aMessage, aPreviousObject, anExpectedObject, aLaterObject, aFinder);
+	public static QueryTargetFound newCase (
+			Integer aTestIndex,
+			Integer aReferenceIndex,
+			ObjectQuery aPreviousObject, ObjectQuery anExpectedObject, ObjectQuery aLaterObject, Object aFinder) {
+		String aMessage = TraceableSearch.toString(aTestIndex, aReferenceIndex, aPreviousObject, anExpectedObject, aLaterObject);
+		QueryTargetFound retVal = new QueryTargetFound(aMessage, aTestIndex, aReferenceIndex, aPreviousObject, anExpectedObject, aLaterObject, aFinder);
 		retVal.announce();
 		return retVal;
 	}

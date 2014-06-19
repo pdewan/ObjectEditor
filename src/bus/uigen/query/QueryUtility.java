@@ -207,62 +207,62 @@ public class QueryUtility {
 		ObjectQuery aPreviousObject = findPreviousValidObject(anIndexList, aQueryIndex, aQueryList);
 		ObjectQuery aLaterObject = findNextValidObject(anIndexList, aQueryIndex, aQueryList);
 		if (aSuccess)
-			traceSearchSuccess(anExpectedObject, aPreviousObject, aLaterObject, anOrderedQueryList);
+			traceSearchSuccess(anIndexList.get(aQueryIndex), aQueryIndex, anExpectedObject, aPreviousObject, aLaterObject, anOrderedQueryList);
 		else
-			traceSearchFailure(anExpectedObject, aPreviousObject, aLaterObject, anOrderedQueryList);
+			traceSearchFailure(anIndexList.get(aQueryIndex), aQueryIndex, anExpectedObject, aPreviousObject, aLaterObject, anOrderedQueryList);
 			
 	}
-	public static void traceOrderedSearchDisplacement(List anObjectList, ObjectQuery[] aQueryList,  int aQueryIndex,  List<Integer> anIndexList, Integer aDisplacement) {
+	public static void traceOrderedSearchDisplacement(Integer aTestIndex, Integer aReferenceIndex, List anObjectList, ObjectQuery[] aQueryList,  int aQueryIndex,  List<Integer> anIndexList, Integer aDisplacement) {
 		ObjectQuery anExpectedObject = aQueryList[aQueryIndex];
 		boolean aSuccess =  anIndexList.get(aQueryIndex) >= 0;		
 		ObjectQuery aPreviousObject = findPreviousValidObject(anIndexList, aQueryIndex, aQueryList);
 		ObjectQuery aLaterObject = findNextValidObject(anIndexList, aQueryIndex, aQueryList);
 		
-		traceOrderedSearchDisplacement(anExpectedObject, aPreviousObject, aLaterObject, aDisplacement);
+		traceOrderedSearchDisplacement(anIndexList.get(aQueryIndex), aQueryIndex, anExpectedObject, aPreviousObject, aLaterObject, aDisplacement);
 			
 	}
 	
-	static void traceSearchSuccess(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject, boolean anOrderedQueryList) {
+	static void traceSearchSuccess(Integer aTestIndex, Integer aReferenceIndex, ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject, boolean anOrderedQueryList) {
 		if (anOrderedQueryList)
-			traceOrderedSearchSuccess(anExpectedObject, aPreviousObject, aLaterObject);
+			traceOrderedSearchSuccess(aTestIndex, aReferenceIndex, anExpectedObject, aPreviousObject, aLaterObject);
 		else
-			traceUnorderedSearchSuccess(anExpectedObject, aPreviousObject, aLaterObject);
+			traceUnorderedSearchSuccess(aTestIndex, aReferenceIndex, anExpectedObject, aPreviousObject, aLaterObject);
 	}
 	
-	public static void traceSearchFailure(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject, boolean anOrderedQueryList) {
+	public static void traceSearchFailure(Integer aTestIndex, Integer aReferenceIndex, ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject, boolean anOrderedQueryList) {
 		if (anOrderedQueryList)
-			traceOrderedSearchFailure(anExpectedObject, aPreviousObject, aLaterObject);
+			traceOrderedSearchFailure(aTestIndex, aReferenceIndex, anExpectedObject, aPreviousObject, aLaterObject);
 		else
-			traceUnorderedSearchFailure(anExpectedObject, aPreviousObject, aLaterObject);
+			traceUnorderedSearchFailure(aTestIndex, aReferenceIndex, anExpectedObject, aPreviousObject, aLaterObject);
 	}
 	
-	public static void traceOrderedSearchDisplacement(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject, Integer aDisplacement) {
+	public static void traceOrderedSearchDisplacement(Integer aTestIndex, Integer aReferenceIndex, ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject, Integer aDisplacement) {
 		if (anExpectedObject.isObjectQuery())
-			OrderedEqualObjectDisplaced.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), aDisplacement, QueryUtility.class);
+			OrderedEqualObjectDisplaced.newCase(aTestIndex, aReferenceIndex, expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), aDisplacement, QueryUtility.class);
 
 		else if (anExpectedObject.isClassQuery()) 	
-			OrderedClassInstanceDisplaced.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), aDisplacement, QueryUtility.class);
+			OrderedClassInstanceDisplaced.newCase(aTestIndex, aReferenceIndex, expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), aDisplacement, QueryUtility.class);
 		
 		else
-			OrderedQueryTargetDisplaced.newCase(aPreviousObject, anExpectedObject, aLaterObject, aDisplacement, QueryUtility.class);
+			OrderedQueryTargetDisplaced.newCase(aTestIndex, aReferenceIndex, aPreviousObject, anExpectedObject, aLaterObject, aDisplacement, QueryUtility.class);
 	}
 	
-	public static void traceOrderedSearchFailure(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
+	public static void traceOrderedSearchFailure(Integer aTestIndex, Integer aReferenceIndex, ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
 		if (anExpectedObject.isObjectQuery())
-			OrderedEqualObjectMissing.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
+			OrderedEqualObjectMissing.newCase(aTestIndex, aReferenceIndex, expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
 
 		else if (anExpectedObject.isClassQuery()) 			
-			OrderedClassInstanceMissing.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
+			OrderedClassInstanceMissing.newCase(aTestIndex, aReferenceIndex, expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
 		else
-			OrderedQueryTargetMissing.newCase(aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
+			OrderedQueryTargetMissing.newCase(aTestIndex, aReferenceIndex, aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
 	}
-	public static void traceUnorderedSearchFailure(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
+	public static void traceUnorderedSearchFailure(Integer aTestIndex, Integer aReferenceIndex, ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
 		if (anExpectedObject.isObjectQuery())
-			EqualObjectMissing.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
+			EqualObjectMissing.newCase(aTestIndex, aReferenceIndex, expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
 		else if (anExpectedObject.isClassQuery()) 			
-			ClassInstanceMissing.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
+			ClassInstanceMissing.newCase(aTestIndex, aReferenceIndex, expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
 		else
-			QueryTargetMissing.newCase(aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
+			QueryTargetMissing.newCase(aTestIndex, aReferenceIndex, aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
 	}
 	
 	public static Class expectedClass(ObjectQuery aBeanQuery) {
@@ -273,21 +273,21 @@ public class QueryUtility {
 		return aBeanQuery == null?null:aBeanQuery.getExpectedObject();
 	}
 	
-	public static void traceOrderedSearchSuccess(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
+	public static void traceOrderedSearchSuccess(Integer aTestIndex, Integer aReferenceIndex, ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
 		if (anExpectedObject.isObjectQuery())
-			OrderedEqualObjectFound.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
+			OrderedEqualObjectFound.newCase(aTestIndex, aReferenceIndex, expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
 		else if (anExpectedObject.isClassQuery()) 			
-			OrderedClassInstanceFound.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
+			OrderedClassInstanceFound.newCase(aTestIndex, aReferenceIndex, expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
 		else
-			OrderedQueryTargetFound.newCase(aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
+			OrderedQueryTargetFound.newCase(aTestIndex, aReferenceIndex, aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
 	}
-	public static void traceUnorderedSearchSuccess(ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
+	public static void traceUnorderedSearchSuccess(Integer aTestIndex, Integer aReferenceIndex, ObjectQuery anExpectedObject, ObjectQuery aPreviousObject, ObjectQuery aLaterObject) {
 		if (anExpectedObject.isObjectQuery())
-			EqualObjectFound.newCase(expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
+			EqualObjectFound.newCase(aTestIndex, aReferenceIndex, expectedObject(aPreviousObject), expectedObject(anExpectedObject), expectedObject(aLaterObject), QueryUtility.class);
 		else if (anExpectedObject.isClassQuery()) 			
-			ClassInstanceFound.newCase(expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
+			ClassInstanceFound.newCase(aTestIndex, aReferenceIndex, expectedClass(aPreviousObject), expectedClass(anExpectedObject), expectedClass(aLaterObject), QueryUtility.class);
 		else
-			QueryTargetFound.newCase(aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
+			QueryTargetFound.newCase(aTestIndex, aReferenceIndex, aPreviousObject, anExpectedObject, aLaterObject, QueryUtility.class);
 	}
 	
 	
@@ -324,7 +324,7 @@ public class QueryUtility {
 			for (int i = 0; i < aQueryList.length; i++) {
 				if (retVal.get(i) < 0 && unOrderedIndexList.get(i) >= 0) { // not in order
 					int aDisplacement = unOrderedIndexList.get(i) - 1;
-					traceOrderedSearchDisplacement(anObjectList, aQueryList, i, retVal, aDisplacement);
+					traceOrderedSearchDisplacement(i, retVal.get(i), anObjectList, aQueryList, i, retVal, aDisplacement);
 				}
 					
 				
