@@ -1,7 +1,7 @@
-package bus.uigen.controller;import util.models.BoundedBuffer;import util.trace.Tracer;import bus.uigen.uiFrame;public class MethodInvocationRunnable implements Runnable {
-	BoundedBuffer boundedBuffer;
+package bus.uigen.controller;import util.models.ABoundedBuffer;import util.trace.Tracer;import bus.uigen.uiFrame;public class MethodInvocationRunnable implements Runnable {
+	ABoundedBuffer boundedBuffer;
 	uiFrame parentFrame;
-	public MethodInvocationRunnable(BoundedBuffer theBoundedBuffer, uiFrame theParentFrame) {
+	public MethodInvocationRunnable(ABoundedBuffer theBoundedBuffer, uiFrame theParentFrame) {
 		boundedBuffer = theBoundedBuffer;
 		parentFrame = theParentFrame;
 	}

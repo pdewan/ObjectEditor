@@ -44,7 +44,7 @@ import util.awt.AGlassPaneRedispatcher;
 import util.misc.HashIdentityMap;
 import util.misc.IdentityMap;
 import util.models.AnOldCheckedVector;
-import util.models.BoundedBuffer;
+import util.models.ABoundedBuffer;
 import util.models.Hashcodetable;
 import util.trace.TraceableClassToInstancesFactory;
 import util.trace.TraceableLogFactory;
@@ -3263,7 +3263,7 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 	boolean myMode;
 
 	boolean animationMode = false;
-	BoundedBuffer methodInvocationBuffer = new BoundedBuffer();
+	ABoundedBuffer methodInvocationBuffer = new ABoundedBuffer();
 	MethodInvocationRunnable methodInvocationRunnable = new MethodInvocationRunnable(
 			methodInvocationBuffer, this);
 	public static int numMethodInvocationThreads = 2;
@@ -3294,7 +3294,7 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 		return threadsStarted;
 	}
 
-	public BoundedBuffer getMethodInvocationBuffer() {
+	public ABoundedBuffer getMethodInvocationBuffer() {
 		return methodInvocationBuffer;
 	}
 
