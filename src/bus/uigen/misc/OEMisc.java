@@ -569,18 +569,12 @@ public class OEMisc {
 	
 	public static ProcessExecer runWithObjectEditorConsole(Class aJavaClass, String args) {
 		return runWithObjectEditorConsole(aJavaClass, args, new AConsoleModel());
-////		ProcessExecer processExecer = 
-////				new AProcessExecer(aJavaClass, args);
-////		Process process = processExecer.execProcess();
-//		ProcessExecer processExecer = runWithProcessExecer(aJavaClass, args);
-//		ConsoleModel consoleModel = processExecer.consoleModel();
-//		OEFrame frame = ObjectEditor.edit(consoleModel);
-//		frame.setSize(AConsoleModel.CONSOLE_WIDTH + CONSOLE_WIDTH_MARGIN, 
-//				AConsoleModel.CONSOLE_HEIGHT + CONSOLE_HEIGHT_MARGIN);
-//		consoleModel.initFrame((Frame) frame.getFrame().getPhysicalComponent());
-//		frame.setTitle(consoleModel.getTitle());
-//		return processExecer;
+
 	}	
+	public static ProcessExecer runWithObjectEditorConsole(Class aJavaClass, String[] args) {
+		return runWithObjectEditorConsole(aJavaClass, toArgString(args), new AConsoleModel());
+
+	}
 	public static ProcessExecer runWithObjectEditorConsole(Class aJavaClass, String args, ConsoleModel aConsoleModel) {
 //		ProcessExecer processExecer = 
 //				new AProcessExecer(aJavaClass, args);
@@ -593,13 +587,27 @@ public class OEMisc {
 		consoleModel.initFrame((Frame) frame.getFrame().getPhysicalComponent());
 		frame.setTitle(consoleModel.getTitle());
 		return processExecer;
-	}	
+	}
+	
 	public static ProcessExecer runWithProcessExecer(Class aJavaClass, String args) {
 //		ProcessExecer processExecer = 
 //				new AProcessExecer(aJavaClass, args);
 //		Process process = processExecer.execProcess();
 //		return processExecer;
 		return runWithProcessExecer(aJavaClass, args, new AConsoleModel());
+	}
+	public static String toArgString(String[] args) {
+		StringBuilder anArgs = new StringBuilder();
+		for (String anArg:args)
+			anArgs.append(" " + anArg);
+		return anArgs.toString();
+	}
+	public static ProcessExecer runWithProcessExecer(Class aJavaClass, String[] args) {
+//		ProcessExecer processExecer = 
+//				new AProcessExecer(aJavaClass, args);
+//		Process process = processExecer.execProcess();
+//		return processExecer;
+		return runWithProcessExecer(aJavaClass, toArgString(args), new AConsoleModel());
 	}
 	public static ProcessExecer runWithProcessExecer( Class aJavaClass, String args, ConsoleModel aConsoleModel) {
 		ProcessExecer processExecer = 
