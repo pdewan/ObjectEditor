@@ -1,10 +1,13 @@
 package bus.uigen.models;
 
 import java.beans.PropertyChangeEvent;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import bus.uigen.trace.TraceUtility;
+import util.misc.Common;
 import util.models.ConsoleModel;
 import util.trace.Traceable;
 
@@ -13,9 +16,14 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 	protected List<ConsoleModel> consoleModels;
 	protected List<List<Traceable>> localTraceableLists;
 	protected List<Traceable> globalTraceableList;
+	
+	protected List<List<Traceable>> correctLocalTraceableLists;
+	protected List<Traceable> correctGlobalTraceableList;
+	
 	boolean terminated;
 	boolean interactive;
 	protected MainClassListLauncher launcher;
+	String traceDirectory;
 
 	
 
@@ -73,10 +81,6 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 		}
 	}
 	
-
-	
-	
-	
 	public static final String CORRECT_CONSOLE_TRANSCRIPTS = "correctTranscripts";
 	public static final String TEST_CONSOLE_TRANSCRIPTS = "testTranscripts";
 	public  String generateCorrectDirectory() {
@@ -94,9 +98,7 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 	public void generateTestTranscripts() {
 		launcher.logConsoles(generateTestDirectory());
 	}
-	@Override
-	public void loadTraceables () {
-		
+	public void loadTestTraceables () {
 		if (consoleModels == null || consoleModels.size() == 0)
 			return;
 		localTraceableLists = new ArrayList();
@@ -108,6 +110,53 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 		}
 		String aGlobalTrancriptFile = consoleModels.get(0).getGlobalTranscriptFile();
 		globalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
+
+	}
+	public static List<String> getSortedFiles(String aDirectory) {
+		File file = new File(aDirectory);
+		String[] arrayChildren = file.list();
+		List<String> listChildren = Common.arrayToArrayList(arrayChildren) ;
+		Collections.sort(listChildren);
+		return listChildren;
+		
+		
+	}
+	public void loadCorrectTraceables (String aCorrectDirectory) {
+		
+		correctLocalTraceableLists = new ArrayList();
+		List<String> sortedFiles = getSortedFiles(aCorrectDirectory);
+		
+
+		for (int index = 0; index < sortedFiles.size(); index++) {
+			String aLocalTranscriptFile =  sortedFiles.get(index);
+			List<Traceable> traceableList = TraceUtility.toTraceableList(aLocalTranscriptFile);
+			correctLocalTraceableLists.add(traceableList);			
+		}
+		String aGlobalTrancriptFile = AMainClassListLauncher.getGlobalTranscriptFileName(aCorrectDirectory);
+		correctGlobalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
+
+	}
+
+	@Override
+	public void loadTraceables (Boolean aGenerateCorrectTranscripts) {
+		loadTestTraceables();
+		if (!aGenerateCorrectTranscripts) {
+			loadCorrectTraceables(generateCorrectDirectory());
+		}
+	
+		
+//		if (consoleModels == null || consoleModels.size() == 0)
+//			return;
+//		localTraceableLists = new ArrayList();
+//		correctLocalTraceableLists = new ArrayList();
+//
+//		for (int index = 0; index < consoleModels.size(); index++) {
+//			String aLocalTranscriptFile =  consoleModels.get(index).getLocalTranscriptFile();
+//			List<Traceable> traceableList = TraceUtility.toTraceableList(aLocalTranscriptFile);
+//			localTraceableLists.add(traceableList);			
+//		}
+//		String aGlobalTrancriptFile = consoleModels.get(0).getGlobalTranscriptFile();
+//		globalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
 		
 	}
 	// null method for those who do not want to listen to console input
@@ -135,7 +184,7 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 	}
 
 	// override this method to work on the transcripts
-	public Boolean test(Boolean aCorrectTranscripts) {
+	public Boolean executeLoadAndTest(Boolean aCorrectTranscripts) {
 		createAndDisplayLauncher();
 		if (aCorrectTranscripts)
 			generateCorrectTranscripts();
@@ -143,7 +192,7 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 			generateTestTranscripts();
 		executeAll();
 		waitForInteractionTermination();
-		loadTraceables();
+		loadTraceables(aCorrectTranscripts);
 		return true; // in general a test should be superclass tests added with subclsas ones
 	}
 

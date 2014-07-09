@@ -9,7 +9,7 @@ import util.remote.ProcessExecer;
 import util.trace.Traceable;
 
 public interface DemoerAndTester extends PropertyChangeListener{
-	Boolean test(Boolean aCorrectTranscripts);
+	Boolean executeLoadAndTest(Boolean aGenerateCorrectTranscripts);
 	MainClassListLauncher createAndDisplayLauncher();
 	MainClassListLauncher demo();
 
@@ -20,7 +20,7 @@ public interface DemoerAndTester extends PropertyChangeListener{
 
 	void generateTestTranscripts();
 
-	void loadTraceables();
+	void loadTraceables(Boolean aGenerateCorrectTranscripts);
 
 	List<List<Traceable>> getLocalTraceableLists();
 

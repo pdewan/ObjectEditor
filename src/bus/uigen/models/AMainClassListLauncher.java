@@ -205,8 +205,8 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 			aConsoleModel.addPropertyChangeListener(aPropertyChangeListener);
 		}
 	}
-	public static String getLocalTranscriptFileName(String aDirectory, Class aClass) {
-		return aDirectory + "/" + aClass.getSimpleName() + ".txt";
+	public static String getLocalTranscriptFileName(String aDirectory, Integer anIndex, Class aClass) {
+		return aDirectory + "/" + anIndex + "_" + aClass.getSimpleName() + ".txt";
 	}
 	
 	public static String getGlobalTranscriptFileName (String aDirectory) {
@@ -229,7 +229,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 			ConsoleModel aConsoleModel = consoleModels.get(i);
 			aConsoleModel.setGlobalTranscriptFile(aGlobalTranscriptFile);
 //			String aLocalTranscriptFile= aLogDirectory + "/" + mainClasses.get(i).getSimpleName() + ".txt";
-			String aLocalTranscriptFile= getLocalTranscriptFileName(aLogDirectory, mainClasses.get(i));
+			String aLocalTranscriptFile= getLocalTranscriptFileName(aLogDirectory,i, mainClasses.get(i));
 
 			try {
 				Common.clearOrCreateFile(aLocalTranscriptFile);
