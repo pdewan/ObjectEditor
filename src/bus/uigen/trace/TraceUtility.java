@@ -5,6 +5,7 @@ package bus.uigen.trace;
 import java.io.FileInputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -81,6 +82,17 @@ public class TraceUtility {
 		
 	public static void stopExistingTrace(TraceableLog aTraceableLog) {
 		TraceableBus.removeTraceableListener(aTraceableLog);
+	}
+	
+	public static List<Traceable> filterTraceList(List<Traceable> aTraceList, Class[] aClasses) {
+		List<Class> aClassesList = Arrays.asList(aClasses);
+		List<Traceable> retVal = new ArrayList();
+		for (Traceable aTraceable:aTraceList) {
+			if (aClassesList.contains(aTraceable.getClass())) {
+				retVal.add(aTraceable);
+			}
+		}
+		return retVal;
 	}
 	
 	
