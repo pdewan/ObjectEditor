@@ -126,21 +126,22 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 		correctLocalTraceableLists = new ArrayList();
 		List<String> sortedFiles = getSortedFiles(aCorrectDirectory);
 		
+		String aGlobalTrancriptFile = AMainClassListLauncher.getGlobalTranscriptFileName(aCorrectDirectory);
 
 		for (int index = 0; index < sortedFiles.size(); index++) {
-			String aLocalTranscriptFile =  sortedFiles.get(index);
-			List<Traceable> traceableList = TraceUtility.toTraceableList(aLocalTranscriptFile);
+			String aTranscriptFile =  aCorrectDirectory + "/" + sortedFiles.get(index);
+			if (aTranscriptFile.equals(aGlobalTrancriptFile)) continue;
+			List<Traceable> traceableList = TraceUtility.toTraceableList(aTranscriptFile);
 			correctLocalTraceableLists.add(traceableList);			
 		}
-		String aGlobalTrancriptFile = AMainClassListLauncher.getGlobalTranscriptFileName(aCorrectDirectory);
 		correctGlobalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
 
 	}
 
 	@Override
-	public void loadTraceables (Boolean aGenerateCorrectTranscripts) {
+	public void loadTraceables (Boolean aGenerateCorrectTranscripts, Boolean aTestAgainstCorrectTraceables) {
 		loadTestTraceables();
-		if (!aGenerateCorrectTranscripts) {
+		if (!aGenerateCorrectTranscripts && aTestAgainstCorrectTraceables) {
 			loadCorrectTraceables(generateCorrectDirectory());
 		}
 	
@@ -182,9 +183,13 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 		executeAll();
 		return launcher;
 	}
+	
+	public Boolean test (Boolean aTestAgainstCorrectTranscripts) {
+		return false;
+	}
 
 	// override this method to work on the transcripts
-	public Boolean executeLoadAndTest(Boolean aCorrectTranscripts) {
+	public Boolean executeLoadAndTest(Boolean aCorrectTranscripts, Boolean aTestAgainstCorrectTranscripts) {
 		createAndDisplayLauncher();
 		if (aCorrectTranscripts)
 			generateCorrectTranscripts();
@@ -192,7 +197,8 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 			generateTestTranscripts();
 		executeAll();
 		waitForInteractionTermination();
-		loadTraceables(aCorrectTranscripts);
+		loadTraceables(aCorrectTranscripts, aTestAgainstCorrectTranscripts);
+		test(aTestAgainstCorrectTranscripts);
 		return true; // in general a test should be superclass tests added with subclsas ones
 	}
 
