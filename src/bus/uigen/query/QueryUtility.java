@@ -15,6 +15,7 @@ import bus.uigen.trace.query.OrderedQueryTargetMissing;
 import bus.uigen.trace.query.QueryTargetFound;
 import bus.uigen.trace.query.QueryTargetMissing;
 import util.misc.Common;
+import util.models.EqualPropertiesDefiner;
 import util.trace.Traceable;
 import util.trace.TraceableInfo;
 import util.trace.Tracer;
@@ -365,6 +366,13 @@ public class QueryUtility {
 		}
 		return aQueryList;
 	}
+	public static ObjectQuery[] toQueries (EqualPropertiesDefiner[] anObjectList) {
+		ObjectQuery[] aQueryList = new ObjectQuery[anObjectList.length];
+		for (int anObjectIndex = 0; anObjectIndex < anObjectList.length; anObjectIndex++) {
+			aQueryList[anObjectIndex] = new AnObjectQuery(anObjectList[anObjectIndex]);
+		}
+		return aQueryList;
+	}
 	public static ObjectQuery[] toQueries (Object[] anObjectList) {
 		ObjectQuery[] aQueryList = new ObjectQuery[anObjectList.length];
 		for (int anObjectIndex = 0; anObjectIndex < anObjectList.length; anObjectIndex++) {
@@ -379,8 +387,17 @@ public class QueryUtility {
 		}
 		return aQueryList;
 	}
+	
 	public static ObjectQuery[] toQueries(List<Object> anObjectList) {
 		Object[] anObjectArrayList = anObjectList.toArray(new Object[anObjectList.size()]);
+		return toQueries(anObjectArrayList);
+	}
+	public static ObjectQuery[] equalPropertiesDefinerToQueries(List<EqualPropertiesDefiner> anObjectList) {
+		EqualPropertiesDefiner[] anObjectArrayList = anObjectList.toArray(new EqualPropertiesDefiner[anObjectList.size()]);
+		return toQueries(anObjectArrayList);
+	}
+	public static ObjectQuery[] traceablesToQueries(List<Traceable> anObjectList) {
+		Traceable[] anObjectArrayList = anObjectList.toArray(new Traceable[anObjectList.size()]);
 		return toQueries(anObjectArrayList);
 	}
 	public static ObjectQuery[] toQueries(List<Object> anObjectList, String[] aProperties) {

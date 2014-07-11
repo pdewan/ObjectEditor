@@ -1,12 +1,10 @@
 package bus.uigen.trace.query;
 
+import util.trace.Traceable;
+import util.trace.query.OrderedClassInstanceDisplaced;
+import util.trace.query.TraceableIndices;
 import bus.uigen.query.AnObjectQuery;
 import bus.uigen.query.ObjectQuery;
-import util.trace.Traceable;
-import util.trace.query.TraceableFound;
-import util.trace.query.TraceableIndices;
-import util.trace.query.TraceableMissing;
-import util.trace.query.OrderedClassInstanceDisplaced;
 
 public class OrderedQueryTargetDisplaced extends OrderedQueryTargetMissing {
 	Integer displacement;

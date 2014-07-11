@@ -1,12 +1,9 @@
 package bus.uigen.trace.query;
 
+import util.trace.query.TraceableIndices;
+import util.trace.query.TraceableSearch;
 import bus.uigen.query.AnObjectQuery;
 import bus.uigen.query.ObjectQuery;
-import util.trace.Traceable;
-import util.trace.query.TraceableFound;
-import util.trace.query.TraceableIndices;
-import util.trace.query.TraceableMissing;
-import util.trace.query.TraceableSearch;
 
 public class QueryTargetFound extends TraceableSearch {
 	public QueryTargetFound(String aMessage, 

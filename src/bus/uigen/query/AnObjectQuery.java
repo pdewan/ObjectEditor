@@ -2,6 +2,7 @@ package bus.uigen.query;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import util.models.EqualPropertiesDefiner;
 import util.trace.Traceable;
 import bus.uigen.ObjectEditor;
 import bus.uigen.oadapters.ObjectAdapter;
@@ -33,6 +35,9 @@ public class AnObjectQuery implements ObjectQuery{
 	public AnObjectQuery(Object anExpectedObject) {
 		expectedObject = anExpectedObject;
 	}
+	public AnObjectQuery(EqualPropertiesDefiner anEqualPropertiesDefiner) {
+		this(anEqualPropertiesDefiner, anEqualPropertiesDefiner.equalProperties().toArray(new String[anEqualPropertiesDefiner.equalProperties().size()]) );
+	}
 	public AnObjectQuery(Class anExpectedClass, 
 			Map<String, Object> aPropertyToExpectedValue) {
 		expectedClass = anExpectedClass;
@@ -41,6 +46,12 @@ public class AnObjectQuery implements ObjectQuery{
 	public AnObjectQuery(Object anExpectedObject, String[] aMatchedProperties) {
 		expectedObject = anExpectedObject;
 		matchedObjectProperties = aMatchedProperties;
+		propertyToExpectedValue = ObjectAdapter.beanToPropertyMap(anExpectedObject, aMatchedProperties);
+		
+	}
+	public AnObjectQuery(Object anExpectedObject, List<String> aMatchedProperties) {
+		expectedObject = anExpectedObject;
+		matchedObjectProperties = aMatchedProperties.toArray(new String[aMatchedProperties.size()]);
 		propertyToExpectedValue = ObjectAdapter.beanToPropertyMap(anExpectedObject, aMatchedProperties);
 		
 	}
