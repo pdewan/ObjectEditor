@@ -372,9 +372,20 @@ public class QueryUtility {
 		}
 		return aQueryList;
 	}
+	public static ObjectQuery[] toQueries (Object[] anObjectList, String[] aProperties) {
+		ObjectQuery[] aQueryList = new ObjectQuery[anObjectList.length];
+		for (int anObjectIndex = 0; anObjectIndex < anObjectList.length; anObjectIndex++) {
+			aQueryList[anObjectIndex] = new AnObjectQuery(anObjectList[anObjectIndex], aProperties);
+		}
+		return aQueryList;
+	}
 	public static ObjectQuery[] toQueries(List<Object> anObjectList) {
 		Object[] anObjectArrayList = anObjectList.toArray(new Object[anObjectList.size()]);
 		return toQueries(anObjectArrayList);
+	}
+	public static ObjectQuery[] toQueries(List<Object> anObjectList, String[] aProperties) {
+		Object[] anObjectArrayList = anObjectList.toArray(new Object[anObjectList.size()]);
+		return toQueries(anObjectArrayList, aProperties);
 	}
 	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
 //		BeanQuery[] aQueryList = new BeanQuery[aClassList.length];

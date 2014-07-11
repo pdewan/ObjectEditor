@@ -207,7 +207,8 @@ public class AnObjectQuery implements ObjectQuery{
 		
 	}
 	public boolean matches (Object aObject) {
-		return matchesClass(aObject) && matchesProperties(aObject);
+		return matchesClass(aObject) && 
+				matchesProperties(aObject);
 //		if (!(expectedClass.isAssignableFrom(aTraceable.getClass())))
 //				return false;
 //		if (propertyToExpectedValue == null || propertyToExpectedValue.size() == 0)

@@ -62,6 +62,8 @@ public interface DemoerAndTester extends PropertyChangeListener{
 	
 	
 	void terminate();
+	List<Traceable> getCorrectGlobalTraceableList();
+	List<List<Traceable>> getCorrectLocalTraceableLists();
 	
 
 }

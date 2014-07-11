@@ -169,13 +169,21 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 	public List<List<Traceable>> getLocalTraceableLists() {
 		return localTraceableLists;
 	}
+	
+	@Override
+	public List<List<Traceable>> getCorrectLocalTraceableLists() {
+		return correctLocalTraceableLists;
+	}
+
+	@Override
+	public List<Traceable> getCorrectGlobalTraceableList() {
+		return correctGlobalTraceableList;
+	}
 
 	@Override
 	public List<Traceable> getGlobalTraceableList() {
 		return globalTraceableList;
 	}
-
-
 
 	@Override
 	public MainClassListLauncher demo() {
