@@ -192,8 +192,19 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 		return launcher;
 	}
 	
-	public Boolean test (Boolean aTestAgainstCorrectTranscripts) {
+	public Boolean test() {
 		return false;
+	}
+	
+	public Boolean testAgainstCorrectTranscripts() {
+		return false;
+	}
+	
+	public Boolean test (Boolean aTestAgainstCorrectTranscripts) {
+		boolean retVal = test();
+		return aTestAgainstCorrectTranscripts?				
+				retVal & testAgainstCorrectTranscripts():
+				retVal;
 	}
 
 	// override this method to work on the transcripts

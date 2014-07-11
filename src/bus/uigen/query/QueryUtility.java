@@ -1,6 +1,9 @@
 package bus.uigen.query;
 
 
+import static bus.uigen.query.QueryUtility.inOrder;
+import static bus.uigen.query.QueryUtility.traceablesToQueries;
+
 import java.io.FileInputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -9,6 +12,7 @@ import java.util.List;
 import com.thoughtworks.qdox.tools.QDoxTester.Reporter;
 
 import bus.uigen.query.AnObjectQuery;
+import bus.uigen.trace.TraceUtility;
 import bus.uigen.trace.query.OrderedQueryTargetDisplaced;
 import bus.uigen.trace.query.OrderedQueryTargetFound;
 import bus.uigen.trace.query.OrderedQueryTargetMissing;
@@ -18,6 +22,7 @@ import util.misc.Common;
 import util.models.EqualPropertiesDefiner;
 import util.trace.Traceable;
 import util.trace.TraceableInfo;
+import util.trace.TraceableLog;
 import util.trace.Tracer;
 import util.trace.console.ConsoleInput;
 import util.trace.console.ConsoleOutput;
@@ -617,6 +622,24 @@ public class QueryUtility {
 	}
 	public static boolean inOrder(List anObjectList, ObjectQuery[] aQueryList) {
 		return inOrder(anObjectList, aQueryList, 0);
+	}
+	public static boolean inOrder(
+			List<Traceable> aTestTraceableList, 
+			List<Traceable> aCorrectTraceableList, Class[] anExpectedClasses) {
+//		Class[] anExpectedClasses = {ConsoleOutput.class};
+		List<Traceable> aFilteredTest = TraceUtility.filterTraceList(aTestTraceableList, anExpectedClasses);		
+		List<Traceable> aFilteredCorrect = TraceUtility.filterTraceList(aCorrectTraceableList, anExpectedClasses);
+		
+//		TraceableLog traceableLog = TraceUtility.startNewTrace();
+//		String[] aProperties = {"Output"};
+		
+		ObjectQuery[] objectQueries = traceablesToQueries(aFilteredCorrect);
+		boolean retVal = inOrder(aFilteredTest, objectQueries);
+//		TraceUtility.stopExistingTrace(traceableLog);
+
+		return retVal;
+		
+		
 	}
 	public static boolean inOrder(List anObjectList, Class[] aTargetClasses) {
 		return inOrder(anObjectList, aTargetClasses, 0);
