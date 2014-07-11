@@ -21,6 +21,7 @@ import bus.uigen.sadapters.BeanToRecordFactory;
 import bus.uigen.sadapters.RecordStructure;
 
 public class AnObjectQuery implements ObjectQuery{
+	public final String CLASS_PROPERTY_NAME = "Class";
 	protected Class expectedClass;
 	protected Object expectedObject;
 	protected Map<String, Object> propertyToExpectedValue = new HashMap();
@@ -47,7 +48,7 @@ public class AnObjectQuery implements ObjectQuery{
 		expectedObject = anExpectedObject;
 		matchedObjectProperties = aMatchedProperties;
 		propertyToExpectedValue = ObjectAdapter.beanToPropertyMap(anExpectedObject, aMatchedProperties);
-		
+		propertyToExpectedValue.put(CLASS_PROPERTY_NAME, anExpectedObject.getClass());
 	}
 	public AnObjectQuery(Object anExpectedObject, List<String> aMatchedProperties) {
 		expectedObject = anExpectedObject;
@@ -212,6 +213,7 @@ public class AnObjectQuery implements ObjectQuery{
 		 
 
 		 Map<String, Object> propertyToActualValue = ObjectAdapter.beanToPropertyMap(anObject, aProperties);
+		 propertyToActualValue.put(CLASS_PROPERTY_NAME, anObject.getClass());
 		 return matchesProperties(propertyToActualValue, propertyToExpectedValue);
 				 
 //				 propertyToExpectedValue.equals(propertyToActualValue);
