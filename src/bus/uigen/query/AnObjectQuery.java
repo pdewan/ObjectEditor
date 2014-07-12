@@ -193,7 +193,9 @@ public class AnObjectQuery implements ObjectQuery{
 		for (String aProperty:aProperties) {
 			Object anActualValue = anActualMap.get(aProperty);
 			Object anExpectedValue = anExpectedMap.get(aProperty);
-			if (!anActualValue.equals(anExpectedValue)) {
+			if (anActualValue == null && anExpectedValue != null)
+				retVal = false;
+			else if (!anActualValue.equals(anExpectedValue)) {
 				retVal = false;
 				// send trace message
 			}
