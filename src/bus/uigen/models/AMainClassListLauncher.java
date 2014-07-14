@@ -16,7 +16,7 @@ import util.remote.ProcessExecer;
 import bus.uigen.misc.OEMisc;
 @util.annotations.StructurePattern(util.annotations.StructurePatternNames.LIST_PATTERN)
 public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implements MainClassListLauncher {
-	public static final String GLOBAL_FILE_NAME = "globalTranscript.txt";
+//	public static final String GLOBAL_FILE_NAME = "globalTranscript.txt";
 	List<ProcessExecer> execers = new ArrayList();
 	List<ConsoleModel> consoleModels; 
 	List<Class> mainClasses  = new ArrayList();
@@ -205,18 +205,37 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 			aConsoleModel.addPropertyChangeListener(aPropertyChangeListener);
 		}
 	}
-	public static String getLocalTranscriptFileName(String aDirectory, Integer anIndex, Class aClass) {
-		return aDirectory + "/" + anIndex + "_" + aClass.getSimpleName() + ".txt";
-	}
-	
-	public static String getGlobalTranscriptFileName (String aDirectory) {
-		return aDirectory + "/" + GLOBAL_FILE_NAME;
-	}
+//	public static final String INDEX_SUFFIX = "_";
+//	public static final String TRANSCRIPT_FILE_SUFFIX = ".txt";
+//	public static String getLocalTranscriptFileName(String aDirectory, Integer anIndex, Class aClass) {
+//		return aDirectory + "/" + anIndex + "_" + aClass.getSimpleName() + TRANSCRIPT_FILE_SUFFIX ;
+//	}
+//	
+//	public static String getLocalTranscriptFileName(String aDirectory, Integer anIndex, String aTitle) {
+//		return aDirectory + "/" + anIndex + "_" + aTitle + TRANSCRIPT_FILE_SUFFIX ;
+//	}
+//	
+//	public static String getClassName(String aLocalTranscriptFileName) {
+//		int aStart = aLocalTranscriptFileName.indexOf(INDEX_SUFFIX) + 1;
+//		int anEnd = aLocalTranscriptFileName.indexOf(TRANSCRIPT_FILE_SUFFIX);
+//		return aLocalTranscriptFileName.substring(aStart, anEnd);
+//	}
+//	
+//	public static String getTitle(String aLocalTranscriptFileName) {
+//		int aStart = aLocalTranscriptFileName.indexOf(INDEX_SUFFIX) + 1;
+//		int anEnd = aLocalTranscriptFileName.indexOf(TRANSCRIPT_FILE_SUFFIX);
+//		return aLocalTranscriptFileName.substring(aStart, anEnd);
+//	}
+//	
+//	
+//	public static String getGlobalTranscriptFileName (String aDirectory) {
+//		return aDirectory + "/" + GLOBAL_FILE_NAME;
+//	}
 	
 	@Override
 	public void logConsoles(String aLogDirectory) {
 //		String aGlobalTranscriptFile = aLogDirectory + "/" + GLOBAL_FILE_NAME;
-		String aGlobalTranscriptFile = getGlobalTranscriptFileName(aLogDirectory);
+		String aGlobalTranscriptFile =  AConsoleModel.getGlobalTranscriptFileName(aLogDirectory);
 
 		try {
 			Common.clearOrCreateFile(aGlobalTranscriptFile);
@@ -229,15 +248,17 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 			ConsoleModel aConsoleModel = consoleModels.get(i);
 			aConsoleModel.setGlobalTranscriptFile(aGlobalTranscriptFile);
 //			String aLocalTranscriptFile= aLogDirectory + "/" + mainClasses.get(i).getSimpleName() + ".txt";
-			String aLocalTranscriptFile= getLocalTranscriptFileName(aLogDirectory,i, mainClasses.get(i));
+//			String aLocalTranscriptFile= getLocalTranscriptFileName(aLogDirectory,i, mainClasses.get(i));
+//			String aLocalTranscriptFile= getLocalTranscriptFileName(aLogDirectory,i, consoleModels.get(i).getTitle());
 
-			try {
-				Common.clearOrCreateFile(aLocalTranscriptFile);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			aConsoleModel.setLocalTranscriptFile(aLocalTranscriptFile);
+//			try {
+//				Common.clearOrCreateFile(aLocalTranscriptFile);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			aConsoleModel.setLocalTranscriptFile(aLocalTranscriptFile);
+			aConsoleModel.setIndexAndLogDirectory(i, aLogDirectory);
 		}
 	}
 	@Visible(false)

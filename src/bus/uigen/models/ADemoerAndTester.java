@@ -4,10 +4,13 @@ import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import bus.uigen.trace.TraceUtility;
 import util.misc.Common;
+import util.models.AConsoleModel;
 import util.models.ConsoleModel;
 import util.trace.Traceable;
 
@@ -15,6 +18,9 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 
 	protected List<ConsoleModel> consoleModels;
 	protected List<List<Traceable>> localTraceableLists;
+	protected Map <String, List<Traceable>> titleToLocalTraceableList = new HashMap();
+	protected Map <String, List<Traceable>> titleToCorrectTraceableList = new HashMap();
+
 	protected List<Traceable> globalTraceableList;
 	
 	protected List<List<Traceable>> correctLocalTraceableLists;
@@ -106,7 +112,8 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 		for (int index = 0; index < consoleModels.size(); index++) {
 			String aLocalTranscriptFile =  consoleModels.get(index).getLocalTranscriptFile();
 			List<Traceable> traceableList = TraceUtility.toTraceableList(aLocalTranscriptFile);
-			localTraceableLists.add(traceableList);			
+			localTraceableLists.add(traceableList);	
+			titleToLocalTraceableList.put(consoleModels.get(index).getTitle(), traceableList);
 		}
 		String aGlobalTrancriptFile = consoleModels.get(0).getGlobalTranscriptFile();
 		globalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
@@ -126,13 +133,15 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 		correctLocalTraceableLists = new ArrayList();
 		List<String> sortedFiles = getSortedFiles(aCorrectDirectory);
 		
-		String aGlobalTrancriptFile = AMainClassListLauncher.getGlobalTranscriptFileName(aCorrectDirectory);
+		String aGlobalTrancriptFile = AConsoleModel.getGlobalTranscriptFileName(aCorrectDirectory);
 
 		for (int index = 0; index < sortedFiles.size(); index++) {
 			String aTranscriptFile =  aCorrectDirectory + "/" + sortedFiles.get(index);
 			if (aTranscriptFile.equals(aGlobalTrancriptFile)) continue;
+			String aTitleName = AConsoleModel.getTitle(aTranscriptFile);
 			List<Traceable> traceableList = TraceUtility.toTraceableList(aTranscriptFile);
-			correctLocalTraceableLists.add(traceableList);			
+			correctLocalTraceableLists.add(traceableList);	
+			titleToCorrectTraceableList.put(aTitleName, traceableList);
 		}
 		correctGlobalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
 
