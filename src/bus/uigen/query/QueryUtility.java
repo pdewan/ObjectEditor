@@ -196,7 +196,7 @@ public class QueryUtility {
 			int aQueryIndex,
 			ObjectQuery[]  aQueryList) {
 		int anIndex = findNextValidIndex(anIndexList, aQueryIndex);
-		return anIndex < 0? null:aQueryList[anIndex];
+		return anIndex < 0 || anIndex >= aQueryList.length? null:aQueryList[anIndex];
 	}
 	
 	public static int findNextValidIndex (List<Integer> anIndexList, int aQueryIndex) {
@@ -209,6 +209,10 @@ public class QueryUtility {
 	
 	public static void traceSearchResult(List anObjectList, ObjectQuery[] aQueryList,  boolean anOrderedQueryList, int aQueryIndex,  List<Integer> anIndexList) {
 		ObjectQuery anExpectedObject = aQueryList[aQueryIndex];
+		if (aQueryIndex >= anIndexList.size()) {
+			System.out.println("aQueryIndex:" == aQueryIndex + " >=" + anIndexList.size());
+			return;
+		}
 		boolean aSuccess =  anIndexList.get(aQueryIndex) >= 0;		
 		ObjectQuery aPreviousObject = findPreviousValidObject(anIndexList, aQueryIndex, aQueryList);
 		ObjectQuery aLaterObject = findNextValidObject(anIndexList, aQueryIndex, aQueryList);
@@ -315,12 +319,82 @@ public class QueryUtility {
 	// look for elements of query in between the start and stop index
 	// allows for missing elements
 	public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
+		
+//		List<Integer> retVal = new ArrayList(Math.min(aQueryList.length, anObjectList.size()));
 		List<Integer> retVal = new ArrayList(aQueryList.length);
+		return indicesOf(anObjectList, aQueryList, anOrderedQueryList, aStartIndex, aStopIndex, retVal);
+
+//		int aCurrentStartIndex = aStartIndex;
+//		boolean aFoundMissing = false;
+//		for (int aQueryIndex = 0; 
+//				aQueryIndex < aQueryList.length && aCurrentStartIndex < aStopIndex && aQueryIndex < anObjectList.size(); 
+//				aQueryIndex++) {
+//			
+//			int aReturnIndex = indexOf(anObjectList, aQueryList[aQueryIndex], aCurrentStartIndex, aStopIndex, retVal);
+//			// should not add a duplicate
+//			retVal.add(aReturnIndex);
+//			if (aReturnIndex < 0) {
+//				aFoundMissing = true;
+//			}
+//			if (aReturnIndex >= 0 && anOrderedQueryList)
+//				aCurrentStartIndex = aReturnIndex + 1; 
+//			// else look for the next matching element after same index
+//		}
+//		for (int i = anObjectList.size(); i < aQueryList.length; i++) {
+//			retVal.add(-1);
+//			aFoundMissing = true;
+//			
+//		}
+////		if (aQueryList.length > anObjectList.size())
+////			aFoundMissing = true;
+//		List<Integer> unOrderedIndexList = null;
+//		traceSearchResults(anObjectList, aQueryList, anOrderedQueryList, retVal);
+//		if (aFoundMissing && anOrderedQueryList) {
+//			// try again to find which elements were not even in the range
+//			unOrderedIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
+//			// we can now find the separation  between actual and real position
+//			for (int i = 0; i < aQueryList.length; i++) {
+//				if (retVal.get(i) < 0 && unOrderedIndexList.get(i) >= 0) { // not in order
+//					// the displacement is actual position  - the position of the max in order index before this element
+//					
+//					int aDisplacement;
+//					aDisplacement = unOrderedIndexList.get(i) - i;
+////					if ( i == 0)
+////						aDisplacement = unOrderedIndexList.get(i);
+////					else
+////						aDisplacement = unOrderedIndexList.get(i) - max(retVal, 0, i-1);
+//					
+//					traceOrderedSearchDisplacement(i, retVal.get(i), anObjectList, aQueryList, i, retVal, aDisplacement);
+//				}
+//					
+//				
+//			}
+//		}
+//		if (anOrderedQueryList) {
+//			for (int i=0; i< anObjectList.size(); i++) {
+//				boolean matched = (unOrderedIndexList == null)?
+//									retVal.contains(i):
+//									unOrderedIndexList.contains(i);
+//				if (!matched) {
+//					UnmatchedObject.newCase(i, -1, anObjectList.get(i), QueryUtility.class);
+//				}
+//			}
+//		}
+//		return retVal;	
+	}
+public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex, List<Integer> retVal) {
+		
+//		List<Integer> retVal = new ArrayList(Math.min(aQueryList.length, anObjectList.size()));
+//		List<Integer> retVal = new ArrayList(aQueryList.length);
+
 		int aCurrentStartIndex = aStartIndex;
 		boolean aFoundMissing = false;
-		for (int aQueryIndex = 0; aQueryIndex < aQueryList.length && aCurrentStartIndex < aStopIndex; aQueryIndex++) {
+		for (int aQueryIndex = 0; 
+				aQueryIndex < aQueryList.length && aCurrentStartIndex < aStopIndex && aQueryIndex < anObjectList.size(); 
+				aQueryIndex++) {
 			
-			int aReturnIndex = indexOf(anObjectList, aQueryList[aQueryIndex], aCurrentStartIndex, aStopIndex);
+			int aReturnIndex = indexOf(anObjectList, aQueryList[aQueryIndex], aCurrentStartIndex, aStopIndex, retVal);
+			// should not add a duplicate
 			retVal.add(aReturnIndex);
 			if (aReturnIndex < 0) {
 				aFoundMissing = true;
@@ -329,11 +403,18 @@ public class QueryUtility {
 				aCurrentStartIndex = aReturnIndex + 1; 
 			// else look for the next matching element after same index
 		}
+		for (int i = anObjectList.size(); i < aQueryList.length; i++) {
+			retVal.add(-1);
+			aFoundMissing = true;
+			
+		}
+//		if (aQueryList.length > anObjectList.size())
+//			aFoundMissing = true;
 		List<Integer> unOrderedIndexList = null;
 		traceSearchResults(anObjectList, aQueryList, anOrderedQueryList, retVal);
 		if (aFoundMissing && anOrderedQueryList) {
 			// try again to find which elements were not even in the range
-			unOrderedIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
+			unOrderedIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex, retVal);
 			// we can now find the separation  between actual and real position
 			for (int i = 0; i < aQueryList.length; i++) {
 				if (retVal.get(i) < 0 && unOrderedIndexList.get(i) >= 0) { // not in order
@@ -470,19 +551,20 @@ public class QueryUtility {
 		return indicesOf(anObjectList, aClassList, 0, anObjectList.size());
 	}
 	
-	public static Integer indexOf(List anObjectList, ObjectQuery aQuery, int aStartIndex, int aStopIndex) {
+	public static Integer indexOf(List anObjectList, ObjectQuery aQuery, int aStartIndex, int aStopIndex, List<Integer> anIgnoreIndices) {
 		
 		for (int anIndex = aStartIndex; anIndex < aStopIndex; anIndex++) {
-			if (aQuery.matches(anObjectList.get(anIndex)))
+			if (!anIgnoreIndices.contains(anIndex) && aQuery.matches(anObjectList.get(anIndex)))
 				return anIndex;
 		}
 		return -1;	
 	}
+	
 	public static List<Integer> indicesOf(List anObjectList, ObjectQuery aQuery, int aStartIndex, int aStopIndex) {
 		List<Integer> retVal = new ArrayList();
 		int aNextStartIndex = aStartIndex;
 		while (true) {
-			Integer aNextIndex = indexOf(anObjectList, aQuery, aStartIndex, aStopIndex);
+			Integer aNextIndex = indexOf(anObjectList, aQuery, aStartIndex, aStopIndex, retVal);
 			
 			retVal.add(aNextIndex);
 			aNextStartIndex = aNextIndex + 1;
@@ -494,7 +576,7 @@ public class QueryUtility {
 		List<Integer> retVal = new ArrayList();
 		int aNextStartIndex = aStartIndex;
 		while (true) {
-			Integer aNextIndex = indexOf(anObjectList, aClass, aStartIndex, aStopIndex);
+			Integer aNextIndex = indexOf(anObjectList, aClass, aStartIndex, aStopIndex, retVal);
 			if (aNextIndex == -1)
 				return retVal;
 			retVal.add(aNextIndex);
@@ -516,12 +598,12 @@ public class QueryUtility {
 	public static List<Integer> indicesOf(List anObjectList, ObjectQuery aQuery) {
 		return indicesOf(anObjectList, aQuery, 0, anObjectList.size());
 	}
-	public static Integer indexOf(List anObjectList, Class aClass, int aStartIndex, int aStopIndex) {
-		return indexOf(anObjectList, new AnObjectQuery(aClass), aStartIndex, aStopIndex);
+	public static Integer indexOf(List anObjectList, Class aClass, int aStartIndex, int aStopIndex, List<Integer> ignoreIndices) {
+		return indexOf(anObjectList, new AnObjectQuery(aClass), aStartIndex, aStopIndex, ignoreIndices);
 	}
 	
-	public static Integer indexOf (List anObjectList, Class aClass, int aStartIndex) {
-		return indexOf(anObjectList, aClass, aStartIndex, anObjectList.size());
+	public static Integer indexOf (List anObjectList, Class aClass, int aStartIndex, List<Integer> ignoreIndices) {
+		return indexOf(anObjectList, aClass, aStartIndex, anObjectList.size(), ignoreIndices);
 		
 
 	}
@@ -559,10 +641,12 @@ public class QueryUtility {
 //		return valid(anIndexList) & inOrder(/*anObjectList,*/ anIndexList); // want both computed
 		List<Integer> anOrderedIndexList = indicesOf(anObjectList, aQueryList, true, aStartIndex, aStopIndex);
 		boolean orderedValid = valid(anOrderedIndexList);
-		if (orderedValid) return true; 
-		// do another search to see what elements were found but not in order
-		List<Integer> anIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
-		return valid(anIndexList);
+		return orderedValid;
+//		if (orderedValid) return true; 
+		// do another search to see what elements were found but not in order, 
+		// but this is being done by indices of, so ignore
+//		List<Integer> anIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
+//		return valid(anIndexList);
 	}
 	public static boolean inOrder(List anObjectList, Object[] aSecondList,  int aStartIndex, int aStopIndex) {
 //		List<Integer> anIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
