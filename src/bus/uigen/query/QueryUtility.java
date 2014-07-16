@@ -607,6 +607,10 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 		
 
 	}
+	public static Integer indexOf (List anObjectList, Class aClass, int aStartIndex) {
+		return indexOf(anObjectList, aClass, aStartIndex, anObjectList.size(), new ArrayList());
+		
+	}
 	public static boolean valid(List<Integer> anIndexList) {
 		List<Integer> anInvalidIndices = indicesOfInvalidIndices(anIndexList);
 		if (anInvalidIndices.size() != 0) {
