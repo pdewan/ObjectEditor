@@ -226,8 +226,8 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 		executeAll();
 		waitForInteractionTermination();
 		loadTraceables(aCorrectTranscripts, aTestAgainstCorrectTranscripts);
-		test(aTestAgainstCorrectTranscripts);
-		return true; // in general a test should be superclass tests added with subclsas ones
+		return test(aTestAgainstCorrectTranscripts);
+//		return true; // in general a test should be superclass tests added with subclsas ones
 	}
 
 	public List<ConsoleModel> getConsoleModels() {
