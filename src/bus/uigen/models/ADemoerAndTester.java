@@ -90,11 +90,18 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 	public static final String CORRECT_CONSOLE_TRANSCRIPTS = "correctTranscripts";
 	public static final String TEST_CONSOLE_TRANSCRIPTS = "testTranscripts";
 	public  String generateCorrectDirectory() {
-		return CORRECT_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();
+//		return CORRECT_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();
+		return CORRECT_CONSOLE_TRANSCRIPTS + "/" + toDirectoryName(getClass());
+
 		
 	}
+	protected String toDirectoryName(Class aClass) {
+		return getClass().getSimpleName();
+	}
 	public  String generateTestDirectory() {
-		return TEST_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();		
+//		return TEST_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();		
+		return TEST_CONSOLE_TRANSCRIPTS + "/" + toDirectoryName(getClass());		
+
 	}
 	@Override
 	public void generateCorrectTranscripts() {
