@@ -167,11 +167,11 @@ public class QueryUtility {
 	}
 	// look for elements of query in the same order but not necessarily consecutive in the traceable list
 		// allow for missing elements
-	public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, int aStartIndex, int aStopIndex) {
-		return indicesOf(anObjectList, aQueryList, true, aStartIndex, aStopIndex);
+	public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
+		return indicesOf(anObjectList, aQueryList, true, aStartIndex, aStopIndex, isDuplicateQueries);
 	}
-	public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex) {
-		return indicesOf(anObjectList, aQueryList, true, aStartIndex, anObjectList.size());
+	public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex, boolean isDuplicateQueries) {
+		return indicesOf(anObjectList, aQueryList, true, aStartIndex, anObjectList.size(), isDuplicateQueries);
 	}
 
 	public void reportMissing(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, int aQueryIndex) {
@@ -318,11 +318,11 @@ public class QueryUtility {
 	}
 	// look for elements of query in between the start and stop index
 	// allows for missing elements
-	public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
+	public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
 		
 //		List<Integer> retVal = new ArrayList(Math.min(aQueryList.length, anObjectList.size()));
-		List<Integer> retVal = new ArrayList(aQueryList.length);
-		return indicesOf(anObjectList, aQueryList, anOrderedQueryList, aStartIndex, aStopIndex, retVal);
+		List<Integer> ignoreIndices = new ArrayList(aQueryList.length);
+		return indicesOf(anObjectList, aQueryList, anOrderedQueryList, aStartIndex, aStopIndex, ignoreIndices, isDuplicateQueries);
 
 //		int aCurrentStartIndex = aStartIndex;
 //		boolean aFoundMissing = false;
@@ -382,7 +382,9 @@ public class QueryUtility {
 //		}
 //		return retVal;	
 	}
-public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex, List<Integer> retVal) {
+// not contains duplicates and in order are not going to work well maybe
+public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, 
+		int aStartIndex, int aStopIndex, List<Integer> retVal, boolean isDuplicateQueries) {
 		
 //		List<Integer> retVal = new ArrayList(Math.min(aQueryList.length, anObjectList.size()));
 //		List<Integer> retVal = new ArrayList(aQueryList.length);
@@ -393,7 +395,10 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 				aQueryIndex < aQueryList.length && aCurrentStartIndex < aStopIndex && aQueryIndex < anObjectList.size(); 
 				aQueryIndex++) {
 			
-			int aReturnIndex = indexOf(anObjectList, aQueryList[aQueryIndex], aCurrentStartIndex, aStopIndex, retVal);
+//			int aReturnIndex = indexOf(anObjectList, aQueryList[aQueryIndex], aCurrentStartIndex, aStopIndex, retVal);
+			int aReturnIndex = indexOf(anObjectList, aQueryList, aCurrentStartIndex, aStopIndex, retVal, retVal, aQueryIndex, anOrderedQueryList, isDuplicateQueries);
+
+			
 			// should not add a duplicate
 			retVal.add(aReturnIndex);
 			if (aReturnIndex < 0) {
@@ -414,7 +419,7 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 		traceSearchResults(anObjectList, aQueryList, anOrderedQueryList, retVal);
 		if (aFoundMissing && anOrderedQueryList) {
 			// try again to find which elements were not even in the range
-			unOrderedIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex, retVal);
+			unOrderedIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex, retVal, isDuplicateQueries);
 			// we can now find the separation  between actual and real position
 			for (int i = 0; i < aQueryList.length; i++) {
 				if (retVal.get(i) < 0 && unOrderedIndexList.get(i) >= 0) { // not in order
@@ -490,65 +495,66 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 		Object[] anObjectArrayList = anObjectList.toArray(new Object[anObjectList.size()]);
 		return toQueries(anObjectArrayList, aProperties);
 	}
-	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
+	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
 //		BeanQuery[] aQueryList = new BeanQuery[aClassList.length];
 //		for (int aClassIndex = 0; aClassIndex < aClassList.length; aClassIndex++) {
 //			aQueryList[aClassIndex] = new ABeanQuery(aClassList[aClassIndex]);
 //		}
-		return indicesOf(anObjectList, toQueries(aClassList), anOrderedQueryList, aStartIndex, aStopIndex);
+		return indicesOf(anObjectList, toQueries(aClassList), anOrderedQueryList, aStartIndex, aStopIndex, isDuplicateQueries);
 	}
-	public static List<Integer>  indicesOf(List anObjectList, Object[] aSecondObjectList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
+	public static List<Integer>  indicesOf(List anObjectList, Object[] aSecondObjectList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
 
-		return indicesOf(anObjectList, toQueries(aSecondObjectList), anOrderedQueryList, aStartIndex, aStopIndex);
+		return indicesOf(anObjectList, toQueries(aSecondObjectList), anOrderedQueryList, aStartIndex, aStopIndex, isDuplicateQueries);
 	}
-	public static List<Integer>  indicesOf(Object[] anObjectList, Object[] aSecondObjectList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
+	public static List<Integer>  indicesOf(Object[] anObjectList, Object[] aSecondObjectList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
 
-		return indicesOf(Common.arrayToArrayList(anObjectList), toQueries(aSecondObjectList), anOrderedQueryList, aStartIndex, aStopIndex);
+		return indicesOf(Common.arrayToArrayList(anObjectList), toQueries(aSecondObjectList), anOrderedQueryList, aStartIndex, aStopIndex, isDuplicateQueries);
 	}
-	public static List<Integer>  indicesOf(Object[] anObjectList, Object[] aSecondObjectList, boolean anOrderedQueryList, int aStartIndex) {
+	public static List<Integer>  indicesOf(Object[] anObjectList, Object[] aSecondObjectList, boolean anOrderedQueryList, int aStartIndex, boolean isDuplicateQueries) {
 
-		return indicesOf(Common.arrayToArrayList(anObjectList), toQueries(aSecondObjectList), anOrderedQueryList, aStartIndex, aSecondObjectList.length);
+		return indicesOf(Common.arrayToArrayList(anObjectList), toQueries(aSecondObjectList), anOrderedQueryList, aStartIndex, aSecondObjectList.length, isDuplicateQueries);
 	}
 	
-	public static List<Integer>  indicesOf(Object[] anObjectList, Object[] aSecondObjectList, boolean anOrderedQueryList) {
+	public static List<Integer>  indicesOf(Object[] anObjectList, Object[] aSecondObjectList, boolean anOrderedQueryList, boolean isDuplicateQueries) {
 
-		return indicesOf(Common.arrayToArrayList(anObjectList), toQueries(aSecondObjectList), anOrderedQueryList, 0, aSecondObjectList.length);
+		return indicesOf(Common.arrayToArrayList(anObjectList), toQueries(aSecondObjectList), anOrderedQueryList, 0, aSecondObjectList.length, isDuplicateQueries);
 	}
 	
 	
-	public static List<Integer>  indicesOf(List anObjectList, List aSecondObjectList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex) {
+	public static List<Integer>  indicesOf(List anObjectList, List aSecondObjectList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
 
 		return indicesOf(anObjectList, 
 				toQueries(aSecondObjectList.toArray(new Object[aSecondObjectList.size()])), 
-				anOrderedQueryList, aStartIndex, aStopIndex);
+				anOrderedQueryList, aStartIndex, aStopIndex,
+				isDuplicateQueries);
 	}
-	public static List<Integer>  indicesOf(List anObjectList, List aSecondObjectList, boolean anOrderedQueryList, int aStartIndex) {
+	public static List<Integer>  indicesOf(List anObjectList, List aSecondObjectList, boolean anOrderedQueryList, int aStartIndex, boolean isDuplicateQueries) {
 
-		return indicesOf(anObjectList, aSecondObjectList, anOrderedQueryList, aStartIndex, aSecondObjectList.size());
+		return indicesOf(anObjectList, aSecondObjectList, anOrderedQueryList, aStartIndex, aSecondObjectList.size(), isDuplicateQueries);
 	}
-	public static List<Integer>  indicesOf(List anObjectList, List aSecondObjectList, boolean anOrderedQueryList) {
+	public static List<Integer>  indicesOf(List anObjectList, List aSecondObjectList, boolean anOrderedQueryList, boolean isDuplicateQueries) {
 
-		return indicesOf(anObjectList, aSecondObjectList, anOrderedQueryList, 0, aSecondObjectList.size());
+		return indicesOf(anObjectList, aSecondObjectList, anOrderedQueryList, 0, aSecondObjectList.size(), isDuplicateQueries);
 	}
 	
 	
 	
 	
-	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, int aStartIndex, int aStopIndex) {
-		return indicesOf(anObjectList, aClassList, true, aStartIndex, aStopIndex);
+	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
+		return indicesOf(anObjectList, aClassList, true, aStartIndex, aStopIndex, isDuplicateQueries);
 	}
-	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, boolean aOrderedQueryList, int aStartIndex) {
-		return indicesOf(anObjectList, aClassList, aOrderedQueryList, aStartIndex, anObjectList.size());
+	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, boolean aOrderedQueryList, int aStartIndex, boolean isDuplicateQueries) {
+		return indicesOf(anObjectList, aClassList, aOrderedQueryList, aStartIndex, anObjectList.size(), isDuplicateQueries);
 	}
-	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, boolean aOrderedQueryList) {
-		return indicesOf(anObjectList, aClassList, aOrderedQueryList, 0, anObjectList.size());
+	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, boolean aOrderedQueryList, boolean isDuplicateQueries) {
+		return indicesOf(anObjectList, aClassList, aOrderedQueryList, 0, anObjectList.size(), isDuplicateQueries);
 	}
 	
-	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, int aStartIndex) {
-		return indicesOf(anObjectList, aClassList, aStartIndex, anObjectList.size());
+	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, int aStartIndex, boolean isDuplicateQueries) {
+		return indicesOf(anObjectList, aClassList, aStartIndex, anObjectList.size(), isDuplicateQueries);
 	}
-	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList) {
-		return indicesOf(anObjectList, aClassList, 0, anObjectList.size());
+	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, boolean isDuplicateQueries) {
+		return indicesOf(anObjectList, aClassList, 0, anObjectList.size(), isDuplicateQueries);
 	}
 	
 	public static Integer indexOf(List anObjectList, ObjectQuery aQuery, int aStartIndex, int aStopIndex, List<Integer> anIgnoreIndices) {
@@ -559,6 +565,45 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 		}
 		return -1;	
 	}
+	
+     public static Integer indexOf(List anObjectList, ObjectQuery[] aQueries, int aStartIndex, int aStopIndex, 
+    		 List<Integer> anIgnoreIndices, List<Integer> aMatchedEntries, int aQueryIndex, boolean isOrdered, boolean isDuplicateQueries) {
+		
+		for (int anIndex = aStartIndex; anIndex < aStopIndex; anIndex++) {
+			ObjectQuery aQuery = aQueries[aQueryIndex];
+			if (!anIgnoreIndices.contains(anIndex) && aQuery.matches(anObjectList.get(anIndex)))
+				return anIndex;
+			if (isDuplicateQueries)
+				continue;
+			// adjust the previous matches to come nearer the current item
+			// go down and get the nearest match in backwards manner
+			// actually forward is the correct
+			for (int aPastQueryIndex = 0; aPastQueryIndex < aQueryIndex; aPastQueryIndex++) {
+				ObjectQuery aPastQuery = aQueries[aPastQueryIndex];
+				if (!anIgnoreIndices.contains(anIndex) && aPastQuery.matches(anObjectList.get(anIndex))) {
+					aMatchedEntries.set(aPastQueryIndex, anIndex); // updating index of previously matched query
+					if (isOrdered)
+					nullifyIndexList(aMatchedEntries, aPastQueryIndex + 1, aQueryIndex); // nullifying future matches
+				break; // cannot match more than one	
+				}
+			}
+			
+//			for (int aPastQueryIndex = aQueryIndex - 1; aPastQueryIndex >= 0; aPastQueryIndex--) {
+//				ObjectQuery aPastQuery = aQueries[aPastQueryIndex];
+//				if (!anIgnoreIndices.contains(anIndex) && aPastQuery.matches(anObjectList.get(anIndex))) {
+//					aMatchedEntries.set(aPastQueryIndex, anIndex); // updating index of previously matched query
+////					if (isOrdered)
+////					nullifyIndexList(aMatchedEntries, aPastQueryIndex + 1, aQueryIndex); // nullifying future matches
+//					
+//				}
+//			}
+		}
+		return -1;	
+	}
+    public static void nullifyIndexList(List<Integer> aList, int aStartIndex, int aStopIndex) {
+    	for (int i = aStartIndex; i < aStopIndex; i++)
+    		aList.set(i, -1);
+    }
 	
 	public static List<Integer> indicesOf(List anObjectList, ObjectQuery aQuery, int aStartIndex, int aStopIndex) {
 		List<Integer> retVal = new ArrayList();
@@ -640,10 +685,10 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 //		return true;
 //		
 //	}
-	public static boolean inOrder(List anObjectList, ObjectQuery[] aQueryList,  int aStartIndex, int aStopIndex) {
+	public static boolean inOrder(List anObjectList, ObjectQuery[] aQueryList,  int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
 //		List<Integer> anIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
 //		return valid(anIndexList) & inOrder(/*anObjectList,*/ anIndexList); // want both computed
-		List<Integer> anOrderedIndexList = indicesOf(anObjectList, aQueryList, true, aStartIndex, aStopIndex);
+		List<Integer> anOrderedIndexList = indicesOf(anObjectList, aQueryList, true, aStartIndex, aStopIndex, isDuplicateQueries);
 		boolean orderedValid = valid(anOrderedIndexList);
 		return orderedValid;
 //		if (orderedValid) return true; 
@@ -652,34 +697,34 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 //		List<Integer> anIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
 //		return valid(anIndexList);
 	}
-	public static boolean inOrder(List anObjectList, Object[] aSecondList,  int aStartIndex, int aStopIndex) {
+	public static boolean inOrder(List anObjectList, Object[] aSecondList,  int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
 //		List<Integer> anIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
 //		return valid(anIndexList) & inOrder(/*anObjectList,*/ anIndexList); // want both computed
-		List<Integer> anOrderedIndexList = indicesOf(anObjectList, aSecondList, true, aStartIndex, aStopIndex);
+		List<Integer> anOrderedIndexList = indicesOf(anObjectList, aSecondList, true, aStartIndex, aStopIndex, isDuplicateQueries);
 		boolean orderedValid = valid(anOrderedIndexList);
 		if (orderedValid) return true; 
 		// do another search to see what elements were found but not in order
-		List<Integer> anIndexList = indicesOf(anObjectList, aSecondList, false, aStartIndex, aStopIndex);
+		List<Integer> anIndexList = indicesOf(anObjectList, aSecondList, false, aStartIndex, aStopIndex, isDuplicateQueries);
 		return valid(anIndexList);
 	}
-	public static boolean inOrder(Object[] anObjectList, Object[] aSecondList,  int aStartIndex, int aStopIndex) {
+	public static boolean inOrder(Object[] anObjectList, Object[] aSecondList,  int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
 //		List<Integer> anIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex);
 //		return valid(anIndexList) & inOrder(/*anObjectList,*/ anIndexList); // want both computed
-		List<Integer> anOrderedIndexList = indicesOf(anObjectList, aSecondList, true, aStartIndex, aStopIndex);
+		List<Integer> anOrderedIndexList = indicesOf(anObjectList, aSecondList, true, aStartIndex, aStopIndex, isDuplicateQueries);
 		boolean orderedValid = valid(anOrderedIndexList);
 		if (orderedValid) return true; 
 		// do another search to see what elements were found but not in order
-		List<Integer> anIndexList = indicesOf(anObjectList, aSecondList, false, aStartIndex, aStopIndex);
+		List<Integer> anIndexList = indicesOf(anObjectList, aSecondList, false, aStartIndex, aStopIndex, isDuplicateQueries);
 		return valid(anIndexList);
 	}
 	
 	
-	public static boolean inOrder(List anObjectList, Class[] anExpectedClasses,  int aStartIndex, int aStopIndex) {
-		List<Integer> anOrderedIndexList = indicesOf(anObjectList, anExpectedClasses, true, aStartIndex, aStopIndex);
+	public static boolean inOrder(List anObjectList, Class[] anExpectedClasses,  int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
+		List<Integer> anOrderedIndexList = indicesOf(anObjectList, anExpectedClasses, true, aStartIndex, aStopIndex, isDuplicateQueries);
 		boolean orderedValid = valid(anOrderedIndexList);
 		if (orderedValid) return true; 
 		// do another search to see what elements were found but not in order
-		List<Integer> anIndexList = indicesOf(anObjectList, anExpectedClasses, false, aStartIndex, aStopIndex);
+		List<Integer> anIndexList = indicesOf(anObjectList, anExpectedClasses, false, aStartIndex, aStopIndex, isDuplicateQueries);
 		return valid(anIndexList);
 //
 //		boolean inOrder = inOrder(/*anObjectList,*/ anOrderedIndexList);
@@ -693,27 +738,27 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 //		return  valid && inOrder;
 //	}
 	
-	public static boolean inOrder(List anObjectList, ObjectQuery[] aQueryList,  int aStartIndex) {
-		return inOrder(anObjectList, aQueryList, aStartIndex, anObjectList.size());
+	public static boolean inOrder(List anObjectList, ObjectQuery[] aQueryList,  int aStartIndex, boolean isDuplicateQueries) {
+		return inOrder(anObjectList, aQueryList, aStartIndex, anObjectList.size(), isDuplicateQueries);
 	}
-	public static boolean inOrder(List anObjectList, Class[] aTargetClasses,  int aStartIndex) {
-		return inOrder(anObjectList, aTargetClasses, aStartIndex, anObjectList.size());
+	public static boolean inOrder(List anObjectList, Class[] aTargetClasses,  int aStartIndex, boolean isDuplicateQueries) {
+		return inOrder(anObjectList, aTargetClasses, aStartIndex, anObjectList.size(), isDuplicateQueries);
 	}
-	public static boolean inOrder(List anObjectList, Object[] aSecondList,  int aStartIndex) {
-		return inOrder(anObjectList, aSecondList, aStartIndex, anObjectList.size());
+	public static boolean inOrder(List anObjectList, Object[] aSecondList,  int aStartIndex, boolean isDuplicateQueries) {
+		return inOrder(anObjectList, aSecondList, aStartIndex, anObjectList.size(), isDuplicateQueries);
 	}
-	public static boolean inOrder(Object[] anObjectList, Object[] aSecondList,  int aStartIndex) {
-		return inOrder(anObjectList, aSecondList, aStartIndex, anObjectList.length);
+	public static boolean inOrder(Object[] anObjectList, Object[] aSecondList,  int aStartIndex, boolean isDuplicateQueries) {
+		return inOrder(anObjectList, aSecondList, aStartIndex, anObjectList.length, isDuplicateQueries);
 	}
-	public static boolean inOrder(Object[] anObjectList, Object[] aSecondList) {
-		return inOrder(anObjectList, aSecondList, 0, anObjectList.length);
+	public static boolean inOrder(Object[] anObjectList, Object[] aSecondList, boolean isDuplicateQueries) {
+		return inOrder(anObjectList, aSecondList, 0, anObjectList.length, isDuplicateQueries);
 	}
-	public static boolean inOrder(List anObjectList, ObjectQuery[] aQueryList) {
-		return inOrder(anObjectList, aQueryList, 0);
+	public static boolean inOrder(List anObjectList, ObjectQuery[] aQueryList, boolean isDuplicateQueries) {
+		return inOrder(anObjectList, aQueryList, 0, isDuplicateQueries);
 	}
 	public static boolean inOrder(
 			List<Traceable> aTestTraceableList, 
-			List<Traceable> aCorrectTraceableList, Class[] anExpectedClasses) {
+			List<Traceable> aCorrectTraceableList, Class[] anExpectedClasses, boolean isDuplicateQueries) {
 //		Class[] anExpectedClasses = {ConsoleOutput.class};
 		List<Traceable> aFilteredTest = TraceUtility.filterTraceList(aTestTraceableList, anExpectedClasses);		
 		List<Traceable> aFilteredCorrect = TraceUtility.filterTraceList(aCorrectTraceableList, anExpectedClasses);
@@ -722,15 +767,15 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 //		String[] aProperties = {"Output"};
 		
 		ObjectQuery[] objectQueries = traceablesToQueries(aFilteredCorrect);
-		boolean retVal = inOrder(aFilteredTest, objectQueries);
+		boolean retVal = inOrder(aFilteredTest, objectQueries, isDuplicateQueries);
 //		TraceUtility.stopExistingTrace(traceableLog);
 
 		return retVal;
 		
 		
 	}
-	public static boolean inOrder(List anObjectList, Class[] aTargetClasses) {
-		return inOrder(anObjectList, aTargetClasses, 0);
+	public static boolean inOrder(List anObjectList, Class[] aTargetClasses, boolean isDuplicateQueries) {
+		return inOrder(anObjectList, aTargetClasses, 0, isDuplicateQueries);
 	}
 	
 	public static List toObjectList (List anObjectList, List<Integer> anIndexList) {

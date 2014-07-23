@@ -205,6 +205,7 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 	public MainClassListLauncher demo() {
 		createAndDisplayLauncher();
 		executeAll();
+		waitForInteractionTermination();
 		return launcher;
 	}
 	
