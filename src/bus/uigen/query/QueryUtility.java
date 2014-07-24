@@ -12,6 +12,7 @@ import java.util.Map;
 
 import com.thoughtworks.qdox.tools.QDoxTester.Reporter;
 
+import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.query.AnObjectQuery;
 import bus.uigen.trace.TraceUtility;
 import bus.uigen.trace.query.OrderedQueryTargetDisplaced;
@@ -554,6 +555,31 @@ public static ObjectQuery[] toQueries (Class[] aClassList, Map<String, Object> a
 	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, boolean aOrderedQueryList, int aStartIndex, boolean isDuplicateQueries) {
 		return indicesOf(anObjectList, aClassList, aOrderedQueryList, aStartIndex, anObjectList.size(), isDuplicateQueries);
 	}
+	
+	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, Map<String, Object> aPropertiesToValues, boolean aOrderedQueryList, int aStartIndex, boolean isDuplicateQueries) {
+		return indicesOf(anObjectList, aClassList, aPropertiesToValues, aOrderedQueryList, aStartIndex, anObjectList.size(), isDuplicateQueries);
+	}
+	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, List<String> aFirstClassProperties, boolean aOrderedQueryList, int aStartIndex, boolean isDuplicateQueries) {
+		if (aClassList.length < 2) return null;
+		Class aFirstClass = aClassList[0];
+		Class[] aRemainingClasses = new Class[aClassList.length - 1];
+		
+		for (int i = 1; i < aClassList.length; i++) {
+			aRemainingClasses[i-1] = aClassList[i];
+		}
+
+		
+		int aFirstClassMatchIndex = indexOf(anObjectList, aFirstClass, aStartIndex);
+		if (aFirstClassMatchIndex < 0) return null;
+		Object aFirstMatchedObject = anObjectList.get(aFirstClassMatchIndex);
+		Map<String, Object> propertyToValue = ObjectAdapter.beanToPropertyMap(aFirstMatchedObject, aFirstClassProperties);
+		List<Integer> aRetVal = indicesOf(anObjectList, aRemainingClasses, propertyToValue, aOrderedQueryList, aFirstClassMatchIndex + 1, isDuplicateQueries);
+		aRetVal.add(0, aFirstClassMatchIndex ); // we need to return the first index also
+		return aRetVal;
+			
+		
+//		return indicesOf(anObjectList, aClassList, aPropertiesToValues, aOrderedQueryList, aStartIndex, anObjectList.size(), isDuplicateQueries);
+	}
 	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, boolean aOrderedQueryList, boolean isDuplicateQueries) {
 		return indicesOf(anObjectList, aClassList, aOrderedQueryList, 0, anObjectList.size(), isDuplicateQueries);
 	}
@@ -752,7 +778,13 @@ public static ObjectQuery[] toQueries (Class[] aClassList, Map<String, Object> a
 	public static boolean inOrder(List anObjectList, Class[] aTargetClasses, Map<String, Object> aPropertyToExpectedValue, int aStartIndex, boolean isDuplicateQueries) {
 		return inOrder(anObjectList, aTargetClasses, aPropertyToExpectedValue, aStartIndex, anObjectList.size(), isDuplicateQueries);
 	}
-	
+//	/*
+//	 * We will find the values of teh first
+//	 */
+//	public static boolean inOrder(List anObjectList, Class[] aTargetClasses, List<String> aProperties, int aStartIndex, boolean isDuplicateQueries) {
+//		return inOrder(anObjectList, aTargetClasses, aPropertyToExpectedValue, aStartIndex, anObjectList.size(), isDuplicateQueries);
+//	}
+//	
 	public static boolean inOrder(List anObjectList, Class[] aTargetClasses,   int aStartIndex, boolean isDuplicateQueries) {
 //		return inOrder(anObjectList, aTargetClasses, aStartIndex, anObjectList.size(), isDuplicateQueries);
 		return inOrder(anObjectList, aTargetClasses, null, aStartIndex, isDuplicateQueries);
