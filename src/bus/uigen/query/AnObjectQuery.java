@@ -42,6 +42,7 @@ public class AnObjectQuery implements ObjectQuery{
 	public AnObjectQuery(Class anExpectedClass, 
 			Map<String, Object> aPropertyToExpectedValue) {
 		expectedClass = anExpectedClass;
+		if (propertyToExpectedValue != null)
 		propertyToExpectedValue = aPropertyToExpectedValue;
 	}
 	public AnObjectQuery(Object anExpectedObject, String[] aMatchedProperties) {
@@ -188,14 +189,16 @@ public class AnObjectQuery implements ObjectQuery{
 	}
 	// eager evaluation
 	public static boolean matchesProperties (Map<String, Object> anActualMap, Map<String, Object> anExpectedMap) {
-		Set<String> aProperties = anActualMap.keySet();
+//		Set<String> aProperties = anActualMap.keySet();
+		Set<String> aProperties = anExpectedMap.keySet();
+
 		boolean retVal = true;
 		for (String aProperty:aProperties) {
 			Object anActualValue = anActualMap.get(aProperty);
 			Object anExpectedValue = anExpectedMap.get(aProperty);
 			if (anActualValue == null && anExpectedValue != null)
 				retVal = false;
-			else if (!anActualValue.equals(anExpectedValue)) {
+			else if (!(anActualValue.equals(anExpectedValue))) {
 				retVal = false;
 				// send trace message
 			}

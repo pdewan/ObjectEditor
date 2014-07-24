@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.thoughtworks.qdox.tools.QDoxTester.Reporter;
 
@@ -450,6 +451,13 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 		}
 		return retVal;	
 	}
+public static ObjectQuery[] toQueries (Class[] aClassList, Map<String, Object> aPropertyToExpectedValue) {
+	ObjectQuery[] aQueryList = new ObjectQuery[aClassList.length];
+	for (int aClassIndex = 0; aClassIndex < aClassList.length; aClassIndex++) {
+		aQueryList[aClassIndex] = new AnObjectQuery(aClassList[aClassIndex], aPropertyToExpectedValue);
+	}
+	return aQueryList;
+}
 	public static ObjectQuery[] toQueries (Class[] aClassList) {
 		ObjectQuery[] aQueryList = new ObjectQuery[aClassList.length];
 		for (int aClassIndex = 0; aClassIndex < aClassList.length; aClassIndex++) {
@@ -495,12 +503,12 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 		Object[] anObjectArrayList = anObjectList.toArray(new Object[anObjectList.size()]);
 		return toQueries(anObjectArrayList, aProperties);
 	}
-	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
+	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, Map<String, Object> aPropertyToExpectedValue, boolean anOrderedQueryList, int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
 //		BeanQuery[] aQueryList = new BeanQuery[aClassList.length];
 //		for (int aClassIndex = 0; aClassIndex < aClassList.length; aClassIndex++) {
 //			aQueryList[aClassIndex] = new ABeanQuery(aClassList[aClassIndex]);
 //		}
-		return indicesOf(anObjectList, toQueries(aClassList), anOrderedQueryList, aStartIndex, aStopIndex, isDuplicateQueries);
+		return indicesOf(anObjectList, toQueries(aClassList, aPropertyToExpectedValue), anOrderedQueryList, aStartIndex, aStopIndex, isDuplicateQueries);
 	}
 	public static List<Integer>  indicesOf(List anObjectList, Object[] aSecondObjectList, boolean anOrderedQueryList, int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
 
@@ -719,8 +727,8 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 	}
 	
 	
-	public static boolean inOrder(List anObjectList, Class[] anExpectedClasses,  int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
-		List<Integer> anOrderedIndexList = indicesOf(anObjectList, anExpectedClasses, true, aStartIndex, aStopIndex, isDuplicateQueries);
+	public static boolean inOrder(List anObjectList, Class[] anExpectedClasses, Map<String, Object> aPropertyToExpectedValue, int aStartIndex, int aStopIndex, boolean isDuplicateQueries) {
+		List<Integer> anOrderedIndexList = indicesOf(anObjectList, anExpectedClasses, aPropertyToExpectedValue, true, aStartIndex, aStopIndex, isDuplicateQueries);
 		boolean orderedValid = valid(anOrderedIndexList);
 		if (orderedValid) return true; 
 		// do another search to see what elements were found but not in order
@@ -741,8 +749,13 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 	public static boolean inOrder(List anObjectList, ObjectQuery[] aQueryList,  int aStartIndex, boolean isDuplicateQueries) {
 		return inOrder(anObjectList, aQueryList, aStartIndex, anObjectList.size(), isDuplicateQueries);
 	}
-	public static boolean inOrder(List anObjectList, Class[] aTargetClasses,  int aStartIndex, boolean isDuplicateQueries) {
-		return inOrder(anObjectList, aTargetClasses, aStartIndex, anObjectList.size(), isDuplicateQueries);
+	public static boolean inOrder(List anObjectList, Class[] aTargetClasses, Map<String, Object> aPropertyToExpectedValue, int aStartIndex, boolean isDuplicateQueries) {
+		return inOrder(anObjectList, aTargetClasses, aPropertyToExpectedValue, aStartIndex, anObjectList.size(), isDuplicateQueries);
+	}
+	
+	public static boolean inOrder(List anObjectList, Class[] aTargetClasses,   int aStartIndex, boolean isDuplicateQueries) {
+//		return inOrder(anObjectList, aTargetClasses, aStartIndex, anObjectList.size(), isDuplicateQueries);
+		return inOrder(anObjectList, aTargetClasses, null, aStartIndex, isDuplicateQueries);
 	}
 	public static boolean inOrder(List anObjectList, Object[] aSecondList,  int aStartIndex, boolean isDuplicateQueries) {
 		return inOrder(anObjectList, aSecondList, aStartIndex, anObjectList.size(), isDuplicateQueries);
