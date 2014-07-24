@@ -553,7 +553,7 @@ public static ObjectQuery[] toQueries (Class[] aClassList, Map<String, Object> a
 		return indicesOf(anObjectList, aClassList, true, aStartIndex, aStopIndex, isDuplicateQueries);
 	}
 	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, boolean aOrderedQueryList, int aStartIndex, boolean isDuplicateQueries) {
-		return indicesOf(anObjectList, aClassList, aOrderedQueryList, aStartIndex, anObjectList.size(), isDuplicateQueries);
+		return indicesOf(anObjectList, aClassList, null, aOrderedQueryList, aStartIndex, anObjectList.size(), isDuplicateQueries);
 	}
 	
 	public static List<Integer>  indicesOf(List anObjectList, Class[] aClassList, Map<String, Object> aPropertiesToValues, boolean aOrderedQueryList, int aStartIndex, boolean isDuplicateQueries) {
