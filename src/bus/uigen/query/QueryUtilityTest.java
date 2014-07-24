@@ -11,7 +11,7 @@ public class QueryUtilityTest {
 		String[] list1 = {"b", "a", "d", "c"};
 		String[] list2 = {"a", "b"};
 		TraceableLog aTraceableLog = TraceUtility.startNewTrace();
-		boolean retVal = QueryUtility.inOrder(list1, list2);
+		boolean retVal = QueryUtility.inOrder(list1, list2, false);
 		TraceUtility.stopExistingTrace(aTraceableLog);
 		System.out.println(retVal);
 //		System.out.println(aTraceableLog);
