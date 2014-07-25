@@ -386,10 +386,10 @@ public class QueryUtility {
 	}
 // not contains duplicates and in order are not going to work well maybe
 public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryList, boolean anOrderedQueryList, 
-		int aStartIndex, int aStopIndex, List<Integer> retVal, boolean isDoNotMoveMatchedItems) {
+		int aStartIndex, int aStopIndex, List<Integer> anIgnoreIndices, boolean isDoNotMoveMatchedItems) {
 		
 //		List<Integer> retVal = new ArrayList(Math.min(aQueryList.length, anObjectList.size()));
-//		List<Integer> retVal = new ArrayList(aQueryList.length);
+		List<Integer> retVal = new ArrayList(aQueryList.length);
 
 		int aCurrentStartIndex = aStartIndex;
 		boolean aFoundMissing = false;
@@ -398,7 +398,7 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 				aQueryIndex++) {
 			
 //			int aReturnIndex = indexOf(anObjectList, aQueryList[aQueryIndex], aCurrentStartIndex, aStopIndex, retVal);
-			int aReturnIndex = indexOf(anObjectList, aQueryList, aCurrentStartIndex, aStopIndex, retVal, retVal, aQueryIndex, anOrderedQueryList, isDoNotMoveMatchedItems);
+			int aReturnIndex = indexOf(anObjectList, aQueryList, aCurrentStartIndex, aStopIndex, anIgnoreIndices, retVal, aQueryIndex, anOrderedQueryList, isDoNotMoveMatchedItems);
 
 			
 			// should not add a duplicate
@@ -410,7 +410,9 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 				aCurrentStartIndex = aReturnIndex + 1; 
 			// else look for the next matching element after same index
 		}
-		for (int i = anObjectList.size(); i < aQueryList.length; i++) {
+//		for (int i = anObjectList.size(); i < aQueryList.length; i++) {
+		for (int i = retVal.size(); i < aQueryList.length; i++) {
+
 			retVal.add(-1);
 			aFoundMissing = true;
 			
@@ -420,8 +422,9 @@ public static List<Integer>  indicesOf(List anObjectList, ObjectQuery[] aQueryLi
 		List<Integer> unOrderedIndexList = null;
 		traceSearchResults(anObjectList, aQueryList, anOrderedQueryList, retVal);
 		if (aFoundMissing && anOrderedQueryList) {
-			// try again to find which elements were not even in the range
-			unOrderedIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex, retVal, isDoNotMoveMatchedItems);
+			anIgnoreIndices.addAll(retVal); // want to ignore what we had plus what we matched
+			// try again to find which elements were not even in the range, do not refind the previous elements in retVal
+			unOrderedIndexList = indicesOf(anObjectList, aQueryList, false, aStartIndex, aStopIndex, anIgnoreIndices, isDoNotMoveMatchedItems);
 			// we can now find the separation  between actual and real position
 			for (int i = 0; i < aQueryList.length; i++) {
 				if (retVal.get(i) < 0 && unOrderedIndexList.get(i) >= 0) { // not in order
@@ -756,13 +759,12 @@ public static ObjectQuery[] toQueries (Class[] aClassList, Map<String, Object> a
 	public static boolean inOrder(List anObjectList, Class[] anExpectedClasses, Map<String, Object> aPropertyToExpectedValue, int aStartIndex, int aStopIndex, boolean isDoNotMoveMatchedItems) {
 		List<Integer> anOrderedIndexList = indicesOf(anObjectList, anExpectedClasses, aPropertyToExpectedValue, true, aStartIndex, aStopIndex, isDoNotMoveMatchedItems);
 		boolean orderedValid = valid(anOrderedIndexList);
-		if (orderedValid) return true; 
-		// do another search to see what elements were found but not in order
-		List<Integer> anIndexList = indicesOf(anObjectList, anExpectedClasses, false, aStartIndex, aStopIndex, isDoNotMoveMatchedItems);
-		return valid(anIndexList);
-//
-//		boolean inOrder = inOrder(/*anObjectList,*/ anOrderedIndexList);
-//		return  orderedValid && inOrder;
+		return orderedValid;
+//		if (orderedValid) return true; 
+		// do another search to see what elements were found but not in order, no need for this as the above does it
+//		List<Integer> anIndexList = indicesOf(anObjectList, anExpectedClasses, false, aStartIndex, aStopIndex, isDoNotMoveMatchedItems);
+//		return valid(anIndexList);
+
 	}
 	
 //	public static boolean inOrder(List anObjectList, Class[] anExpectedClasses,  int aStartIndex, int aStopIndex) {
