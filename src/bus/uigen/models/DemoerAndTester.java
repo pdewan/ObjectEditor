@@ -64,6 +64,11 @@ public interface DemoerAndTester extends PropertyChangeListener{
 	void terminate();
 	List<Traceable> getCorrectGlobalTraceableList();
 	List<List<Traceable>> getCorrectLocalTraceableLists();
+	String getCorrectConsoleTranscriptsFolder();
+	void setCorrectConsoleTranscriptsFolder(
+			String correctConsoleTranscriptsFolder);
+	String getTestConsoleTranscriptsFolder();
+	void setTestConsoleTranscriptsFolder(String testConsoleTranscriptsFolder);
 	
 
 }

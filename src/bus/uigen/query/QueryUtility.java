@@ -807,6 +807,14 @@ public static ObjectQuery[] toQueries (Class[] aClassList, Map<String, Object> a
 			List<Traceable> aTestTraceableList, 
 			List<Traceable> aCorrectTraceableList, Class[] anExpectedClasses, boolean isDoNotMoveMatchedItems) {
 //		Class[] anExpectedClasses = {ConsoleOutput.class};
+		if (aTestTraceableList == null) {
+			System.err.println("Test traceable list is null");
+			return false;
+		}
+		if (aCorrectTraceableList == null) {
+			System.err.println("Correct traceable list is null");
+			return false;
+		}
 		List<Traceable> aFilteredTest = TraceUtility.filterTraceList(aTestTraceableList, anExpectedClasses);		
 		List<Traceable> aFilteredCorrect = TraceUtility.filterTraceList(aCorrectTraceableList, anExpectedClasses);
 		

@@ -8,7 +8,7 @@ package bus.uigen.controller;import util.models.ABoundedBuffer;import util.tra
 	public void run() {		
 		Tracer.info(this, "Thread started:" + Thread.currentThread());
 		for (;;) {
-			MethodInvocation methodInvocation = (MethodInvocation) boundedBuffer.get();			Tracer.info(this, "Got next method:");
+			MethodInvocation methodInvocation = null;			try {				methodInvocation = (MethodInvocation) boundedBuffer.get();			} catch (InterruptedException e) {				// TODO Auto-generated catch block				e.printStackTrace();			}			Tracer.info(this, "Got next method:");
 			methodInvocation.execute();
 			parentFrame.doImplicitRefresh();
 			

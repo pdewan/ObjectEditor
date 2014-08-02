@@ -246,7 +246,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 		getOrCreateConsoleModels();
 		for (int i = 0; i < consoleModels.size(); i++) {
 			ConsoleModel aConsoleModel = consoleModels.get(i);
-			aConsoleModel.setGlobalTranscriptFile(aGlobalTranscriptFile);
+			aConsoleModel.getLocalGlobalTranscriptManager().setGlobalTranscriptFile(aGlobalTranscriptFile);
 //			String aLocalTranscriptFile= aLogDirectory + "/" + mainClasses.get(i).getSimpleName() + ".txt";
 //			String aLocalTranscriptFile= getLocalTranscriptFileName(aLogDirectory,i, mainClasses.get(i));
 //			String aLocalTranscriptFile= getLocalTranscriptFileName(aLogDirectory,i, consoleModels.get(i).getTitle());
@@ -258,7 +258,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 //				e.printStackTrace();
 //			}
 //			aConsoleModel.setLocalTranscriptFile(aLocalTranscriptFile);
-			aConsoleModel.setIndexAndLogDirectory(i, aLogDirectory);
+			aConsoleModel.getLocalGlobalTranscriptManager().setIndexAndLogDirectory(i, aLogDirectory);
 		}
 	}
 	@Visible(false)
