@@ -211,10 +211,10 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 //		globalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
 		
 	}
-	// null method for those who do not want to listen to console input
-	public void propertyChange(PropertyChangeEvent aConsoleModelEvent) {	
-		
-	}
+//	// null method for those who do not want to listen to console input
+//	public void propertyChange(PropertyChangeEvent aConsoleModelEvent) {	
+//		
+//	}
 
 	@Override
 	public List<List<Traceable>> getLocalTraceableLists() {
@@ -369,9 +369,28 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 	public void setTestConsoleTranscriptsFolder(String testConsoleTranscriptsFolder) {
 		this.testConsoleTranscriptsFolder = testConsoleTranscriptsFolder;
 	}
+    
+    protected void newInput(String aProcessName, String newValue) {
+    	
+    }
+    
+    protected void newOutputLine(String aProcessName, String newValue) {
+    	
+    }
+    
+    public void propertyChange(PropertyChangeEvent aConsoleModelEvent) {
+		newIOFromProcess(((ConsoleModel) aConsoleModelEvent.getSource()).getTitle(), aConsoleModelEvent.getNewValue());
+		ConsoleModel aConsoleModel = (ConsoleModel) aConsoleModelEvent.getSource();
+		if (aConsoleModelEvent.getPropertyName().equals(ConsoleModel.OUTPUT_LINE))
+			newOutputLine(aConsoleModel.getTitle(), (String) aConsoleModelEvent.getNewValue());
+		else if (aConsoleModelEvent.getPropertyName().equals(ConsoleModel.INPUT)) {
+			newInput(aConsoleModel.getTitle(), (String) aConsoleModelEvent.getNewValue());
+		}
+
+    }
 
 	
-   protected void newIOFromProcess(String aProcessName) {
+   protected void newIOFromProcess(String aProcessName, Object newValue) {
     	// inefficient as each output causes this codee to be executed
 //    	addProcessName(aProcessName);
     }
