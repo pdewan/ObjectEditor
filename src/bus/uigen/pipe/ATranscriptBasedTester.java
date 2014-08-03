@@ -16,11 +16,15 @@ import util.pipe.AConsoleModel;
 import util.pipe.ConsoleModel;
 import util.trace.Traceable;
 
-public abstract class ATranscriptBasedTester implements DemoerAndTester {
+public  class ATranscriptBasedTester implements TranscriptBasedTester {
 
-	protected List<ConsoleModel> consoleModels;
+//	protected List<ConsoleModel> consoleModels;
 	protected List<LocalGlobalTranscriptManager> transcriptManagers = new ArrayList();
 	protected List<String> processNames = new ArrayList();
+	
+
+
+
 	protected List<List<Traceable>> localTraceableLists;
 	protected Map <String, List<Traceable>> processToLocalTraceableList = new HashMap();
 	protected Map <String, List<Traceable>> processToCorrectTraceableList = new HashMap();
@@ -30,23 +34,23 @@ public abstract class ATranscriptBasedTester implements DemoerAndTester {
 	protected List<List<Traceable>> correctLocalTraceableLists;
 	protected List<Traceable> correctGlobalTraceableList;
 	
-	boolean terminated;
-	boolean interactive;
-	protected MainClassListLauncher launcher;
-	String traceDirectory;
+//	boolean terminated;
+//	boolean interactive;
+//	protected MainClassListLauncher launcher;
+	protected String traceDirectory;
 
 	
 
 
-	public ATranscriptBasedTester() {
-		this(true);
-	}
+//	public ATranscriptBasedTester() {
+//		this(true);
+//	}
 	
 
 	
-	public ATranscriptBasedTester(boolean anInteractive) {
-		interactive = anInteractive;
-	}
+//	public ATranscriptBasedTester(boolean anInteractive) {
+////		interactive = anInteractive;
+//	}
 	
 	
 //	@Override
@@ -55,57 +59,57 @@ public abstract class ATranscriptBasedTester implements DemoerAndTester {
 //		launcher.executeAll();
 //	}
 	
-	public void executeAll() {
-		consoleModels = launcher.getOrCreateConsoleModels();
-//		aliceConsole = consoleModels.get(1);
-//		bobConsole = consoleModels.get(2);
-//		cathyConsole = consoleModels.get(3);
-		launcher.addConsolesPropertyChangeListener(this); // input added in
-															// response to
-															// events
-		launcher.executeAll();
-	}
+//	public void executeAll() {
+//		consoleModels = launcher.getOrCreateConsoleModels();
+////		aliceConsole = consoleModels.get(1);
+////		bobConsole = consoleModels.get(2);
+////		cathyConsole = consoleModels.get(3);
+//		launcher.addConsolesPropertyChangeListener(this); // input added in
+//															// response to
+//															// events
+//		launcher.executeAll();
+//	}
 	
-	protected abstract Class[] composeMainClasses() ;
+//	protected abstract Class[] composeMainClasses() ;
 //	protected abstract String[] processNames();
 	
 	
-	@Override
-	public  MainClassListLauncher createAndDisplayLauncher() {	
-		Class[] classes = composeMainClasses();
-
-//		launcher = MainClassLaunchingUtility.interactiveLaunch(classes, "DemoerOfIM_Transcript.txt");
-		if (interactive)
-			launcher = MainClassLaunchingUtility.createInteractiveLauncher(classes);
-		else
-			launcher = MainClassLaunchingUtility.createLauncher(classes);
-		
-		consoleModels = launcher.getOrCreateConsoleModels();
-		for (ConsoleModel aConsoleModel: consoleModels) {
-			
-		}
-
-
-		return launcher;
-		
-	}
+//	@Override
+//	public  MainClassListLauncher createAndDisplayLauncher() {	
+//		Class[] classes = composeMainClasses();
+//
+////		launcher = MainClassLaunchingUtility.interactiveLaunch(classes, "DemoerOfIM_Transcript.txt");
+//		if (interactive)
+//			launcher = MainClassLaunchingUtility.createInteractiveLauncher(classes);
+//		else
+//			launcher = MainClassLaunchingUtility.createLauncher(classes);
+//		
+//		consoleModels = launcher.getOrCreateConsoleModels();
+//		for (ConsoleModel aConsoleModel: consoleModels) {
+//			
+//		}
+//
+//
+//		return launcher;
+//		
+//	}
 	
-	@Override
-	public synchronized void notifyInteractionTermination() {
-		terminated = true;
-		this.notify();
-		
-	}
-	@Override
-	public synchronized void waitForInteractionTermination() {
-		try {
-			while (!terminated)
-			this.wait();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@Override
+//	public synchronized void notifyInteractionTermination() {
+//		terminated = true;
+//		this.notify();
+//		
+//	}
+//	@Override
+//	public synchronized void waitForInteractionTermination() {
+//		try {
+//			while (!terminated)
+//			this.wait();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
 	public static final String CORRECT_CONSOLE_TRANSCRIPTS = "correctTranscripts";
 	public static final String TEST_CONSOLE_TRANSCRIPTS = "testTranscripts";
@@ -114,7 +118,7 @@ public abstract class ATranscriptBasedTester implements DemoerAndTester {
 	protected String testConsoleTranscriptsFolder = TEST_CONSOLE_TRANSCRIPTS;
 	
 
-	
+	@Override
 	public  String generateCorrectDirectory() {
 //		return CORRECT_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();
 		return getCorrectConsoleTranscriptsFolder() + "/" + toDirectoryName(getClass());
@@ -124,19 +128,20 @@ public abstract class ATranscriptBasedTester implements DemoerAndTester {
 	protected String toDirectoryName(Class aClass) {
 		return getClass().getSimpleName();
 	}
+	@Override
 	public  String generateTestDirectory() {
 //		return TEST_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();		
 		return getTestConsoleTranscriptsFolder() + "/" + toDirectoryName(getClass());		
 
 	}
-	@Override
-	public void generateCorrectTranscripts() {
-		launcher.logConsoles(generateCorrectDirectory());
-	}
-	@Override
-	public void generateTestTranscripts() {
-		launcher.logConsoles(generateTestDirectory());
-	}
+//	@Override
+//	public void generateCorrectTranscripts() {
+//		launcher.logConsoles(generateCorrectDirectory());
+//	}
+//	@Override
+//	public void generateTestTranscripts() {
+//		launcher.logConsoles(generateTestDirectory());
+//	}
 //	public void loadTestTraceables () {
 //		if (consoleModels == null || consoleModels.size() == 0)
 //			return;
@@ -165,7 +170,7 @@ public abstract class ATranscriptBasedTester implements DemoerAndTester {
 			localTraceableLists.add(traceableList);	
 			processToLocalTraceableList.put(processNames.get(index), traceableList);
 		}
-		String aGlobalTrancriptFile = consoleModels.get(0).getLocalGlobalTranscriptManager().getGlobalTranscriptFile();
+		String aGlobalTrancriptFile = transcriptManagers.get(0).getGlobalTranscriptFile();
 		
 		
 		globalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
@@ -240,13 +245,13 @@ public abstract class ATranscriptBasedTester implements DemoerAndTester {
 		return globalTraceableList;
 	}
 
-	@Override
-	public MainClassListLauncher demo() {
-		createAndDisplayLauncher();
-		executeAll();
-		waitForInteractionTermination();
-		return launcher;
-	}
+//	@Override
+//	public MainClassListLauncher demo() {
+//		createAndDisplayLauncher();
+//		executeAll();
+//		waitForInteractionTermination();
+//		return launcher;
+//	}
 	
 	public Boolean test() {
 		return false;
@@ -263,91 +268,92 @@ public abstract class ATranscriptBasedTester implements DemoerAndTester {
 				retVal;
 	}
 	
-	public void generateTranscripts(Boolean aCorrectTranscripts, Boolean aTestAgainstCorrectTranscripts) {
-		if (aCorrectTranscripts)
-			generateCorrectTranscripts();
-		else
-			generateTestTranscripts();
-	}
+//	public void generateTranscripts(Boolean aCorrectTranscripts, Boolean aTestAgainstCorrectTranscripts) {
+//		if (aCorrectTranscripts)
+//			generateCorrectTranscripts();
+//		else
+//			generateTestTranscripts();
+//	}
 	public void addProcessName(String aProcessName) {
 		if (!processNames.contains(aProcessName)) {
     		processNames.add(aProcessName);
     	}
 		
 	}
+	@Override
 	public void addTranscriptManager(LocalGlobalTranscriptManager aTranscriptManager) {
 		if (!transcriptManagers.contains(aTranscriptManager)) {
     		transcriptManagers.add(aTranscriptManager);
     	}
 		
 	}
-	// override this method to work on the transcripts
-	public Boolean executeLoadAndTest(Boolean aCorrectTranscripts, Boolean aTestAgainstCorrectTranscripts) {
-		createAndDisplayLauncher();
-		generateTranscripts(aCorrectTranscripts, aTestAgainstCorrectTranscripts);
-//		if (aCorrectTranscripts)
-//			generateCorrectTranscripts();
-//		else
-//			generateTestTranscripts();
-		executeAll();
-		waitForInteractionTermination();
-		loadTraceables(aCorrectTranscripts, aTestAgainstCorrectTranscripts);
-		return test(aTestAgainstCorrectTranscripts);
-//		return true; // in general a test should be superclass tests added with subclsas ones
-	}
-
-	public List<ConsoleModel> getConsoleModels() {
-		return consoleModels;
-	}
-
-
-
-	public void setConsoleModels(List<ConsoleModel> consoleModels) {
-		this.consoleModels = consoleModels;
-	}
-
-
-
-	public boolean isTerminated() {
-		return terminated;
-	}
-
-
-
-	public void setTerminated(boolean terminated) {
-		this.terminated = terminated;
-	}
-
-
-
-	public boolean isInteractive() {
-		return interactive;
-	}
-
-
-
-	public void setInteractive(boolean interactive) {
-		this.interactive = interactive;
-	}
-
-
-	public MainClassListLauncher getLauncher() {
-		return launcher;
-	}
-
-
-
-	public void setLauncher(MainClassListLauncher launcher) {
-		this.launcher = launcher;
-	}
-
-
-
-	
-	
-	public void terminate() {
-		launcher.terminateAll();
-	}
+//	// override this method to work on the transcripts
+//	public Boolean executeLoadAndTest(Boolean aCorrectTranscripts, Boolean aTestAgainstCorrectTranscripts) {
+//		createAndDisplayLauncher();
+//		generateTranscripts(aCorrectTranscripts, aTestAgainstCorrectTranscripts);
+////		if (aCorrectTranscripts)
+////			generateCorrectTranscripts();
+////		else
+////			generateTestTranscripts();
+//		executeAll();
+//		waitForInteractionTermination();
+//		loadTraceables(aCorrectTranscripts, aTestAgainstCorrectTranscripts);
+//		return test(aTestAgainstCorrectTranscripts);
+////		return true; // in general a test should be superclass tests added with subclsas ones
+//	}
+//
+//	public List<ConsoleModel> getConsoleModels() {
+//		return consoleModels;
+//	}
+//
+//
+//
+//	public void setConsoleModels(List<ConsoleModel> consoleModels) {
+//		this.consoleModels = consoleModels;
+//	}
+//
+//
+//
+//	public boolean isTerminated() {
+//		return terminated;
+//	}
+//
+//
+//
+//	public void setTerminated(boolean terminated) {
+//		this.terminated = terminated;
+//	}
+//
+//
+//
+//	public boolean isInteractive() {
+//		return interactive;
+//	}
+//
+//
+//
+//	public void setInteractive(boolean interactive) {
+//		this.interactive = interactive;
+//	}
+//
+//
+//	public MainClassListLauncher getLauncher() {
+//		return launcher;
+//	}
+//
+//
+//
+//	public void setLauncher(MainClassListLauncher launcher) {
+//		this.launcher = launcher;
+//	}
+//
+//
+//
+//	
+//	
+//	public void terminate() {
+//		launcher.terminateAll();
+//	}
 
 
     @Override
@@ -384,29 +390,35 @@ public abstract class ATranscriptBasedTester implements DemoerAndTester {
     
     
     
-    public void propertyChange(PropertyChangeEvent aConsoleModelEvent) {
-		newIOFromProcess(((ConsoleModel) aConsoleModelEvent.getSource()).getTitle(), aConsoleModelEvent.getNewValue());
-		ConsoleModel aConsoleModel = (ConsoleModel) aConsoleModelEvent.getSource();
-		if (aConsoleModelEvent.getPropertyName().equals(ConsoleModel.OUTPUT_LINE))
-			newOutputLine(aConsoleModel.getTitle(), (String) aConsoleModelEvent.getNewValue());
-		else if (aConsoleModelEvent.getPropertyName().equals(ConsoleModel.INPUT)) {
-			newInput(aConsoleModel.getTitle(), (String) aConsoleModelEvent.getNewValue());
-		}
-
-    }
+//    public void propertyChange(PropertyChangeEvent aConsoleModelEvent) {
+//		newIOFromProcess(((ConsoleModel) aConsoleModelEvent.getSource()).getTitle(), aConsoleModelEvent.getNewValue());
+//		ConsoleModel aConsoleModel = (ConsoleModel) aConsoleModelEvent.getSource();
+//		if (aConsoleModelEvent.getPropertyName().equals(ConsoleModel.OUTPUT_LINE))
+//			newOutputLine(aConsoleModel.getTitle(), (String) aConsoleModelEvent.getNewValue());
+//		else if (aConsoleModelEvent.getPropertyName().equals(ConsoleModel.INPUT)) {
+//			newInput(aConsoleModel.getTitle(), (String) aConsoleModelEvent.getNewValue());
+//		}
+//
+//    }
 
 	
    protected void newIOFromProcess(String aProcessName, Object newValue) {
     	// inefficient as each output causes this codee to be executed
 //    	addProcessName(aProcessName);
     }
+   public List<String> getProcessNames() {
+		return processNames;
+	}
+	public void setProcessNames(List<String> processNames) {
+		this.processNames = processNames;
+	}
    
-   protected void consoleModelsInitialized() {
-	   for (ConsoleModel aConsoleModel:consoleModels) {
-		   addProcessName(aConsoleModel.getTitle());
-		   addTranscriptManager(aConsoleModel.getLocalGlobalTranscriptManager());
-	   }
-   }
+//   protected void consoleModelsInitialized() {
+//	   for (ConsoleModel aConsoleModel:consoleModels) {
+//		   addProcessName(aConsoleModel.getTitle());
+//		   addTranscriptManager(aConsoleModel.getLocalGlobalTranscriptManager());
+//	   }
+//   }
 
 
 }

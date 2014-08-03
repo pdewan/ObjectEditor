@@ -5,10 +5,11 @@ import java.util.List;
 
 import util.misc.ThreadSupport;
 import util.pipe.ConsoleModel;
+import util.pipe.ProcessInputListener;
 import util.remote.ProcessExecer;
 import util.trace.Traceable;
 
-public interface ConsoleModelBasedDemoerAndTester extends PropertyChangeListener{
+public interface ConsoleModelBasedDemoerAndTester extends PropertyChangeListener, ProcessInputListener{
 	Boolean executeLoadAndTest(Boolean aGenerateCorrectTranscripts, Boolean aTestAgainstCorrectTranscripts);
 	MainClassListLauncher createAndDisplayLauncher();
 	MainClassListLauncher demo();
@@ -16,19 +17,19 @@ public interface ConsoleModelBasedDemoerAndTester extends PropertyChangeListener
 
 	void executeAll();
 
-	void generateCorrectTranscripts();
+//	void generateCorrectTranscripts();
+//
+//	void generateTestTranscripts();
+//
+//	void loadTraceables(Boolean aGenerateCorrectTranscripts, Boolean aTestAgainstCorrectTraceables);
+//
+//	List<List<Traceable>> getLocalTraceableLists();
+//
+//	List<Traceable> getGlobalTraceableList();
 
-	void generateTestTranscripts();
-
-	void loadTraceables(Boolean aGenerateCorrectTranscripts, Boolean aTestAgainstCorrectTraceables);
-
-	List<List<Traceable>> getLocalTraceableLists();
-
-	List<Traceable> getGlobalTraceableList();
-
-	void notifyInteractionTermination();
-
-	void waitForInteractionTermination();
+//	void notifyInteractionTermination();
+//
+//	void waitForInteractionTermination();
 	public List<ConsoleModel> getConsoleModels() ;
 
 
@@ -37,11 +38,11 @@ public interface ConsoleModelBasedDemoerAndTester extends PropertyChangeListener
 
 
 
-	public boolean isTerminated() ;
-
-
-
-	public void setTerminated(boolean terminated) ;
+//	public boolean isTerminated() ;
+//
+//
+//
+//	public void setTerminated(boolean terminated) ;
 
 
 
@@ -62,13 +63,15 @@ public interface ConsoleModelBasedDemoerAndTester extends PropertyChangeListener
 	
 	
 	void terminate();
-	List<Traceable> getCorrectGlobalTraceableList();
-	List<List<Traceable>> getCorrectLocalTraceableLists();
-	String getCorrectConsoleTranscriptsFolder();
-	void setCorrectConsoleTranscriptsFolder(
-			String correctConsoleTranscriptsFolder);
-	String getTestConsoleTranscriptsFolder();
-	void setTestConsoleTranscriptsFolder(String testConsoleTranscriptsFolder);
-	
+//	List<Traceable> getCorrectGlobalTraceableList();
+//	List<List<Traceable>> getCorrectLocalTraceableLists();
+//	String getCorrectConsoleTranscriptsFolder();
+//	void setCorrectConsoleTranscriptsFolder(
+//			String correctConsoleTranscriptsFolder);
+//	String getTestConsoleTranscriptsFolder();
+//	void setTestConsoleTranscriptsFolder(String testConsoleTranscriptsFolder);
+//	
+	void generateCorrectTranscripts();
+	void generateTestTranscripts();
 
 }

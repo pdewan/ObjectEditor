@@ -16,24 +16,30 @@ import util.pipe.AConsoleModel;
 import util.pipe.ConsoleModel;
 import util.trace.Traceable;
 
-public abstract class AConsoleModelBasedDemoerAndTester implements DemoerAndTester {
-
+public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemoerAndTester {
+	Demoer demoer;
+	TranscriptBasedTester transcriptBasedTester;
+	ConsoleModelBasedLauncher consoleModelBasedLauncher;
+	protected Map<String, ConsoleModel> processNameToConsoleModel = new HashMap();
 	protected List<ConsoleModel> consoleModels;
-	protected List<LocalGlobalTranscriptManager> transcriptManagers = new ArrayList();
+//	protected List<LocalGlobalTranscriptManager> transcriptManagers = new ArrayList();
 	protected List<String> processNames = new ArrayList();
-	protected List<List<Traceable>> localTraceableLists;
-	protected Map <String, List<Traceable>> processToLocalTraceableList = new HashMap();
-	protected Map <String, List<Traceable>> processToCorrectTraceableList = new HashMap();
+	
+//	protected List<List<Traceable>> localTraceableLists;
+//	protected Map <String, List<Traceable>> processToLocalTraceableList = new HashMap();
+//	protected Map <String, List<Traceable>> processToCorrectTraceableList = new HashMap();
 
-	protected List<Traceable> globalTraceableList;
-	
-	protected List<List<Traceable>> correctLocalTraceableLists;
-	protected List<Traceable> correctGlobalTraceableList;
-	
-	boolean terminated;
+
+
+	//	protected List<Traceable> globalTraceableList;
+//	
+//	protected List<List<Traceable>> correctLocalTraceableLists;
+//	protected List<Traceable> correctGlobalTraceableList;
+//	
+//	boolean terminated;
 	boolean interactive;
 	protected MainClassListLauncher launcher;
-	String traceDirectory;
+//	String traceDirectory;
 
 	
 
@@ -45,7 +51,9 @@ public abstract class AConsoleModelBasedDemoerAndTester implements DemoerAndTest
 
 	
 	public AConsoleModelBasedDemoerAndTester(boolean anInteractive) {
-		interactive = anInteractive;
+//		demoer = new ADemoer();
+//		transcriptBasedTester = new ATranscriptBasedTester();
+//		interactive = anInteractive;
 	}
 	
 	
@@ -66,23 +74,23 @@ public abstract class AConsoleModelBasedDemoerAndTester implements DemoerAndTest
 		launcher.executeAll();
 	}
 	
-	protected abstract Class[] composeMainClasses() ;
+//	protected abstract Class[] composeMainClasses() ;
 //	protected abstract String[] processNames();
 	
 	
 	@Override
 	public  MainClassListLauncher createAndDisplayLauncher() {	
-		Class[] classes = composeMainClasses();
+		Class[] classes = consoleModelBasedLauncher.mainClasses();
 
 //		launcher = MainClassLaunchingUtility.interactiveLaunch(classes, "DemoerOfIM_Transcript.txt");
-		if (interactive)
+		if (isInteractive())
 			launcher = MainClassLaunchingUtility.createInteractiveLauncher(classes);
 		else
 			launcher = MainClassLaunchingUtility.createLauncher(classes);
 		
 		consoleModels = launcher.getOrCreateConsoleModels();
-		for (ConsoleModel aConsoleModel: consoleModels) {
-			
+		for (int index = 0; index <  consoleModels.size(); index--) {
+			consoleModels.get(index).setProcessName(processNames.get(index));
 		}
 
 
@@ -90,52 +98,52 @@ public abstract class AConsoleModelBasedDemoerAndTester implements DemoerAndTest
 		
 	}
 	
-	@Override
-	public synchronized void notifyInteractionTermination() {
-		terminated = true;
-		this.notify();
-		
-	}
-	@Override
-	public synchronized void waitForInteractionTermination() {
-		try {
-			while (!terminated)
-			this.wait();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public static final String CORRECT_CONSOLE_TRANSCRIPTS = "correctTranscripts";
-	public static final String TEST_CONSOLE_TRANSCRIPTS = "testTranscripts";
-	
-	protected String correctConsoleTranscriptsFolder = CORRECT_CONSOLE_TRANSCRIPTS;
-	protected String testConsoleTranscriptsFolder = TEST_CONSOLE_TRANSCRIPTS;
+//	@Override
+//	public synchronized void notifyInteractionTermination() {
+//		terminated = true;
+//		this.notify();
+//		
+//	}
+//	@Override
+//	public synchronized void waitForInteractionTermination() {
+//		try {
+//			while (!terminated)
+//			this.wait();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//	
+//	public static final String CORRECT_CONSOLE_TRANSCRIPTS = "correctTranscripts";
+//	public static final String TEST_CONSOLE_TRANSCRIPTS = "testTranscripts";
+//	
+//	protected String correctConsoleTranscriptsFolder = CORRECT_CONSOLE_TRANSCRIPTS;
+//	protected String testConsoleTranscriptsFolder = TEST_CONSOLE_TRANSCRIPTS;
 	
 
 	
-	public  String generateCorrectDirectory() {
-//		return CORRECT_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();
-		return getCorrectConsoleTranscriptsFolder() + "/" + toDirectoryName(getClass());
-
-		
-	}
-	protected String toDirectoryName(Class aClass) {
-		return getClass().getSimpleName();
-	}
-	public  String generateTestDirectory() {
-//		return TEST_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();		
-		return getTestConsoleTranscriptsFolder() + "/" + toDirectoryName(getClass());		
-
-	}
+//	public  String generateCorrectDirectory() {
+////		return CORRECT_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();
+//		return getCorrectConsoleTranscriptsFolder() + "/" + toDirectoryName(getClass());
+//
+//		
+//	}
+//	protected String toDirectoryName(Class aClass) {
+//		return getClass().getSimpleName();
+//	}
+//	public  String generateTestDirectory() {
+////		return TEST_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();		
+//		return getTestConsoleTranscriptsFolder() + "/" + toDirectoryName(getClass());		
+//
+//	}
 	@Override
 	public void generateCorrectTranscripts() {
-		launcher.logConsoles(generateCorrectDirectory());
+		launcher.logConsoles(transcriptBasedTester.generateCorrectDirectory());
 	}
 	@Override
 	public void generateTestTranscripts() {
-		launcher.logConsoles(generateTestDirectory());
+		launcher.logConsoles(transcriptBasedTester.generateTestDirectory());
 	}
 //	public void loadTestTraceables () {
 //		if (consoleModels == null || consoleModels.size() == 0)
@@ -154,97 +162,97 @@ public abstract class AConsoleModelBasedDemoerAndTester implements DemoerAndTest
 //		globalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
 //
 //	}
-	public void loadTestTraceables () {
-		if (transcriptManagers == null || transcriptManagers.size() == 0)
-			return;
-		localTraceableLists = new ArrayList();
-
-		for (int index = 0; index < transcriptManagers.size(); index++) {
-			String aLocalTranscriptFile =  transcriptManagers.get(index).getLocalTranscriptFile();
-			List<Traceable> traceableList = TraceUtility.toTraceableList(aLocalTranscriptFile);
-			localTraceableLists.add(traceableList);	
-			processToLocalTraceableList.put(processNames.get(index), traceableList);
-		}
-		String aGlobalTrancriptFile = consoleModels.get(0).getLocalGlobalTranscriptManager().getGlobalTranscriptFile();
-		
-		
-		globalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
-
-	}
-	public static List<String> getSortedFiles(String aDirectory) {
-		File file = new File(aDirectory);
-		String[] arrayChildren = file.list();
-		List<String> listChildren = Common.arrayToArrayList(arrayChildren) ;
-		Collections.sort(listChildren);
-		return listChildren;		
-	}
-	public void loadCorrectTraceables (String aCorrectDirectory) {		
-		correctLocalTraceableLists = new ArrayList();
-		List<String> sortedFiles = getSortedFiles(aCorrectDirectory);		
-		String aGlobalTrancriptFile = AConsoleModel.getGlobalTranscriptFileName(aCorrectDirectory);
-		for (int index = 0; index < sortedFiles.size(); index++) {
-			String aTranscriptFile =  aCorrectDirectory + "/" + sortedFiles.get(index);
-			if (aTranscriptFile.equals(aGlobalTrancriptFile)) continue;
-			String aTitleName = ALocalGlobalTranscriptManager.getTitle(aTranscriptFile);
-			List<Traceable> traceableList = TraceUtility.toTraceableList(aTranscriptFile);
-			correctLocalTraceableLists.add(traceableList);	
-			processToCorrectTraceableList.put(aTitleName, traceableList);
-		}
-		correctGlobalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
-	}
-
-	@Override
-	public void loadTraceables (Boolean aGenerateCorrectTranscripts, Boolean aTestAgainstCorrectTraceables) {
-		loadTestTraceables();
-		if (!aGenerateCorrectTranscripts && aTestAgainstCorrectTraceables) {
-			loadCorrectTraceables(generateCorrectDirectory());
-		}
-	
-		
-//		if (consoleModels == null || consoleModels.size() == 0)
+//	public void loadTestTraceables () {
+//		if (transcriptManagers == null || transcriptManagers.size() == 0)
 //			return;
 //		localTraceableLists = new ArrayList();
-//		correctLocalTraceableLists = new ArrayList();
 //
-//		for (int index = 0; index < consoleModels.size(); index++) {
-//			String aLocalTranscriptFile =  consoleModels.get(index).getLocalTranscriptFile();
+//		for (int index = 0; index < transcriptManagers.size(); index++) {
+//			String aLocalTranscriptFile =  transcriptManagers.get(index).getLocalTranscriptFile();
 //			List<Traceable> traceableList = TraceUtility.toTraceableList(aLocalTranscriptFile);
-//			localTraceableLists.add(traceableList);			
+//			localTraceableLists.add(traceableList);	
+//			processToLocalTraceableList.put(processNames.get(index), traceableList);
 //		}
-//		String aGlobalTrancriptFile = consoleModels.get(0).getGlobalTranscriptFile();
+//		String aGlobalTrancriptFile = consoleModels.get(0).getLocalGlobalTranscriptManager().getGlobalTranscriptFile();
+//		
+//		
 //		globalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
-		
-	}
-//	// null method for those who do not want to listen to console input
-//	public void propertyChange(PropertyChangeEvent aConsoleModelEvent) {	
+//
+//	}
+//	public static List<String> getSortedFiles(String aDirectory) {
+//		File file = new File(aDirectory);
+//		String[] arrayChildren = file.list();
+//		List<String> listChildren = Common.arrayToArrayList(arrayChildren) ;
+//		Collections.sort(listChildren);
+//		return listChildren;		
+//	}
+//	public void loadCorrectTraceables (String aCorrectDirectory) {		
+//		correctLocalTraceableLists = new ArrayList();
+//		List<String> sortedFiles = getSortedFiles(aCorrectDirectory);		
+//		String aGlobalTrancriptFile = AConsoleModel.getGlobalTranscriptFileName(aCorrectDirectory);
+//		for (int index = 0; index < sortedFiles.size(); index++) {
+//			String aTranscriptFile =  aCorrectDirectory + "/" + sortedFiles.get(index);
+//			if (aTranscriptFile.equals(aGlobalTrancriptFile)) continue;
+//			String aTitleName = ALocalGlobalTranscriptManager.getTitle(aTranscriptFile);
+//			List<Traceable> traceableList = TraceUtility.toTraceableList(aTranscriptFile);
+//			correctLocalTraceableLists.add(traceableList);	
+//			processToCorrectTraceableList.put(aTitleName, traceableList);
+//		}
+//		correctGlobalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
+//	}
+//
+//	@Override
+//	public void loadTraceables (Boolean aGenerateCorrectTranscripts, Boolean aTestAgainstCorrectTraceables) {
+//		loadTestTraceables();
+//		if (!aGenerateCorrectTranscripts && aTestAgainstCorrectTraceables) {
+//			loadCorrectTraceables(generateCorrectDirectory());
+//		}
+//	
+//		
+////		if (consoleModels == null || consoleModels.size() == 0)
+////			return;
+////		localTraceableLists = new ArrayList();
+////		correctLocalTraceableLists = new ArrayList();
+////
+////		for (int index = 0; index < consoleModels.size(); index++) {
+////			String aLocalTranscriptFile =  consoleModels.get(index).getLocalTranscriptFile();
+////			List<Traceable> traceableList = TraceUtility.toTraceableList(aLocalTranscriptFile);
+////			localTraceableLists.add(traceableList);			
+////		}
+////		String aGlobalTrancriptFile = consoleModels.get(0).getGlobalTranscriptFile();
+////		globalTraceableList = TraceUtility.toTraceableList(aGlobalTrancriptFile);
 //		
 //	}
-
-	@Override
-	public List<List<Traceable>> getLocalTraceableLists() {
-		return localTraceableLists;
-	}
-	
-	@Override
-	public List<List<Traceable>> getCorrectLocalTraceableLists() {
-		return correctLocalTraceableLists;
-	}
-
-	@Override
-	public List<Traceable> getCorrectGlobalTraceableList() {
-		return correctGlobalTraceableList;
-	}
-
-	@Override
-	public List<Traceable> getGlobalTraceableList() {
-		return globalTraceableList;
-	}
+////	// null method for those who do not want to listen to console input
+////	public void propertyChange(PropertyChangeEvent aConsoleModelEvent) {	
+////		
+////	}
+//
+//	@Override
+//	public List<List<Traceable>> getLocalTraceableLists() {
+//		return localTraceableLists;
+//	}
+//	
+//	@Override
+//	public List<List<Traceable>> getCorrectLocalTraceableLists() {
+//		return correctLocalTraceableLists;
+//	}
+//
+//	@Override
+//	public List<Traceable> getCorrectGlobalTraceableList() {
+//		return correctGlobalTraceableList;
+//	}
+//
+//	@Override
+//	public List<Traceable> getGlobalTraceableList() {
+//		return globalTraceableList;
+//	}
 
 	@Override
 	public MainClassListLauncher demo() {
 		createAndDisplayLauncher();
 		executeAll();
-		waitForInteractionTermination();
+		demoer.waitForInteractionTermination();
 		return launcher;
 	}
 	
@@ -269,18 +277,18 @@ public abstract class AConsoleModelBasedDemoerAndTester implements DemoerAndTest
 		else
 			generateTestTranscripts();
 	}
-	public void addProcessName(String aProcessName) {
-		if (!processNames.contains(aProcessName)) {
-    		processNames.add(aProcessName);
-    	}
-		
-	}
-	public void addTranscriptManager(LocalGlobalTranscriptManager aTranscriptManager) {
-		if (!transcriptManagers.contains(aTranscriptManager)) {
-    		transcriptManagers.add(aTranscriptManager);
-    	}
-		
-	}
+//	public void addProcessName(String aProcessName) {
+//		if (!processNames.contains(aProcessName)) {
+//    		processNames.add(aProcessName);
+//    	}
+//		
+//	}
+//	public void addTranscriptManager(LocalGlobalTranscriptManager aTranscriptManager) {
+//		if (!transcriptManagers.contains(aTranscriptManager)) {
+//    		transcriptManagers.add(aTranscriptManager);
+//    	}
+//		
+//	}
 	// override this method to work on the transcripts
 	public Boolean executeLoadAndTest(Boolean aCorrectTranscripts, Boolean aTestAgainstCorrectTranscripts) {
 		createAndDisplayLauncher();
@@ -290,8 +298,8 @@ public abstract class AConsoleModelBasedDemoerAndTester implements DemoerAndTest
 //		else
 //			generateTestTranscripts();
 		executeAll();
-		waitForInteractionTermination();
-		loadTraceables(aCorrectTranscripts, aTestAgainstCorrectTranscripts);
+		demoer.waitForInteractionTermination();
+		transcriptBasedTester.loadTraceables(aCorrectTranscripts, aTestAgainstCorrectTranscripts);
 		return test(aTestAgainstCorrectTranscripts);
 //		return true; // in general a test should be superclass tests added with subclsas ones
 	}
@@ -308,15 +316,15 @@ public abstract class AConsoleModelBasedDemoerAndTester implements DemoerAndTest
 
 
 
-	public boolean isTerminated() {
-		return terminated;
-	}
-
-
-
-	public void setTerminated(boolean terminated) {
-		this.terminated = terminated;
-	}
+//	public boolean isTerminated() {
+//		return terminated;
+//	}
+//
+//
+//
+//	public void setTerminated(boolean terminated) {
+//		this.terminated = terminated;
+//	}
 
 
 
@@ -350,37 +358,37 @@ public abstract class AConsoleModelBasedDemoerAndTester implements DemoerAndTest
 	}
 
 
-    @Override
-	public String getCorrectConsoleTranscriptsFolder() {
-		return correctConsoleTranscriptsFolder;
-	}
-
-    @Override
-	public void setCorrectConsoleTranscriptsFolder(
-			String correctConsoleTranscriptsFolder) {
-		this.correctConsoleTranscriptsFolder = correctConsoleTranscriptsFolder;
-	}
-
-
-    @Override
-	public String getTestConsoleTranscriptsFolder() {
-		return testConsoleTranscriptsFolder;
-	}
+//    @Override
+//	public String getCorrectConsoleTranscriptsFolder() {
+//		return correctConsoleTranscriptsFolder;
+//	}
+//
+//    @Override
+//	public void setCorrectConsoleTranscriptsFolder(
+//			String correctConsoleTranscriptsFolder) {
+//		this.correctConsoleTranscriptsFolder = correctConsoleTranscriptsFolder;
+//	}
 
 
-    @Override
-
-	public void setTestConsoleTranscriptsFolder(String testConsoleTranscriptsFolder) {
-		this.testConsoleTranscriptsFolder = testConsoleTranscriptsFolder;
-	}
+//    @Override
+//	public String getTestConsoleTranscriptsFolder() {
+//		return testConsoleTranscriptsFolder;
+//	}
+//
+//
+//    @Override
+//	public void setTestConsoleTranscriptsFolder(String testConsoleTranscriptsFolder) {
+//		this.testConsoleTranscriptsFolder = testConsoleTranscriptsFolder;
+//	}
     
-    protected void newInput(String aProcessName, String newValue) {
-    	
+    public void newInput(String aProcessName, String newValue) {
+    	ConsoleModel aConsoleModel = processNameToConsoleModel.get(aProcessName);
+    	aConsoleModel.setInput(newValue);
     }
-    
-    protected void newOutputLine(String aProcessName, String newValue) {
-    	
-    }
+//    
+//    protected void newOutputLine(String aProcessName, String newValue) {
+//    	
+//    }
     
     
     
@@ -388,9 +396,9 @@ public abstract class AConsoleModelBasedDemoerAndTester implements DemoerAndTest
 		newIOFromProcess(((ConsoleModel) aConsoleModelEvent.getSource()).getTitle(), aConsoleModelEvent.getNewValue());
 		ConsoleModel aConsoleModel = (ConsoleModel) aConsoleModelEvent.getSource();
 		if (aConsoleModelEvent.getPropertyName().equals(ConsoleModel.OUTPUT_LINE))
-			newOutputLine(aConsoleModel.getTitle(), (String) aConsoleModelEvent.getNewValue());
+			demoer.newOutputLine(aConsoleModel.getProcessName(), (String) aConsoleModelEvent.getNewValue());
 		else if (aConsoleModelEvent.getPropertyName().equals(ConsoleModel.INPUT)) {
-			newInput(aConsoleModel.getTitle(), (String) aConsoleModelEvent.getNewValue());
+			demoer.newInput(aConsoleModel.getProcessName(), (String) aConsoleModelEvent.getNewValue());
 		}
 
     }
@@ -402,11 +410,58 @@ public abstract class AConsoleModelBasedDemoerAndTester implements DemoerAndTest
     }
    
    protected void consoleModelsInitialized() {
-	   for (ConsoleModel aConsoleModel:consoleModels) {
-		   addProcessName(aConsoleModel.getTitle());
-		   addTranscriptManager(aConsoleModel.getLocalGlobalTranscriptManager());
+	   for (int i=0; i < consoleModels.size(); i++) {
+		   ConsoleModel aConsoleModel = consoleModels.get(i);
+		   String aProcessName = processNames.get(i);
+		   aConsoleModel.setProcessName(aProcessName);
+		   processNameToConsoleModel.put(aProcessName, aConsoleModel);
+		   transcriptBasedTester.addProcessName(aProcessName);
+		   transcriptBasedTester.addTranscriptManager(aConsoleModel.getLocalGlobalTranscriptManager());
 	   }
    }
 
+
+
+public Demoer getDemoer() {
+	return demoer;
+}
+
+
+
+public void setDemoer(Demoer newVal) {
+	this.demoer = newVal;
+	demoer.addProcessInputListener(this);
+}
+
+
+
+public TranscriptBasedTester getTranscriptBasedTester() {
+	return transcriptBasedTester;
+}
+
+
+
+public void setTranscriptBasedTester(TranscriptBasedTester newVal) {
+	this.transcriptBasedTester = newVal;
+//	transcriptBasedTester.setProcessNames(consoleModelBasedLauncher.processNames());
+}
+
+
+
+@Override
+public void inputTerminated(String aProcessName) {
+	// TODO Auto-generated method stub
+	
+}
+public ConsoleModelBasedLauncher getConsoleModelBasedLauncher() {
+	return consoleModelBasedLauncher;
+}
+
+
+
+public void setConsoleModelBasedLauncher(
+		ConsoleModelBasedLauncher consoleModelBasedLauncher) {
+	this.consoleModelBasedLauncher = consoleModelBasedLauncher;
+}
 
 }
