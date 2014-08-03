@@ -26,6 +26,8 @@ public interface Demoer extends InputGenerator {
 //	List<List<Traceable>> getLocalTraceableLists();
 //
 //	List<Traceable> getGlobalTraceableList();
+	
+	void executionStarted();
 
 	void notifyInteractionTermination();
 
@@ -43,6 +45,8 @@ public interface Demoer extends InputGenerator {
 
 
 	public void setTerminated(boolean terminated) ;
+
+	void addProcessName(String aProcessName);
 
 
 

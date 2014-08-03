@@ -23,7 +23,7 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
 	protected Map<String, ConsoleModel> processNameToConsoleModel = new HashMap();
 	protected List<ConsoleModel> consoleModels;
 //	protected List<LocalGlobalTranscriptManager> transcriptManagers = new ArrayList();
-	protected List<String> processNames = new ArrayList();
+//	protected List<String> processNames = new ArrayList();
 	
 //	protected List<List<Traceable>> localTraceableLists;
 //	protected Map <String, List<Traceable>> processToLocalTraceableList = new HashMap();
@@ -51,9 +51,11 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
 
 	
 	public AConsoleModelBasedDemoerAndTester(boolean anInteractive) {
-//		demoer = new ADemoer();
-//		transcriptBasedTester = new ATranscriptBasedTester();
-//		interactive = anInteractive;
+		interactive = anInteractive;
+
+		// some dummy objects to be replaced later
+		demoer = new ADemoer();
+		transcriptBasedTester = new ATranscriptBasedTester();
 	}
 	
 	
@@ -72,6 +74,9 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
 															// response to
 															// events
 		launcher.executeAll();
+		consoleModelsInitialized();
+
+		demoer.executionStarted();
 	}
 	
 //	protected abstract Class[] composeMainClasses() ;
@@ -89,9 +94,10 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
 			launcher = MainClassLaunchingUtility.createLauncher(classes);
 		
 		consoleModels = launcher.getOrCreateConsoleModels();
-		for (int index = 0; index <  consoleModels.size(); index--) {
-			consoleModels.get(index).setProcessName(processNames.get(index));
-		}
+//		consoleModelsInitialized();
+//		for (int index = 0; index <  consoleModels.size(); index--) {
+//			consoleModels.get(index).setProcessName(processNames.get(index));
+//		}
 
 
 		return launcher;
@@ -412,9 +418,10 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
    protected void consoleModelsInitialized() {
 	   for (int i=0; i < consoleModels.size(); i++) {
 		   ConsoleModel aConsoleModel = consoleModels.get(i);
-		   String aProcessName = processNames.get(i);
+		   String aProcessName = consoleModelBasedLauncher.processNames()[i];
 		   aConsoleModel.setProcessName(aProcessName);
 		   processNameToConsoleModel.put(aProcessName, aConsoleModel);
+		   demoer.addProcessName(aProcessName);
 		   transcriptBasedTester.addProcessName(aProcessName);
 		   transcriptBasedTester.addTranscriptManager(aConsoleModel.getLocalGlobalTranscriptManager());
 	   }

@@ -16,7 +16,7 @@ import util.pipe.AConsoleModel;
 import util.pipe.AnAbstractInputGenerator;
 import util.trace.Traceable;
 
-public abstract  class ADemoer extends AnAbstractInputGenerator implements Demoer {
+public   class ADemoer extends AnAbstractInputGenerator implements Demoer {
 	protected List<String> processNames = new ArrayList();
 
 //	protected List<ConsoleModel> consoleModels;
@@ -270,6 +270,7 @@ public abstract  class ADemoer extends AnAbstractInputGenerator implements Demoe
 //		else
 //			generateTestTranscripts();
 //	}
+	@Override
 	public void addProcessName(String aProcessName) {
 		if (!processNames.contains(aProcessName)) {
     		processNames.add(aProcessName);
@@ -401,6 +402,16 @@ public abstract  class ADemoer extends AnAbstractInputGenerator implements Demoe
     	// inefficient as each output causes this codee to be executed
 //    	addProcessName(aProcessName);
     }
+@Override
+public void newOutputLine(String aProcessName, String anOutputLine) {
+	// TODO Auto-generated method stub
+	
+}
+@Override
+public void executionStarted() {
+	// TODO Auto-generated method stub
+	
+}
    
 //   protected void consoleModelsInitialized() {
 //	   for (ConsoleModel aConsoleModel:consoleModels) {
