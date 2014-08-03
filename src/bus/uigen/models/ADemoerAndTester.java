@@ -67,6 +67,7 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 	}
 	
 	protected abstract Class[] composeMainClasses() ;
+//	protected abstract String[] processNames();
 	
 	
 	@Override
@@ -79,7 +80,10 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 		else
 			launcher = MainClassLaunchingUtility.createLauncher(classes);
 		
-		consoleModels = launcher.getOrCreateConsoleModels();		
+		consoleModels = launcher.getOrCreateConsoleModels();
+		for (ConsoleModel aConsoleModel: consoleModels) {
+			
+		}
 
 
 		return launcher;
@@ -377,6 +381,8 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
     protected void newOutputLine(String aProcessName, String newValue) {
     	
     }
+    
+    
     
     public void propertyChange(PropertyChangeEvent aConsoleModelEvent) {
 		newIOFromProcess(((ConsoleModel) aConsoleModelEvent.getSource()).getTitle(), aConsoleModelEvent.getNewValue());

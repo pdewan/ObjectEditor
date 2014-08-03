@@ -198,7 +198,8 @@ public class AnObjectQuery implements ObjectQuery{
 			Object anExpectedValue = anExpectedMap.get(aProperty);
 			if (anActualValue == null && anExpectedValue != null)
 				retVal = false;
-			else if (!(anActualValue.equals(anExpectedValue))) {
+			else if (anActualValue!= null &&
+					!(anActualValue.equals(anExpectedValue))) {
 				retVal = false;
 				// send trace message
 			}
