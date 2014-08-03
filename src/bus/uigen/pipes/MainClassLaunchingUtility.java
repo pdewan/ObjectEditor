@@ -1,6 +1,7 @@
-package bus.uigen.models;
+package bus.uigen.pipes;
 import util.models.ListenableVector;
 import bus.uigen.ObjectEditor;
+import bus.uigen.models.AMainClassListLauncher;
 public class MainClassLaunchingUtility {
 //	public static MainClassListLauncher interactiveLaunch(Class[] classes, String aTranscriptFileName) {
 ////		ListenableVector<Class> classList = new AMainClassListLauncher();

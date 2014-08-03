@@ -1,10 +1,10 @@
-package bus.uigen.models;
+package bus.uigen.pipes;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import util.models.ConsoleModel;
 import util.models.ListenableVector;
+import util.pipe.ConsoleModel;
 import util.remote.ProcessExecer;
 
 public interface MainClassListLauncher extends /*ListenableVector<Class>,*/ Runnable {

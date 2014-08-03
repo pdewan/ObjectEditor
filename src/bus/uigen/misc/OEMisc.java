@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
-import util.models.AConsoleModel;
-import util.models.ConsoleModel;
+import util.pipe.AConsoleModel;
+import util.pipe.ConsoleModel;
 import util.remote.AProcessExecer;
 import util.remote.ProcessExecer;
 import util.trace.Tracer;

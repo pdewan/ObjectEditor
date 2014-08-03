@@ -1,4 +1,4 @@
-package bus.uigen.models;
+package bus.uigen.pipes;
 
 import java.beans.PropertyChangeEvent;
 import java.io.File;
@@ -10,10 +10,10 @@ import java.util.Map;
 
 import bus.uigen.trace.TraceUtility;
 import util.misc.Common;
-import util.models.AConsoleModel;
 import util.models.ALocalGlobalTranscriptManager;
-import util.models.ConsoleModel;
 import util.models.LocalGlobalTranscriptManager;
+import util.pipe.AConsoleModel;
+import util.pipe.ConsoleModel;
 import util.trace.Traceable;
 
 public abstract class ADemoerAndTester implements DemoerAndTester {

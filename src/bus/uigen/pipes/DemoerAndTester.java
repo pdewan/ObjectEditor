@@ -1,10 +1,10 @@
-package bus.uigen.models;
+package bus.uigen.pipes;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import util.misc.ThreadSupport;
-import util.models.ConsoleModel;
+import util.pipe.ConsoleModel;
 import util.remote.ProcessExecer;
 import util.trace.Traceable;
 
