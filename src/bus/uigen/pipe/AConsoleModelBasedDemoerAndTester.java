@@ -1,4 +1,4 @@
-package bus.uigen.pipes;
+package bus.uigen.pipe;
 
 import java.beans.PropertyChangeEvent;
 import java.io.File;
@@ -16,7 +16,7 @@ import util.pipe.AConsoleModel;
 import util.pipe.ConsoleModel;
 import util.trace.Traceable;
 
-public abstract class ADemoerAndTester implements DemoerAndTester {
+public abstract class AConsoleModelBasedDemoerAndTester implements DemoerAndTester {
 
 	protected List<ConsoleModel> consoleModels;
 	protected List<LocalGlobalTranscriptManager> transcriptManagers = new ArrayList();
@@ -38,13 +38,13 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 	
 
 
-	public ADemoerAndTester() {
+	public AConsoleModelBasedDemoerAndTester() {
 		this(true);
 	}
 	
 
 	
-	public ADemoerAndTester(boolean anInteractive) {
+	public AConsoleModelBasedDemoerAndTester(boolean anInteractive) {
 		interactive = anInteractive;
 	}
 	

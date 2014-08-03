@@ -1,4 +1,4 @@
-package bus.uigen.pipes;
+package bus.uigen.pipe;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -8,7 +8,7 @@ import util.pipe.ConsoleModel;
 import util.remote.ProcessExecer;
 import util.trace.Traceable;
 
-public interface ConsoleModelBasedDemoerAndTester extends PropertyChangeListener{
+public interface TranscriptBasedTester extends PropertyChangeListener{
 	Boolean executeLoadAndTest(Boolean aGenerateCorrectTranscripts, Boolean aTestAgainstCorrectTranscripts);
 	MainClassListLauncher createAndDisplayLauncher();
 	MainClassListLauncher demo();

@@ -1,4 +1,4 @@
-package bus.uigen.pipes;
+package bus.uigen.pipe;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;

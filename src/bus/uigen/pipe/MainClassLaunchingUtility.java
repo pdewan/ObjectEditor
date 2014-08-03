@@ -1,4 +1,4 @@
-package bus.uigen.pipes;
+package bus.uigen.pipe;
 import util.models.ListenableVector;
 import bus.uigen.ObjectEditor;
 import bus.uigen.models.AMainClassListLauncher;

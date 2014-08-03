@@ -14,7 +14,7 @@ import util.pipe.AConsoleModel;
 import util.pipe.ConsoleModel;
 import util.remote.ProcessExecer;
 import bus.uigen.misc.OEMisc;
-import bus.uigen.pipes.MainClassListLauncher;
+import bus.uigen.pipe.MainClassListLauncher;
 @util.annotations.StructurePattern(util.annotations.StructurePatternNames.LIST_PATTERN)
 public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implements MainClassListLauncher {
 //	public static final String GLOBAL_FILE_NAME = "globalTranscript.txt";

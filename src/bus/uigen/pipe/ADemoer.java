@@ -1,4 +1,4 @@
-package bus.uigen.pipes;
+package bus.uigen.pipe;
 
 import java.beans.PropertyChangeEvent;
 import java.io.File;
