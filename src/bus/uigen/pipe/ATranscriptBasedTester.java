@@ -252,15 +252,15 @@ public  class ATranscriptBasedTester implements TranscriptBasedTester {
 //		waitForInteractionTermination();
 //		return launcher;
 //	}
-	
+	@Override
 	public Boolean test() {
 		return false;
 	}
-	
+	@Override
 	public Boolean testAgainstCorrectTranscripts() {
 		return false;
 	}
-	
+	@Override
 	public Boolean test (Boolean aTestAgainstCorrectTranscripts) {
 		boolean retVal = test();
 		return aTestAgainstCorrectTranscripts?				

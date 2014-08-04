@@ -78,6 +78,12 @@ public interface TranscriptBasedTester {
 
 
 	String generateCorrectDirectory();
+
+	Boolean test();
+
+	Boolean testAgainstCorrectTranscripts();
+
+	Boolean test(Boolean aTestAgainstCorrectTranscripts);
 	
 
 }

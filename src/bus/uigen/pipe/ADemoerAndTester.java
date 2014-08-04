@@ -64,6 +64,7 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 															// response to
 															// events
 		launcher.executeAll();
+		consoleModelsInitialized();
 	}
 	
 	protected abstract Class[] composeMainClasses() ;
@@ -173,6 +174,10 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 	}
 	public static List<String> getSortedFiles(String aDirectory) {
 		File file = new File(aDirectory);
+		if (!file.exists()) {
+			System.err.println("Directory not found:" + aDirectory);
+			return null;
+		}
 		String[] arrayChildren = file.list();
 		List<String> listChildren = Common.arrayToArrayList(arrayChildren) ;
 		Collections.sort(listChildren);
@@ -180,7 +185,11 @@ public abstract class ADemoerAndTester implements DemoerAndTester {
 	}
 	public void loadCorrectTraceables (String aCorrectDirectory) {		
 		correctLocalTraceableLists = new ArrayList();
-		List<String> sortedFiles = getSortedFiles(aCorrectDirectory);		
+		List<String> sortedFiles = getSortedFiles(aCorrectDirectory);
+		if (sortedFiles == null) {
+			System.err.println("Couldnot load correct traceables");
+			return;
+		}
 		String aGlobalTrancriptFile = AConsoleModel.getGlobalTranscriptFileName(aCorrectDirectory);
 		for (int index = 0; index < sortedFiles.size(); index++) {
 			String aTranscriptFile =  aCorrectDirectory + "/" + sortedFiles.get(index);

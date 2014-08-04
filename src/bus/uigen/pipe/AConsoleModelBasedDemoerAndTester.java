@@ -274,21 +274,25 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
 		return launcher;
 	}
 	
-	public Boolean test() {
-		return false;
-	}
+//	public Boolean test() {
+//		return transcriptBasedTester.test();
+//	}
+//	
+//	public Boolean testAgainstCorrectTranscripts() {
+//		return false;
+//	}
 	
-	public Boolean testAgainstCorrectTranscripts() {
-		return false;
-	}
+//	public Boolean test (Boolean aTestAgainstCorrectTranscripts) {
+//		boolean retVal = test();
+//		return aTestAgainstCorrectTranscripts?				
+//				retVal & testAgainstCorrectTranscripts():
+//				retVal;
+//	}
 	
-	public Boolean test (Boolean aTestAgainstCorrectTranscripts) {
-		boolean retVal = test();
-		return aTestAgainstCorrectTranscripts?				
-				retVal & testAgainstCorrectTranscripts():
-				retVal;
-	}
-	
+//	public Boolean test (Boolean aTestAgainstCorrectTranscripts) {
+//		return transcriptBasedTester.test(aTestAgainstCorrectTranscripts);
+//	}
+//	
 	public void generateTranscripts(Boolean aCorrectTranscripts, Boolean aTestAgainstCorrectTranscripts) {
 		if (aCorrectTranscripts)
 			generateCorrectTranscripts();
@@ -318,7 +322,7 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
 		executeAll();
 		demoer.waitForInteractionTermination();
 		transcriptBasedTester.loadTraceables(aCorrectTranscripts, aTestAgainstCorrectTranscripts);
-		return test(aTestAgainstCorrectTranscripts);
+		return transcriptBasedTester.test(aTestAgainstCorrectTranscripts);
 //		return true; // in general a test should be superclass tests added with subclsas ones
 	}
 
