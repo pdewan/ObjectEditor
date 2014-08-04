@@ -1,9 +1,11 @@
 package bus.uigen.pipe;
 
 
-public abstract class AConsoleModelBasedLauncher implements ConsoleModelBasedLauncher {
+public  class AConsoleModelBasedLauncher implements ConsoleModelBasedLauncher {
 	
-	public abstract Class[] mainClasses() ;
+	public  Class[] mainClasses() {
+		return new Class[0];
+	}
 	public String[] processNames() {
 		Class[] aMainClasses = mainClasses();
 		String[] retVal = new String[aMainClasses.length];

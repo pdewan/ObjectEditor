@@ -54,8 +54,20 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
 		interactive = anInteractive;
 
 		// some dummy objects to be replaced later
-		demoer = new ADemoer();
-		transcriptBasedTester = new ATranscriptBasedTester();
+		setDemoer(createDemoer());
+		setTranscriptBasedTester(createTranscriptBasedTester());
+		setConsoleModelBasedLauncher(createConsoleModelBasedLauncher());
+	}
+	protected Demoer createDemoer() {
+		return new ADemoer();
+	}
+	
+	protected TranscriptBasedTester createTranscriptBasedTester() {
+		return new ATranscriptBasedTester();
+	}
+	
+	protected ConsoleModelBasedLauncher createConsoleModelBasedLauncher() {
+		return new AConsoleModelBasedLauncher();
 	}
 	
 	
