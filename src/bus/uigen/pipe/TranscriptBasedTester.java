@@ -74,16 +74,20 @@ public interface TranscriptBasedTester {
 
 	void addTranscriptManager(LocalGlobalTranscriptManager aTranscriptManager);
 
-	String generateTestDirectory();
+	String getTestDirectory();
 
 
-	String generateCorrectDirectory();
+	String getCorrectDirectory();
 
 	Boolean test();
 
 	Boolean testAgainstCorrectTranscripts();
 
 	Boolean test(Boolean aTestAgainstCorrectTranscripts);
+	public String getCorrectSubFolder() ;
+	public void setCorrectSubFolder(String correctSubFolder) ;
+	public String getTestSubFolder();
+	public void setTestSubFolder(String testSubFolder) ;
 	
 
 }

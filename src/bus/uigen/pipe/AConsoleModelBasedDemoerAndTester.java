@@ -157,11 +157,15 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
 //	}
 	@Override
 	public void generateCorrectTranscripts() {
-		launcher.logConsoles(transcriptBasedTester.generateCorrectDirectory());
+//		launcher.logConsoles(transcriptBasedTester.generateCorrectDirectory());
+		launcher.logConsoles(transcriptBasedTester.getCorrectDirectory());
+
 	}
 	@Override
 	public void generateTestTranscripts() {
-		launcher.logConsoles(transcriptBasedTester.generateTestDirectory());
+//		launcher.logConsoles(transcriptBasedTester.getTestDirectory());
+		launcher.logConsoles(transcriptBasedTester.getTestDirectory());
+
 	}
 //	public void loadTestTraceables () {
 //		if (consoleModels == null || consoleModels.size() == 0)
@@ -457,13 +461,13 @@ public void setDemoer(Demoer newVal) {
 }
 
 
-
+@Override
 public TranscriptBasedTester getTranscriptBasedTester() {
 	return transcriptBasedTester;
 }
 
 
-
+@Override
 public void setTranscriptBasedTester(TranscriptBasedTester newVal) {
 	this.transcriptBasedTester = newVal;
 //	transcriptBasedTester.setProcessNames(consoleModelBasedLauncher.processNames());
@@ -476,12 +480,13 @@ public void inputTerminated(String aProcessName) {
 	// TODO Auto-generated method stub
 	
 }
+@Override
 public ConsoleModelBasedLauncher getConsoleModelBasedLauncher() {
 	return consoleModelBasedLauncher;
 }
 
 
-
+@Override
 public void setConsoleModelBasedLauncher(
 		ConsoleModelBasedLauncher consoleModelBasedLauncher) {
 	this.consoleModelBasedLauncher = consoleModelBasedLauncher;

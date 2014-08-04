@@ -37,7 +37,7 @@ public  class ATranscriptBasedTester implements TranscriptBasedTester {
 //	boolean terminated;
 //	boolean interactive;
 //	protected MainClassListLauncher launcher;
-	protected String traceDirectory;
+//	protected String traceDirectory;
 
 	
 
@@ -111,17 +111,24 @@ public  class ATranscriptBasedTester implements TranscriptBasedTester {
 //		}
 //	}
 	
-	public static final String CORRECT_CONSOLE_TRANSCRIPTS = "correctTranscripts";
-	public static final String TEST_CONSOLE_TRANSCRIPTS = "testTranscripts";
+	public static final String DEFAULT_CORRECT_CONSOLE_TRANSCRIPTS = "correctTranscripts";
+	public static final String DEFAULT_TEST_CONSOLE_TRANSCRIPTS = "testTranscripts";
 	
-	protected String correctConsoleTranscriptsFolder = CORRECT_CONSOLE_TRANSCRIPTS;
-	protected String testConsoleTranscriptsFolder = TEST_CONSOLE_TRANSCRIPTS;
+	protected String correctConsoleTranscriptsFolder = DEFAULT_CORRECT_CONSOLE_TRANSCRIPTS;
+	protected String testConsoleTranscriptsFolder = DEFAULT_TEST_CONSOLE_TRANSCRIPTS;
+	protected String correctSubFolder;
+	protected String testSubFolder;
 	
+	public ATranscriptBasedTester() {
+		setCorrectSubFolder(generateCorrectSubDirectory());
+		setTestSubFolder(generateTestSubDirectory());
+	}
 
 	@Override
-	public  String generateCorrectDirectory() {
+	public  String getCorrectDirectory() {
 //		return CORRECT_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();
-		return getCorrectConsoleTranscriptsFolder() + "/" + generateCorrectSubDirectory();
+//		return getCorrectConsoleTranscriptsFolder() + "/" + generateCorrectSubDirectory();
+		return getCorrectConsoleTranscriptsFolder() + "/" + getCorrectSubFolder();
 
 		
 	}
@@ -135,9 +142,9 @@ public  class ATranscriptBasedTester implements TranscriptBasedTester {
 		return getClass().getSimpleName();
 	}
 	@Override
-	public  String generateTestDirectory() {
+	public  String getTestDirectory() {
 //		return TEST_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();		
-		return getTestConsoleTranscriptsFolder() + "/" + generateCorrectSubDirectory();		
+		return getTestConsoleTranscriptsFolder() + "/" + getTestSubFolder();		
 
 	}
 //	@Override
@@ -208,7 +215,7 @@ public  class ATranscriptBasedTester implements TranscriptBasedTester {
 	public void loadTraceables (Boolean aGenerateCorrectTranscripts, Boolean aTestAgainstCorrectTraceables) {
 		loadTestTraceables();
 		if (!aGenerateCorrectTranscripts && aTestAgainstCorrectTraceables) {
-			loadCorrectTraceables(generateCorrectDirectory());
+			loadCorrectTraceables(getCorrectDirectory());
 		}
 	
 		
@@ -417,6 +424,18 @@ public  class ATranscriptBasedTester implements TranscriptBasedTester {
 	}
 	public void setProcessNames(List<String> processNames) {
 		this.processNames = processNames;
+	}
+	public String getCorrectSubFolder() {
+		return correctSubFolder;
+	}
+	public void setCorrectSubFolder(String correctSubFolder) {
+		this.correctSubFolder = correctSubFolder;
+	}
+	public String getTestSubFolder() {
+		return testSubFolder;
+	}
+	public void setTestSubFolder(String testSubFolder) {
+		this.testSubFolder = testSubFolder;
 	}
    
 //   protected void consoleModelsInitialized() {

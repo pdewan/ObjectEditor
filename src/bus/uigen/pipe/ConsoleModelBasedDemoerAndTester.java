@@ -73,5 +73,10 @@ public interface ConsoleModelBasedDemoerAndTester extends PropertyChangeListener
 //	
 	void generateCorrectTranscripts();
 	void generateTestTranscripts();
+	TranscriptBasedTester getTranscriptBasedTester();
+	void setTranscriptBasedTester(TranscriptBasedTester newVal);
+	ConsoleModelBasedLauncher getConsoleModelBasedLauncher();
+	void setConsoleModelBasedLauncher(
+			ConsoleModelBasedLauncher consoleModelBasedLauncher);
 
 }
