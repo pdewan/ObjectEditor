@@ -121,9 +121,15 @@ public  class ATranscriptBasedTester implements TranscriptBasedTester {
 	@Override
 	public  String generateCorrectDirectory() {
 //		return CORRECT_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();
-		return getCorrectConsoleTranscriptsFolder() + "/" + toDirectoryName(getClass());
+		return getCorrectConsoleTranscriptsFolder() + "/" + generateCorrectSubDirectory();
 
 		
+	}
+	protected String generateCorrectSubDirectory() {
+		return toDirectoryName(getClass());
+	}
+	protected String generateTestSubDirectory() {
+		return toDirectoryName(getClass());
 	}
 	protected String toDirectoryName(Class aClass) {
 		return getClass().getSimpleName();
@@ -131,7 +137,7 @@ public  class ATranscriptBasedTester implements TranscriptBasedTester {
 	@Override
 	public  String generateTestDirectory() {
 //		return TEST_CONSOLE_TRANSCRIPTS + "/" + getClass().getSimpleName();		
-		return getTestConsoleTranscriptsFolder() + "/" + toDirectoryName(getClass());		
+		return getTestConsoleTranscriptsFolder() + "/" + generateCorrectSubDirectory();		
 
 	}
 //	@Override
