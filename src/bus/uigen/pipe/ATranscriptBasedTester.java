@@ -191,6 +191,10 @@ public  class ATranscriptBasedTester implements TranscriptBasedTester {
 	}
 	public static List<String> getSortedFiles(String aDirectory) {
 		File file = new File(aDirectory);
+		if (!file.exists()) {
+			System.out.println("Folder does not exist:" + aDirectory);
+			return null;
+		}
 		String[] arrayChildren = file.list();
 		List<String> listChildren = Common.arrayToArrayList(arrayChildren) ;
 		Collections.sort(listChildren);
@@ -198,7 +202,11 @@ public  class ATranscriptBasedTester implements TranscriptBasedTester {
 	}
 	public void loadCorrectTraceables (String aCorrectDirectory) {		
 		correctLocalTraceableLists = new ArrayList();
-		List<String> sortedFiles = getSortedFiles(aCorrectDirectory);		
+		List<String> sortedFiles = getSortedFiles(aCorrectDirectory);	
+		if (sortedFiles == null) {
+			System.out.println("Correct directory not found");
+			return;
+		}
 		String aGlobalTrancriptFile = AConsoleModel.getGlobalTranscriptFileName(aCorrectDirectory);
 		for (int index = 0; index < sortedFiles.size(); index++) {
 			String aTranscriptFile =  aCorrectDirectory + "/" + sortedFiles.get(index);
