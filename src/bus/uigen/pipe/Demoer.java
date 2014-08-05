@@ -46,7 +46,9 @@ public interface Demoer extends InputGenerator {
 
 	public void setTerminated(boolean terminated) ;
 
-	void addProcessName(String aProcessName);
+//	void addProcessName(String aProcessName);
+//
+//	void processNamesAdded();
 
 
 

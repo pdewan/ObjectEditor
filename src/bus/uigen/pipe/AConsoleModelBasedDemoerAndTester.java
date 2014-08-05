@@ -82,6 +82,7 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
 //		aliceConsole = consoleModels.get(1);
 //		bobConsole = consoleModels.get(2);
 //		cathyConsole = consoleModels.get(3);
+		consoleModelsCreated();
 		launcher.addConsolesPropertyChangeListener(this); // input added in
 															// response to
 															// events
@@ -436,6 +437,18 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
     }
    
    protected void consoleModelsInitialized() {
+//	   for (int i=0; i < consoleModels.size(); i++) {
+//		   ConsoleModel aConsoleModel = consoleModels.get(i);
+//		   String aProcessName = consoleModelBasedLauncher.processNames()[i];
+//		   aConsoleModel.setProcessName(aProcessName);
+//		   processNameToConsoleModel.put(aProcessName, aConsoleModel);
+//		   demoer.addProcessName(aProcessName);
+//		   transcriptBasedTester.addProcessName(aProcessName);
+//		   transcriptBasedTester.addTranscriptManager(aConsoleModel.getLocalGlobalTranscriptManager());
+//		   aConsoleModel.addPropertyChangeListener(this);
+//	   }
+   }
+   protected void consoleModelsCreated() {
 	   for (int i=0; i < consoleModels.size(); i++) {
 		   ConsoleModel aConsoleModel = consoleModels.get(i);
 		   String aProcessName = consoleModelBasedLauncher.processNames()[i];
@@ -444,9 +457,10 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
 		   demoer.addProcessName(aProcessName);
 		   transcriptBasedTester.addProcessName(aProcessName);
 		   transcriptBasedTester.addTranscriptManager(aConsoleModel.getLocalGlobalTranscriptManager());
+//		   aConsoleModel.addPropertyChangeListener(this);
 	   }
+	   demoer.processNamesAdded();
    }
-
 
 
 public Demoer getDemoer() {
