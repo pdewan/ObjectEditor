@@ -14,9 +14,10 @@ import util.models.ALocalGlobalTranscriptManager;
 import util.models.LocalGlobalTranscriptManager;
 import util.pipe.AConsoleModel;
 import util.pipe.AnAbstractInputGenerator;
+import util.pipe.InputGenerator;
 import util.trace.Traceable;
 
-public   class ADemoer extends AnAbstractInputGenerator implements Demoer {
+public   class ADemoer extends AnAbstractInputGenerator implements InputGenerator {
 //	protected List<String> processNames = new ArrayList();
 //
 //

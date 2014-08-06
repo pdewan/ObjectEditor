@@ -14,10 +14,11 @@ import util.models.ALocalGlobalTranscriptManager;
 import util.models.LocalGlobalTranscriptManager;
 import util.pipe.AConsoleModel;
 import util.pipe.ConsoleModel;
+import util.pipe.InputGenerator;
 import util.trace.Traceable;
 
 public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemoerAndTester {
-	Demoer demoer;
+	InputGenerator demoer;
 	TranscriptBasedTester transcriptBasedTester;
 	ConsoleModelBasedLauncher consoleModelBasedLauncher;
 	protected Map<String, ConsoleModel> processNameToConsoleModel = new HashMap();
@@ -58,7 +59,7 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
 		setTranscriptBasedTester(createTranscriptBasedTester());
 		setConsoleModelBasedLauncher(createConsoleModelBasedLauncher());
 	}
-	protected Demoer createDemoer() {
+	protected InputGenerator createDemoer() {
 		return new ADemoer();
 	}
 	
@@ -463,13 +464,13 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
    }
 
 
-public Demoer getDemoer() {
+public InputGenerator getDemoer() {
 	return demoer;
 }
 
 
 
-public void setDemoer(Demoer newVal) {
+public void setDemoer(InputGenerator newVal) {
 	this.demoer = newVal;
 	demoer.addProcessInputListener(this);
 }
