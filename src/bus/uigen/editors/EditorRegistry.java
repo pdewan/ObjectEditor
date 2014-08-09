@@ -130,10 +130,10 @@ static void registerEditors() {
 		registerWidget("util.models.AMutableString", "javax.swing.JTextArea", "bus.uigen.adapters.MSTextAreaAdapter");
 		//bus.uigen.editors.EditorRegistry.registerWidget("bus.uigen.AListenableString", "javax.swing.JTextArea", "bus.uigen.adapters.MSJTextAreaAdapter");
 		registerWidget("java.net.URL", "javax.swing.JEditorPane", "bus.uigen.adapters.EditorPaneAdapter");
-//		registerWidget("util.models.AListenableString", "javax.swing.JTextField", "bus.uigen.adapters.MSTextFieldAdapter");
-//		registerWidget("util.models.ListenableString", "javax.swing.JTextField", "bus.uigen.adapters.MSTextFieldAdapter");
-		registerWidget("util.models.AListenableString", null, "bus.uigen.adapters.MSTextFieldAdapter");
-		registerWidget("util.models.ListenableString", null, "bus.uigen.adapters.MSTextFieldAdapter");
+		registerWidget("util.models.AListenableString", "javax.swing.JTextField", "bus.uigen.adapters.MSTextFieldAdapter");
+		registerWidget("util.models.ListenableString", "javax.swing.JTextField", "bus.uigen.adapters.MSTextFieldAdapter");
+//		registerWidget("util.models.AListenableString", null, "bus.uigen.adapters.MSTextFieldAdapter");
+//		registerWidget("util.models.ListenableString", null, "bus.uigen.adapters.MSTextFieldAdapter");
 
 		//ObjectEditor.setPreferredWidget(AListenableHashtable.class, JTable.class);
 		registerWidget("shapes.ShapeModel", "shapes.ShapeModel", "bus.uigen.editors.ShapeAdapter");
