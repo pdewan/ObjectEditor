@@ -409,7 +409,7 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
 //		this.testConsoleTranscriptsFolder = testConsoleTranscriptsFolder;
 //	}
     
-    public void newInput(String aProcessName, String newValue) {
+    public void newInputLine(String aProcessName, String newValue) {
     	ConsoleModel aConsoleModel = processNameToConsoleModel.get(aProcessName);
     	aConsoleModel.setInput(newValue);
     }
@@ -426,7 +426,7 @@ public  class AConsoleModelBasedDemoerAndTester implements ConsoleModelBasedDemo
 		if (aConsoleModelEvent.getPropertyName().equals(ConsoleModel.OUTPUT_LINE))
 			demoer.newOutputLine(aConsoleModel.getProcessName(), (String) aConsoleModelEvent.getNewValue());
 		else if (aConsoleModelEvent.getPropertyName().equals(ConsoleModel.INPUT)) {
-			demoer.newInput(aConsoleModel.getProcessName(), (String) aConsoleModelEvent.getNewValue());
+			demoer.newInputLine(aConsoleModel.getProcessName(), (String) aConsoleModelEvent.getNewValue());
 		}
 
     }
