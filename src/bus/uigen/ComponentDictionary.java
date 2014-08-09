@@ -364,10 +364,16 @@ RemoteSelector.classProxy(bus.uigen.adapters.DecIncWidgetAdapter.class));
 		//AClassWidgetPair classWidgetPair = new AClassWidgetPair(typeClass, componentClass);
 		try {
 		editors.put(typeClass, adapterClass);
+		if (componentClass != null) {
 		widgets.put(typeClass, componentClass);
 		setEditorMapping (AClassProxy.staticForName (typeClass), 
 				AClassProxy.staticForName  (componentClass), 
 				AClassProxy.staticForName  (adapterClass));
+		} else {
+			setEditorMapping (AClassProxy.staticForName (typeClass), 
+					null, 
+					AClassProxy.staticForName  (adapterClass));
+		}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -376,8 +382,10 @@ RemoteSelector.classProxy(bus.uigen.adapters.DecIncWidgetAdapter.class));
 			ClassProxy componentClass, ClassProxy adapterClass) {
 		//AClassWidgetPair classWidgetPair = new AClassWidgetPair(typeClass, componentClass);
 		editors.put(typeClass, adapterClass);
+		if (componentClass != null) {
 		widgets.put(typeClass, componentClass);
 		widgetAdapterToWidget.put(adapterClass, componentClass);
+		}
 	}
 
 	static public void setEditorMapping(String typeClass, String adapterClass) {

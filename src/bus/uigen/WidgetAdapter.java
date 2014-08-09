@@ -216,6 +216,8 @@ public abstract class WidgetAdapter implements WidgetAdapterInterface,
 			int width = component.getWidth();
 			Integer defaultHeight = (Integer) AttributeNames.getDefaultOrSystemDefault(AttributeNames.COMPONENT_HEIGHT);
 			Integer defaulWidth = (Integer) AttributeNames.getDefaultOrSystemDefault(AttributeNames.COMPONENT_HEIGHT);
+			if (c.getFont() == null )
+				return;
 			int oldFontSize = ((Font) c.getFont()).getSize();
 			if (size != null) {
 			double increase = (double) size/(double) oldFontSize;

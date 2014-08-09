@@ -45,13 +45,15 @@ public class EditorRegistry {
   }  
 
   public static void registerWidget(String type, String widget, String adapter) throws ClassNotFoundException {
-    //ClassProxy t = RemoteSelector.forName(type);
+    if (widget != null) {
+	//ClassProxy t = RemoteSelector.forName(type);
     ClassProxy t = AClassProxy.staticForName(type);
     //ClassProxy w = RemoteSelector.forName(widget);
     ClassProxy w = AClassProxy.staticForName(widget);
     // not sure why the forName was done on adapter
     //RemoteSelector.forName(adapter);
     registry.put(t, w);
+    }
     dict.setComponentAndAdapterMapping(type, widget, adapter);
   }
   public static void registerWidget(ClassProxy t, ClassProxy w, ClassProxy adapter) throws ClassNotFoundException {
@@ -128,8 +130,10 @@ static void registerEditors() {
 		registerWidget("util.models.AMutableString", "javax.swing.JTextArea", "bus.uigen.adapters.MSTextAreaAdapter");
 		//bus.uigen.editors.EditorRegistry.registerWidget("bus.uigen.AListenableString", "javax.swing.JTextArea", "bus.uigen.adapters.MSJTextAreaAdapter");
 		registerWidget("java.net.URL", "javax.swing.JEditorPane", "bus.uigen.adapters.EditorPaneAdapter");
-		registerWidget("util.models.AListenableString", "javax.swing.JTextField", "bus.uigen.adapters.MSTextFieldAdapter");
-		registerWidget("util.models.ListenableString", "javax.swing.JTextField", "bus.uigen.adapters.MSTextFieldAdapter");
+//		registerWidget("util.models.AListenableString", "javax.swing.JTextField", "bus.uigen.adapters.MSTextFieldAdapter");
+//		registerWidget("util.models.ListenableString", "javax.swing.JTextField", "bus.uigen.adapters.MSTextFieldAdapter");
+		registerWidget("util.models.AListenableString", null, "bus.uigen.adapters.MSTextFieldAdapter");
+		registerWidget("util.models.ListenableString", null, "bus.uigen.adapters.MSTextFieldAdapter");
 
 		//ObjectEditor.setPreferredWidget(AListenableHashtable.class, JTable.class);
 		registerWidget("shapes.ShapeModel", "shapes.ShapeModel", "bus.uigen.editors.ShapeAdapter");
