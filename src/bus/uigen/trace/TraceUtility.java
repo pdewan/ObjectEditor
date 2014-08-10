@@ -30,6 +30,10 @@ public class TraceUtility {
 			return null;
 		try {
 		Class traceableClass = TraceableInfo.toEvtTypeClass(aMessage);
+		if (traceableClass == null) {
+			System.err.println("Could not find traceable class for message:" + aMessage);
+			return null;
+		}
 		Class[] parameterTypes = {String.class}; 
 		Method parsingMethod = traceableClass.getMethod("toTraceable", parameterTypes);
 		return (Traceable) parsingMethod.invoke(traceableClass, aMessage);
