@@ -2,9 +2,9 @@ package bus.uigen.introspect;
 
 import java.util.Enumeration;
 
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
-public interface FeatureDescriptorProxy extends PropertyListenerRegisterer {
+public interface FeatureDescriptorProxy extends PropertyListenerRegistrar {
 	String getName();
 	String getDisplayName();
 	void setDisplayName(String displayName);

@@ -7,7 +7,7 @@ import util.annotations.Explanation;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.misc.ThreadSupport;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
