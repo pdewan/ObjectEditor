@@ -2,7 +2,8 @@ package bus.uigen.pipe;
 
 public interface ConsoleModelBasedLauncher {
 	Class[] mainClasses();
-	 void launch();
+	 void launchWithConsoles();
 	 String[] processNames();
+	void launchWithoutConsoles();
 
 }

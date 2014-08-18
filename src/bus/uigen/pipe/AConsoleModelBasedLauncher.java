@@ -14,8 +14,8 @@ public  class AConsoleModelBasedLauncher implements ConsoleModelBasedLauncher {
 		}
 		return retVal;
 	}
-	
-	public  void launch() {	
+	@Override
+	public  void launchWithConsoles() {	
 //		Class[] classes = {
 //				SessionManagerServerStarter.class,
 //				AliceIM.class,
@@ -23,6 +23,16 @@ public  class AConsoleModelBasedLauncher implements ConsoleModelBasedLauncher {
 //				CathyIM.class				
 //		};
 		MainClassLaunchingUtility.createInteractiveLauncher(mainClasses());
+	}
+	@Override
+	public  void launchWithoutConsoles() {	
+//		Class[] classes = {
+//				SessionManagerServerStarter.class,
+//				AliceIM.class,
+//				BobIM.class,
+//				CathyIM.class				
+//		};
+		MainClassLaunchingUtility.createConsoleLessLauncher(mainClasses());
 	}
 	
 	

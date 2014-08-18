@@ -22,6 +22,16 @@ public class MainClassLaunchingUtility {
 		ObjectEditor.edit(retVal);
 		return retVal;
 	}
+	public static MainClassListLauncher createConsoleLessLauncher(Class[] classes) {
+//		ListenableVector<Class> classList = new AMainClassListLauncher();
+//		for (Class aClass:classes) {
+//			classList.add(aClass);
+//		}
+		MainClassListLauncher retVal = createLauncher(classes);
+		retVal.setInteractive(false);
+		ObjectEditor.edit(retVal);
+		return retVal;
+	}
 //	public static MainClassListLauncher interactiveLaunch(Class[] classes) {
 ////		ListenableVector<Class> classList = new AMainClassListLauncher();
 ////		for (Class aClass:classes) {
