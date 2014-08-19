@@ -15,7 +15,7 @@ public  class AConsoleModelBasedLauncher implements ConsoleModelBasedLauncher {
 		return retVal;
 	}
 	@Override
-	public  void launchWithConsoles() {	
+	public  MainClassListLauncher launchWithConsoles() {	
 //		Class[] classes = {
 //				SessionManagerServerStarter.class,
 //				AliceIM.class,
@@ -23,9 +23,10 @@ public  class AConsoleModelBasedLauncher implements ConsoleModelBasedLauncher {
 //				CathyIM.class				
 //		};
 		launcher = MainClassLaunchingUtility.createInteractiveLauncher(mainClasses(), this.getClass().getSimpleName());
+		return launcher;
 	}
 	@Override
-	public  void launchWithoutConsoles() {	
+	public  MainClassListLauncher launchWithoutConsoles() {	
 //		Class[] classes = {
 //				SessionManagerServerStarter.class,
 //				AliceIM.class,
@@ -33,6 +34,7 @@ public  class AConsoleModelBasedLauncher implements ConsoleModelBasedLauncher {
 //				CathyIM.class				
 //		};
 		launcher = MainClassLaunchingUtility.createConsoleLessLauncher(mainClasses(), this.getClass().getSimpleName());
+		return launcher;
 	}
 	@Override
 	public MainClassListLauncher getLauncher() {
