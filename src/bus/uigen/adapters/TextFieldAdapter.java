@@ -5,10 +5,13 @@ import bus.uigen.widgets.ScrollPaneSelector;
 import bus.uigen.widgets.TextFieldSelector;
 import bus.uigen.widgets.VirtualComponent;
 import bus.uigen.widgets.VirtualTextField;
+import bus.uigen.widgets.awt.AWTTextFieldFactory;
 
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.event.*;
+
+import java.awt.TextField;
 import java.awt.event.*;
 
 import bus.uigen.ars.*;
@@ -16,6 +19,7 @@ import bus.uigen.introspect.Attribute;
 import bus.uigen.misc.OEMisc;
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.reflect.ClassProxy;
+import bus.uigen.reflect.local.AClassProxy;
 
 
 //public class uiJTextFieldAdapter extends uiWidgetAdapter public class TextFieldAdapter extends TextComponentAdapter {
@@ -34,12 +38,20 @@ import bus.uigen.reflect.ClassProxy;
   //JTextField jtf;  JTextComponent jtf;
   String text;
 	*/
+	  static ClassProxy awtTextFieldClass = AClassProxy.classProxy(TextField.class);
+
 	  public VirtualComponent instantiateComponent(ClassProxy cclass, ObjectAdapter adapter) {
 	  //System.out.println("instantiating jtextfield");	  //jtf = new JTextField("", NUM_COLUMNS);'	  
 	  //jtf = new JTextField("");
 	  if (jtf != null) return jtf;
 	  instantiatedComponent = true;
-	  jtf = TextFieldSelector.createTextField("");
+	  // shoudl actuall text for many more cases, virtual awt text field, jtextfield etc
+
+	  if (cclass ==  awtTextFieldClass) {
+		  jtf = AWTTextFieldFactory.createAWTTextField("");
+	  } else {
+	      jtf = TextFieldSelector.createTextField("");
+	  }
 	  jtf.setName("Component " + adapter.toText() + " uiJTextFieldAdapter.createTextField");
 	  linked = false;
 	  if (adapter.isScrolled()) {
