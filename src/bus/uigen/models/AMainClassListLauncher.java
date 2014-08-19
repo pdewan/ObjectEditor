@@ -23,7 +23,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	List<Class> mainClasses  = new ArrayList();
 	List<String> mainArgs = new ArrayList();
 	
-	public static final int DEFAULT_WAIT_TIME = 4000;
+	public static final int DEFAULT_WAIT_TIME = 2000;
 	transient protected VectorChangeSupport<Class> vectorChangeSupport = new VectorChangeSupport(
 			this);
 	boolean interactive;

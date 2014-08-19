@@ -611,7 +611,7 @@ public class OEMisc {
 	}
 	public static ProcessExecer runWithProcessExecer( Class aJavaClass, String args, ConsoleModel aConsoleModel) {
 		ProcessExecer processExecer = 
-				new AProcessExecer(aJavaClass, args);
+				new AProcessExecer(aJavaClass, args, false);
 		processExecer.setConsoleModel(aConsoleModel);
 		Process process = processExecer.execProcess();
 		return processExecer;
