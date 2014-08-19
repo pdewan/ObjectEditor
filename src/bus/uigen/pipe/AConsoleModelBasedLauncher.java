@@ -22,7 +22,7 @@ public  class AConsoleModelBasedLauncher implements ConsoleModelBasedLauncher {
 //				BobIM.class,
 //				CathyIM.class				
 //		};
-		launcher = MainClassLaunchingUtility.createInteractiveLauncher(mainClasses());
+		launcher = MainClassLaunchingUtility.createInteractiveLauncher(mainClasses(), this.getClass().getSimpleName());
 	}
 	@Override
 	public  void launchWithoutConsoles() {	
@@ -32,7 +32,7 @@ public  class AConsoleModelBasedLauncher implements ConsoleModelBasedLauncher {
 //				BobIM.class,
 //				CathyIM.class				
 //		};
-		launcher = MainClassLaunchingUtility.createConsoleLessLauncher(mainClasses());
+		launcher = MainClassLaunchingUtility.createConsoleLessLauncher(mainClasses(), this.getClass().getSimpleName());
 	}
 	@Override
 	public MainClassListLauncher getLauncher() {
