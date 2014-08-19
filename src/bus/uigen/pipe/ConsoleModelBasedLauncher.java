@@ -5,5 +5,6 @@ public interface ConsoleModelBasedLauncher {
 	 void launchWithConsoles();
 	 String[] processNames();
 	void launchWithoutConsoles();
+	MainClassListLauncher getLauncher();
 
 }

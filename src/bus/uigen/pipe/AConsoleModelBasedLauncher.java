@@ -2,7 +2,7 @@ package bus.uigen.pipe;
 
 
 public  class AConsoleModelBasedLauncher implements ConsoleModelBasedLauncher {
-	
+	MainClassListLauncher launcher;
 	public  Class[] mainClasses() {
 		return new Class[0];
 	}
@@ -22,7 +22,7 @@ public  class AConsoleModelBasedLauncher implements ConsoleModelBasedLauncher {
 //				BobIM.class,
 //				CathyIM.class				
 //		};
-		MainClassLaunchingUtility.createInteractiveLauncher(mainClasses());
+		launcher = MainClassLaunchingUtility.createInteractiveLauncher(mainClasses());
 	}
 	@Override
 	public  void launchWithoutConsoles() {	
@@ -32,7 +32,11 @@ public  class AConsoleModelBasedLauncher implements ConsoleModelBasedLauncher {
 //				BobIM.class,
 //				CathyIM.class				
 //		};
-		MainClassLaunchingUtility.createConsoleLessLauncher(mainClasses());
+		launcher = MainClassLaunchingUtility.createConsoleLessLauncher(mainClasses());
+	}
+	@Override
+	public MainClassListLauncher getLauncher() {
+		return launcher;
 	}
 	
 	

@@ -63,6 +63,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	public Class get(int index) {
 		return mainClasses.get(index);
 	}
+	@Visible(false)
 	public ProcessExecer execute(Class element, ConsoleModel aConsoleModel) {
 		ProcessExecer anExecuted;
 		if (interactive)
@@ -75,6 +76,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 		
 		return anExecuted;
 	}
+	@Visible(false)
 	public ProcessExecer open(Class element) {
 		return execute(element, new AConsoleModel());
 //		ProcessExecer anExecuted = OEMisc.runWithObjectEditorConsole(element, "");
@@ -85,6 +87,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 //		return anExecuted;
 	}	
 	// if we want to for instance gater output of all processes
+	@Visible(false)
 	@Override
 	public ProcessExecer nonInteractiveExecute(Class element) {
 		ProcessExecer anExecuted = OEMisc.runWithProcessExecer(element, "");
@@ -102,9 +105,11 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	
 	// why do we need this? better name than open?
 	// yes, in the menu it sounds better, open is for double click
+	@Visible(false)
 	public void execute(Class element) {
 		open(element);
-	}	
+	}
+	@Visible(false)
 	public void terminateChildren() {
 		killAllChildren();
 	}	
@@ -137,6 +142,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 		return add(element, "" );
 	}
 	@Override
+	@Visible(false)
 	public boolean add(Class element, String args) {
 		boolean retVal = mainClasses.add(element);
 		retVal = retVal && mainArgs.add(args);
@@ -165,12 +171,15 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 		executeAll(DEFAULT_WAIT_TIME);
 	}
 	@Override
+	@Visible(false)
+
 	public void waitForAll() throws InterruptedException {
 		for (ProcessExecer aProcessExecer:execers) {
 			aProcessExecer.getProcess().waitFor();
 		}
 	}
 	@Override
+	@Visible(false)
 	public void executeAll(long aWaitTime) {
 		getOrCreateConsoleModels();
 		int i = 0;
@@ -234,6 +243,8 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 //	}
 	
 	@Override
+	@Visible(false)
+
 	public void logConsoles(String aLogDirectory) {
 //		String aGlobalTranscriptFile = aLogDirectory + "/" + GLOBAL_FILE_NAME;
 		String aGlobalTranscriptFile =  AConsoleModel.getGlobalTranscriptFileName(aLogDirectory);

@@ -11,10 +11,10 @@ public class AMainClassListLauncherAR implements ExecutableCommand {
 	public Object execute(Object theFrame) {
 		ObjectEditor.setPropertyAttribute(AMainClassListLauncher.class, "element", AttributeNames.COMPONENT_WIDTH, 500);
 		
-		ObjectEditor.setMethodAttribute(AMainClassListLauncher.class, "*", AttributeNames.VISIBLE, false);
-		ObjectEditor.setMethodAttribute(AMainClassListLauncher.class, "execute",  AttributeNames.VISIBLE, true);
-		ObjectEditor.setMethodAttribute(AMainClassListLauncher.class, "terminateAll",  AttributeNames.VISIBLE, true);
-		ObjectEditor.setMethodAttribute(AMainClassListLauncher.class, "terminateChildren",  AttributeNames.VISIBLE, true);
+//		ObjectEditor.setMethodAttribute(AMainClassListLauncher.class, "*", AttributeNames.VISIBLE, false);
+//		ObjectEditor.setMethodAttribute(AMainClassListLauncher.class, "execute",  AttributeNames.VISIBLE, true);
+//		ObjectEditor.setMethodAttribute(AMainClassListLauncher.class, "terminateAll",  AttributeNames.VISIBLE, true);
+//		ObjectEditor.setMethodAttribute(AMainClassListLauncher.class, "terminateChildren",  AttributeNames.VISIBLE, true);
 
 
 		  return null;
