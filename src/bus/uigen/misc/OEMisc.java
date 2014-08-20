@@ -579,7 +579,7 @@ public class OEMisc {
 //		ProcessExecer processExecer = 
 //				new AProcessExecer(aJavaClass, args);
 //		Process process = processExecer.execProcess();
-		ProcessExecer processExecer = runWithProcessExecer(aJavaClass, args, aConsoleModel);
+		ProcessExecer processExecer = runWithProcessExecer(aJavaClass, args, aConsoleModel, true);
 		ConsoleModel consoleModel = processExecer.consoleModel();
 		OEFrame frame = ObjectEditor.edit(consoleModel);
 		frame.setSize(AConsoleModel.CONSOLE_WIDTH + CONSOLE_WIDTH_MARGIN, 
@@ -594,7 +594,7 @@ public class OEMisc {
 //				new AProcessExecer(aJavaClass, args);
 //		Process process = processExecer.execProcess();
 //		return processExecer;
-		return runWithProcessExecer(aJavaClass, args, new AConsoleModel());
+		return runWithProcessExecer(aJavaClass, args, new AConsoleModel(), true);
 	}
 	public static String toArgString(String[] args) {
 		StringBuilder anArgs = new StringBuilder();
@@ -607,11 +607,11 @@ public class OEMisc {
 //				new AProcessExecer(aJavaClass, args);
 //		Process process = processExecer.execProcess();
 //		return processExecer;
-		return runWithProcessExecer(aJavaClass, toArgString(args), new AConsoleModel());
+		return runWithProcessExecer(aJavaClass, toArgString(args), new AConsoleModel(), false);
 	}
-	public static ProcessExecer runWithProcessExecer( Class aJavaClass, String args, ConsoleModel aConsoleModel) {
+	public static ProcessExecer runWithProcessExecer( Class aJavaClass, String args, ConsoleModel aConsoleModel, boolean isRedirectIO) {
 		ProcessExecer processExecer = 
-				new AProcessExecer(aJavaClass, args, false);
+				new AProcessExecer(aJavaClass, args, isRedirectIO);
 		processExecer.setConsoleModel(aConsoleModel);
 		Process process = processExecer.execProcess();
 		return processExecer;

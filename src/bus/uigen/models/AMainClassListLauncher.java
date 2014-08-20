@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.annotations.Position;
 import util.annotations.Visible;
 import util.misc.Common;
 import util.misc.ThreadSupport;
@@ -69,7 +70,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 		if (interactive)
 		 anExecuted = OEMisc.runWithObjectEditorConsole(element, "", aConsoleModel);
 		else
-			anExecuted = OEMisc.runWithProcessExecer(element, "", aConsoleModel);
+			anExecuted = OEMisc.runWithProcessExecer(element, "", aConsoleModel, false);
 //		executed.add(OEMisc.runWithObjectEditorConsole(element, ""));
 //		executed.add(anExecuted);
 		add(anExecuted);
@@ -112,7 +113,8 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 	@Visible(false)
 	public void terminateChildren() {
 		killAllChildren();
-	}	
+	}
+	@Position(1)
 	public void terminateAll() {
 		System.exit(0);
 	}	
@@ -167,6 +169,7 @@ public class AMainClassListLauncher /*extends AListenableVector<Class>*/  implem
 //		}
 //	}
 	@Override
+	@Position(0)
 	public void executeAll() {
 		executeAll(DEFAULT_WAIT_TIME);
 	}
