@@ -510,8 +510,30 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 	}
 	transient static boolean editorsRegistered = false;
 	transient static boolean structureFactoriesRegistered = false;
-	static {
+	transient static boolean initializedStatic = false;
+	transient static boolean showStartView = true;
+	
+	public static boolean isShowStartView() {
+		return showStartView;
+	}
+	public static void setShowStartView(boolean showStartView) {
+		ObjectEditor.showStartView = showStartView;
+	}
+	public static void initStatic() {
+		if (initializedStatic)
+			return;
+		if (showStartView)
 		new AStartView();
+//		VirtualToolkit.setDefaultToolkit(new SwingToolkit());
+//		AClassDescriptor.addListener(new AClassDescriptorListener());
+//		register();
+	}
+	
+	static {
+//		new AStartView();
+//		VirtualToolkit.setDefaultToolkit(new SwingToolkit());
+//		AClassDescriptor.addListener(new AClassDescriptorListener());
+//		register();
 		VirtualToolkit.setDefaultToolkit(new SwingToolkit());
 		AClassDescriptor.addListener(new AClassDescriptorListener());
 		register();
@@ -2730,7 +2752,7 @@ public static boolean withAttributeRegisterer() {
 		*/
 	}
 public static synchronized uiFrame edit(Object o, boolean showMenus, MenuSetter menuTest, AMenuDescriptor menuDescriptor, ObjectAdapter sourceAdapter, Hashtable selfAttributes, Vector childrenAttributes) {
-		
+		initStatic();
 		//F.O. passing in null for string as if edit (0) called.
 		//registerEditors();
 		uiFrame retVal = bus.uigen.uiGenerator.generateUIFrame(o, null, showMenus, menuTest, menuDescriptor, sourceAdapter, selfAttributes, childrenAttributes );
