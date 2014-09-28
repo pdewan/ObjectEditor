@@ -5363,6 +5363,8 @@ ObjectAdapterInterface, Remote, Serializable
 //			return false;
 		if (this instanceof CompositeAdapter)
 			return true;
+		if (getWidgetAdapter() == null || getWidgetAdapter().getUIComponentValue() == null )
+			return true;
 		
 		String oldString = getWidgetAdapter().getUIComponentValue().toString();
 		String newString = newValue.toString();
