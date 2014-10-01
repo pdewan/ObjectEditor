@@ -15,7 +15,7 @@ public class SquaringCounterWithButtons implements PropertyListenerRegistrar {
 
 	public SquaringCounterWithButtons() {
 	}
-	public int number;
+	public int number = 2;
 	@Row(0)
 	@Column(0)
 	@ComponentWidth(100)
