@@ -16,15 +16,15 @@ import bus.uigen.widgets.swing.SwingFrame;
 public class AutoTextInCustomFrameWithCustomDrawing {
 
 	public static void main (String[] args) {
-		SquaringCounterWithButtons autoText = new SquaringCounterWithButtons();
-		CircleDrawingPanel circleDrawingPanel = new CircleDrawingPanel();
+		SquaringCounterWithButtons counter = new SquaringCounterWithButtons();
+		BarChartDrawingPanel circleDrawingPanel = new BarChartDrawingPanel(counter);
 		JFrame frame=  new JFrame();
 		frame.setLayout(new GridLayout(2, 0));
 		JPanel textPanel = new JPanel();
 		frame.add(textPanel);
 		frame.add(circleDrawingPanel);
 //		uiFrame editor = ObjectEditor.createOEFrame(frame);
-		ObjectEditor.editInMainContainer(autoText, textPanel);
+		ObjectEditor.editInMainContainer(counter, textPanel);
 
 		frame.setSize(300, 400);
 		frame.setVisible(true);
