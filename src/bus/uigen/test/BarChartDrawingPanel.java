@@ -13,6 +13,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import bus.uigen.attributes.AttributeNames;
 import util.awt.ADelegateFrame;
 import util.awt.DelegateFramePainter;
 
@@ -26,7 +27,7 @@ public class BarChartDrawingPanel extends JPanel implements MouseListener, Prope
 	protected char lastChar = ' ';
 	SquaringCounterWithButtons counter;
 	public BarChartDrawingPanel(SquaringCounterWithButtons aCounter) {
-		setBackground(Color.PINK);
+		setBackground(AttributeNames.CAROLINA_BLUE);
 		counter = aCounter;
 		addMouseListener(this);
 		counter.addPropertyChangeListener(this);
