@@ -23,9 +23,12 @@ public class SquaringCounterWithButtons implements PropertyListenerRegistrar {
 		setNumber(number + 1);
 	}
 	void setNumber(int newValue) {
-		int oldValue = number;
+		int oldNumber = number;
+		int oldSquare = getSquare();
 		number = newValue;
-		propertyChangeSupport.firePropertyChange("number", oldValue, number);
+		propertyChangeSupport.firePropertyChange("number", oldNumber, number);
+		propertyChangeSupport.firePropertyChange("square", oldSquare, getSquare());
+
 	}
 	@Row(0)
 	@Column(1)
