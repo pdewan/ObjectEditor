@@ -24,7 +24,7 @@ import bus.uigen.shapes.ARectangleModel;
 import bus.uigen.shapes.AnOvalModel;
 import bus.uigen.widgets.awt.AWTContainer;
 
-public class CustomDrawingView {
+public class AutoDrawingInCustomFrame {
 	static JButton next = new JButton (">");
 	static JButton previous = new JButton("<");
 //	static JScrollPane dataScrollPanel = new JScrollPane();

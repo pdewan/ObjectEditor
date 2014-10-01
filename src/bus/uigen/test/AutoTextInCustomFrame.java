@@ -2,6 +2,7 @@ package bus.uigen.test;
 
 import javax.swing.JFrame;
 
+import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.uiFrame;
 import bus.uigen.widgets.VirtualContainer;
@@ -9,7 +10,7 @@ import bus.uigen.widgets.VirtualFrame;
 import bus.uigen.widgets.awt.AWTContainer;
 import bus.uigen.widgets.swing.SwingFrame;
 
-public class CustomTextView {
+public class AutoTextInCustomFrame {
 
 	public static void main (String[] args) {
 //		ObjectEditor.edit(new AFooBar());
@@ -22,6 +23,7 @@ public class CustomTextView {
 
 //		ObjectEditor.edit(new AFooBar(), frame.getContentPane());
 		frame1.setSize(200, 100);
+		frame1.setLocation(0, 0);
 		frame1.setVisible(true);
 		
 		JFrame frame2 = new JFrame();
@@ -32,6 +34,8 @@ public class CustomTextView {
 //		ObjectEditor.editInMainContainer("foo \n bar", container2);
 
 		frame2.setSize(200, 100);
+		frame2.setLocation(200, 0);
+
 		frame2.setVisible(true);
 		
 		JFrame frame3 = new JFrame();
@@ -42,9 +46,11 @@ public class CustomTextView {
 //		ObjectEditor.editInMainContainer("foo", container2);
 
 		frame3.setSize(200, 100);
+		frame3.setLocation(400, 100);
 		frame3.setVisible(true);
 		
-		ObjectEditor.edit ("foo \n bar");
+		OEFrame frame4 = ObjectEditor.edit ("foo \n bar");
+		frame4.setLocation(600, 0);
 		
 		
 	}
