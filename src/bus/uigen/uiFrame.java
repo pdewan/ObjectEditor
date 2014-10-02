@@ -161,7 +161,7 @@ import bus.uigen.widgets.swing.DelegateJPanel;
 import bus.uigen.widgets.swing.SwingComponent;
 import bus.uigen.widgets.tree.VirtualTree;
 
-public class uiFrame /* extends Frame */ implements CompleteOEFrame {
+public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implements CompleteOEFrame {
 //implements ActionListener, /*
 //							 * TreeExpansionListener, TreeSelectionListener,
 //							 * MouseListener, TreeModel,
@@ -651,15 +651,15 @@ public class uiFrame /* extends Frame */ implements CompleteOEFrame {
 		return menuSetter;
 	}
 
-	boolean isDummy = false;
-
-	public void setIsDummy(boolean newVal) {
-		isDummy = newVal;
-	}
-
-	public boolean isDummy() {
-		return isDummy;
-	}
+//	boolean isDummy = false;
+//
+//	public void setIsDummy(boolean newVal) {
+//		isDummy = newVal;
+//	}
+//
+//	public boolean isDummy() {
+//		return isDummy;
+//	}
 
 	// maybe replace the above overload with just this one below and change
 	// calls to pass null MenuSetter.

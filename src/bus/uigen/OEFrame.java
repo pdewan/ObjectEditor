@@ -57,5 +57,8 @@ public interface OEFrame {
 	void addWindowListener(WindowListener newVal);
 	public void addMenuObject(Object menuObject);
 	void focus(Object object, String property);
+	void setVisible(boolean aNewVal);
+	boolean isVisible();
+	void show();
 
 }

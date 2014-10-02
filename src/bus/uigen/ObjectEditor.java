@@ -4,8 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
@@ -2752,7 +2756,13 @@ public static boolean withAttributeRegisterer() {
 		*/
 	}
 public static synchronized uiFrame edit(Object o, boolean showMenus, MenuSetter menuTest, AMenuDescriptor menuDescriptor, ObjectAdapter sourceAdapter, Hashtable selfAttributes, Vector childrenAttributes) {
-		initStatic();
+	if (GraphicsEnvironment.isHeadless()) {
+		System.err.println("Headless program, not generating UI");
+		uiFrame retVal = new uiFrame();
+		retVal.setIsDummy(true);
+		return retVal;
+	}
+	initStatic();
 		//F.O. passing in null for string as if edit (0) called.
 		//registerEditors();
 		uiFrame retVal = bus.uigen.uiGenerator.generateUIFrame(o, null, showMenus, menuTest, menuDescriptor, sourceAdapter, selfAttributes, childrenAttributes );
@@ -4837,9 +4847,15 @@ public static void associateKeywordWithClassName(String keyword, ClassDescriptor
 		return Tracer.getTracingLevel();
 	}
 	
-	
+	static Dimension screenSize;
    
-  
+  static {
+	  try {
+		 screenSize =Toolkit.getDefaultToolkit().getScreenSize();
+	  } catch (HeadlessException e) {
+		  System.setProperty("java.awt.headless", "true");
+	  }
+  }
 	
 //	public static OutputLoggingLevel getOutputLoggingLevel() {
 //		return Message.s_outputLoggingLevel;
