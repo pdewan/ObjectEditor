@@ -32,7 +32,7 @@ public class ADummyCompleteOEFrame implements CompleteOEFrame {
 	}
 
 	public ADummyCompleteOEFrame() {
-		setIsDummy(true);
+//		setIsDummy(true);
 		// TODO Auto-generated constructor stub
 	}
 
