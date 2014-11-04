@@ -19,18 +19,19 @@ import bus.uigen.shapes.OEShapeModel;
 import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 
-public class AJungShapeModelDisplayer implements VisualizationViewer.Paintable, Observer {
+public class AJungShapeModelDisplayer implements JungShapeModelDisplayer {
 	List<OEShapeModel> shapes = new ArrayList();
 	VisualizationViewer visualizationViewer;
 	public static final Color DEFAULT_GRAPHICS_COLOR = Color.BLACK;
 	JungGraphManager jungGraphManager;
 	
 	public AJungShapeModelDisplayer(JungGraphManager aJungGraphManager) {
+//		System.out.println("Adding oval to jung graph");
 		jungGraphManager = aJungGraphManager;
 		visualizationViewer = aJungGraphManager.getVisualizationViewer();
-		OEShapeModel oeShapeModel = new AnOvalModel();
-		oeShapeModel.setBounds(new Rectangle(0, 0, 100, 100));
-		shapes.add(oeShapeModel);
+//		OEShapeModel oeShapeModel = new AnOvalModel();
+//		oeShapeModel.setBounds(new Rectangle(0, 0, 100, 100));
+//		shapes.add(oeShapeModel);
 	}
 	
 	public List<OEShapeModel> getShapes() {

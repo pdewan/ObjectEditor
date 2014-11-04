@@ -90,6 +90,12 @@ public interface JungGraphManager<VertexType, EdgeType> {
 
 	void getEdgeVisibile(VertexType aVertex);
 
+	LayoutType getLayoutType();
+
+	void setLayoutType(LayoutType newVal);
+
+	JungShapeModelDisplayer getJungShapeModelDisplayer();
+
 //	void setRadial(boolean newVal);
 //
 //	boolean isRadial();

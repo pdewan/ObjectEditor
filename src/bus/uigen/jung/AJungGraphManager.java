@@ -69,6 +69,9 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	 */
 	Container graphContainer;
 	private static final long serialVersionUID = -5345319851341875800L;
+	JungShapeModelDisplayer jungShapeModelDisplayer;
+
+	
 
 	private ObservableGraph<VertexType, EdgeType> observableGraph = null;
 
@@ -286,11 +289,12 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 //		this.height = height;
 //		vv.setSize(width, height);
 //	}
+	@Override
 	public LayoutType getLayoutType() {
 		return layoutType;
 	}
 	
-    
+    @Override
 	public void setLayoutType(LayoutType newVal) {
 		if (layoutType == newVal) return;
 		this.layoutType = newVal;
@@ -660,7 +664,8 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 		vv = new VisualizationViewer<VertexType, EdgeType>(layout,
 				new Dimension(width, height));
 		relaxer = vv.getModel().getRelaxer();
-		setPostRenderer(new AJungShapeModelDisplayer(this));
+		jungShapeModelDisplayer = new AJungShapeModelDisplayer(this);
+		setPostRenderer(jungShapeModelDisplayer);
 		setVertexIncludePredicate((TableBasedGraphElementInclusionPredicate<VertexType, EdgeType, VertexType>) new ATableBasedGraphElementInclusionPredicate<>());
 		setEdgeIncludePredicate((TableBasedGraphElementInclusionPredicate<VertexType, EdgeType, EdgeType>) new ATableBasedGraphElementInclusionPredicate<>());
 		
@@ -887,6 +892,11 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 		} catch (ClassCastException e) {
 			Tracer.error("No context trapper to detach");
 		}
+	}
+	@Override
+	@Visible(false)
+	public JungShapeModelDisplayer getJungShapeModelDisplayer() {
+		return jungShapeModelDisplayer;
 	}
 	
 	
