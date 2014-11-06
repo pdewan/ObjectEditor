@@ -4,9 +4,9 @@ import java.awt.Shape;
 
 import org.apache.commons.collections15.Transformer;
 
-public class AColoringVertexShapeTransformer<VertexType> implements Transformer<VertexType, Shape> {
+public class AnAttributeBasedVertexShapeTransformer<VertexType> implements Transformer<VertexType, Shape> {
 	JungGraphManager<VertexType, Object> jungGraphManager;
-	public AColoringVertexShapeTransformer(JungGraphManager<VertexType, Object> aJungGraphManager) {
+	public AnAttributeBasedVertexShapeTransformer(JungGraphManager<VertexType, Object> aJungGraphManager) {
 		jungGraphManager = aJungGraphManager;
 	}
 	
