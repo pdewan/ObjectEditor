@@ -1,11 +1,13 @@
 package bus.uigen.jung;
 
 import java.awt.Container;
+import java.awt.Shape;
 
 import org.apache.commons.collections15.Transformer;
 
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.util.Context;
 import edu.uci.ics.jung.visualization.VisualizationServer.Paintable;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 
@@ -95,6 +97,15 @@ public interface JungGraphManager<VertexType, EdgeType> {
 	void setLayoutType(LayoutType newVal);
 
 	JungShapeModelDisplayer getJungShapeModelDisplayer();
+
+	Transformer<VertexType, Shape> getVertexShapeTransformer();
+
+	Transformer<Context<Graph<VertexType, EdgeType>, EdgeType>, Shape> getEdgeShapeTransformer();
+
+	void setEdgeShapeTransformer(
+			Transformer<Context<Graph<VertexType, EdgeType>, EdgeType>, Shape> newVal);
+
+	void setVertexShapeTransformer(Transformer<VertexType, Shape> newVal);
 
 //	void setRadial(boolean newVal);
 //

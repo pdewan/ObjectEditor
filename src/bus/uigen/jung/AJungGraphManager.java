@@ -17,6 +17,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 
 import javax.swing.JButton;
@@ -116,6 +118,8 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	Relaxer relaxer;
 	
 	VisualizationViewer.Paintable postRenderer;
+	Map<VertexType, Color> vertexToColor = new HashMap();
+	Map<EdgeType, Color> edgeToColor = new HashMap();
 	TableBasedGraphElementInclusionPredicate<VertexType, EdgeType, VertexType> vertexIncludePredicate;
 	TableBasedGraphElementInclusionPredicate<VertexType, EdgeType, EdgeType> edgeIncludePredicate;
 
@@ -842,21 +846,29 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	}
 	
 	public Shape getVertexShape(VertexType aVertex) {
-		return getVertexTransformer().transform(aVertex);
+		return getVertexShapeTransformer().transform(aVertex);
 	}
 	
 	public Point2D getLocation (VertexType aVertex) {
 		return  vv.getGraphLayout() .transform(aVertex);
 	}
 	@Visible(false)
-	public Transformer<VertexType, Shape> getVertexTransformer() {
+	@Override
+	public Transformer<VertexType, Shape> getVertexShapeTransformer() {
 		return vv.getRenderContext().getVertexShapeTransformer();
 	}
+	@Override
+	public void setVertexShapeTransformer(Transformer<VertexType, Shape> newVal) {
+		 vv.getRenderContext().setVertexShapeTransformer(newVal);
+	}
+	
+	@Override
 	@Visible(false)
-	public Transformer<Context<Graph<VertexType, EdgeType>, EdgeType>, Shape> getEdgeTransformer() {
+	public Transformer<Context<Graph<VertexType, EdgeType>, EdgeType>, Shape> getEdgeShapeTransformer() {
 		return vv.getRenderContext().getEdgeShapeTransformer();
 	}
-	public void  setEdgeTransformer(Transformer<Context<Graph<VertexType, EdgeType>, EdgeType>, Shape> newVal) {
+	@Override
+	public void  setEdgeShapeTransformer(Transformer<Context<Graph<VertexType, EdgeType>, EdgeType>, Shape> newVal) {
 		 vv.getRenderContext().setEdgeShapeTransformer(newVal);
 		 
 	}

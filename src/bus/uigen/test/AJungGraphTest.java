@@ -3,16 +3,20 @@ package bus.uigen.test;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
+import java.awt.Shape;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.apache.commons.collections15.Transformer;
 
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.ObservableGraph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseMultigraph;
+import edu.uci.ics.jung.graph.util.Context;
 import bus.uigen.ObjectEditor;
 import bus.uigen.jung.AJungGraphManager;
 import bus.uigen.jung.JungGraphManager;
@@ -48,6 +52,8 @@ public class AJungGraphTest {
 		ObservableGraph anObservableGraph = new ObservableGraph<>(aGraph);
 		JungGraphManager jungGraphManager = new AJungGraphManager<>(aGraph,
 				jungPanel);
+		Transformer<String, Shape> vertexTransformer = jungGraphManager.getVertexShapeTransformer();
+		Transformer<Context<Graph<String, String>, String>, Shape> edgeTransformer = jungGraphManager.getEdgeShapeTransformer();
 		OEShapeModel oeShapeModel = new AnOvalModel();
 		oeShapeModel.setBounds(new Rectangle(0, 0, 100, 100));
 		System.out.println("Adding oval to jung graph");
