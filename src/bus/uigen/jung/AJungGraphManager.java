@@ -15,12 +15,15 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Paint;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JSlider;
 
@@ -56,6 +59,7 @@ import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ScalingControl;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
+import edu.uci.ics.jung.visualization.renderers.Renderer.Vertex;
 import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
 
 /**
@@ -857,6 +861,22 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	public Transformer<VertexType, Shape> getVertexShapeTransformer() {
 		return vv.getRenderContext().getVertexShapeTransformer();
 	}
+	public Transformer<VertexType, Paint> getVertexFillPaintTransformer() {
+		return vv.getRenderContext().getVertexFillPaintTransformer();
+	}
+	public Transformer<VertexType, Stroke> getVertexStrokeTransformer() {
+		return vv.getRenderContext().getVertexStrokeTransformer();
+	}
+	public Transformer<VertexType, Icon> getVertexIconTransformer() {
+		return vv.getRenderContext().getVertexIconTransformer();
+	}
+	
+	public Vertex<VertexType, EdgeType> getVertexRenderer() {
+		return vv.getRenderer().getVertexRenderer();
+	}
+	
+	
+	
 	@Override
 	public void setVertexShapeTransformer(Transformer<VertexType, Shape> newVal) {
 		 vv.getRenderContext().setVertexShapeTransformer(newVal);
@@ -867,6 +887,10 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	public Transformer<Context<Graph<VertexType, EdgeType>, EdgeType>, Shape> getEdgeShapeTransformer() {
 		return vv.getRenderContext().getEdgeShapeTransformer();
 	}
+	public Transformer<VertexType, Paint> getEdgeFillPaintTransformer() {
+		return (Transformer<VertexType, Paint>) vv.getRenderContext().getEdgeFillPaintTransformer();
+	}
+	
 	@Override
 	public void  setEdgeShapeTransformer(Transformer<Context<Graph<VertexType, EdgeType>, EdgeType>, Shape> newVal) {
 		 vv.getRenderContext().setEdgeShapeTransformer(newVal);
