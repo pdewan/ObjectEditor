@@ -20,6 +20,7 @@ import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 
@@ -122,7 +123,7 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	Relaxer relaxer;
 	
 	VisualizationViewer.Paintable postRenderer;
-	Map<VertexType, Color> vertexToColor = new HashMap();
+	Map<VertexType, List<Color>> vertexToColors = new HashMap();
 	Map<EdgeType, Color> edgeToColor = new HashMap();
 	TableBasedGraphElementInclusionPredicate<VertexType, EdgeType, VertexType> vertexIncludePredicate;
 	TableBasedGraphElementInclusionPredicate<VertexType, EdgeType, EdgeType> edgeIncludePredicate;
@@ -689,7 +690,8 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 
 			vv.getModel().getRelaxer().setSleepTime(500);
 		vv.setGraphMouse(new DefaultModalGraphMouse<VertexType, EdgeType>());
-		setVertexRenderer(new VertexListShapeModelRenderer());
+		setVertexRenderer(new AVertexListShapeModelRenderer());
+		setVertexShapeTransformer(new AVertexListShapeModelTransformer<VertexType>());
 		vv.getRenderer().getVertexLabelRenderer()
 				.setPosition(Renderer.VertexLabel.Position.CNTR);
 		vv.getRenderContext().setVertexLabelTransformer(vertexLabelTransformer);
@@ -781,6 +783,14 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 		observableGraph.removeEdge(anEdge);
 		getGraphLayout().initialize();
 		   relaxer.resume();
+	}
+	@Override
+	public void setColors(VertexType aVertex, List<Color> aColors) {
+		vertexToColors.put(aVertex, aColors);
+	}
+	@Override
+	public List<Color> getColors(VertexType aVertex) {
+		return vertexToColors.get(aVertex);
 	}
 	
 	

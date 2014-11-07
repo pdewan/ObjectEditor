@@ -8,9 +8,9 @@ import edu.uci.ics.jung.visualization.RenderContext;
 import edu.uci.ics.jung.visualization.renderers.BasicVertexRenderer;
 import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
 
-public class VertexListShapeModelRenderer<V,E> extends BasicVertexRenderer<V, E>{
+public class AVertexListShapeModelRenderer<V,E> extends BasicVertexRenderer<V, E>{
 
-	public VertexListShapeModelRenderer() {
+	public AVertexListShapeModelRenderer() {
 		super();
 	}
 	protected void paintShapeForVertex(RenderContext<V,E> rc, V v, Shape shape) {
