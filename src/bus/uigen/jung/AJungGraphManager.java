@@ -689,7 +689,7 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 
 			vv.getModel().getRelaxer().setSleepTime(500);
 		vv.setGraphMouse(new DefaultModalGraphMouse<VertexType, EdgeType>());
-
+		setVertexRenderer(new VertexListShapeModelRenderer());
 		vv.getRenderer().getVertexLabelRenderer()
 				.setPosition(Renderer.VertexLabel.Position.CNTR);
 		vv.getRenderContext().setVertexLabelTransformer(vertexLabelTransformer);
@@ -874,7 +874,9 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	public Vertex<VertexType, EdgeType> getVertexRenderer() {
 		return vv.getRenderer().getVertexRenderer();
 	}
-	
+	public void setVertexRenderer(Vertex<VertexType, EdgeType> newVal) {
+		 vv.getRenderer().setVertexRenderer(newVal);
+	}
 	
 	
 	@Override
