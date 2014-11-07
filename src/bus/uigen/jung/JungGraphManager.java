@@ -1,7 +1,9 @@
 package bus.uigen.jung;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Shape;
+import java.util.List;
 
 import org.apache.commons.collections15.Transformer;
 
@@ -106,6 +108,10 @@ public interface JungGraphManager<VertexType, EdgeType> {
 			Transformer<Context<Graph<VertexType, EdgeType>, EdgeType>, Shape> newVal);
 
 	void setVertexShapeTransformer(Transformer<VertexType, Shape> newVal);
+
+	void setColors(VertexType aVertex, List<Color> aColors);
+
+	List<Color> getColors(VertexType aVertex);
 
 //	void setRadial(boolean newVal);
 //

@@ -25,16 +25,22 @@ public class ACompositeAttributedShape implements Shape{
 		
 	}
 	
-	public void initComponents(List<ShapeModel> aComponents) {
+	public void setComponents(List<ShapeModel> aComponents) {
 		components = aComponents;
 		topMostShape = aComponents.get(0);
 		
 	}
-
+	public List<ShapeModel> getComponents() {
+		return components;
+	}
+	
+	
 	public ACompositeAttributedShape() {
 	
 		
 	}
+	
+	
 
 	@Override
 	public Rectangle getBounds() {

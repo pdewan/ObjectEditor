@@ -691,13 +691,13 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 			vv.getModel().getRelaxer().setSleepTime(500);
 		vv.setGraphMouse(new DefaultModalGraphMouse<VertexType, EdgeType>());
 		setVertexRenderer(new AVertexListShapeModelRenderer());
-		setVertexShapeTransformer(new AVertexListShapeModelTransformer<VertexType>());
+		setVertexShapeTransformer(new AVertexListShapeModelTransformer<VertexType>((JungGraphManager<VertexType, Object>) this));
 		vv.getRenderer().getVertexLabelRenderer()
 				.setPosition(Renderer.VertexLabel.Position.CNTR);
 		vv.getRenderContext().setVertexLabelTransformer(vertexLabelTransformer);
 
 		vv.getRenderContext().setEdgeLabelTransformer(edgeLabelTransformer);
-        vv.getRenderContext().setVertexShapeTransformer(new ClusterVertexShapeTransformer<VertexType>());
+//        vv.getRenderContext().setVertexShapeTransformer(new ClusterVertexShapeTransformer<VertexType>());
 
 		// vv.getRenderContext().setEdgeDrawPaintTransformer(new
 		// PickableEdgePaintTransformer(vv.getPickedEdgeState(), Color.black,

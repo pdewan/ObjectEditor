@@ -18,22 +18,35 @@ import bus.uigen.shapes.AnOvalModel;
 import shapes.OvalModel;
 import shapes.ShapeModel;
 
-public class ARingsCompositeShape extends ACompositeAttributedShape{
+public class ARingsCompositeShape extends ACompositeAttributedShape implements RingsCompositeShape{
 	Shape prototypeShape;
 	
 	public ARingsCompositeShape( List<Color> aColors, Shape aPrototypeShape) {
+		set(aColors, aPrototypeShape);
+		
+	}
+	public ARingsCompositeShape( ) {
+//		set(aColors, aPrototypeShape);
+		
+	}
+	/* (non-Javadoc)
+	 * @see bus.uigen.jung.RingsCompositeShape#set(java.util.List, java.awt.Shape)
+	 */
+	@Override
+	public void set( List<Color> aColors, Shape aPrototypeShape) {
 		prototypeShape = aPrototypeShape;
 		int aNumRings = aColors.size();
 		components = new ArrayList(aColors.size());
 		try {
 		for (int aRingNumber = 0; aRingNumber < aNumRings; aRingNumber++) {
-			
 				ShapeModel aRing = new OvalModel();
+				aRing.setFilled(true);
 				aRing.setColor(aColors.get(aRingNumber));
 				aRing.setHeight((int) ringHeight(aRingNumber));
 				aRing.setWidth((int) ringWidth(aRingNumber));
 				aRing.setX(aRing.getWidth()/2);
 				aRing.setY(aRing.getHeight()/2);
+				components.add(aRing);
 			
 			
 		}
@@ -41,7 +54,7 @@ public class ARingsCompositeShape extends ACompositeAttributedShape{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		initComponents(components);
+		setComponents(components);
 		
 	}
 //	public void init(int aNumRings) {
