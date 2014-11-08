@@ -12,6 +12,7 @@ import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Context;
 import edu.uci.ics.jung.visualization.VisualizationServer.Paintable;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel;
 
 public interface JungGraphManager<VertexType, EdgeType> {
 
@@ -112,6 +113,10 @@ public interface JungGraphManager<VertexType, EdgeType> {
 	void setColors(VertexType aVertex, List<Color> aColors);
 
 	List<Color> getColors(VertexType aVertex);
+
+	VertexLabel<VertexType, EdgeType> getVertexLabelRenderer();
+
+	void setVertexLabelRenderer(VertexLabel<VertexType, EdgeType> newVal);
 
 //	void setRadial(boolean newVal);
 //

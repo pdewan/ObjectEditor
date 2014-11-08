@@ -61,6 +61,7 @@ import edu.uci.ics.jung.visualization.control.ScalingControl;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
 import edu.uci.ics.jung.visualization.renderers.Renderer.Vertex;
+import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel;
 import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
 
 /**
@@ -691,6 +692,7 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 			vv.getModel().getRelaxer().setSleepTime(500);
 		vv.setGraphMouse(new DefaultModalGraphMouse<VertexType, EdgeType>());
 		setVertexRenderer(new AVertexListShapeModelRenderer());
+		setVertexLabelRenderer(new AVertexListShapeModelLabelRenderer());
 		setVertexShapeTransformer(new AVertexListShapeModelTransformer<VertexType>((JungGraphManager<VertexType, Object>) this));
 		vv.getRenderer().getVertexLabelRenderer()
 				.setPosition(Renderer.VertexLabel.Position.CNTR);
@@ -886,6 +888,14 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	}
 	public void setVertexRenderer(Vertex<VertexType, EdgeType> newVal) {
 		 vv.getRenderer().setVertexRenderer(newVal);
+	}
+	@Override
+	public VertexLabel<VertexType, EdgeType> getVertexLabelRenderer() {
+		return vv.getRenderer().getVertexLabelRenderer();
+	}
+	@Override
+	public void setVertexLabelRenderer(VertexLabel<VertexType, EdgeType> newVal) {
+		 vv.getRenderer().setVertexLabelRenderer(newVal);
 	}
 	
 	
