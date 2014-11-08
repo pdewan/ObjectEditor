@@ -4,26 +4,33 @@ import java.awt.Shape;
 
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.decorators.EllipseVertexShapeTransformer;
+
 import java.util.List;
 import java.awt.Color;
+import java.awt.geom.Ellipse2D;
+
+import org.apache.commons.collections15.functors.ConstantTransformer;
 
 public class AVertexListShapeModelTransformer<VertexType> extends  EllipseVertexShapeTransformer<VertexType>{
+//public class AVertexListShapeModelTransformer<VertexType> extends  ConstantTransformer<VertexType>{
 
 		JungGraphManager<VertexType, Object> jungGraphManager;
 		RingsCompositeShape ringsCompositeShape = new ARingsCompositeShape();
+		Ellipse2D.Float regularShape = new Ellipse2D.Float(-10,-10,20,20);
 
         public AVertexListShapeModelTransformer(JungGraphManager<VertexType, Object> aJungGraphManager) {
         	jungGraphManager = aJungGraphManager;
+        	
 //            setSizeTransformer(new ClusterVertexSizeTransformer<V>(20));
         }
         @SuppressWarnings("unchecked")
 		@Override
         public Shape transform(VertexType v) {
-        	Shape aPrototypeShape = super.transform(v);
+//        	Shape aPrototypeShape = super.transform(v);
         	List<Color> aColors = jungGraphManager.getColors(v);
         	if (aColors == null)
-        		return aPrototypeShape;
-        	ringsCompositeShape.set(aColors, aPrototypeShape);
+        		return regularShape;
+        	ringsCompositeShape.set(aColors, regularShape);
         	return ringsCompositeShape;
         	
         	

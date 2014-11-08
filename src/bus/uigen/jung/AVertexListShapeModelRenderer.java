@@ -1,5 +1,6 @@
 package bus.uigen.jung;
 
+import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Shape;
 import java.awt.Stroke;
@@ -27,10 +28,14 @@ public class AVertexListShapeModelRenderer<V,E> extends BasicVertexRenderer<V, E
 		    float x = (float)p.getX();
 		    float y = (float)p.getY();
       GraphicsDecorator g = rc.getGraphicsContext();
+      Color oldColor = g.getColor();
       for (ShapeModel aShapeModel:shape.getComponents()) {
+    	  g.setColor(aShapeModel.getColor());
     	  g.fillOval((int) x + aShapeModel.getX(), (int) y + aShapeModel.getY(), aShapeModel.getWidth(), aShapeModel.getHeight());
+//    	  g.drawOval((int) x + aShapeModel.getX(), (int) y + aShapeModel.getY(), aShapeModel.getWidth(), aShapeModel.getHeight());
+
       }
-    	  
+      g.setColor(oldColor); 
      
 //      Paint oldPaint = g.getPaint();
 //      Paint fillPaint = rc.getVertexFillPaintTransformer().transform(v);

@@ -58,6 +58,7 @@ public class AJungGraphTest {
 		List<Color> aColors = new ArrayList();
 		aColors.add(Color.RED);
 		aColors.add(Color.GREEN);
+		aColors.add(Color.BLUE);
 		jungGraphManager.setColors(aNode, aColors);
 //		Transformer<String, Shape> vertexTransformer = jungGraphManager.getVertexShapeTransformer();
 //		Transformer<Context<Graph<String, String>, String>, Shape> edgeTransformer = jungGraphManager.getEdgeShapeTransformer();

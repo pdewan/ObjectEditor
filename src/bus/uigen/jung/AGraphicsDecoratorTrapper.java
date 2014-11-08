@@ -118,16 +118,22 @@ public class AGraphicsDecoratorTrapper extends GraphicsDecorator implements Grap
 	}
 
 	public Graphics create() {
+		if (graphicsDecorator == null)
+			return super.create();
 		return graphicsDecorator.create();
 	}
 
 	public Graphics create(int x, int y, int width, int height) {
+		if (graphicsDecorator == null)
+			return super.create(x, y, width, height);
 		return graphicsDecorator.create(x, y, width, height);
 	}
 
 	public void dispose() {
-		
-		graphicsDecorator.dispose();
+		if (graphicsDecorator == null)
+			super.dispose();
+		else
+		    graphicsDecorator.dispose();
 	}
 
 	public void draw(Shape s) {
@@ -146,26 +152,43 @@ public class AGraphicsDecoratorTrapper extends GraphicsDecorator implements Grap
 
 	public void drawArc(int x, int y, int width, int height, int startAngle,
 			int arcAngle) {
-		graphicsDecorator.drawArc(x, y, width, height, startAngle, arcAngle);
+		if (graphicsDecorator == null) 
+			super.drawArc(x, y, width, height, startAngle, arcAngle);
+		else graphicsDecorator.drawArc(x, y, width, height, startAngle, arcAngle);
 	}
 
 	public void drawBytes(byte[] data, int offset, int length, int x, int y) {
-		graphicsDecorator.drawBytes(data, offset, length, x, y);
+		if (graphicsDecorator == null) 
+			super.drawBytes(data, offset, length, x, y);
+		else
+			graphicsDecorator.drawBytes(data, offset, length, x, y);
 	}
 
 	public void drawChars(char[] data, int offset, int length, int x, int y) {
-		graphicsDecorator.drawChars(data, offset, length, x, y);
+		if (graphicsDecorator == null) 
+			super.drawChars(data, offset, length, x, y);
+		else
+			graphicsDecorator.drawChars(data, offset, length, x, y);
 	}
 
 	public void drawGlyphVector(GlyphVector g, float x, float y) {
-		graphicsDecorator.drawGlyphVector(g, x, y);
+		if (graphicsDecorator == null) 
+			super.drawGlyphVector(g, x, y);
+		else 
+			graphicsDecorator.drawGlyphVector(g, x, y);
 	}
 
 	public void drawImage(BufferedImage img, BufferedImageOp op, int x, int y) {
-		graphicsDecorator.drawImage(img, op, x, y);
+		if (graphicsDecorator == null) 
+			super.drawImage(img, op, x, y);
+		else
+			graphicsDecorator.drawImage(img, op, x, y);
 	}
 
 	public boolean drawImage(Image img, AffineTransform xform, ImageObserver obs) {
+		if (graphicsDecorator == null) 
+			return super.drawImage(img, xform, obs);
+		else
 		return graphicsDecorator.drawImage(img, xform, obs);
 	}
 
@@ -207,6 +230,9 @@ public class AGraphicsDecoratorTrapper extends GraphicsDecorator implements Grap
 	}
 
 	public void drawOval(int x, int y, int width, int height) {
+		if (graphicsDecorator == null) 
+			super.drawOval(x, y, width, height);
+		else
 		graphicsDecorator.drawOval(x, y, width, height);
 	}
 
@@ -334,6 +360,8 @@ public class AGraphicsDecoratorTrapper extends GraphicsDecorator implements Grap
 	}
 
 	public Color getColor() {
+		if (graphicsDecorator == null) 
+			return super.getColor();
 		return graphicsDecorator.getColor();
 	}
 
@@ -447,7 +475,9 @@ public class AGraphicsDecoratorTrapper extends GraphicsDecorator implements Grap
 	}
 
 	public void setColor(Color c) {
-		graphicsDecorator.setColor(c);
+		if (graphicsDecorator == null) 
+			super.setColor(c);
+		else graphicsDecorator.setColor(c);
 	}
 
 	public void setComposite(Composite comp) {
