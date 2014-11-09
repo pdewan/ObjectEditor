@@ -20,16 +20,16 @@ import bus.uigen.shapes.AnOvalModel;
 import shapes.OvalModel;
 import shapes.ShapeModel;
 
-public class ARingsCompositeShape extends ACompositeAttributedShape implements RingsCompositeShape{
+public class ARingsAttributedCompositeShape extends ACompositeAttributedShape implements RingsCompositeShape{
 	Shape prototypeShape;
 	int scale = 1;
 	List<Color> colors;
 	
-	public ARingsCompositeShape( List<Color> aColors, Shape aPrototypeShape) {
+	public ARingsAttributedCompositeShape( List<Color> aColors, Shape aPrototypeShape) {
 		set(aColors, aPrototypeShape);
 		
 	}
-	public ARingsCompositeShape( ) {
+	public ARingsAttributedCompositeShape( ) {
 //		set(aColors, aPrototypeShape);
 		
 	}

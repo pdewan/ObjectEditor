@@ -57,21 +57,30 @@ public class AJungGraphTest {
 		aGraph.addEdge(1, aNode, bNode );		
 		aGraph.addEdge(2, cNode, dNode );
 		aGraph.addEdge(3, aNode, cNode );
+		aGraph.addEdge(4, aNode, dNode );
+		aGraph.addEdge(5, bNode, cNode );
+		aGraph.addEdge(6, bNode, dNode );
 		ObservableGraph anObservableGraph = new ObservableGraph<>(aGraph);
 		JungGraphManager jungGraphManager = new AJungGraphManager<>(aGraph,
 				jungPanel);
+		jungGraphManager.setEdgeVisibile(1, false);
+		jungGraphManager.setVertexVisibile(cNode, false);
 		List<Color> aColors = new ArrayList();
 		aColors.add(Color.RED);
 		aColors.add(Color.GREEN);
 		aColors.add(Color.BLUE);
-		jungGraphManager.setColors(aNode, aColors);
+		jungGraphManager.setVertexColors(aNode, aColors);
+		jungGraphManager.setVertexFillColor(bNode, Color.LIGHT_GRAY );
+		jungGraphManager.setVertexDrawColor(bNode, Color.LIGHT_GRAY );
+		jungGraphManager.setEdgeDrawColor(6, Color.LIGHT_GRAY);
 //		Transformer<String, Shape> vertexTransformer = jungGraphManager.getVertexShapeTransformer();
 //		Transformer<Context<Graph<String, String>, String>, Shape> edgeTransformer = jungGraphManager.getEdgeShapeTransformer();
 		OEShapeModel oeShapeModel = new AStringModel("Rings Graph Demo", 20, 20);
 		
 //		oeShapeModel.setBounds(new Rectangle(0, 0, 100, 100));
-		System.out.println("Adding oval to jung graph");
+		System.out.println("Adding text to jung graph");
 		jungGraphManager.getJungShapeModelDisplayer().getShapes().add(oeShapeModel);
+	
 //		shapes.add(oeShapeModel);
 		jungGraphManager.setLayoutType(LayoutType.Spring);
 		ObjectEditor.editInMainContainer(counter, counterPanel);

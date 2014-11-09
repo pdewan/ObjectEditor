@@ -19,6 +19,8 @@ import java.awt.Paint;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,6 +114,7 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 
 	Transformer<VertexType, String> vertexLabelTransformer = new ToStringLabeller();
 	Transformer<VertexType, String> vertexToolTipTransformer = vertexLabelTransformer;
+	Transformer<VertexType, Paint>  vertexPaintTransformer;
 
 	Transformer<EdgeType, String> edgeToolTipTransformer = new ToStringLabeller();
 	Transformer<EdgeType, String> edgeLabelTransformer = edgeToolTipTransformer;
@@ -125,9 +128,16 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	
 	VisualizationViewer.Paintable postRenderer;
 	Map<VertexType, List<Color>> vertexToColors = new HashMap();
-	Map<EdgeType, Color> edgeToColor = new HashMap();
+	TableDrivenColorer<VertexType> vertexFillColorer = new ATableDrivenColorer<VertexType>();
+	TableDrivenColorer<VertexType> vertexDrawColorer = new ATableDrivenColorer<VertexType>();
+
+	TableDrivenColorer<EdgeType> edgeColorer = new ATableDrivenColorer<EdgeType>();
+//	Map<VertexType, Color> vertexToColor = new HashMap();
+//	Map<EdgeType, Color> edgeToColor = new HashMap();
 	TableBasedGraphElementInclusionPredicate<VertexType, EdgeType, VertexType> vertexIncludePredicate;
 	TableBasedGraphElementInclusionPredicate<VertexType, EdgeType, EdgeType> edgeIncludePredicate;
+	
+	
 
 //	Transformer<VertexType, Shape> vertexTransformer
 	
@@ -699,6 +709,10 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 		vv.getRenderContext().setVertexLabelTransformer(vertexLabelTransformer);
 
 		vv.getRenderContext().setEdgeLabelTransformer(edgeLabelTransformer);
+		setVertexFillPaintTransformer(vertexFillColorer);
+		setVertexDrawPaintTransformer(vertexDrawColorer);
+		edgeColorer.setDefaultColor(Color.BLACK);
+		setEdgeDrawPaintTransformer(edgeColorer);
 //        vv.getRenderContext().setVertexShapeTransformer(new ClusterVertexShapeTransformer<VertexType>());
 
 		// vv.getRenderContext().setEdgeDrawPaintTransformer(new
@@ -787,14 +801,33 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 		   relaxer.resume();
 	}
 	@Override
-	public void setColors(VertexType aVertex, List<Color> aColors) {
+	public void setVertexColors(VertexType aVertex, List<Color> aColors) {
 		vertexToColors.put(aVertex, aColors);
 	}
 	@Override
-	public List<Color> getColors(VertexType aVertex) {
+	public List<Color> getVertexColors(VertexType aVertex) {
 		return vertexToColors.get(aVertex);
 	}
+	@Override
+	public void setVertexFillColor(VertexType aVertex, Paint aColor) {
+		
+		vertexFillColorer.setColor(aVertex, aColor);
+	}
+	@Override
+	public Paint getVertexFillColor(VertexType aVertex) {
+		return vertexFillColorer.getColor(aVertex);
+	}
 	
+	@Override
+	public void setEdgeDrawColor(EdgeType aVertex, Paint aColor) {
+		
+		edgeColorer.setColor(aVertex, aColor);
+	}
+	@Override
+	@Visible(false)
+	public Paint getEdgeDrawColor(EdgeType aVertex) {
+		return edgeColorer.getColor(aVertex);
+	}
 	
 	
 //	
@@ -849,16 +882,16 @@ public class AJungGraphManager<VertexType, EdgeType> implements
     	vertexIncludePredicate.setIncludeGraphElement(aVertex, newVal);		
 	}
 	@Override	
-    public void getVertexVisibile(VertexType aVertex) {
-    	vertexIncludePredicate.getIncludeGraphElement(aVertex);	
+    public boolean getVertexVisibile(VertexType aVertex) {
+    	return vertexIncludePredicate.getIncludeGraphElement(aVertex);	
 	}
 	@Override
-    public void setEdgeVisibile(VertexType aVertex, boolean newVal) {
-    	vertexIncludePredicate.setIncludeGraphElement(aVertex, newVal);		
+    public void setEdgeVisibile(EdgeType aVertex, boolean newVal) {
+    	edgeIncludePredicate.setIncludeGraphElement(aVertex, newVal);		
 	}
 	@Override
-    public void getEdgeVisibile(VertexType aVertex) {
-    	vertexIncludePredicate.getIncludeGraphElement(aVertex);	
+    public boolean getEdgeVisibile(EdgeType aVertex) {
+		return edgeIncludePredicate.getIncludeGraphElement(aVertex);	
 	}
 	
 	public Shape getVertexShape(VertexType aVertex) {
@@ -873,31 +906,44 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	public Transformer<VertexType, Shape> getVertexShapeTransformer() {
 		return vv.getRenderContext().getVertexShapeTransformer();
 	}
+	@Override
+	@Visible(false)
 	public Transformer<VertexType, Paint> getVertexFillPaintTransformer() {
 		return vv.getRenderContext().getVertexFillPaintTransformer();
 	}
+	@Override
+	@Visible(false)
+	public Transformer<VertexType, Paint> getVertexDrawPaintTransformer() {
+		return vv.getRenderContext().getVertexDrawPaintTransformer();
+	}
+	@Visible(false)
 	public Transformer<VertexType, Stroke> getVertexStrokeTransformer() {
 		return vv.getRenderContext().getVertexStrokeTransformer();
 	}
+	@Override
+	@Visible(false)
 	public Transformer<VertexType, Icon> getVertexIconTransformer() {
 		return vv.getRenderContext().getVertexIconTransformer();
 	}
-	
+	@Override
+	@Visible(false)
 	public Vertex<VertexType, EdgeType> getVertexRenderer() {
 		return vv.getRenderer().getVertexRenderer();
 	}
+	@Override
+	@Visible(false)
 	public void setVertexRenderer(Vertex<VertexType, EdgeType> newVal) {
 		 vv.getRenderer().setVertexRenderer(newVal);
 	}
 	@Override
+	@Visible(false)
 	public VertexLabel<VertexType, EdgeType> getVertexLabelRenderer() {
 		return vv.getRenderer().getVertexLabelRenderer();
 	}
 	@Override
 	public void setVertexLabelRenderer(VertexLabel<VertexType, EdgeType> newVal) {
 		 vv.getRenderer().setVertexLabelRenderer(newVal);
-	}
-	
+	}	
 	
 	@Override
 	public void setVertexShapeTransformer(Transformer<VertexType, Shape> newVal) {
@@ -909,8 +955,10 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	public Transformer<Context<Graph<VertexType, EdgeType>, EdgeType>, Shape> getEdgeShapeTransformer() {
 		return vv.getRenderContext().getEdgeShapeTransformer();
 	}
-	public Transformer<VertexType, Paint> getEdgeFillPaintTransformer() {
-		return (Transformer<VertexType, Paint>) vv.getRenderContext().getEdgeFillPaintTransformer();
+	@Override
+	@Visible(false)
+	public Transformer<EdgeType, Paint> getEdgeDrawPaintTransformer() {
+		return (Transformer<EdgeType, Paint>) vv.getRenderContext().getEdgeDrawPaintTransformer();
 	}
 	
 	@Override
@@ -956,12 +1004,35 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	public JungShapeModelDisplayer getJungShapeModelDisplayer() {
 		return jungShapeModelDisplayer;
 	}
+	@Override
+	public void setVertexFillPaintTransformer(
+			Transformer<VertexType, Paint> newVal) {
+		vv.getRenderContext().setVertexFillPaintTransformer(newVal);
+	}
+	@Override
+	public void setVertexDrawPaintTransformer(
+			Transformer<VertexType, Paint> newVal) {
+		vv.getRenderContext().setVertexDrawPaintTransformer(newVal);
+	}
+	@Override
+	public void setEdgeDrawPaintTransformer(
+			Transformer<EdgeType, Paint> newVal) {
+//		vv.getRenderContext().setEdgeFillPaintTransformer(newVal);
+		vv.getRenderContext().setEdgeDrawPaintTransformer(newVal);
+
+		
+	}
+	@Override
+	public void setVertexDrawColor(VertexType aVertex, Paint aColor) {
+		vertexDrawColorer.setColor(aVertex, aColor);		
+	}
+	@Override
+	public Paint getVertexDrawColor(VertexType aVertex) {
+		// TODO Auto-generated method stub
+		return vertexDrawColorer.getColor(aVertex);
+	}
 	
-	
-//	@Override
-//	public Point2D getLocation(VertexType aVertex) {
-//	}
-//	
+
 	
 	
 	

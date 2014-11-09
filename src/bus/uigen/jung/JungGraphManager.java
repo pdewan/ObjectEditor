@@ -2,8 +2,11 @@ package bus.uigen.jung;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Paint;
 import java.awt.Shape;
 import java.util.List;
+
+import javax.swing.Icon;
 
 import org.apache.commons.collections15.Transformer;
 
@@ -12,6 +15,7 @@ import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Context;
 import edu.uci.ics.jung.visualization.VisualizationServer.Paintable;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.renderers.Renderer.Vertex;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel;
 
 public interface JungGraphManager<VertexType, EdgeType> {
@@ -89,11 +93,11 @@ public interface JungGraphManager<VertexType, EdgeType> {
 
 	void setVertexVisibile(VertexType aVertex, boolean newVal);
 
-	void getVertexVisibile(VertexType aVertex);
+	boolean getVertexVisibile(VertexType aVertex);
 
-	void setEdgeVisibile(VertexType aVertex, boolean newVal);
+	void setEdgeVisibile(EdgeType aVertex, boolean newVal);
 
-	void getEdgeVisibile(VertexType aVertex);
+	boolean getEdgeVisibile(EdgeType aVertex);
 
 	LayoutType getLayoutType();
 
@@ -110,13 +114,41 @@ public interface JungGraphManager<VertexType, EdgeType> {
 
 	void setVertexShapeTransformer(Transformer<VertexType, Shape> newVal);
 
-	void setColors(VertexType aVertex, List<Color> aColors);
+	void setVertexColors(VertexType aVertex, List<Color> aColors);
 
-	List<Color> getColors(VertexType aVertex);
+	List<Color> getVertexColors(VertexType aVertex);
 
 	VertexLabel<VertexType, EdgeType> getVertexLabelRenderer();
 
 	void setVertexLabelRenderer(VertexLabel<VertexType, EdgeType> newVal);
+
+	void setVertexFillColor(VertexType aVertex, Paint aColor);
+	Paint getVertexFillColor(VertexType aVertex);
+	
+	void setVertexDrawColor(VertexType aVertex, Paint aColor);
+	Paint getVertexDrawColor(VertexType aVertex);
+	
+	void setEdgeDrawColor(EdgeType anEdge, Paint aColor);
+	Paint getEdgeDrawColor(EdgeType anEdge);
+	
+	void setVertexFillPaintTransformer(Transformer<VertexType, Paint> newVal);
+	void setEdgeDrawPaintTransformer(Transformer<EdgeType, Paint> newVal);
+
+	void setVertexDrawPaintTransformer(Transformer<VertexType, Paint> newVal);
+
+	Transformer<VertexType, Paint> getVertexDrawPaintTransformer();
+
+	Transformer<VertexType, Paint> getVertexFillPaintTransformer();
+
+	Transformer<VertexType, Icon> getVertexIconTransformer();
+
+	Vertex<VertexType, EdgeType> getVertexRenderer();
+
+	void setVertexRenderer(Vertex<VertexType, EdgeType> newVal);
+
+	Transformer<EdgeType, Paint> getEdgeDrawPaintTransformer();
+
+//	Transformer<VertexType, Paint> getVertexFillPaintTransformer();
 
 //	void setRadial(boolean newVal);
 //

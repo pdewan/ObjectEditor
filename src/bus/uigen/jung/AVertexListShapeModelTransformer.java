@@ -15,8 +15,9 @@ public class AVertexListShapeModelTransformer<VertexType> extends  EllipseVertex
 //public class AVertexListShapeModelTransformer<VertexType> extends  ConstantTransformer<VertexType>{
 
 		JungGraphManager<VertexType, Object> jungGraphManager;
-		RingsCompositeShape ringsCompositeShape = new ARingsCompositeShape();
+		RingsCompositeShape ringsCompositeShape = new ARingsAttributedCompositeShape();
 		Ellipse2D.Float regularShape = new Ellipse2D.Float(-10,-10,20,20);
+		Color regularColor;
 
         public AVertexListShapeModelTransformer(JungGraphManager<VertexType, Object> aJungGraphManager) {
         	jungGraphManager = aJungGraphManager;
@@ -27,7 +28,7 @@ public class AVertexListShapeModelTransformer<VertexType> extends  EllipseVertex
 		@Override
         public Shape transform(VertexType v) {
 //        	Shape aPrototypeShape = super.transform(v);
-        	List<Color> aColors = jungGraphManager.getColors(v);
+        	List<Color> aColors = jungGraphManager.getVertexColors(v);
         	if (aColors == null)
         		return regularShape;
         	ringsCompositeShape.set(aColors, regularShape);
