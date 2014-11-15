@@ -1,5 +1,7 @@
 package bus.uigen.test;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +16,15 @@ public class HTMLLinkTester {
 	
 	public static void main (String[] args) {
 		String address = "http://sourceforge.net/projects/jhyperlink";
+		URL url = null;
+		try {
+			url = new URL(address);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		AnHTMLLinkHolder holder = new AnHTMLLinkHolder(url);
+		ObjectEditor.edit(holder);
 		String html = Common.toBlueColoredUnderlinedHrefHTML(address, "CLICK ");
 		String link = "<HTML><FONT color=\"#000099\"><U><ahref=http://sourceforge.net/projects/jhyperlink/>click</a></U></FONT>"
 		        + " to go to the Java website.</HTML>";
