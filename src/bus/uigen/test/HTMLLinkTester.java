@@ -1,11 +1,17 @@
 package bus.uigen.test;
 
+import java.awt.Desktop;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 
 import util.misc.Common;
 import util.models.ALabelBeanModel;
@@ -15,14 +21,35 @@ import bus.uigen.ObjectEditor;
 public class HTMLLinkTester {
 	
 	public static void main (String[] args) {
-		String address = "http://sourceforge.net/projects/jhyperlink";
+//		String address = "http://sourceforge.net/projects/jhyperlink";
+		String address = "http://www.google.com";
+
 		URL url = null;
+		try {
+			Desktop.getDesktop().browse(new URI("http://www.google.com"));
+			Desktop.getDesktop().browse(new URI("http://www.bing.com"));
+		} catch (IOException | URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			url = new URL(address);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		JFrame frame = new JFrame();
+		JEditorPane jEditorPane = new JEditorPane();
+		try {
+			jEditorPane.setPage(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		frame.add(jEditorPane);
+		frame.setSize(300, 300);
+		frame.setVisible(true);
+		
 		AnHTMLLinkHolder holder = new AnHTMLLinkHolder(url);
 		ObjectEditor.edit(holder);
 		String html = Common.toBlueColoredUnderlinedHrefHTML(address, "CLICK ");
@@ -53,8 +80,8 @@ public class HTMLLinkTester {
 		LabelBeanModel labelModel = new ALabelBeanModel(html);
 		ObjectEditor.edit(labelModel);
 		
-		 labelModel = new ALabelBeanModel(html, icon);
-		ObjectEditor.edit(labelModel);
+//		 labelModel = new ALabelBeanModel(html, icon);
+//		ObjectEditor.edit(labelModel);
 	}
 
 	
