@@ -867,7 +867,8 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				ObjectAdapter topAdapter = getBrowser().getOriginalAdapter();
-				boolean autoSave = topAdapter.getAutoSave();
+				
+				boolean autoSave = topAdapter != null && topAdapter.getAutoSave();
 				if (autoSave)
 					OEMisc.saveState(topAdapter.getRealObject());
 				if (isTopFrame() && exitEnabled)
