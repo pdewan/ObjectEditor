@@ -468,7 +468,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		 */
 		ObjectAdapter childAdapter = getVisibleOrDeletedObjectAdapter(componentName);
 		if (childAdapter == null) {
-			System.out.println("Null child adapter for" + componentName);
+			Tracer.info(this, "Null child adapter for" + componentName);
 		}
 		boolean childHasPendingValue =  childAdapter != null && 
 				childAdapter.hasPendingValue();
