@@ -17,7 +17,7 @@ public class ABus extends Observable implements Bus {
 	Shape backTire = new AnOval();	
 	int busWidth = 100;
 	int busX = 150;
-	int busY = 150;
+	int busY = 50;
 	boolean doubleDecker = false;
 	public static final Color BUS_COLOR = Color.red;
 //	public static final Color TIRE_COLOR = Color.black;
