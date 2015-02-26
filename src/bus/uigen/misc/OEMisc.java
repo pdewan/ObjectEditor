@@ -630,6 +630,20 @@ public class OEMisc {
 	public static ProcessExecer runWithProcessExecer( String aCommand) {
 		return runWithProcessExecer(aCommand, false);
 	}
+	public static ProcessExecer runWithProcessExecer( String[] aCommandComponents, ConsoleModel aConsoleModel, boolean isRedirectIO) {
+		ProcessExecer processExecer = 
+				new AProcessExecer(aCommandComponents, isRedirectIO);
+		if (aConsoleModel != null)
+		processExecer.setConsoleModel(aConsoleModel);
+		Process process = processExecer.execProcess();
+		return processExecer;
+	}
+	public static ProcessExecer runWithProcessExecer( String[] aCommandComponents,  boolean isRedirectIO) {
+		return runWithProcessExecer(aCommandComponents, null, isRedirectIO);
+	}
+	public static ProcessExecer runWithProcessExecer( String[] aCommandComponents) {
+		return runWithProcessExecer(aCommandComponents, false);
+	}
 	public static Object defaultValue(ClassProxy cp) {
 		
 		if (cp instanceof AClassProxy) {
