@@ -1,10 +1,10 @@
 package bus.uigen.diff;
 
 import util.annotations.DisplayToString;
-import de.danielbechler.diff.node.Node;
-import de.danielbechler.diff.node.Node.State;
+import de.danielbechler.diff.node.DiffNode;
+import de.danielbechler.diff.node.DiffNode.State;
 public class AChangeDescription implements ChangeDescription {
-	 Node.State state;
+	 DiffNode.State state;
 	 Object base; 
 	 Object modified;
 	public AChangeDescription(State state, Object base, Object modified) {
@@ -18,14 +18,14 @@ public class AChangeDescription implements ChangeDescription {
 	 */
 	@DisplayToString(true)
 	@Override
-	public Node.State getState() {
+	public DiffNode.State getState() {
 		return state;
 	}
 	/* (non-Javadoc)
 	 * @see bus.uigen.diff.ChangeDescription#setState(de.danielbechler.diff.node.Node.State)
 	 */
 	@Override
-	public void setState(Node.State state) {
+	public void setState(DiffNode.State state) {
 		this.state = state;
 	}
 	/* (non-Javadoc)

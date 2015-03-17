@@ -1,12 +1,12 @@
 package bus.uigen.diff;
 
-import de.danielbechler.diff.node.Node;
+import de.danielbechler.diff.node.DiffNode;
 
 public interface ChangeDescription {
 
-	public Node.State getState();
+	public DiffNode.State getState();
 
-	public void setState(Node.State state);
+	public void setState(DiffNode.State state);
 
 	public Object getBase();
 

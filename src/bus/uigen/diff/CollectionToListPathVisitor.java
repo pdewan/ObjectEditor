@@ -7,10 +7,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.danielbechler.diff.node.CollectionNode;
-import de.danielbechler.diff.node.Node;
-import de.danielbechler.diff.path.PropertyPath;
-import de.danielbechler.diff.visitor.PrintingVisitor;
+//import de.danielbechler.diff.node.CollectionNode;
+import de.danielbechler.diff.node.DiffNode;
+import de.danielbechler.diff.path.NodePath;
+import de.danielbechler.diff.node.PrintingVisitor;
 
 
 public class CollectionToListPathVisitor extends PrintingVisitor
@@ -31,25 +31,31 @@ public class CollectionToListPathVisitor extends PrintingVisitor
 	}
 
 	@Override
-	protected String differenceToString(final Node node, final Object base, final Object modified)
+	protected String differenceToString(final DiffNode node, final Object base, final Object modified)
 	{
-		PropertyPath propertyPath = node.getPropertyPath();
+//		NodePath propertyPath = node.getPropertyPath();
+		NodePath propertyPath = node.getPath();
+
 		List listPath = new ArrayList();
-		for (Object element: propertyPath.getElements()) {
+//		for (Object element: propertyPath.getElements()) {
+		for (Object element: propertyPath.getElementSelectors()) {
+
 			listPath.add(element);
 		}
-		Node parentNode = node.getParentNode();
-		if (! (parentNode instanceof CollectionNode)) return "";
+		DiffNode parentNode = node.getParentNode();
+//		if (! (parentNode instanceof CollectionNode)) return "";
+		if (! (parentNode.hasChildren())) return "";
+
 		
 		
-			CollectionNode collectionParentNode = (CollectionNode) parentNode;
-			Collection collectionBase = (Collection) collectionParentNode.canonicalGet(base);
-			Collection collectionModified =  (Collection) collectionParentNode.canonicalGet(modified);
+//			CollectionNode collectionParentNode = (CollectionNode) parentNode;
+			Collection collectionBase = (Collection) parentNode.canonicalGet(base);
+			Collection collectionModified =  (Collection) parentNode.canonicalGet(modified);
 			if  (! (collectionBase instanceof List) && ! (collectionModified instanceof List)) return "";
 			List listBase = (List) collectionBase;
 			List listModified = (List) collectionModified;
 			int index;
-			List elements= propertyPath.getElements();
+			List elements= propertyPath.getElementSelectors();
 			switch (node.getState()) {
 			case ADDED: // in modified
 				 index = listModified.indexOf( node.canonicalGet(modified));

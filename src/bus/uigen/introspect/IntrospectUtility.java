@@ -3410,7 +3410,7 @@ public static boolean isKeysMethod(Method method) {
 //		util.annotations.ObserverRegisterer observerRegister = method
 //				.getAnnotation(util.annotations.ObserverRegisterer.class);
 		util.annotations.ObserverRegisterer observerRegister = method
-				.getAnnotation(annotationClass);
+				.getAnnotation(util.annotations.ObserverRegisterer.class);
 		boolean annotated = false;
 		boolean correctlyNamed = false;
 

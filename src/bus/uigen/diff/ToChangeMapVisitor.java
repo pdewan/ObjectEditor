@@ -4,16 +4,16 @@ package bus.uigen.diff;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import de.danielbechler.diff.node.Node;
-import de.danielbechler.diff.path.PropertyPath;
-import de.danielbechler.diff.visitor.PrintingVisitor;
+import de.danielbechler.diff.node.DiffNode;
+import de.danielbechler.diff.path.NodePath;
+import de.danielbechler.diff.node.PrintingVisitor;
 import de.danielbechler.util.Strings;
 
 
 public class ToChangeMapVisitor extends PrintingVisitor
 {
 	
-	private final Map<PropertyPath, ChangeDescription> propetyPathToChangeDescription = new LinkedHashMap();
+	private final Map<NodePath, ChangeDescription> propetyPathToChangeDescription = new LinkedHashMap();
 
 	public ToChangeMapVisitor(final Object working, final Object base)
 	{
@@ -27,9 +27,9 @@ public class ToChangeMapVisitor extends PrintingVisitor
 	}
 
 	@Override
-	protected String differenceToString(final Node node, final Object base, final Object modified)
+	protected String differenceToString(final DiffNode node, final Object base, final Object modified)
 	{
-		propetyPathToChangeDescription.put(node.getPropertyPath(), new AChangeDescription(node.getState(), base, modified));
+		propetyPathToChangeDescription.put(node.getPath(), new AChangeDescription(node.getState(), base, modified));
 //		final String text = super.differenceToString(node, base, modified);
 //		messages.put(node.getPropertyPath(), text);
 //		propetyPathToChangeDescription.put(key, value)
@@ -43,7 +43,7 @@ public class ToChangeMapVisitor extends PrintingVisitor
 //	}
 //	
 	
-	public  Map<PropertyPath, ChangeDescription> getChangeMap() {
+	public  Map<NodePath, ChangeDescription> getChangeMap() {
 		return propetyPathToChangeDescription;
 	}
 //
