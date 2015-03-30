@@ -1320,7 +1320,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			"bus.uigen.loggable.AwareHashtableListener",
 			"java.util.EventListener", "javax.swing.event.TableModelListener",
 			"javax.swing.event.TreeModelListener", "java.util.Observer",
-			"java.lang.Comparable", "util.Listenable", "slm.ShapesList",
+			"java.lang.Comparable", "util.Listenable", slm.ShapesList.class.getName(),
 			"bus.uigen.HashtableListenable", "bus.uigen.HashtableInterface",
 			"bus.uigen.VectorInterface.class",
 			"bus.uigen.VectorListenable.class", "bus.uigen.DynamicEnum.class",

@@ -21,7 +21,7 @@ public class ShapesAdapter extends WidgetAdapter implements Listener, MouseListe
   }    public static void toggleIncremental() {  	for (int i = 0; i < controllers.size(); i++) {  		((SLGController) controllers.elementAt(i)).toggleIncremental();  	}  }
 
   public String getType() {
-    return "slm.SLModel";
+//    return "slm.SLModel";    return slm.SLModel.class.getName();
   }  void removeController(SLGController controller) {  	if (controller == null) return;  	if (controllers.contains(controller))  		controllers.remove(controller);  }  void addController(SLGController controller) {  	if (controller == null) return;  	if (controllers.contains(controller)) return;  	controllers.addElement(controller);  }  public void setController() {   		  if (controller != composer.getController()) {	  	removeController(controller);		controller = composer.getController();				//controller.addSelectionListener();	  }	  if (controller == null) return;	  addController(controller);	  	  controller.setIncremental(incremental);  	  }    public void setIncremental() {  	if (controller != null)  		controller.setIncremental(incremental);   }  boolean isView(VirtualContainer container) {	  return container.getPhysicalComponent() instanceof DelegateJPanel;  }
   SLModel slModel;  public SLModel getSLModel() {	  return slModel;  }
   public void setUIComponentTypedValue(Object newval) {

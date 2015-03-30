@@ -1730,7 +1730,7 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 				return;
 			// bus.uigen.editors.EditorRegistry.registerWidget("slm.SLModel",
 			// "slc.SLComposer", "bus.uigen.editors.ShapesAdapter");
-			bus.uigen.editors.EditorRegistry.registerWidget("slm.SLModel",
+			bus.uigen.editors.EditorRegistry.registerWidget(slm.SLModel.class.getName(),
 					"java.awt.Container", "bus.uigen.editors.ShapesAdapter");
 			// bus.uigen.editors.EditorRegistry.registerWidget(slm.SLModel.class,
 			// java.awt.Container.class, bus.uigen.editors.ShapesAdapter.class);
