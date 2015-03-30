@@ -26,7 +26,7 @@ import java.util.List;import bus.uigen.ars.*;import bus.uigen.attributes.Attr
 	  if (newKey == key)	     //uiSelectionManager.select(this.getObjectAdapter());
 		  SelectionManager.replaceSelections(this.getObjectAdapter());  }
   public String getType() {
-    //return "shapes.ShapeModel";    return "shapes.RemoteShape";
+    //return "shapes.ShapeModel";//    return "shapes.RemoteShape";    return shapes.RemoteShape.class.getName();
   }
   SLModel drawing;  SLGController slgController;
   ObjectAdapter drawingAdapter;

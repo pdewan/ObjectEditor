@@ -122,31 +122,22 @@ static void registerEditors() {
 	//if (editorsRegistered) return;
 	//System.out.println("registering editors");
 	try {
-		//bus.uigen.editors.EditorRegistry.registerWidget("slm.SLModel", "slc.SLComposer", "bus.uigen.editors.ShapesAdapter");
+		/*
 		registerWidget("slm.SLModel", "java.awt.Container", "bus.uigen.editors.ShapesAdapter");
-		//registerWidget("slm.SLModel", "java.awt.Container", "bus.uigen.editors.NestedShapesAdapter");
-		//bus.uigen.editors.EditorRegistry.registerWidget(slm.SLModel.class, java.awt.Container.class, bus.uigen.editors.ShapesAdapter.class);
+		
 		registerWidget("java.lang.StringBuffer", "javax.swing.JTextArea", "bus.uigen.adapters.SBTextAreaAdapter");
 		registerWidget("util.models.AMutableString", "javax.swing.JTextArea", "bus.uigen.adapters.MSTextAreaAdapter");
-		//bus.uigen.editors.EditorRegistry.registerWidget("bus.uigen.AListenableString", "javax.swing.JTextArea", "bus.uigen.adapters.MSJTextAreaAdapter");
 		registerWidget("java.net.URL", "javax.swing.JEditorPane", "bus.uigen.adapters.EditorPaneAdapter");
 		registerWidget("util.models.AListenableString", "javax.swing.JTextField", "bus.uigen.adapters.MSTextFieldAdapter");
 		registerWidget("util.models.ListenableString", "javax.swing.JTextField", "bus.uigen.adapters.MSTextFieldAdapter");
-//		registerWidget("util.models.AListenableString", null, "bus.uigen.adapters.MSTextFieldAdapter");
-//		registerWidget("util.models.ListenableString", null, "bus.uigen.adapters.MSTextFieldAdapter");
 
-		//ObjectEditor.setPreferredWidget(AListenableHashtable.class, JTable.class);
 		registerWidget("shapes.ShapeModel", "shapes.ShapeModel", "bus.uigen.editors.ShapeAdapter");
-		//bus.uigen.editors.EditorRegistry.registerWidget("shapes.ShapeModel", "shapes.ShapeModel_Stub", "bus.uigen.editors.ShapeAdapter");
 		registerWidget("shapes.RemoteShape", "shapes.RemoteShape", "bus.uigen.editors.ShapeAdapter");
 		registerWidget("shapes.OvalModel", "shapes.OvalModel", "bus.uigen.editors.ShapeAdapter");
-		//bus.uigen.editors.EditorRegistry.registerWidget("shapes.OvalModel_Stub", "shapes.OvalModel_Stub", "bus.uigen.editors.ShapeAdapter");
 		registerWidget("shapes.PointModel", "shapes.PointModel", "bus.uigen.editors.ShapeAdapter");
 		registerWidget("shapes.RectangleModel", "shapes.RectangleModel", "bus.uigen.editors.ShapeAdapter");
-		//bus.uigen.editors.EditorRegistry.registerWidget("shapes.RectangleModel_Stub", "shapes.RectangleModel_Stub", "bus.uigen.editors.ShapeAdapter");
 		registerWidget("shapes.LineModel", "shapes.LineModel", "bus.uigen.editors.ShapeAdapter");	
-		//registerWidget("shapes.LineModel", "shapes.LineModel", "bus.uigen.editors.ShapeAdapter");	
-		//bus.uigen.editors.EditorRegistry.registerWidget("shapes.LineModel_Stub", "shapes.LineModel_Stub", "bus.uigen.editors.ShapeAdapter");
+		
 		registerWidget("shapes.ComponentModel", "shapes.ComponentModel", "bus.uigen.editors.ShapeAdapter");
 		registerWidget("shapes.StringModel", "shapes.StringModel", "bus.uigen.editors.ShapeAdapter");
 
@@ -155,36 +146,44 @@ static void registerEditors() {
 		//bus.uigen.editors.EditorRegistry.registerWidget("shapes.LabelModel_Stub", "shapes.LabelModel_Stub", "bus.uigen.editors.ShapeAdapter");
 		registerWidget("shapes.TextModel", "shapes.TextModel", "bus.uigen.editors.ShapeAdapter");
 		
-		//bus.uigen.editors.EditorRegistry.registerWidget("shapes.TextModel_Stub", "shapes.TextModel_Stub", "bus.uigen.editors.ShapeAdapter");
 		registerWidget("shapes.ArcModel", "shapes.ArcModel", "bus.uigen.editors.ShapeAdapter");
 		registerWidget("shapes.CurveModel", "shapes.CurveModel", "bus.uigen.editors.ShapeAdapter");
 		registerWidget("shapes.ImageModel", "shapes.ImageModel", "bus.uigen.editors.ShapeAdapter");
 	
 		registerWidget(ALabelBeanModel.class.getName(), ALabelBeanModel.class.getName(), LabelAdapter.class.getName());
 		registerWidget(AWTShapeModel.class.getName(), (AWTShapeModel.class.getName()), ShapeAdapter.class.getName());
+	*/
+		registerWidget(slm.SLModel.class, java.awt.Container.class, bus.uigen.editors.ShapesAdapter.class);
+		registerWidget(java.lang.StringBuffer.class, javax.swing.JTextArea.class, bus.uigen.adapters.SBTextAreaAdapter.class);
+		registerWidget(util.models.AMutableString.class, javax.swing.JTextArea.class, bus.uigen.adapters.MSTextAreaAdapter.class);
+		registerWidget(java.net.URL.class, javax.swing.JEditorPane.class, bus.uigen.adapters.EditorPaneAdapter.class);
+		registerWidget(util.models.AListenableString.class, javax.swing.JTextField.class, bus.uigen.adapters.MSTextFieldAdapter.class);
+		registerWidget(util.models.ListenableString.class, javax.swing.JTextField.class, bus.uigen.adapters.MSTextFieldAdapter.class);
 
-		//bus.uigen.editors.EditorRegistry.registerWidget("shapes.ArcModel_Stub", "shapes.ArcModel_Stub", "bus.uigen.editors.ShapeAdapter");
-		/*
-		bus.uigen.editors.EditorRegistry.registerWidget(slm.SLModel.class,slc.SLComposer.class, bus.uigen.editors.ShapesAdapter.class);
-		bus.uigen.editors.EditorRegistry.registerWidget("java.lang.StringBuffer", "javax.swing.JTextArea", "bus.uigen.adapters.uiSBJTextAreaAdapter");
-		bus.uigen.editors.EditorRegistry.registerWidget("bus.uigen.AMutableString", "javax.swing.JTextArea", "bus.uigen.adapters.MSJTextAreaAdapter");
-		//bus.uigen.editors.EditorRegistry.registerWidget("bus.uigen.AListenableString", "javax.swing.JTextArea", "bus.uigen.adapters.MSJTextAreaAdapter");
-		bus.uigen.editors.EditorRegistry.registerWidget("bus.uigen.AListenableString", "javax.swing.JTextField", "bus.uigen.adapters.MSJTextFieldAdapter");
-		//ObjectEditor.setPreferredWidget(AListenableHashtable.class, JTable.class);
-		bus.uigen.editors.EditorRegistry.registerWidget("shapes.ShapeModel", "shapes.ShapeModel", "bus.uigen.editors.ShapeAdapter");
-		bus.uigen.editors.EditorRegistry.registerWidget("shapes.ShapeModel", "shapes.ShapeModel_Stub", "bus.uigen.editors.ShapeAdapter");
-		bus.uigen.editors.EditorRegistry.registerWidget("shapes.RemoteShape", "shapes.RemoteShape", "bus.uigen.editors.ShapeAdapter");
-		bus.uigen.editors.EditorRegistry.registerWidget("shapes.OvalModel", "shapes.OvalModel", "bus.uigen.editors.ShapeAdapter");
-		bus.uigen.editors.EditorRegistry.registerWidget("shapes.OvalModel_Stub", "shapes.OvalModel_Stub", "bus.uigen.editors.ShapeAdapter");
-		bus.uigen.editors.EditorRegistry.registerWidget("shapes.PointModel", "shapes.PointModel", "bus.uigen.editors.ShapeAdapter");
-		bus.uigen.editors.EditorRegistry.registerWidget("shapes.RectangleModel", "shapes.RectangleModel", "bus.uigen.editors.ShapeAdapter");
-		bus.uigen.editors.EditorRegistry.registerWidget("shapes.RectangleModel_Stub", "shapes.RectangleModel_Stub", "bus.uigen.editors.ShapeAdapter");
-		bus.uigen.editors.EditorRegistry.registerWidget("shapes.LineModel", "shapes.LineModel", "bus.uigen.editors.ShapeAdapter");	
-		bus.uigen.editors.EditorRegistry.registerWidget("shapes.LineModel_Stub", "shapes.LineModel_Stub", "bus.uigen.editors.ShapeAdapter");
-		bus.uigen.editors.EditorRegistry.registerWidget("shapes.ComponentModel", "shapes.ComponentModel", "bus.uigen.editors.ShapeAdapter");		
-		bus.uigen.editors.EditorRegistry.registerWidget("shapes.TextModel", "shapes.TextModel", "bus.uigen.editors.ShapeAdapter");
-		bus.uigen.editors.EditorRegistry.registerWidget("shapes.TextModel_Stub", "shapes.TextModel_Stub", "bus.uigen.editors.ShapeAdapter");
-		*/
+		registerWidget(shapes.ShapeModel.class, shapes.ShapeModel.class, bus.uigen.editors.ShapeAdapter.class);
+		registerWidget(shapes.RemoteShape.class, shapes.RemoteShape.class, bus.uigen.editors.ShapeAdapter.class);
+		registerWidget(shapes.OvalModel.class, shapes.OvalModel.class, bus.uigen.editors.ShapeAdapter.class);
+		registerWidget(shapes.PointModel.class, shapes.PointModel.class, bus.uigen.editors.ShapeAdapter.class);
+		registerWidget(shapes.RectangleModel.class, shapes.RectangleModel.class, bus.uigen.editors.ShapeAdapter.class);
+		registerWidget(shapes.LineModel.class, shapes.LineModel.class, bus.uigen.editors.ShapeAdapter.class);	
+		
+		registerWidget(shapes.ComponentModel.class, shapes.ComponentModel.class, bus.uigen.editors.ShapeAdapter.class);
+		registerWidget(shapes.StringModel.class, shapes.StringModel.class, bus.uigen.editors.ShapeAdapter.class);
+
+		registerWidget(shapes.LabelModel.class, shapes.LabelModel.class, bus.uigen.editors.ShapeAdapter.class);
+		// dont register this one
+		//bus.uigen.editors.EditorRegistry.registerWidget(shapes.LabelModel_Stub.class, shapes.LabelModel_Stub.class, bus.uigen.editors.ShapeAdapter.class);
+		registerWidget(shapes.TextModel.class, shapes.TextModel.class, bus.uigen.editors.ShapeAdapter.class);
+		
+		registerWidget(shapes.ArcModel.class, shapes.ArcModel.class, bus.uigen.editors.ShapeAdapter.class);
+		registerWidget(shapes.CurveModel.class, shapes.CurveModel.class, bus.uigen.editors.ShapeAdapter.class);
+		registerWidget(shapes.ImageModel.class, shapes.ImageModel.class, bus.uigen.editors.ShapeAdapter.class);
+	
+		registerWidget(ALabelBeanModel.class, ALabelBeanModel.class, LabelAdapter.class);
+		registerWidget(AWTShapeModel.class, (AWTShapeModel.class), ShapeAdapter.class);
+
+
+		
 	} catch (Exception e) {
 		e.printStackTrace();
 		System.out.println("While registering:" + e);
