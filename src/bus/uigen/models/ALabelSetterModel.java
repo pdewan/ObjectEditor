@@ -9,8 +9,16 @@ import util.models.ALabelBeanModel;
 import util.models.LabelBeanModel;
 
 public abstract class ALabelSetterModel implements LabelSetterModel{
-	LabelBeanModel labelModel = new ALabelBeanModel(" A Label", null);
+//	LabelBeanModel labelModel = new ALabelBeanModel(" A Label", null);
+	LabelBeanModel labelModel;
 	String text;
+	
+	public ALabelSetterModel() {
+		 labelModel = new ALabelBeanModel(initialLabel(), null);
+	}
+	protected String initialLabel() {
+		return " A Label";
+	}
 	
 	@Override
 	@Visible(false)

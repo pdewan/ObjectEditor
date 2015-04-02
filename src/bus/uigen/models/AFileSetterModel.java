@@ -23,6 +23,9 @@ public class AFileSetterModel extends ALabelSetterModel implements FileSetterMod
 		filterOption = aFilterOption;
 //		frame = (JFrame) aFrame.getFrame().getPhysicalComponent();
 	}
+	protected String initialLabel() {
+		return "Press browse to initialize file name";
+	}
 	@Visible(false)
 	public void initFrame(JFrame aFrame) {
 		frame = aFrame;
