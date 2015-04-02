@@ -650,6 +650,12 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 		Vector<Attribute> widgetClassVector = AClassDescriptor
 				.toAttributeVector(widgetClass);
 		mergedAttributeVector = merge(mergedAttributeVector, widgetClassVector);
+		
+		util.annotations.LayoutName layoutClass = (util.annotations.LayoutName) elementProxy
+				.getAnnotation(util.annotations.LayoutName.class);
+		Vector<Attribute> layoutClassVector = AClassDescriptor
+				.toAttributeVector(layoutClass);
+		mergedAttributeVector = merge(mergedAttributeVector, layoutClassVector);
 
 		util.annotations.IsAtomicShape isAtomicShape = (util.annotations.IsAtomicShape) elementProxy
 				.getAnnotation(util.annotations.IsAtomicShape.class);
@@ -3325,6 +3331,16 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 		Vector<Attribute> retVal = new Vector();
 		Attribute attr = new Attribute(AttributeNames.PREFERRED_WIDGET,
 				widgetClass.value().getName());
+		retVal.add(attr);
+		return retVal;
+	}
+	public static Vector<Attribute> toAttributeVector(
+			util.annotations.LayoutName layoutClass) {
+		if (layoutClass == null)
+			return null;
+		Vector<Attribute> retVal = new Vector();
+		Attribute attr = new Attribute(AttributeNames.LAYOUT,
+				layoutClass.value());
 		retVal.add(attr);
 		return retVal;
 	}
