@@ -23,10 +23,13 @@ public class UndeclaredProperty extends ClassPropertyWarning {
 
 	
 
-	public static void newCase(String aProperty, ClassProxy aTarget, Object aFinder) {
-		String aMessage = "Implicit property: " + aProperty + " of class " + aTarget +  " ignored as it is not in property names list. \n" + 
-				" Associate annotation @Visible(false) with its getter.";
-		new UndeclaredProperty(aMessage, aProperty, aTarget, aFinder);
+	public static UndeclaredProperty newCase(String aProperty, ClassProxy aTarget, Object aFinder) {
+		String aMessage = "Implicit property " + aProperty + " of  " + aTarget.getSimpleName() +  " ignored as it is not in property names list. \n"  
+				+ " Associate annotation @Visible(false) with its getter."
+				;
+		UndeclaredProperty retVal = new UndeclaredProperty(aMessage, aProperty, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

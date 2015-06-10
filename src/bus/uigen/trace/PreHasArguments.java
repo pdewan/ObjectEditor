@@ -16,9 +16,11 @@ public class PreHasArguments extends MethodWarning {
 		return subject;
 	}	
 
-	public static void newCase(MethodProxy aPre, MethodProxy aSubject,  Object aFinder) {
+	public static PreHasArguments newCase(MethodProxy aPre, MethodProxy aSubject,  Object aFinder) {
 		String aMessage = aPre + " not recognized as an enabling method of + " + aSubject + " because it takes arguments";
-		new PreHasArguments(aMessage, aPre, aSubject, aFinder);
+		PreHasArguments retVal = new PreHasArguments(aMessage, aPre, aSubject, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

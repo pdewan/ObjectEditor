@@ -24,9 +24,11 @@ public class SubrangeErrror extends TraceableWarning {
 	}
 	
 	
-	public static void newCase(Object aValue, String aPath, Object aFinder) {
+	public static SubrangeErrror newCase(Object aValue, String aPath, Object aFinder) {
 		String aMessage = "Value: " + aValue + " of " + aPath + " not in range.";
-		new SubrangeErrror(aMessage, aValue, aPath, aFinder);
+		SubrangeErrror retVal = new SubrangeErrror(aMessage, aValue, aPath, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

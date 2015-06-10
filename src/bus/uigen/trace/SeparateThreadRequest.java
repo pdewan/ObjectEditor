@@ -10,10 +10,12 @@ public class SeparateThreadRequest extends MethodWarning {
 	}
 	
 	
-	public static void newCase(MethodProxy aMethod, Object aFinder) {
+	public static SeparateThreadRequest newCase(MethodProxy aMethod, Object aFinder) {
 		String aMessage = "Using a separate ObjectEditor thread for invoking: " + aMethod + 
 				".\n   If you know threads, you might want to create a thread yourself.";
-		new SeparateThreadRequest(aMessage, aMethod, aFinder);
+		SeparateThreadRequest retVal = new SeparateThreadRequest(aMessage, aMethod, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

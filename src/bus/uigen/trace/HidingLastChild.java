@@ -11,9 +11,11 @@ public class HidingLastChild extends TraceableWarning {
 	}
 	
 	
-	public static void newCase(Object aParent, Object aFinder) {
+	public static HidingLastChild newCase(Object aParent, Object aFinder) {
 		String aMessage = "Cannot hide last item of parent:" + aParent;
-		new HidingLastChild(aMessage, aFinder);
+		HidingLastChild retVal = new HidingLastChild(aMessage, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

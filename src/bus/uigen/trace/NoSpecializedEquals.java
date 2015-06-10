@@ -8,11 +8,14 @@ public class NoSpecializedEquals extends ClassWarning {
 //		target = aClass;
 	}
 	
-	public static void newCase(ClassProxy aClass, Object aFinder) {
+	public static NoSpecializedEquals newCase(ClassProxy aClass, Object aFinder) {
     	String aMessage = "equals() method of Object not overriden in: " + aClass + 
     	". Please override it when you learn about it to make refresh work more reliably and efficiently";
 
-    	new NoSpecializedEquals(aMessage, aClass, aFinder);
+    	NoSpecializedEquals retVal = new NoSpecializedEquals(aMessage, aClass, aFinder);
+    	retVal.announce();
+    	return retVal;
+    	
 	}
 
 }

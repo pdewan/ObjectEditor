@@ -9,9 +9,11 @@ public class SelectionOfIndexOfNonIndexedObject extends ObjectError {
 	public SelectionOfIndexOfNonIndexedObject(String aMessage, Object aTarget, Object aFinder) {
 		super(aMessage, aTarget, aFinder);	
 	}
-	public static void newCase(Object aTarget, Object aFinder) {
+	public static SelectionOfIndexOfNonIndexedObject newCase(Object aTarget, Object aFinder) {
 		String aMessage = "Selection of index of non indexed collection: " + aTarget;
-		new SelectionOfIndexOfNonIndexedObject(aMessage, aTarget, aFinder);
+		SelectionOfIndexOfNonIndexedObject retVal = new SelectionOfIndexOfNonIndexedObject(aMessage, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

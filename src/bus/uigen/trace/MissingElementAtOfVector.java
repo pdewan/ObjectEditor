@@ -13,11 +13,13 @@ public class MissingElementAtOfVector extends ClassError {
 	
 
 
-	public static void newCase( ClassProxy aTarget, Object aFinder) {
+	public static MissingElementAtOfVector newCase( ClassProxy aTarget, Object aFinder) {
 		String aMessage = "Expecting in class " + aTarget.getName() + " a read method with header: public <T> elementAt(int <parameter name>)";
 				
 		
-		new MissingElementAtOfVector(aMessage, aTarget, aFinder);
+		MissingElementAtOfVector retVal = new MissingElementAtOfVector(aMessage, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

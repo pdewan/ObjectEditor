@@ -14,10 +14,12 @@ public class MissingSizeofList extends ClassError {
 	
 
 
-	public static void newCase( ClassProxy aTarget, Object aFinder) {
+	public static MissingSizeofList newCase( ClassProxy aTarget, Object aFinder) {
 		String aMessage = "Expecting in class: " +  aTarget.getName() + " the size method with header: public int size()";	
 		
-		new MissingSizeofList(aMessage, aTarget, aFinder);
+		MissingSizeofList retVal = new MissingSizeofList(aMessage, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

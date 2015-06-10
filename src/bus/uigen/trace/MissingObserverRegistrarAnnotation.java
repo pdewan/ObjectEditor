@@ -11,10 +11,12 @@ public class MissingObserverRegistrarAnnotation extends MethodWarning {
 
 	
 
-	public static void newCase(MethodProxy aMethod, String aListenerType, Class anAnnotation, Object aFinder) {
+	public static MissingObserverRegistrarAnnotation newCase(MethodProxy aMethod, String aListenerType, Class anAnnotation, Object aFinder) {
 		String aMessage = aMethod
 		+ " should be associated with annotation: " + "@" + anAnnotation.getSimpleName() + "(" + aListenerType + ")";
-		new MissingObserverRegistrarAnnotation(aMessage, aMethod, aFinder);
+		MissingObserverRegistrarAnnotation retVal = new MissingObserverRegistrarAnnotation(aMessage, aMethod, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

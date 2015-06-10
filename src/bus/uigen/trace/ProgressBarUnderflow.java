@@ -8,9 +8,11 @@ public class ProgressBarUnderflow extends TraceableWarning {
 		super(aMessage, aFinder);	
 	}
 	
-	public static void newCase(int value, int minValue, Object aFinder) {
+	public static ProgressBarUnderflow newCase(int value, int minValue, Object aFinder) {
     	String aMessage = "New progressBar value: " + value + " < " + "the min value: " + minValue + '\n' + "Decreasing the min value.";
-		new ProgressBarUnderflow(aMessage, aFinder);
+    	ProgressBarUnderflow retVal = new ProgressBarUnderflow(aMessage, aFinder);
+    	retVal.announce();
+    	return retVal;
 	}
 
 }

@@ -14,9 +14,11 @@ public class SubstitutionOfDeclaredPattern extends ClassPatternWarning {
 	}
 	
 
-	public static void newCase(String aPattern, String anImplicitPattern, ClassProxy aTarget, Object aFinder) {
+	public static SubstitutionOfDeclaredPattern newCase(String aPattern, String anImplicitPattern, ClassProxy aTarget, Object aFinder) {
 		String aMessage = "Assuming implicit pattern: " + anImplicitPattern + " instead of: "  + aPattern;
-		new SubstitutionOfDeclaredPattern(aMessage, aPattern, anImplicitPattern, aTarget, aFinder);
+		SubstitutionOfDeclaredPattern retVal = new SubstitutionOfDeclaredPattern(aMessage, aPattern, anImplicitPattern, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

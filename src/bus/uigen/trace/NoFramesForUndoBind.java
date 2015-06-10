@@ -8,9 +8,11 @@ public class NoFramesForUndoBind extends TraceableError {
 		super(aMessage, aFinder);		
 	}
 	
-	public static void newExample(Object aFinder) {
+	public static NoFramesForUndoBind newExample(Object aFinder) {
 		String aMessage =	"Bind first the application objects to widgets before binding the undo";	
-		new NoFramesForUndoBind(aMessage, aFinder);
+		NoFramesForUndoBind retVal = new NoFramesForUndoBind(aMessage, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

@@ -12,9 +12,11 @@ public class UnknownPropertyBind extends ObjectPropertyError {
 
 	
 
-	public static void newCase(String aProperty, Object aTarget, Object aFinder) {
+	public static UnknownPropertyBind newCase(String aProperty, Object aTarget, Object aFinder) {
 		String aMessage = "Object " + aTarget + " does not have property " + aProperty;
-		new UnknownPropertyBind(aMessage, aProperty, aTarget, aFinder);
+		UnknownPropertyBind retVal = new UnknownPropertyBind(aMessage, aProperty, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

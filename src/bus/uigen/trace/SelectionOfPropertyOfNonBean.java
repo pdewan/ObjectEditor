@@ -11,9 +11,11 @@ public class SelectionOfPropertyOfNonBean extends ObjectPropertyError {
 
 	
 
-	public static void newCase(String aProperty, Object aTarget, Object aFinder) {
+	public static SelectionOfPropertyOfNonBean newCase(String aProperty, Object aTarget, Object aFinder) {
 		String aMessage = "Selection of property of non Bean: " + aTarget;
-		new SelectionOfPropertyOfNonBean(aMessage, aProperty, aTarget, aFinder);
+		SelectionOfPropertyOfNonBean retVal = new SelectionOfPropertyOfNonBean(aMessage, aProperty, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

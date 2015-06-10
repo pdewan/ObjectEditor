@@ -13,14 +13,16 @@ public class UndeclaredPattern extends ClassPatternWarning {
 
 	
 
-	public static void newCase(String aPattern, ClassProxy aTarget, Object aFinder) {
+	public static UndeclaredPattern newCase(String aPattern, ClassProxy aTarget, Object aFinder) {
 		String aMessage = "Assuming implicit pattern: " + aPattern + "\n"
 
 							+ "  If this pattern is correct, use annotation @StructurePattern(\""
 											+ aPattern
 											+ "\") for class "
 											+ aTarget.getName();
-		new UndeclaredPattern(aMessage, aPattern, aTarget, aFinder);
+		UndeclaredPattern retVal = new UndeclaredPattern(aMessage, aPattern, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

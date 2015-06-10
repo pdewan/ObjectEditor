@@ -12,9 +12,11 @@ public class MissingAngleGetter extends ClassWarning {
 	
 	
 	
-	public static void newCase(ClassProxy aClass, Object aFinder) {
+	public static MissingAngleGetter newCase(ClassProxy aClass, Object aFinder) {
     	String aMessage = "Class: " + aClass.getName() + " should have int getters for both startAngle and endAngle";
-   	    new MissingAngleGetter(aMessage, aClass, aFinder);
+    	MissingAngleGetter retVal = new MissingAngleGetter(aMessage, aClass, aFinder);
+    	retVal.announce();
+    	return retVal;
 	}
 
 }

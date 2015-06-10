@@ -21,12 +21,15 @@ public class IllegalPropertyNotification extends ObjectWarning {
 
 	
 
-	public static void newCase(PropertyChangeEvent aProperty, Object aTarget, Object aFinder) {
+	public static IllegalPropertyNotification newCase(PropertyChangeEvent aProperty, Object aTarget, Object aFinder) {
 		String aMessage = "Received illegal property notification "
 						+ aProperty + " of object: " + aTarget + ". Check the property name and type of new value. Updating complete object.";
 //		Tracer.warning("Received notification for unknown property: "
 //				+ changedPrpertyName + " of object " + evt.getSource() + ". Updating complete object.");
-		new IllegalPropertyNotification(aMessage, aProperty, aTarget, aFinder);
+		IllegalPropertyNotification retVal = new IllegalPropertyNotification(aMessage, aProperty, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
+		
 	}
 
 }

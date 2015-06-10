@@ -8,9 +8,11 @@ public class LeafAdapterInconsistency extends TraceableWarning {
 		super(aMessage, aFinder);	
 	}
 	
-	public static void newExample(int pos, int size, Object aFinder) {
+	public static LeafAdapterInconsistency newExample(int pos, int size, Object aFinder) {
 		String aMessage = "Leaf adapter inconsistency, accessing:" + pos + "size:" + size + "\n Hide the main panel to continue working, and report this error if you have not received the multiple visit error. This error does not change the behavior of your program.";
-		new LeafAdapterInconsistency(aMessage, aFinder);
+		LeafAdapterInconsistency retVal = new LeafAdapterInconsistency(aMessage, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

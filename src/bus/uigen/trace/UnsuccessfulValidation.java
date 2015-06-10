@@ -21,10 +21,12 @@ public class UnsuccessfulValidation extends MethodWarning {
 		return parameterList;
 	}
 
-	public static void newCase(MethodProxy aMethod, Object aTarget, Object[] aParameterList, Object aFinder) {
+	public static UnsuccessfulValidation newCase(MethodProxy aMethod, Object aTarget, Object[] aParameterList, Object aFinder) {
 		String aMessage = "Validation of method: " + aMethod
 				+ "of object: " + aTarget + " with parameter values " + aParameterList + " returns false";
-		new UnsuccessfulValidation(aMessage, aMethod, aTarget, aParameterList, aFinder);
+		UnsuccessfulValidation retVal = new UnsuccessfulValidation(aMessage, aMethod, aTarget, aParameterList, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

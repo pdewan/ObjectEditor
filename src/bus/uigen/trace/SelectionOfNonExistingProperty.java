@@ -11,9 +11,11 @@ public class SelectionOfNonExistingProperty extends ObjectPropertyError {
 
 	
 
-	public static void newCase(String aProperty, Object aTarget, Object aFinder) {
+	public static SelectionOfNonExistingProperty newCase(String aProperty, Object aTarget, Object aFinder) {
 		String aMessage = "Selection of non existing:" + aProperty + " of object:" + aTarget;
-		new SelectionOfNonExistingProperty(aMessage, aProperty, aTarget, aFinder);
+		SelectionOfNonExistingProperty retVal = new SelectionOfNonExistingProperty(aMessage, aProperty, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

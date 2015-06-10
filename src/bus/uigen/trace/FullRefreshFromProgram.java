@@ -12,9 +12,11 @@ public class FullRefreshFromProgram extends ObjectWarning {
 
 	
 
-	public static void newCase(Object aTarget, Object aFinder) {
+	public static FullRefreshFromProgram newCase(Object aTarget, Object aFinder) {
 		String aMessage = "Refreshing complete object: " + aTarget + ". If you know them, announce property and/or list events.";
-		new FullRefreshFromProgram(aMessage, aTarget, aFinder);
+		FullRefreshFromProgram retVal = new FullRefreshFromProgram(aMessage, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

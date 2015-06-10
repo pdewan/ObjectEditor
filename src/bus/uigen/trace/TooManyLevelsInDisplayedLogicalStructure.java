@@ -28,7 +28,9 @@ public class TooManyLevelsInDisplayedLogicalStructure extends TraceableError {
 	public static TooManyLevelsInDisplayedLogicalStructure newCase(ObjectAdapter anAdapter, int aNestingLimit, Object aFinder) {
 		String aMessage = "Number of nodes > max nodes: " + aNestingLimit +  " while creating node with path:" + anAdapter.getPath() 
 				+ "\n Use @Visible(false) annotation for getter of the property causing the node explosition or ask the professor for a larger node limit.";
-		return new TooManyLevelsInDisplayedLogicalStructure(aMessage, anAdapter, aNestingLimit, aFinder);
+		TooManyLevelsInDisplayedLogicalStructure retVal =  new TooManyLevelsInDisplayedLogicalStructure(aMessage, anAdapter, aNestingLimit, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

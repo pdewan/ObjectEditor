@@ -13,9 +13,11 @@ public class MissingControlGetter extends ClassWarning {
 		return targetClass;
 	}
 	
-	public static void newCase(ClassProxy aClass, Object aFinder) {
+	public static MissingControlGetter newCase(ClassProxy aClass, Object aFinder) {
     	String aMessage = "Class: " + aClass.getName() + " should have int controls for both ControlX and ContrtolY";
-   	    new MissingControlGetter(aMessage, aClass, aFinder);
+    	MissingControlGetter retVal = new MissingControlGetter(aMessage, aClass, aFinder);
+    	retVal.announce();
+    	return retVal;
 	}
 
 }

@@ -21,13 +21,15 @@ public class IllegalSourceOfPropertyNotification extends ObjectWarning {
 
 	
 
-	public static void newCase(PropertyChangeEvent anEvent, Object aTarget, Object aFinder) {
+	public static IllegalSourceOfPropertyNotification newCase(PropertyChangeEvent anEvent, Object aTarget, Object aFinder) {
 		String aMessage = "Source of property notification: "
 						+ anEvent + "\n\tnot the same as the expected obervable:" + aTarget +
 						".\n\tPerhaps addPropertyChangeListener() of: " + aTarget + " registered its listener with other objects such as its children, which should be done in another kind of method.";
 //		Tracer.warning("Received notification for unknown property: "
 //				+ changedPrpertyName + " of object " + evt.getSource() + ". Updating complete object.");
-		new IllegalSourceOfPropertyNotification(aMessage, anEvent, aTarget, aFinder);
+		IllegalSourceOfPropertyNotification retVal = new IllegalSourceOfPropertyNotification(aMessage, anEvent, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

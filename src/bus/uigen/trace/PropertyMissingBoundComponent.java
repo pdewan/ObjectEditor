@@ -12,9 +12,11 @@ public class PropertyMissingBoundComponent extends ObjectPropertyError {
 
 	
 
-	public static void newCase(String aProperty, Object aTarget, Object aFinder) {
+	public static PropertyMissingBoundComponent newCase(String aProperty, Object aTarget, Object aFinder) {
 		String aMessage = "Please provide UI component for property: " + aProperty;
-		new PropertyMissingBoundComponent(aMessage, aProperty, aTarget, aFinder);
+		PropertyMissingBoundComponent retVal = new PropertyMissingBoundComponent(aMessage, aProperty, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

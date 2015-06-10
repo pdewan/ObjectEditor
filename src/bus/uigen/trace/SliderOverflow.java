@@ -8,9 +8,11 @@ public class SliderOverflow extends TraceableWarning {
 		super(aMessage, aFinder);	
 	}
 	
-	public static void newCase(int value, int maxValue, Object aFinder) {
+	public static SliderOverflow newCase(int value, int maxValue, Object aFinder) {
     	String aMessage = "New slider value: " + value + " > " + "the max value: " + maxValue + '\n' + "Increasing the max value.";
-		new SliderOverflow(aMessage, aFinder);
+    	SliderOverflow retVal = new SliderOverflow(aMessage, aFinder);
+    	retVal.announce();
+    	return retVal;
 	}
 
 }

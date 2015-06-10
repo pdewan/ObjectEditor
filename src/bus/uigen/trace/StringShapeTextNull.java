@@ -9,9 +9,11 @@ public class StringShapeTextNull extends ObjectWarning {
 	public StringShapeTextNull(String aMessage, Object aTarget, Object aFinder) {
 		super(aMessage, aTarget, aFinder);	
 	}
-	public static void newCase(Object aTarget, Object aFinder) {
+	public static StringShapeTextNull newCase(Object aTarget, Object aFinder) {
 		String aMessage = "The text property of String shape " + aTarget + " is null" ;
-		new StringShapeTextNull(aMessage, aTarget, aFinder);
+		StringShapeTextNull retVal = new StringShapeTextNull(aMessage, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

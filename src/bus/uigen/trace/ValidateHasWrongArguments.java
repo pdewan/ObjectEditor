@@ -14,9 +14,11 @@ public class ValidateHasWrongArguments extends MethodWarning {
 		return subject;
 	}	
 
-	public static void newCase(MethodProxy aValidate, MethodProxy aSubject,  Object aFinder) {
+	public static ValidateHasWrongArguments newCase(MethodProxy aValidate, MethodProxy aSubject,  Object aFinder) {
 		String aMessage = aValidate + " not recognized as validate method of " +  aSubject + " as their parameters do not match";
-		new ValidateHasWrongArguments(aMessage, aValidate, aSubject, aFinder);
+		ValidateHasWrongArguments retVal = new ValidateHasWrongArguments(aMessage, aValidate, aSubject, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

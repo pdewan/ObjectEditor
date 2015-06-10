@@ -12,9 +12,11 @@ public class CompositePropertyBind extends ObjectPropertyError {
 
 	
 
-	public static void newCase(String aProperty, Object aTarget, Object aFinder) {
+	public static CompositePropertyBind newCase(String aProperty, Object aTarget, Object aFinder) {
 		String aMessage = "Property " + aProperty + "of object " + aTarget + " is not primitive";
-		new CompositePropertyBind(aMessage, aProperty, aTarget, aFinder);
+		CompositePropertyBind retVal = new CompositePropertyBind(aMessage, aProperty, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

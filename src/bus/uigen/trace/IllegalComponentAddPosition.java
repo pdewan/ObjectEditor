@@ -9,10 +9,12 @@ public class IllegalComponentAddPosition extends TraceableWarning {
 		super(aMessage, aFinder);		
 	}
 	
-	public static void newExample(int pos, Object aFinder) {
+	public static IllegalComponentAddPosition newExample(int pos, Object aFinder) {
 		String aMessage =	"Illegal position to add:" + pos
 		+ " adding to end";	
-		new IllegalComponentAddPosition(aMessage, aFinder);
+		IllegalComponentAddPosition retVal = new IllegalComponentAddPosition(aMessage, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

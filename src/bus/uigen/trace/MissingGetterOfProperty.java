@@ -15,12 +15,14 @@ public class MissingGetterOfProperty extends ClassPropertyError {
 	
 
 
-	public static void newCase(String aProperty, ClassProxy aTarget, Object aFinder) {
-		String aMessage = "For property: "
-				+ aProperty
-				+ " in  property names, please define a getter with the header:\n\t"
+	public static MissingGetterOfProperty newCase(String aProperty, ClassProxy aTarget, Object aFinder) {
+		String aMessage = "For property "
+				+ aProperty + " of " + aTarget.getSimpleName() +
+				" please define a getter with the header:\n\t"
 				+ IntrospectUtility.toGetterSignature(aProperty);
-		new MissingGetterOfProperty(aMessage,  aProperty,  aTarget, aFinder);
+		MissingGetterOfProperty retVal = new MissingGetterOfProperty(aMessage,  aProperty,  aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

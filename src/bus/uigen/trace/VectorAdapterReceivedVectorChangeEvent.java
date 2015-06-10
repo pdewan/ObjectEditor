@@ -40,11 +40,13 @@ public class VectorAdapterReceivedVectorChangeEvent extends ObjectAdapterInfo{
 	public VectorAdapter getVectorAdapter() {
 		return (VectorAdapter) getObjectAdapter();
 	}
-	public static void newCase(VectorAdapter aFinder,
+	public static VectorAdapterReceivedVectorChangeEvent newCase(VectorAdapter aFinder,
 			VectorChangeEvent anEvent) {
    	String aMessage = "Vector adapter:" + aFinder + " received vector change event:" + anEvent;
    	VectorAdapterReceivedVectorChangeEvent traceable = new VectorAdapterReceivedVectorChangeEvent(aMessage);
    	traceable.init (aFinder, anEvent);
+   	traceable.announce();
+   	return traceable;
 
 	}
 	

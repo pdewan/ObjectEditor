@@ -9,9 +9,11 @@ public class SelectionOfInvisibleObject extends ObjectError {
 	public SelectionOfInvisibleObject(String aMessage, Object aTarget, Object aFinder) {
 		super(aMessage, aTarget, aFinder);	
 	}
-	public static void newCase(Object aTarget, Object aFinder) {
+	public static SelectionOfInvisibleObject newCase(Object aTarget, Object aFinder) {
 		String aMessage = "Selected object: " + aTarget + " not displayed";
-		new SelectionOfInvisibleObject(aMessage, aTarget, aFinder);
+		SelectionOfInvisibleObject retVal = new SelectionOfInvisibleObject(aMessage, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

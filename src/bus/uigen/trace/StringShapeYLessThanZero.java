@@ -10,9 +10,11 @@ public class StringShapeYLessThanZero extends ObjectWarning {
 	public StringShapeYLessThanZero(String aMessage, Object aTarget, Object aFinder) {
 		super(aMessage, aTarget, aFinder);	
 	}
-	public static void newCase(ObjectAdapter aTarget, Object aFinder) {
+	public static StringShapeYLessThanZero newCase(ObjectAdapter aTarget, Object aFinder) {
 		String aMessage = "The Y property  + height of " +  aTarget.getPath() + " is < 0. It will not be visible";
-		new StringShapeYLessThanZero(aMessage, aTarget.getRealObject(), aFinder);
+		StringShapeYLessThanZero retVal = new StringShapeYLessThanZero(aMessage, aTarget.getRealObject(), aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

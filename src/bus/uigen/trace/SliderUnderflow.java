@@ -8,9 +8,11 @@ public class SliderUnderflow extends TraceableWarning {
 		super(aMessage, aFinder);	
 	}
 	
-	public static void newCase(int value, int minValue, Object aFinder) {
+	public static SliderUnderflow newCase(int value, int minValue, Object aFinder) {
     	String aMessage = "New slider value: " + value + " < " + "the min value: " + minValue + '\n' + "Decreasing the min value.";
-		new SliderUnderflow(aMessage, aFinder);
+    	SliderUnderflow retVal = new SliderUnderflow(aMessage, aFinder);
+    	retVal.announce();
+    	return retVal;
 	}
 
 }

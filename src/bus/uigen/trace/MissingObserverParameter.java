@@ -29,11 +29,13 @@ public class MissingObserverParameter extends MethodWarning {
 
 	
 
-	public static void newCase(MethodProxy aMethod, ClassProxy aListenerType,  Object aFinder) {
+	public static MissingObserverParameter newCase(MethodProxy aMethod, ClassProxy aListenerType,  Object aFinder) {
 		String aMessage = "Use annotation @" + util.annotations.ObserverRegisterer.class.getSimpleName() + "("
 				+ aListenerType
 				+ ") for method " + aMethod;
-		new MissingObserverParameter(aMessage, aMethod, aListenerType, aFinder);
+		MissingObserverParameter retVal = new MissingObserverParameter(aMessage, aMethod, aListenerType, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

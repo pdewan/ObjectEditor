@@ -10,10 +10,12 @@ public class ShapeRightXLessThanZero extends ObjectWarning {
 
 	
 
-	public static void newCase(ObjectAdapter anAdapter, Object aTarget, int anX, Object aFinder) {
+	public static ShapeRightXLessThanZero newCase(ObjectAdapter anAdapter, Object aTarget, int anX, Object aFinder) {
 //		String aMessage = "X < 0 of " + anAdapter.getPath() + " (" + aTarget + ")";
 		String aMessage = "Right X  = " + anX + " < 0 of " + anAdapter.getPath() + " (" + aTarget + ")";
-		new ShapeRightXLessThanZero(aMessage, aTarget, aFinder);
+		ShapeRightXLessThanZero retVal = new ShapeRightXLessThanZero(aMessage, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

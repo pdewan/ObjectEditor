@@ -27,11 +27,13 @@ public class ExecutedVectorAdapterVectorChangeEvent
 //				event.getPosition() == other.getVectorChangeEvent().getPosition() &&
 //				event.getNewValue() == other.getVectorChangeEvent().getNewValue();
 //	}
-	public static void newCase(VectorAdapter aFinder,
+	public static ExecutedVectorAdapterVectorChangeEvent newCase(VectorAdapter aFinder,
 			VectorChangeEvent anEvent) {
     	String aMessage = "Executed vector adapter:" + aFinder + "  property change event:" + anEvent;
     	ExecutedVectorAdapterVectorChangeEvent traceable = new ExecutedVectorAdapterVectorChangeEvent(aMessage);
     	traceable.init(aFinder, anEvent);
+    	traceable.announce();
+    	return traceable;
 
 	}
 	

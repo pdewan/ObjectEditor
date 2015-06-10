@@ -8,9 +8,11 @@ public class ProgressBarOverflow extends TraceableWarning {
 		super(aMessage, aFinder);	
 	}
 	
-	public static void newCase(int value, int maxValue, Object aFinder) {
+	public static ProgressBarOverflow newCase(int value, int maxValue, Object aFinder) {
     	String aMessage = "New progressBar value: " + value + " > " + "the max value: " + maxValue + '\n' + "Increasing the max value.";
-		new ProgressBarOverflow(aMessage, aFinder);
+    	ProgressBarOverflow retVal = new ProgressBarOverflow(aMessage, aFinder);
+    	retVal.announce();
+    	return retVal;
 	}
 
 }

@@ -26,9 +26,11 @@ public class UndeclaredEditableProperty extends ClassPropertyWarning {
 //		return target;
 //	}
 
-	public static void newCase(String aProperty, ClassProxy aTarget, Object aFinder) {
+	public static UndeclaredEditableProperty newCase(String aProperty, ClassProxy aTarget, Object aFinder) {
 		String aMessage = "Implicitly editable property: " + aProperty +   "of class " + aTarget + " not considered editable as it is not in editable property names list. \n";
-		new UndeclaredEditableProperty(aMessage, aProperty, aTarget, aFinder);
+		UndeclaredEditableProperty retVal = new UndeclaredEditableProperty(aMessage, aProperty, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

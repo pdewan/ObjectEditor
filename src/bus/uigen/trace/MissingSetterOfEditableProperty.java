@@ -2,6 +2,7 @@ package bus.uigen.trace;
 
 import util.annotations.Explanation;
 import util.annotations.WebDocuments;
+import util.trace.ImageFileMissing;
 import util.trace.TraceableWarning;
 import bus.uigen.introspect.IntrospectUtility;
 import bus.uigen.reflect.ClassProxy;
@@ -22,10 +23,12 @@ public class MissingSetterOfEditableProperty extends ClassPropertyError {
 	
 
 
-	public static void newCase(String aProperty, MethodProxy aGetter, ClassProxy aTarget, Object aFinder) {
-		String aMessage = "For property: " + aProperty + "of class " + aTarget + " in editable property names, please define a setter with the header:\n\t" +
+	public static MissingSetterOfEditableProperty newCase(String aProperty, MethodProxy aGetter, ClassProxy aTarget, Object aFinder) {
+		String aMessage = "For editable property " + aProperty + " of " + aTarget.getSimpleName() + " please define a setter with the header:\n\t" +
 						IntrospectUtility.toSetterSignature(aProperty, aGetter);
-		new MissingSetterOfEditableProperty(aMessage,  aProperty, aGetter, aTarget, aFinder);
+		MissingSetterOfEditableProperty retVal = new MissingSetterOfEditableProperty(aMessage,  aProperty, aGetter, aTarget, aFinder);
+		retVal.announce();
+		return retVal;
 	}
 
 }

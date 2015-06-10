@@ -10,9 +10,11 @@ public class NotSerializable extends ClassWarning {
 //		target = aClass;
 	}
 	
-	public static void newCase(ClassProxy aClass, Object aFinder) {
+	public static NotSerializable newCase(ClassProxy aClass, Object aFinder) {
     	String aMessage = "Make class " + aClass + " serializable when you learn about this concept to make implicit refresh work reliably." ;
-   	    new NotSerializable(aMessage, aClass, aFinder);
+    	NotSerializable retVal = new NotSerializable(aMessage, aClass, aFinder);
+    	retVal.announce();
+    	return retVal;
 	}
 
 }
