@@ -30,7 +30,7 @@ import util.annotations.StructurePattern;
 import util.introspect.JavaIntrospectUtility;
 import util.misc.Common;
 import util.models.ADynamicSparseList;
-import util.models.PropertyListenerRegistrar;
+import util.models.PropertyListenerRegisterer;
 import util.models.VectorListener;
 import util.models.VectorListenerRegisterer;
 import util.trace.Tracer;
@@ -2730,7 +2730,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 	}
 
 	static ClassProxy propertyListenerRegistererClass = RemoteSelector
-			.classProxy(PropertyListenerRegistrar.class);
+			.classProxy(PropertyListenerRegisterer.class);
 	static ClassProxy propertyChangeListenerClass = RemoteSelector
 			.classProxy(PropertyChangeListener.class);
 

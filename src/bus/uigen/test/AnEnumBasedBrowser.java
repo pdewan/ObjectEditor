@@ -14,7 +14,7 @@ import util.annotations.Position;
 import util.annotations.PreferredWidgetClass;
 import util.models.ADynamicEnum;
 import util.models.DynamicEnum;
-import util.models.PropertyListenerRegistrar;
+import util.models.PropertyListenerRegisterer;
 
 public class AnEnumBasedBrowser implements PropertyChangeListener {
 	DynamicEnum<String> topLevel = new ADynamicEnum();

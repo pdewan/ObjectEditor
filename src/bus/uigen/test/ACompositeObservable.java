@@ -7,11 +7,11 @@ import util.annotations.Explanation;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.misc.ThreadSupport;
-import util.models.PropertyListenerRegistrar;
+import util.models.PropertyListenerRegisterer;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
-public class ACompositeObservable extends ACompositeExample  implements PropertyListenerRegistrar {
+public class ACompositeObservable extends ACompositeExample  implements PropertyListenerRegisterer {
 //	String string = "a string";
 //	int intVal = 5;
 //	String intAndString;
