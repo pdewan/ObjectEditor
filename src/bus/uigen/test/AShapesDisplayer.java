@@ -6,7 +6,7 @@ import util.models.AListenableString;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 
-public class ADraweShapesDisplayer {
+public class AShapesDisplayer {
 	public static void main (String[] args) {
 		try {
 		Object[] shapes = {new LineModel(0, 0, 100, 100), new OvalModel(0, 0, 100, 100), new AListenableString("Hello worls")};
