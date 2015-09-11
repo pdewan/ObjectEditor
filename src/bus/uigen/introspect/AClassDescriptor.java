@@ -2882,7 +2882,9 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			MethodDescriptorProxy[] mds) {
 		ADynamicSparseList<MethodDescriptorProxy> retVal = new ADynamicSparseList();
 		for (int i = 0; i < mds.length; i++) {
-			Integer pos = (Integer) mds[i].getValue(AttributeNames.POSITION);
+//			Integer pos = (Integer) mds[i].getValue(AttributeNames.POSITION);
+			Integer pos = (Integer) getMethodAttribute(mds[i], AttributeNames.POSITION);
+
 			if (pos != null && pos != -1)
 				retVal.setOrInsertNewElementAbove(pos, mds[i]);
 			else

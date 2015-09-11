@@ -4,6 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import util.annotations.Explanation;
+import util.annotations.Position;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.misc.ThreadSupport;
@@ -24,6 +25,7 @@ public class ACompositeExample  {
 		
 		
 	}
+	@Position(1)
 	public void incInt() {
 		intVal++;
 	}
@@ -36,21 +38,23 @@ public class ACompositeExample  {
 
 
 	}
+	@Position(0)
 	@Explanation("A String")
 //	@PreferredWidgetClass(JLabel.class)
 	public String getString() {
 		return string;
 	}
 	@Explanation("An Int")
+	@Position(1)
 	public int getInt() {
 		return intVal;
 	}
-
+//	@Position(0)
 	public void setInt(int newVal) {
 		this.intVal = newVal;
 		
 	}
-	
+	@Position(0)
 	public void set(String newString, int newInt) {
 		
 		string = newString;
