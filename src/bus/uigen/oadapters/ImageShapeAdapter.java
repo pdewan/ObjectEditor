@@ -48,6 +48,10 @@ public class ImageShapeAdapter extends BoundedShapeAdapter implements RemoteProp
   boolean respondToPropertyChange (PropertyChangeEvent event) {
 		 try {
 		  String propertyName = event.getPropertyName().trim().toLowerCase();
+		  if (textMode) {
+			  super.subPropertyChange(event);
+			  return true;
+		  }
 		  RemoteImage shape = (RemoteImage) computeAndMaybeSetViewObject();
 		  if (propertyName.equals("imagefilename")) {
 			  setImageFileName(shape, (String) event.getNewValue());			

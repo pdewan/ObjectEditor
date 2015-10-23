@@ -1020,10 +1020,14 @@ public int recalculateViewObjectZAxis(RemoteShape shape) {
   		setSupressPropertyChange(false);
   		return;
   	}
+  			if (textMode) {
+  				super.subPropertyChange(evt);
+  			} else {
   			boolean retVal = respondToPropertyChange (evt);
   			if (!retVal) {
   				if (!shapePropertiesSet.contains(evt.getPropertyName()))
   					UnknownPropertyNotification.newCase(evt.getPropertyName(), evt.getSource(), this);			recalculateViewObject();
+  			}
   			}			//recalculateViewObjectColor()			if (getWidgetAdapter() != null)
 			getWidgetAdapter().setUIComponentValue(this.computeAndMaybeSetViewObject());
 		
@@ -1031,6 +1035,10 @@ public int recalculateViewObjectZAxis(RemoteShape shape) {
   boolean respondToPropertyChange (PropertyChangeEvent event) {
 		 try {
 		  String propertyName = event.getPropertyName().toLowerCase();
+		  if (textMode) {
+			  super.subPropertyChange(event);
+			  return true; 
+		  }
 		  RemoteShape shape = (RemoteShape) computeAndMaybeSetViewObject();
 		  if (propertyName.equals("x")) {
 			  setX(shape, (int) event.getNewValue());

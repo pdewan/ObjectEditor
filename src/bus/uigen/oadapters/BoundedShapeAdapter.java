@@ -61,6 +61,7 @@ import bus.uigen.trace.ShapeRightXLessThanZero;
   boolean respondToPropertyChange (PropertyChangeEvent event) {
 		 try {
 		  String propertyName = event.getPropertyName().toLowerCase();
+		  if (!textMode) {
 		  RemoteShape shape = (RemoteShape) computeAndMaybeSetViewObject();
 		  if (propertyName.equals("width")) {
 			  setWidth(shape, (int) event.getNewValue());
@@ -69,6 +70,7 @@ import bus.uigen.trace.ShapeRightXLessThanZero;
 		  if (propertyName.equals("height")) {
 			  setHeight(shape, (int) event.getNewValue());
 			  return true;
+		  }
 		  }
 		 
 		  return super.respondToPropertyChange(event);
