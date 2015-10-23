@@ -1,18 +1,22 @@
 package bus.uigen.test;
 
 import util.annotations.ComponentsVisible;
+import util.annotations.PropertyNames;
 import util.annotations.Visible;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
 @ComponentsVisible(false)
+@PropertyNames({"String"})
 public class AComponentsVisibleExample extends ACompositeExample {
 	
-	@Visible(true)
+//	@Visible(true)
+	@Visible(false)
 	public String getString() {
 		return super.getString();
 	}
 	
-	@Visible(true)
+//	@Visible(true)
+	@Visible(false)
 	public void incInt() {
 		 super.incInt();
 	}
