@@ -63,6 +63,9 @@ import bus.uigen.trace.ShapeRightXLessThanZero;
 		  String propertyName = event.getPropertyName().toLowerCase();
 		  if (!textMode) {
 		  RemoteShape shape = (RemoteShape) computeAndMaybeSetViewObject();
+		  if (shape == null) {
+			  return true; // shape is not yet initialized, not sure why
+		  }
 		  if (propertyName.equals("width")) {
 			  setWidth(shape, (int) event.getNewValue());
 			  return true;
