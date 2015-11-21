@@ -5330,7 +5330,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 		if (getObjectAdapter().getStretchableByParent() && rowItems.size() == 0)
 			colPanel = boundComponentsPanel;
 		else
-			colPanel = SwingPanelFactory.createJPanel();
+			colPanel = SwingPanelFactory.createPanelStatic();
 		int numSubRows = 1;
 		if (thereExistsLabelAbove)
 			numSubRows++;
@@ -5453,7 +5453,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 		while (true) {
 			// int nextRowNum = rowItems.firstFilledSlot(curRowNum + 1);
 			if (curColNum > prevColNum) {
-				VirtualContainer matrixPanel = SwingPanelFactory.createJPanel();
+				VirtualContainer matrixPanel = SwingPanelFactory.createPanelStatic();
 				setLayout(getObjectAdapter(), matrixPanel, numRows, curColNum
 						- prevColNum);
 				/*
@@ -5491,7 +5491,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 				break;
 		}
 		if (prevColNum < childComponents.numCols() - 1) {
-			VirtualContainer matrixPanel = SwingPanelFactory.createJPanel();
+			VirtualContainer matrixPanel = SwingPanelFactory.createPanelStatic();
 			fillPanel(matrixPanel, 0, prevColNum, numRows, childComponents
 					.numCols()
 					- prevColNum);
@@ -5512,7 +5512,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			boolean thereExistsLabelRight) {
 		if (list == null || curRowNum == nextEmptyRow)
 			return null;
-		VirtualContainer rowPanel = SwingPanelFactory.createJPanel();
+		VirtualContainer rowPanel = SwingPanelFactory.createPanelStatic();
 		int numSubCols = 1;
 		if (thereExistsLabelLeft)
 			numSubCols++;
@@ -5828,7 +5828,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			// int nextRowNum = rowItems.firstFilledSlot(curRowNum + 1);
 
 			if (curRowNum > prevRowNum) {
-				VirtualContainer matrixPanel = SwingPanelFactory.createJPanel();
+				VirtualContainer matrixPanel = SwingPanelFactory.createPanelStatic();
 				// setLayout (getObjectAdapter(), matrixPanel, curRowNum -
 				// prevRowNum, numCols);
 				fillPanelEqualRows(matrixPanel, prevRowNum, 0, curRowNum
@@ -5889,7 +5889,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			// if (curRowNum == -1) break;
 		}
 		if (prevRowNum < childComponents.numRows() - 1) {
-			VirtualContainer matrixPanel = SwingPanelFactory.createJPanel();
+			VirtualContainer matrixPanel = SwingPanelFactory.createPanelStatic();
 			fillPanel(matrixPanel, prevRowNum, 0, childComponents.numRows()
 					- prevRowNum, numCols);
 			parent.add(matrixPanel);
@@ -6005,7 +6005,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			// if (curRowNum == -1) break;
 		}
 		if (prevRowNum < childComponents.numRows() - 1) {
-			VirtualContainer matrixPanel = SwingPanelFactory.createJPanel();
+			VirtualContainer matrixPanel = SwingPanelFactory.createPanelStatic();
 			fillPanel(matrixPanel, prevRowNum, 0, childComponents.numRows()
 					- prevRowNum, numCols);
 			parent.add(matrixPanel);
@@ -6085,7 +6085,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 				fillMatrixLabelsExceptBoundaries(childComponents, true, true,
 						true, true);
 				VirtualContainer boundSubPanel = SwingPanelFactory
-						.createJPanel();
+						.createPanelStatic();
 				// boundSubPanel.setLayout(boundComponentsPanel.getLayout());
 				// boundComponentsPanel.setLayout(new uiGridLayout(1, 1));
 				// boundComponentsPanel.add(leftLabelPanel);
@@ -6105,7 +6105,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 					createEmptyColumnBoundary(leftLabelPanel);
 				boundComponentsPanel.add(leftLabelPanel, BorderLayout.WEST);
 				VirtualContainer rightLabelPanel = SwingPanelFactory
-						.createJPanel();
+						.createPanelStatic();
 				if (!fillRightLabelColumn(rightLabelPanel))
 					createEmptyColumnBoundary(rightLabelPanel);
 				boundComponentsPanel.add(rightLabelPanel, BorderLayout.EAST);
@@ -6122,7 +6122,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 				}
 				boundComponentsPanel.add(topLabelPanel, BorderLayout.NORTH);
 				VirtualContainer bottomLabelPanel = SwingPanelFactory
-						.createJPanel();
+						.createPanelStatic();
 				if (!fillBottomLabelRow(bottomLabelPanel)) {
 					createEmptyRowBoundary(bottomLabelPanel);
 					// bottomLabelPanel.setSize(new Dimension
@@ -6168,7 +6168,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 				}
 				boundComponentsPanel.add(topLabelPanel, BorderLayout.NORTH);
 				VirtualContainer bottomLabelPanel = SwingPanelFactory
-						.createJPanel();
+						.createPanelStatic();
 				if (!fillBottomLabelRow(bottomLabelPanel)) {
 					createEmptyRowBoundary(bottomLabelPanel);
 					// bottomLabelPanel.setSize(new Dimension
@@ -6235,7 +6235,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			// SwingPanelFactory.createJPanel();
 			VirtualContainer boundSubPanel = boundComponentsPanel;
 			if (getObjectAdapter().getStretchRows())
-				boundSubPanel = SwingPanelFactory.createJPanel();
+				boundSubPanel = SwingPanelFactory.createPanelStatic();
 			// boundSubPanel.setLayout(boundComponentsPanel.getLayout());
 			// boundComponentsPanel.setLayout(new uiGridLayout(1, 1));
 			// boundComponentsPanel.add(leftLabelPanel);
@@ -6254,10 +6254,10 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 
 			if (getObjectAdapter().getStretchRows()) {
 				VirtualContainer leftLabelPanel = SwingPanelFactory
-						.createJPanel();
+						.createPanelStatic();
 				fillLeftLabelColumn(leftLabelPanel);
 				VirtualContainer rightLabelPanel = SwingPanelFactory
-						.createJPanel();
+						.createPanelStatic();
 				fillRightLabelColumn(rightLabelPanel);
 				boundComponentsPanel.setLayout(new BorderLayout());
 				boundComponentsPanel.add(leftLabelPanel, BorderLayout.WEST);
@@ -6284,7 +6284,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 		fillRowLabels(upperRowItems, true, true);
 		fillRowLabels(lowerRowItems, true, true);
 		fillColumnLabels(columnItems, true, true);
-		VirtualContainer matrixPanel = SwingPanelFactory.createJPanel();
+		VirtualContainer matrixPanel = SwingPanelFactory.createPanelStatic();
 		fillColumns(matrixPanel, childComponents.numRows());
 		boolean thereExistsLabelLeft = thereExistsLabelLeft(rowItems);
 		boolean thereExistsLabelRight = thereExistsLabelRight(rowItems);
@@ -6432,7 +6432,7 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 				fillRowLabels(rowItems, true, true);
 
 				// print (childComponents);
-				VirtualContainer matrixPanel = SwingPanelFactory.createJPanel();
+				VirtualContainer matrixPanel = SwingPanelFactory.createPanelStatic();
 				fillRows(matrixPanel, childComponents.numCols(), false, true);
 				boolean thereExistsLabelAbove = thereExistsLabelAbove(columnItems);
 				boolean thereExistsLabelBelow = thereExistsLabelBelow(columnItems);
