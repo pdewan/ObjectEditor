@@ -4313,7 +4313,7 @@ ObjectAdapterInterface, Remote, Serializable
 				 
 		 }
 		 // need to check this after setting the value
-		 if (getUIFrame().isSuppressPropertyNotifications()) {
+		 if (getUIFrame() != null && getUIFrame().isSuppressPropertyNotifications()) {
 			    handleSuppressedNotification(evt);
 				return;
 		 }
