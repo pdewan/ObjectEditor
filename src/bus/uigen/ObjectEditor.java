@@ -194,6 +194,10 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 		return uif;
 	}
 	*/
+	// do nothing, just call static block
+	public  static void initialize() {
+		
+	}
 	
 	public static boolean shareBeans() {
 		return shareBeans;

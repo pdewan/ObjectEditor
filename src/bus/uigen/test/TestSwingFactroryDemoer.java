@@ -11,6 +11,7 @@ import bus.uigen.widgets.swing.SwingToolkit;
 
 public class TestSwingFactroryDemoer {
 	public static void main (String[] anArgs) {
+		ObjectEditor.initialize();
 		ObjectEditor.edit(new ACompositeColorer());
 		PanelSelector.setPanelFactory(new MySwingPanelFactory());
 		TextFieldSelector.setTextFieldFactory(new TestSwingTextFieldFactory());
