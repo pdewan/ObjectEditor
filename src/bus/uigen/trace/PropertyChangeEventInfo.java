@@ -3,12 +3,13 @@ package bus.uigen.trace;
 import java.beans.PropertyChangeEvent;
 
 import bus.uigen.oadapters.ClassAdapter;
+import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.reflect.ClassProxy;
 
 public class PropertyChangeEventInfo extends ObjectAdapterInfo{
 	PropertyChangeEvent event;
 
-	public PropertyChangeEventInfo(String aMessage, ClassAdapter aFinder,
+	public PropertyChangeEventInfo(String aMessage, ObjectAdapter aFinder,
 			 PropertyChangeEvent anEvent) {
 		super(aMessage, aFinder);
 		event = anEvent;

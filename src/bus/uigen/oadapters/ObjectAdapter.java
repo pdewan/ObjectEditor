@@ -83,7 +83,10 @@ import bus.uigen.reflect.local.ReflectUtil;
 import bus.uigen.sadapters.ConcreteType;
 import bus.uigen.sadapters.EnumToEnumeration;
 import bus.uigen.sadapters.RecordStructure;
+import bus.uigen.trace.ClassAdapterReceivedPropertyChangeEvent;
 import bus.uigen.trace.LogicalStructureNodeCreated;
+import bus.uigen.trace.ObjectAdapterReceivedPropertyChangeEvent;
+import bus.uigen.trace.ReceivedPropertyChangeEventFromInvisibleComponent;
 import bus.uigen.trace.UnknownPropertyNotification;
 import bus.uigen.view.WidgetShell;
 import bus.uigen.viewgroups.OEView;
@@ -4254,6 +4257,8 @@ ObjectAdapterInterface, Remote, Serializable
 	// actually enumearion adapter also receives this event, so
 	// it ha sto be here
 	public synchronized void propertyChange(PropertyChangeEvent evt) {
+		ObjectAdapterReceivedPropertyChangeEvent.newCase((ObjectAdapter) this, evt) ;
+
 //		System.out.println ("Synchronized Property Change Listener Started");
 		// System.out.println("Property change:
 		// "+evt.getPropertyName()+"="+evt.getNewValue());
@@ -4274,6 +4279,7 @@ ObjectAdapterInterface, Remote, Serializable
 			return; // not an OE notification, meant for other observers
 		notifyAttributeDependencies(evt);
 		if (!isVisibleComponent()) {
+			ReceivedPropertyChangeEventFromInvisibleComponent.newCase(this, evt);
 			return;
 		}
 		if (evt.getSource() instanceof ObjectAdapter) {
