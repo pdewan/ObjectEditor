@@ -60,6 +60,7 @@ import bus.uigen.trace.IllegalPropertyNotification;
 import bus.uigen.trace.ImageYLessThanZero;
 import bus.uigen.trace.ShapeRightXLessThanZero;
 import bus.uigen.trace.ShapeLowerYLessThanZero;
+import bus.uigen.trace.ShapeObjectAdapterReceivedPropertyChangeEvent;
 import bus.uigen.trace.UnknownPropertyNotification;
 import bus.uigen.view.WidgetShell;
 import bus.uigen.widgets.VirtualComponent;
@@ -1016,6 +1017,7 @@ public int recalculateViewObjectZAxis(RemoteShape shape) {
   }
   
   public void subPropertyChange(PropertyChangeEvent evt){
+	  ShapeObjectAdapterReceivedPropertyChangeEvent.newCase(this, evt);
   	if (supressPropertyChange()) {
   		setSupressPropertyChange(false);
   		return;
