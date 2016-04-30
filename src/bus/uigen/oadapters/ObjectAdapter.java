@@ -7842,6 +7842,12 @@ ObjectAdapterInterface, Remote, Serializable
 			Object object, Object parentObject, String fieldname) {
 		Vector list;
 		Attribute attrib;
+//		if (ObjectEditor.isHeadless() || (adaptor != null && adaptor.getUIFrame() == null)) {
+//			return;
+//		}
+		if (ObjectEditor.isHeadless() || (uiGenerator.getTopFrame() == null)) {
+			return;
+		}
 		// attrib = new Attribute("preferredWidget",
 		// componentMapping.getDefaultComponent(object.getClass().getName()));
 		// adaptor.setLocalAttribute(attrib);

@@ -804,6 +804,10 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 		uiGenerator.deepCreateChildren(retVal, false);
 		return retVal;
 	}
+	public static boolean isHeadless() {
+		String headlLessProperty = System.getProperty("java.awt.headless");
+		return "true".equals(headlLessProperty);
+	}
 	public static ObjectAdapter toObjectAdapter(uiFrame theFrame, Object obj) {
 		return uiGenerator.toTopAdapter(theFrame, obj);
 	}
