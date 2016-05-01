@@ -806,7 +806,7 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 	}
 	public static boolean isHeadless() {
 		String headlLessProperty = System.getProperty("java.awt.headless");
-		return "true".equals(headlLessProperty);
+		return "true".equals(headlLessProperty) || GraphicsEnvironment.isHeadless();
 	}
 	public static ObjectAdapter toObjectAdapter(uiFrame theFrame, Object obj) {
 		return uiGenerator.toTopAdapter(theFrame, obj);
@@ -2764,7 +2764,9 @@ public static boolean withAttributeRegisterer() {
 		*/
 	}
 public static synchronized uiFrame edit(Object o, boolean showMenus, MenuSetter menuTest, AMenuDescriptor menuDescriptor, ObjectAdapter sourceAdapter, Hashtable selfAttributes, Vector childrenAttributes) {
-	if (GraphicsEnvironment.isHeadless()) {
+	if (isHeadless()) {
+
+//	if (GraphicsEnvironment.isHeadless()) {
 		System.err.println("Headless program, not generating UI");
 		uiFrame retVal = new uiFrame();
 		retVal.setIsDummy(true);
