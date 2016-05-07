@@ -4800,7 +4800,8 @@ ObjectAdapterInterface, Remote, Serializable
 		if (getImplicitRefreshOnNotification())
 			return;
 		receivedNotification = true;
-		getUIFrame().setReceivedNotification(true);
+		if (getUIFrame() != null)
+		   getUIFrame().setReceivedNotification(true);
 	}
 
 	void resetReceivedNotification() {
