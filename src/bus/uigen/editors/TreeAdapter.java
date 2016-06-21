@@ -305,8 +305,15 @@ public class TreeAdapter extends WidgetAdapter /*extends Frame*/
 			ObjectAdapter treeNode = (ObjectAdapter) jTree.getLastSelectedPathComponent();
 			if (treeNode == null) return;			//if (treePath == null) return;
 			//System.out.println(treePath);
-			System.out.println(treeNode);			//uiObjectAdapter treeNode = (uiObjectAdapter) treePath.getLastPathComponent();
-			if (!MethodInvocationManager.invokeDoubleClickMethod(treeNode))				frame.replaceFrame(treeNode);
+//			System.out.println(treeNode);			//uiObjectAdapter treeNode = (uiObjectAdapter) treePath.getLastPathComponent();
+			if (!MethodInvocationManager.invokeDoubleClickMethod(treeNode) && treeNode.getOpenOnDoubleClick())				frame.replaceFrame(treeNode);
+			TreePath tpath = new TreePath(treeNode);
+			((JTree) jTree.getPhysicalComponent()).expandPath(tpath);
+		} else {
+//			ObjectAdapter treeNode = (ObjectAdapter) jTree.getLastSelectedPathComponent();
+//			if (treeNode == null) return;
+//			TreePath tpath = new TreePath(treeNode);
+//			((JTree) jTree.getPhysicalComponent()).setSelectionPath(tpath);
 		}		
 		//if (listener !=   null) 
 		//listener.uiComponentFocusGained();
