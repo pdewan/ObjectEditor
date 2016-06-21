@@ -75,6 +75,8 @@ public class TreeAdapter extends WidgetAdapter /*extends Frame*/
 		//jTree.setModel(this);
 			jTree.setEditable(true);						jTree.addMouseListener(this);			jTree.addTreeSelectionListener(this);
 			jTree.addTreeExpansionListener(this);
+			//add this to virtual toolkit sometime
+			((JTree) jTree.getPhysicalComponent()).setCellRenderer(new CustomTreeCellRender());
 			if (spane == null)
 				super.setAttributes(jTree);
 				else {

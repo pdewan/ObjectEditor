@@ -29,8 +29,8 @@ public class ACompositeObservable extends ACompositeExample  implements Property
 		String oldVal = string;
 
 		super.setString(newVal);
-		propertyChangeSupport.firePropertyChange("AString", oldVal, newVal);
-		propertyChangeSupport.firePropertyChange("AnIntAndString", null, getIntAndString());
+		propertyChangeSupport.firePropertyChange("String", oldVal, newVal);
+		propertyChangeSupport.firePropertyChange("IntAndString", null, getIntAndString());
 
 
 	}

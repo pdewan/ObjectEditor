@@ -1609,8 +1609,12 @@ public class AGenericWidgetShell implements
 	void setColor(ObjectAdapter objectAdapter) {
 		Color componentBackground = objectAdapter.getComponentBackground();
 		Color containerBackground = objectAdapter.getContainerBackground();
-		setColor(getComponent(), componentBackground, containerBackground);
+		setColor(getComponent(), componentBackground, containerBackground); // component background?
 		setColor(getContainer(), componentBackground, containerBackground);
+		Color componentForeground = objectAdapter.getComponentForeground();
+		if (componentForeground != null)
+		  getComponent().setForeground(componentForeground);
+		
 //		VirtualComponent component = getComponent();
 //		VirtualComponent container = getContainer();
 		

@@ -19,19 +19,22 @@ public class ACompositeColorer extends ACompositeObservable {
 	public void setString(String newVal) {
 		super.setString(newVal);
 		if (newVal.isEmpty()) {
-			propertyChangeSupport.firePropertyChange("AString", null,
+			propertyChangeSupport.firePropertyChange("String", null,
 					new Attribute(AttributeNames.CONTAINER_BACKGROUND, Color.PINK));
 		} else {
-			propertyChangeSupport.firePropertyChange("AString", null,
+			propertyChangeSupport.firePropertyChange("String", null,
 					new Attribute(AttributeNames.CONTAINER_BACKGROUND, null));
-			propertyChangeSupport.firePropertyChange("AString", null,
+			propertyChangeSupport.firePropertyChange("String", null,
 					new Attribute(AttributeNames.COMPONENT_BACKGROUND, Color.GREEN));
+			propertyChangeSupport.firePropertyChange("Int", null,
+					new Attribute(AttributeNames.COMPONENT_FOREGROUND, Color.RED));
 		}
 
 	}
 	public static void main (String[] args) {
 		ACompositeExample example = new ACompositeColorer();
 		OEFrame mainFrame = ObjectEditor.edit(example);	
+		ObjectEditor.treeEdit(example);
 //		example.setAString("");
 //		ClassAdapter compositeAdapter = (ClassAdapter) mainFrame.getObjectAdapter(example);
 //		
