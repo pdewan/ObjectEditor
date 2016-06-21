@@ -1788,6 +1788,12 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			md = createVirtualMethodDescriptor(method);
 		}
 		md.setValue(attribute, value);
+		// jyst to showthe limit of code ugliness, why have an array when we have a vector?
+		if (attribute.equals(AttributeNames.DOUBLE_CLICK_METHOD)) {
+			if (!doubleClickMethodsVector.contains(md))
+			  doubleClickMethodsVector.addElement(md.getMethod());
+			doubleClickMethods = toArray(doubleClickMethodsVector); // this is bad
+		}
 	}
 
 	public void setAttributeOfAllMethods(String attribute, Object value) {
