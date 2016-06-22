@@ -7409,6 +7409,8 @@ ObjectAdapterInterface, Remote, Serializable
 	}
 	public static ObjectAdapter pathToObjectAdapter(ObjectAdapter topAdapter,
 			String path) {
+		if ("this".equalsIgnoreCase(path)) 
+			return topAdapter;
 		return pathToObjectAdapter(topAdapter, pathToVector(path));
 	}
 
