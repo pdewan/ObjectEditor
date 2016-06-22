@@ -307,8 +307,10 @@ public class TreeAdapter extends WidgetAdapter /*extends Frame*/
 			//System.out.println(treePath);
 //			System.out.println(treeNode);			//uiObjectAdapter treeNode = (uiObjectAdapter) treePath.getLastPathComponent();
 			if (!MethodInvocationManager.invokeDoubleClickMethod(treeNode) && treeNode.getOpenOnDoubleClick())				frame.replaceFrame(treeNode);
-			TreePath tpath = new TreePath(treeNode);
-			((JTree) jTree.getPhysicalComponent()).expandPath(tpath);
+			// does not seem to help, whenever a node is changed it is collapsed, so let us declare that
+			// a feature for now
+//			TreePath tpath = new TreePath(treeNode);
+//			((JTree) jTree.getPhysicalComponent()).expandPath(tpath);
 		} else {
 //			ObjectAdapter treeNode = (ObjectAdapter) jTree.getLastSelectedPathComponent();
 //			if (treeNode == null) return;
