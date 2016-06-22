@@ -100,6 +100,7 @@ import bus.uigen.widgets.ContainerFactory;
 import bus.uigen.widgets.LayoutManagerFactory;
 import bus.uigen.widgets.VirtualComponent;
 import bus.uigen.widgets.VirtualContainer;
+import bus.uigen.widgets.tree.VirtualTree;
 
 public abstract class ObjectAdapter /*extends UnicastRemoteObject*/ implements
 ObjectAdapterInterface, Remote, Serializable
@@ -4301,11 +4302,14 @@ ObjectAdapterInterface, Remote, Serializable
 				 return;
 			 }
 			 // makes no sense why local does not work but  temp does
+			 // temp cannot override static attribute
 //			 adapter.setLocalAttribute(attribute);
 			 adapter.setTempAttributeValue(attribute.getAttributeName(), attribute.getValue());
+//			 Object aForeground = adapter.getComponentForeground();
+//			 System.out.println("foreground:" + aForeground);
 			 // no refresh if suppessing
 			 if (!getUIFrame().isSuppressPropertyNotifications())
-			 adapter.refreshAttributes();
+				 adapter.refreshAttributes();
 			 else 	
 				 adapter.setAttributeChangePending(true);
 			 return;
@@ -6547,9 +6551,18 @@ ObjectAdapterInterface, Remote, Serializable
 			wa.processAttributes();
 			// System.out.println("process attribute ending");
 		} else {
-			ObjectAdapter aParent = getNearestObjectAdapterWithWidgetAdapter();
-			wa = aParent.getWidgetAdapter();
-			wa.getUIComponent().repaint(); // for property notifications
+//			ObjectAdapter aParent = getNearestObjectAdapterWithWidgetAdapter();
+//			wa = aParent.getWidgetAdapter();
+//			if (wa instanceof TreeAdapter) {
+//				((TreeAdapter) wa).nodeChanged(this);
+//				VirtualTree aTree = (VirtualTree) wa.getUIComponent();
+//				aTree.updateUI();
+//
+//			}
+//			System.out.println ("validating");
+//			wa.getUIComponent().validate();
+//			wa.getUIComponent().repaint(); // for property notifications
+
 		}
 	}
 

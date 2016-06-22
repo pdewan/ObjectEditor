@@ -26,6 +26,7 @@ import bus.uigen.adapters.TabbedPaneAdapter;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.controller.menus.RightMenuManager;
 import bus.uigen.diff.ACanonicalBean;
+import bus.uigen.editors.TreeAdapter;
 import bus.uigen.introspect.Attribute;
 import bus.uigen.introspect.ClassDescriptorCache;
 import bus.uigen.introspect.ClassDescriptorInterface;
@@ -3394,8 +3395,11 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		}
 		}
 		if (isTreeNode()) {
-		getUIFrame().refreshTreeIfVisible();
-		getUIFrame().expandAllTreeNodes();
+			ObjectAdapter ancestorAdapter = getNearestObjectAdapterWithWidgetAdapter();
+			TreeAdapter aTreeAdapter = (TreeAdapter) ancestorAdapter.getWidgetAdapter();
+			aTreeAdapter.nodeChanged(childAdapter);
+//		getUIFrame().refreshTreeIfVisible();
+//		getUIFrame().expandAllTreeNodes();
 		}
 
 		getUIFrame().validate();
