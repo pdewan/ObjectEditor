@@ -6546,6 +6546,10 @@ ObjectAdapterInterface, Remote, Serializable
 			// System.out.println("process attribute starting");
 			wa.processAttributes();
 			// System.out.println("process attribute ending");
+		} else {
+			ObjectAdapter aParent = getNearestObjectAdapterWithWidgetAdapter();
+			wa = aParent.getWidgetAdapter();
+			wa.getUIComponent().repaint(); // for property notifications
 		}
 	}
 
