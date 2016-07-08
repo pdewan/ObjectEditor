@@ -17,6 +17,10 @@ public class CustomTreeCellRender extends DefaultTreeCellRenderer {
             setForeground(aNode.getComponentForeground());
             setOpaque(true);
             setBackground(aNode.getComponentBackground());
+            String aText = aNode.getExplanation();
+            if (aText != null) {
+            	setToolTipText(aText);
+            }
 
 //	        // Assuming you have a tree of Strings
 //	        String node = (String) ((DefaultMutableTreeNode) value).getUserObject();

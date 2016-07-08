@@ -1085,6 +1085,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 	final static String DOUBLE_CLICK_NAME = "open";
 	final static String SELECT_NAME = "selected";
 	final static String EXPAND_NAME = "expanded";
+	final static String EXPLANATION_NAME = "getExplanation";
 
 	/*
 	 * void checkIfDoubleClickMethod(MethodDescriptor md) { Method m
@@ -1525,14 +1526,21 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			if (IntrospectUtility.isVolatile(m))
 				continue;
 			initMethodAttribs(methods[i]);
-			Boolean explanationMethod = (Boolean) getMethodAttribute(methods[i], AttributeNames.RETURNS_CLASS_EXPLANATION);
-			if (explanationMethod != null && explanationMethod) {
-				setAttribute(AttributeNames.EXPLANATION_METHOD, methods[i].getMethod());
+			Boolean isExplanationMethod = (Boolean) getMethodAttribute(methods[i], AttributeNames.RETURNS_CLASS_EXPLANATION);
+			if (methods[i].getName().equals(EXPLANATION_NAME) && 
+					methods[i].getMethod().getReturnType().getName().equals(String.class.getName())) {
+//			Boolean isVisible =  (Boolean) getMethodAttribute(methods[i], AttributeNames.VISIBLE);
+//			if (isVisible != null && !isVisible) {
+				isExplanationMethod = true;
+//			}
+			}
+			if (isExplanationMethod != null && isExplanationMethod) {
+				setAttributeWithoutAddingKeyword(AttributeNames.EXPLANATION_METHOD, methods[i].getMethod());
 			}
 			
 			Boolean webDocumentsMethod = (Boolean) getMethodAttribute(methods[i], AttributeNames.RETURNS_CLASS_WEB_DOCUMENTS);
 			if (webDocumentsMethod != null && webDocumentsMethod) {
-				setAttribute(AttributeNames.WEB_DOCUMENTS_METHOD, methods[i].getMethod());
+				setAttributeWithoutAddingKeyword(AttributeNames.WEB_DOCUMENTS_METHOD, methods[i].getMethod());
 			}			
 			
 		}
@@ -1793,6 +1801,8 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			if (!doubleClickMethodsVector.contains(md))
 			  doubleClickMethodsVector.addElement(md.getMethod());
 			doubleClickMethods = toArray(doubleClickMethodsVector); // this is bad
+		} else if (attribute.equals(AttributeNames.RETURNS_CLASS_EXPLANATION)) {
+			setAttribute(AttributeNames.EXPLANATION_METHOD, md.getMethod());
 		}
 	}
 
