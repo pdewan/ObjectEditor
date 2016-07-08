@@ -1531,7 +1531,11 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 					methods[i].getMethod().getReturnType().getName().equals(String.class.getName())) {
 //			Boolean isVisible =  (Boolean) getMethodAttribute(methods[i], AttributeNames.VISIBLE);
 //			if (isVisible != null && !isVisible) {
+				Object aPreviousValue = getAttribute(AttributeNames.EXPLANATION_METHOD);
+				if (aPreviousValue == null) {
+
 				isExplanationMethod = true;
+				}
 //			}
 			}
 			if (isExplanationMethod != null && isExplanationMethod) {
