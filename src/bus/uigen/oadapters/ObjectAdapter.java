@@ -1751,7 +1751,9 @@ ObjectAdapterInterface, Remote, Serializable
 				//return getExpansionObjectMethod.invoke(targetObject, nullObjectArgs);
 				methodReturnValue = (String) MethodInvocationManager.invokeMethod(getRealObject(), explanationMethod, nullObjectArgs);
 				} catch (Exception e) {
-					e.printStackTrace();
+					System.err.println("Could not invoke getExplanation method because:" + e.getMessage());
+					methodReturnValue = null;
+//					e.printStackTrace();
 //					Tracer.error(error)
 				}
 		}
