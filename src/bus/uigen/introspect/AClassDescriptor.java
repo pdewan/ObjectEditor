@@ -1528,6 +1528,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			initMethodAttribs(methods[i]);
 			Boolean isExplanationMethod = (Boolean) getMethodAttribute(methods[i], AttributeNames.RETURNS_CLASS_EXPLANATION);
 			if (methods[i].getName().equals(EXPLANATION_NAME) && 
+					methods[i].getMethod().getParameterTypes().length == 0 &&
 					methods[i].getMethod().getReturnType().getName().equals(String.class.getName())) {
 //			Boolean isVisible =  (Boolean) getMethodAttribute(methods[i], AttributeNames.VISIBLE);
 //			if (isVisible != null && !isVisible) {
