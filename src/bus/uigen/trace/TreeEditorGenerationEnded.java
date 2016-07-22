@@ -9,7 +9,7 @@ public class TreeEditorGenerationEnded extends EditorGenerationEnded {
 	}	
 	
 	public static TreeEditorGenerationEnded newCase(Object anObject, Object aFinder) {
-		String aMessage = "Finished generating editor for " + anObject;
+		String aMessage = "Finished generating tree editor for " + anObject;
 		TreeEditorGenerationEnded retVal = new TreeEditorGenerationEnded(aMessage, anObject, aFinder);
 		retVal.announce();		
 		return retVal;

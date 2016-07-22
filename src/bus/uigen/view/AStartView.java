@@ -26,6 +26,7 @@ import bus.uigen.trace.EditorGenerationEnded;
 import bus.uigen.trace.EditorGenerationStarted;
 import bus.uigen.trace.FrameSetVisibleEnded;
 import bus.uigen.trace.MajorStepInfo;
+import bus.uigen.trace.TreeEditorGenerationEnded;
 import bus.uigen.widgets.swing.DelegateJPanel;
 
 
@@ -331,6 +332,10 @@ public class AStartView  implements StartView{
 		} else if (aTraceable instanceof EditorGenerationEnded) {
 			currentGenerationEnded = (EditorGenerationEnded) aTraceable;
 			remainingEditors--;
+			if (aTraceable instanceof TreeEditorGenerationEnded && remainingEditors == 0) {
+				frame.setState(frame.ICONIFIED);
+				automaticallyIconified = true;
+			}
 //			majorStepMessage =aTraceable.getMessage();	
 //			if (remainingEditors == 0) {
 ////				completed = true;
