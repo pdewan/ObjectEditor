@@ -33,7 +33,7 @@ public class ReferenceAdapter extends PrimitiveAdapter
 	public void init(ObjectAdapter aReferentAdapter) {
 		referentAdapter = aReferentAdapter;
 	}		public String toString() {
-		return "Back link to: " + referentAdapter.getReferencePath();
+		return "Points to: " + referentAdapter.getReferencePath();
 	}
 	
 	public Object getViewObject() {
