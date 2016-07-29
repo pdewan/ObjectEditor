@@ -22,6 +22,7 @@ import bus.uigen.models.ComputerDefinition;
 import bus.uigen.models.ComputerDefinitionsGenerator;
 import bus.uigen.models.ComputerDefinitionsManager;
 import bus.uigen.models.LogoReader;
+import bus.uigen.trace.DrawingEditorGenerationEnded;
 import bus.uigen.trace.EditorGenerationEnded;
 import bus.uigen.trace.EditorGenerationStarted;
 import bus.uigen.trace.FrameSetVisibleEnded;
@@ -332,7 +333,10 @@ public class AStartView  implements StartView{
 		} else if (aTraceable instanceof EditorGenerationEnded) {
 			currentGenerationEnded = (EditorGenerationEnded) aTraceable;
 			remainingEditors--;
-			if (aTraceable instanceof TreeEditorGenerationEnded && remainingEditors == 0) {
+			if (
+				(aTraceable instanceof TreeEditorGenerationEnded || aTraceable instanceof DrawingEditorGenerationEnded)
+					
+					&& remainingEditors == 0) {
 				frame.setState(frame.ICONIFIED);
 				automaticallyIconified = true;
 			}

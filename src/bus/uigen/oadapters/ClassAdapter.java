@@ -476,7 +476,12 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		Object value;
 		if (childHasPendingValue)
 			value = childAdapter.getPendingFutureRealObject();
-		else value = getRecordStructure().get(componentName);
+		else {
+//			if (getRecordStructure().preRead(componentName))
+			value = getRecordStructure().get(componentName); // we need the value regardless of pre
+//			else
+//				value = null;
+		}
 
 //		Object value = getRecordStructure().get(componentName);
 		boolean retVal = refresh(value, componentName, forceUpdate);
@@ -1596,6 +1601,13 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			// Class propertyType = property.getPropertyType();
 			ClassProxy propertyType = recordStructure
 					.componentType(componentName);
+//			boolean preRead = recordStructure.preRead(componentName);
+//			Object pobj = null;
+//			if (preRead) // apparently we need the adapter
+//				pobj = recordStructure.get(componentName);
+//			else
+//				continue;
+			// we are going to read in refresh anyway, so let us read it here also
 			Object pobj = recordStructure.get(componentName);
 
 			a = addClassComponent(recordStructure, doNotGenerateIfPossible,

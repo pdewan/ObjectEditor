@@ -1772,7 +1772,7 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 			}
 			ObjectAdapter topAdapter = getOriginalAdapter();
 //			getDrawComponent().setBackground(AttributeNames.getDrawingPanelColor());
-			if (!isDummy())
+			if (!isDummy() && topAdapter != null) // for some reason the topAdapter was null when this was called
 			getDrawComponent().setBackground(topAdapter.getDrawingPanelColor());	
 			else {
 				DelegateJPanel drawComponent = getDrawComponent();

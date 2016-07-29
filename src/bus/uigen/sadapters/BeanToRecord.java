@@ -169,7 +169,7 @@ public class BeanToRecord extends AbstractConcreteType implements RecordStructur
 		String componentName = lowerCaseToRealName.get(componentAnyCaseName.toLowerCase());
 		if (componentName == null)
 			return null;
-		// for some reasom this 
+		// for some reason this was commented out - the reason is that we need to know the value to know if it is a drawing panel or not
 //		if (!preRead(componentName))
 //			return null;
 		Object componentDescriptor = componentTable.get(componentName/*.toLowerCase()*/);
