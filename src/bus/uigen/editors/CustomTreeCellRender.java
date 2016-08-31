@@ -2,6 +2,7 @@ package bus.uigen.editors;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -17,7 +18,20 @@ public class CustomTreeCellRender extends DefaultTreeCellRenderer {
             setForeground(aNode.getComponentForeground());
             setOpaque(true);
             setBackground(aNode.getComponentBackground());
+            Dimension aSize = getSize();
+            Dimension aPreferredSize = getPreferredSize();
             String aText = aNode.getExplanation();
+            double aWidth = aPreferredSize.getWidth();
+            Integer aComponentWidth = aNode.getComponentWidth();
+            if (aComponentWidth != null) {
+            	aPreferredSize.width = aComponentWidth;
+            	setPreferredSize(aPreferredSize);
+            } 
+//            else {
+//            	aPreferredSize.width = 300;
+//            	setPreferredSize(aPreferredSize);
+//            }
+
             if (aText != null) {
             	setToolTipText(aText);
             }

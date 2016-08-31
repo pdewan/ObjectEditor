@@ -3,6 +3,7 @@ package bus.uigen.test;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import util.annotations.ComponentWidth;
 import util.annotations.Explanation;
 import util.annotations.Position;
 import util.annotations.StructurePattern;
@@ -63,6 +64,7 @@ public class ACompositeExample  {
 
 
 	}
+	@ComponentWidth(200)
 	public String getIntAndString() {
 		return string + intVal;
 	}
