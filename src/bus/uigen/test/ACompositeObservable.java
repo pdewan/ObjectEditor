@@ -94,7 +94,7 @@ public class ACompositeObservable extends ACompositeExample  implements Property
 	}
 //	@Override
 	public void addPropertyChangeListener(PropertyChangeListener aListener) {
-		System.out.println("property chnage listener  called");
+		System.out.println("property change listener called");
 		propertyChangeSupport.addPropertyChangeListener(aListener);
 		// TODO Auto-generated method stub
 		

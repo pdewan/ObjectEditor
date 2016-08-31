@@ -1008,6 +1008,10 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 	
 	public void setSize(int newWidth, int newHeight) {
 		if (myFrame != null && !isDummy()) {
+			if (isDensePixels()) {
+				newWidth = computeDenseSize(newWidth);
+				newHeight = computeDenseSize(newHeight);
+			}
 			
 			myFrame.setSize(newWidth, newHeight);
 		}
