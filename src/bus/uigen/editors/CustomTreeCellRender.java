@@ -23,10 +23,17 @@ public class CustomTreeCellRender extends DefaultTreeCellRenderer {
             String aText = aNode.getExplanation();
             double aWidth = aPreferredSize.getWidth();
             Integer aComponentWidth = aNode.getComponentWidth();
+            Integer aComponentHeight = aNode.getComponentHeight();
             if (aComponentWidth != null) {
             	aPreferredSize.width = aComponentWidth;
-            	setPreferredSize(aPreferredSize);
             } 
+            if (aComponentHeight != null) {
+            	aPreferredSize.height = aComponentHeight;
+            } 
+            if (!getPreferredSize().equals(aPreferredSize)) {
+            	setPreferredSize(aPreferredSize);
+            }
+
 //            else {
 //            	aPreferredSize.width = 300;
 //            	setPreferredSize(aPreferredSize);
