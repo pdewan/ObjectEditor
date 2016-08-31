@@ -4,13 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.FileDialog;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.LayoutManager;
 import java.awt.Menu;
 import java.awt.MenuComponent;
 import java.awt.MenuItem;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -32,6 +35,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -289,7 +293,15 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 	AModelRegistry modelRegistry = new AModelRegistry();
 	
 	List<MethodInvocationFrameCreationListener> methodInvocationFrameCreationListeners = new ArrayList();
-	boolean suppressPropertyNotifications;
+	protected boolean suppressPropertyNotifications;
+	public static final int DENSE_WIDTH = 3500;
+	public static final int DENSE_HEIGHT = 2000;
+	public static final double DENSE_MAGNIFICATION = 1.5;
+	protected static int regularFontSize;
+	protected boolean densePixels;
+	
+
+	protected int defaultFontSize;
 
 	public AModelRegistry getModelRegistry() {
 		return modelRegistry;
@@ -458,10 +470,44 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 		
 
 	}
+	public boolean isDensePixels() {
+		return densePixels;
+	}
 
-	
+	public void setDensePixels(boolean densePixels) {
+		this.densePixels = densePixels;
+	}
+
+	public int getDefaultFontSize() {
+		return defaultFontSize;
+	}
+
+	public void setDefaultFontSize(int defaultFontSize) {
+		this.defaultFontSize = defaultFontSize;
+	}
+
+	public void maybeSetDefaultFontSize() {
+		if (defaultFontSize !=regularFontSize  && defaultFontSize != 0)
+			return; // we have already done the JVM wide font change
+		defaultFontSize = regularFontSize;
+		if (isDensePixels() ) {
+			defaultFontSize = (int) Math.round(regularFontSize * DENSE_MAGNIFICATION);
+			setUIFontSize(defaultFontSize);
+		}
+		
+	}
 	public void init(VirtualFrame newFrame, VirtualContainer newContainer) {
 		try {
+			Dimension aScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			Font defaultFont = UIManager.getDefaults().getFont("TextPane.font");
+			if (regularFontSize == 0) { // this is static
+			regularFontSize = defaultFont.getSize();
+			}
+			if (aScreenSize.width >= DENSE_WIDTH || aScreenSize.height > DENSE_HEIGHT) {
+				densePixels = true;
+			}
+			maybeSetDefaultFontSize();
+			
 			TraceableClassToInstancesFactory.getOrCreateTraceableClassToInstances();
 			TraceableLogFactory.getTraceableLog();	
 //			new AnOEFrameShutDownHook(this);
@@ -5348,10 +5394,34 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 
 	}
 
+	public static void setUIFont (javax.swing.plaf.FontUIResource f){
+	    java.util.Enumeration keys = UIManager.getDefaults().keys();
+	    while (keys.hasMoreElements()) {
+	      Object key = keys.nextElement();
+	      Object value = UIManager.get (key);
+	      if (value != null && value instanceof javax.swing.plaf.FontUIResource)
+	        UIManager.put (key, f);
+	      }
+	    }
+	public static void setUIFontSize(int aFontSize) {
+	for (Map.Entry<Object, Object> entry : javax.swing.UIManager.getDefaults().entrySet()) {
+	    Object key = entry.getKey();
+	    Object value = javax.swing.UIManager.get(key);
+	    if (value != null && value instanceof javax.swing.plaf.FontUIResource) {
+	        javax.swing.plaf.FontUIResource fr=(javax.swing.plaf.FontUIResource)value;
+	        javax.swing.plaf.FontUIResource f = new javax.swing.plaf.FontUIResource(fr.getFamily(), fr.getStyle(), aFontSize);
+	        javax.swing.UIManager.put(key, f);
+	    }
+	}
+	}
+	
 	
 
 	public void setFontSize() {
+
 		setFontSize(AFontSizeModel.getFontSize());
+		repaint();
+		validate();
 	}
 
 	public void setFontSize(Container c) {
