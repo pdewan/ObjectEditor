@@ -920,11 +920,11 @@ public abstract class WidgetAdapter implements WidgetAdapterInterface,
 		return false;
 	}
 	public int defaultWidth() {
-		return DEFAULT_COMPONENT_WIDTH;
+		return getObjectAdapter().maybeGetDenseSize(DEFAULT_COMPONENT_WIDTH);
 	}
 	public int defaultHeight() {
 		if (adapter.isFlatTableCell())
-			return DEFAULT_FLAT_TABLE_CELL_HEIGHT;
+			return getObjectAdapter().maybeGetDenseSize(DEFAULT_FLAT_TABLE_CELL_HEIGHT);
 		else return 0;
 	}
 	public void setAttributes(VirtualComponent component) {

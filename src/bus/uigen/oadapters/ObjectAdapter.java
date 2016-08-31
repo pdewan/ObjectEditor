@@ -1803,16 +1803,20 @@ ObjectAdapterInterface, Remote, Serializable
 		String retVal = (String) getMergedTempOrDefaultAttributeValue(AttributeNames.FONT_NAME);
 		return retVal;
 	}
+	
+	public  Integer maybeGetDenseSize (Integer retVal) {
+		if (retVal == null || !getUIFrame().isDensePixels()) {
+			return retVal;
+		}
+	
+		return uiFrame.computeDenseSize(retVal);
+	}
 
 	public Integer getFontSize() {
-		// return (String) getMergedAttributeValue(AttributeNames.DIRECTION);
-		// int retVal = (Integer)
-		// getMergedOrTempAttributeValue(AttributeNames.FONT_SIZE);
-		return (Integer) getMergedTempOrDefaultAttributeValue(AttributeNames.FONT_SIZE);
-		/*
-		 * if (retVal == null) return null; else return (Integer) retVal;
-		 */
-		// return retVal;
+		
+		return maybeGetDenseSize((Integer) getMergedTempOrDefaultAttributeValue(AttributeNames.FONT_SIZE));
+		
+		
 	}
 
 	public Integer getFontStyle() {
@@ -1925,6 +1929,7 @@ ObjectAdapterInterface, Remote, Serializable
 	}
 
 	public static int PIXELS_IN_CHAR = 10;
+	public static int LABEL_PADDING = 15;
 
 	public int pixelsInLabel() {
 		VirtualComponent component = getUIComponent();
@@ -1934,7 +1939,7 @@ ObjectAdapterInterface, Remote, Serializable
 		Font font = (Font) component.getFont();
 		FontMetrics fontMetrics = (FontMetrics) component.getFontMetrics(font);
 		String maxLabel = maxLabel();
-		int width = fontMetrics.stringWidth(maxLabel);
+		int width = fontMetrics.stringWidth(maxLabel) + LABEL_PADDING;
 		return width;
 		
 //		return maxLabelLength() * PIXELS_IN_CHAR;
@@ -2005,67 +2010,46 @@ ObjectAdapterInterface, Remote, Serializable
 	}
 
 	public Integer getLabelWidth() {
-		// return (String) getMergedAttributeValue(AttributeNames.DIRECTION);
-		// Integer retVal = (Integer)
-		// getMergedOrTempAttributeValue(AttributeNames.LABEL_LENGTH);
+		
 		Integer retVal = (Integer) getMergedAttributeValue(AttributeNames.LABEL_WIDTH);
 
 		if (retVal != null)
-			return retVal;
+			return maybeGetDenseSize(retVal);
 		return getComputedLabelWidth();
-		/*
-		 * else { int computedLabelLength = pixelsInLabel(); retVal = (Integer)
-		 * AttributeNames.getSystemDefault(AttributeNames.LABEL_WIDTH); if
-		 * (retVal != null) return Math.max(retVal, computedLabelLength); else
-		 * return 0; }
-		 */
+		
 
 	}
 	public Integer getRowLabelWidth() {
-		// return (String) getMergedAttributeValue(AttributeNames.DIRECTION);
-		// Integer retVal = (Integer)
-		// getMergedOrTempAttributeValue(AttributeNames.LABEL_LENGTH);
+		
 		Integer retVal = (Integer) getMergedTempOrDefaultAttributeValue(AttributeNames.ROW_LABEL_WIDTH);
 
-		return retVal;
+		return maybeGetDenseSize(retVal);
 
 	}
 	public Integer getFillerWidth() {
-		// return (String) getMergedAttributeValue(AttributeNames.DIRECTION);
-		// Integer retVal = (Integer)
-		// getMergedOrTempAttributeValue(AttributeNames.LABEL_LENGTH);
+		
 		Integer retVal = (Integer) getMergedTempOrDefaultAttributeValue(AttributeNames.FILLER_WIDTH);
 
-		return retVal;
+		return maybeGetDenseSize(retVal);
 
 	}
 
 	public Integer getRowLabelsWidth() {
-		// return (String) getMergedAttributeValue(AttributeNames.DIRECTION);
-		// Integer retVal = (Integer)
-		// getMergedOrTempAttributeValue(AttributeNames.LABEL_LENGTH);
+
 		Integer retVal = (Integer) getMergedAttributeValue(AttributeNames.ROW_LABELS_WIDTH);
 
 		if (retVal != null)
-			return retVal;
-		return getComputedRowLabelsWidth();
+			return maybeGetDenseSize(retVal);
+		return maybeGetDenseSize (getComputedRowLabelsWidth());
 
-		// return retVal;
-		/*
-		 * else { int computedLabelLength = pixelsInLabel(); retVal = (Integer)
-		 * AttributeNames.getSystemDefault(AttributeNames.LABEL_WIDTH); if
-		 * (retVal != null) return Math.max(retVal, computedLabelLength); else
-		 * return 0; }
-		 */
+
 
 	}
 
 	static final int ROW_LABEL_WIDTH = 10;
 
 	public Integer getComputedLabelWidth() {
-		// return ROW_LABEL_WIDTH * getHeight();
-		// return (String) getMergedAttributeValue(AttributeNames.DIRECTION);
-
+		
 		int computedLabelLength = pixelsInLabel() + getComponentPadding();
 		Integer retVal = (Integer) AttributeNames
 				.getSystemDefault(AttributeNames.LABEL_WIDTH);
@@ -2117,17 +2101,11 @@ ObjectAdapterInterface, Remote, Serializable
 	}
 
 	public Integer getComponentWidth() {
-		// return (String) getMergedAttributeValue(AttributeNames.DIRECTION);
-		// Integer retVal = (Integer)
-		// getMergedOrTempAttributeValue(AttributeNames.LABEL_LENGTH);
-		// Integer retVal = (Integer)
-		// getMergedAttributeValue(AttributeNames.COMPONENT_WIDTH);
+	
 		Integer retVal = (Integer) getMergedTempOrDefaultAttributeValue(AttributeNames.COMPONENT_WIDTH);
 
-		//if (retVal != null)
-			return retVal;
-//		else
-//			return 0;
+			return maybeGetDenseSize(retVal);
+
 
 	}
 	
@@ -2147,18 +2125,13 @@ ObjectAdapterInterface, Remote, Serializable
 	}
 	
 	public Integer getContainerWidth() {
-		// return (String) getMergedAttributeValue(AttributeNames.DIRECTION);
-		// Integer retVal = (Integer)
-		// getMergedOrTempAttributeValue(AttributeNames.LABEL_LENGTH);
-		// Integer retVal = (Integer)
-		// getMergedAttributeValue(AttributeNames.COMPONENT_WIDTH);
+		
 		Integer retVal = (Integer) getMergedTempOrDefaultAttributeValue(AttributeNames.CONTAINER_WIDTH);
 		
 
-		//if (retVal != null)
-			return retVal;
-//		else
-//			return 0;
+
+			return maybeGetDenseSize(retVal);
+
 
 	}
 	public Integer getContainerHeight() {
@@ -2205,8 +2178,9 @@ ObjectAdapterInterface, Remote, Serializable
 //			return 0;
 
 	}
+	
 
-	public Integer getElideComponentWidth() {
+	public Integer getUnMagnifiedElideComponentWidth() {
 		
 		Integer retVal = (Integer) getMergedAttributeValue(AttributeNames.ELIDE_COMPONENT_WIDTH);
 		
@@ -2228,19 +2202,16 @@ ObjectAdapterInterface, Remote, Serializable
 			//return getComponentWidth();
 
 	}
+	
+	public Integer getElideComponentWidth() {
+		return maybeGetDenseSize(getElideComponentWidth());
+	}
 
 	public Integer getComponentHeight() {
-		// return (String) getMergedAttributeValue(AttributeNames.DIRECTION);
-		// Integer retVal = (Integer)
-		// getMergedOrTempAttributeValue(AttributeNames.LABEL_LENGTH);
-		// Integer retVal = (Integer)
-		// getMergedAttributeValue(AttributeNames.COMPONENT_WIDTH);
+	
 		Integer retVal = (Integer) getMergedTempOrDefaultAttributeValue(AttributeNames.COMPONENT_HEIGHT);
-		return retVal;
-//		if (retVal != null)
-//			return retVal;
-//		else
-//			return 0;
+		return maybeGetDenseSize(retVal);
+
 
 	}
 

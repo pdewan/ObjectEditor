@@ -486,13 +486,19 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 	public void setDefaultFontSize(int defaultFontSize) {
 		this.defaultFontSize = defaultFontSize;
 	}
+	
+	public static int computeDenseSize(int anInitialSize) {
+		return (int) Math.round(anInitialSize * DENSE_MAGNIFICATION);
+	}
+	
 
 	public void maybeSetDefaultFontSize() {
 		if (defaultFontSize !=regularFontSize  && defaultFontSize != 0)
 			return; // we have already done the JVM wide font change
 		defaultFontSize = regularFontSize;
 		if (isDensePixels() ) {
-			defaultFontSize = (int) Math.round(regularFontSize * DENSE_MAGNIFICATION);
+//			defaultFontSize = (int) Math.round(regularFontSize * DENSE_MAGNIFICATION);
+			defaultFontSize = computeDenseSize(regularFontSize);
 			setUIFontSize(defaultFontSize);
 		}
 		
