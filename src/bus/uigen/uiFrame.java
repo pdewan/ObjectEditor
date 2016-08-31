@@ -296,6 +296,7 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 	protected boolean suppressPropertyNotifications;
 	public static final int DENSE_WIDTH = 3500;
 	public static final int DENSE_HEIGHT = 2000;
+	public static final int DENSE_SCREEN_RESOLUTION = 120;
 	public static final double DENSE_MAGNIFICATION = 1.5;
 	protected static int regularFontSize;
 	protected boolean densePixels;
@@ -499,11 +500,13 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 	public void init(VirtualFrame newFrame, VirtualContainer newContainer) {
 		try {
 			Dimension aScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			int aResolution = Toolkit.getDefaultToolkit().getScreenResolution();
 			Font defaultFont = UIManager.getDefaults().getFont("TextPane.font");
 			if (regularFontSize == 0) { // this is static
 			regularFontSize = defaultFont.getSize();
 			}
-			if (aScreenSize.width >= DENSE_WIDTH || aScreenSize.height > DENSE_HEIGHT) {
+			if (aResolution > DENSE_SCREEN_RESOLUTION) {
+//			if (aScreenSize.width >= DENSE_WIDTH || aScreenSize.height > DENSE_HEIGHT) {
 				densePixels = true;
 			}
 			maybeSetDefaultFontSize();
