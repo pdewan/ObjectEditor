@@ -297,7 +297,6 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 	public static final int DENSE_WIDTH = 3500;
 	public static final int DENSE_HEIGHT = 2000;
 	public static final int DENSE_SCREEN_RESOLUTION = 120;
-	public static final double DENSE_MAGNIFICATION = 2;
 	protected static int regularFontSize;
 	protected boolean densePixels;
 	
@@ -486,11 +485,10 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 	public void setDefaultFontSize(int defaultFontSize) {
 		this.defaultFontSize = defaultFontSize;
 	}
-	public static double denseMagnification() {
-		return DENSE_MAGNIFICATION;
-	}
+	
+	
 	public static int computeDenseSize(int anInitialSize) {
-		return (int) Math.round(anInitialSize * denseMagnification());
+		return (int) Math.round(anInitialSize *ObjectEditor.getDenseMagnification());
 	}
 	
 

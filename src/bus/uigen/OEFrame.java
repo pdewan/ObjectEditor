@@ -17,6 +17,7 @@ import bus.uigen.widgets.VirtualFrame;
 import bus.uigen.widgets.VirtualPoint;
 
 public interface OEFrame {
+	public static final double DENSE_MAGNIFICATION = 1.5;
 	public static final String SUPPRESS_NOTIFICATION_PROCESSING = "Suppress  Notification Processing";
 //	public void addMenuObject(Object menuObject);
 	public VirtualContainer getDrawPanel() ;
@@ -60,5 +61,5 @@ public interface OEFrame {
 	void setVisible(boolean aNewVal);
 	boolean isVisible();
 	void show();
-
+	
 }
