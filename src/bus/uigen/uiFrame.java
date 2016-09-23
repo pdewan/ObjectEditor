@@ -471,7 +471,7 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 
 	}
 	public boolean isDensePixels() {
-		return densePixels;
+		return densePixels || ObjectEditor.getDenseMagnification() != null;
 	}
 
 	public void setDensePixels(boolean densePixels) {
@@ -486,9 +486,14 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 		this.defaultFontSize = defaultFontSize;
 	}
 	
-	
+	public static double getDenseMagnification() {
+		Double retVal = ObjectEditor.getDenseMagnification();
+		if (retVal != null)
+			return retVal;
+		return DENSE_MAGNIFICATION;
+	}
 	public static int computeDenseSize(int anInitialSize) {
-		return (int) Math.round(anInitialSize *ObjectEditor.getDenseMagnification());
+		return (int) Math.round(anInitialSize *getDenseMagnification());
 	}
 	
 

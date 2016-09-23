@@ -4856,11 +4856,16 @@ public static void associateKeywordWithClassName(String keyword, ClassDescriptor
 	public static TracingLevel getTracingLevel() {
 		return Tracer.getTracingLevel();
 	}
-	static double denseMagnification = OEFrame.DENSE_MAGNIFICATION;
-	public static double getDenseMagnification() {
+	static Double denseMagnification;
+	static boolean freezeDenseMagnification;
+	public static void freezeDenseMagnification() {
+		freezeDenseMagnification = true;
+	}
+	public static Double getDenseMagnification() {
 		return denseMagnification;
 	}
-	public static void setDenseMagnification(double newVal) {
+	public static void setDenseMagnification(Double newVal) {
+		if (!freezeDenseMagnification)
 		denseMagnification = newVal;
 	}
 	

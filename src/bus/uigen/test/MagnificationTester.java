@@ -6,6 +6,8 @@ import bus.uigen.ObjectEditor;
 public class MagnificationTester {
 	public static void main (String[] args) {
 		ObjectEditor.setDenseMagnification(2.0);
+		ObjectEditor.freezeDenseMagnification();
+		ObjectEditor.setDenseMagnification(3.0);
 		OEFrame aFrame = ObjectEditor.edit(new ACompositeExample());
 	}
 
