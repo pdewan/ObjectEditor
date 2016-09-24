@@ -2204,7 +2204,9 @@ ObjectAdapterInterface, Remote, Serializable
 	}
 	
 	public Integer getElideComponentWidth() {
-		return maybeGetDenseSize(getElideComponentWidth());
+		Integer retVal = (Integer) getMergedTempOrDefaultAttributeValue(AttributeNames.ELIDE_COMPONENT_WIDTH);
+
+		return maybeGetDenseSize(retVal);
 	}
 
 	public Integer getComponentHeight() {
