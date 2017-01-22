@@ -6,11 +6,14 @@ import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.Vector;
 
 import util.annotations.Column;
@@ -2918,6 +2921,31 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 		}
 		return retVal;
 	}
+	
+	protected int minPropertiesPosition() {
+		int aMinPosition = properties.length - 1;
+	
+		for (int i = 0; i < properties.length; i++) {
+			Integer pos = (Integer) properties[i].getValue(AttributeNames.POSITION);
+			if (pos != null) {
+				aMinPosition = Math.min(aMinPosition, pos);
+			}
+		}
+		return aMinPosition;
+				
+	}
+	protected List<Integer> sortedPropertyPositions() {
+		List<Integer> retVal = new ArrayList();
+	
+		for (int i = 0; i < properties.length; i++) {
+			Integer pos = (Integer) properties[i].getValue(AttributeNames.POSITION);
+			if (pos != null) {
+				retVal.add(pos);
+			}
+		}
+		Collections.sort(retVal);
+		return retVal;				
+	}
 
 	// Impose an ordering on features. Currently only
 	// fields and properties are considered here. A
@@ -2932,18 +2960,23 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			Vector dynamic = new Vector();
 			Vector readOnlyProperties = new Vector();
 			Integer pos;
-			int p;
+			int anActualPosition;
+//			int aMinPosition = minPropertiesPosition();
+			List<Integer> aSortedPositions = sortedPropertyPositions();
 			// First put in all properties and fields in their place
 			// Conflicts are stored in the miss Vector and put in
 			// free locations later
 			for (int i = 0; i < properties.length; i++) {
 				pos = (Integer) properties[i].getValue(AttributeNames.POSITION);
-				if (pos != null)
-					p = pos.intValue();
-				else
-					p = -1;
-				if (p >= 0 && p < features.length && features[p] == null) {
-					features[p] = properties[i];
+				if (pos != null) {
+//					p = pos.intValue();
+					anActualPosition = aSortedPositions.indexOf(pos);
+							
+
+				} else
+					anActualPosition = -1;
+				if (anActualPosition >= 0 && anActualPosition < features.length && features[anActualPosition] == null) {
+					features[anActualPosition] = properties[i];
 				} else if (dynamicPropertyDescriptors != null
 						&& dynamicPropertyDescriptors.contains(properties[i]))
 					dynamic.add(properties[i]);
@@ -2957,11 +2990,11 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			for (int i = 0; i < fields.length; i++) {
 				pos = (Integer) fields[i].getValue(AttributeNames.POSITION);
 				if (pos != null)
-					p = pos.intValue();
+					anActualPosition = pos.intValue();
 				else
-					p = -1;
-				if (p >= 0 && p < features.length && features[p] == null) {
-					features[p] = fields[i];
+					anActualPosition = -1;
+				if (anActualPosition >= 0 && anActualPosition < features.length && features[anActualPosition] == null) {
+					features[anActualPosition] = fields[i];
 				} else
 					add(misses, fields[i]);
 				// misses.addElement(fields[i]);
