@@ -20,6 +20,9 @@ public class ImageShapeAdapter extends BoundedShapeAdapter implements RemoteProp
 	}	public ConcreteImageShape getConcreteImageShape() {		return (ConcreteImageShape) getConcreteObject();
 	}
 	  String oldImageFileName;  public void setViewObject(Object viewObject) {
+	  if (viewObject == null) {
+		  return;
+	  }
 	  try {
 	  super.setViewObject(viewObject);
 	  if (getTextMode()) return;	  Object obj = computeAndMaybeSetViewObject();

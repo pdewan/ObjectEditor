@@ -41,6 +41,9 @@ import bus.uigen.trace.ShapeRightXLessThanZero;
 	  Class c = getRealObject().getClass();	  getWidthMethod = uiBean.getGetIntMethod(c, "Width");	  	  getHeightMethod = uiBean.getGetIntMethod(c, "Height");	  setWidthMethod = uiBean.getSetIntMethod(c, "Width");	  setHeightMethod = uiBean.getSetIntMethod(c, "Height");
   }
 	*/  int oldWidth, oldHeight;  public void setViewObject(Object viewObject) {
+	  if (viewObject == null)  {
+		  return;
+	  }
   	try {
 	  super.setViewObject(viewObject);
 	  if (textMode) return;	  Object obj = computeAndMaybeSetViewObject();

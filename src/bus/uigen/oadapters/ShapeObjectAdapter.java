@@ -120,6 +120,8 @@ import bus.uigen.widgets.events.VirtualMouseEvent;
   Color oldColor;
   boolean oldFilled;  public void setViewObject(Object viewObject) {
   	try {
+  	  if (viewObject == null)
+  		  return;
 	  super.setViewObject(viewObject);
 	  if (textMode) return;	  Object obj = computeAndMaybeSetViewObject();
 	  //ShapeModel shape = (ShapeModel) viewObject;
@@ -148,6 +150,8 @@ import bus.uigen.widgets.events.VirtualMouseEvent;
   	RemoteShape shapeModel = (RemoteShape) objectToShapeModel.get(viewObject);
   	if (shapeModel != null) return shapeModel;
   	shapeModel = shapeModelFromConcreteObject(viewObject);
+  	if (shapeModel == null) return null;
+
   	objectToShapeModel.put(viewObject, shapeModel);
   	return shapeModel;  
   }
@@ -486,6 +490,9 @@ import bus.uigen.widgets.events.VirtualMouseEvent;
 	  shapeEventNotifier.addMouseListener(this);
   }
   public void setViewObject(Object viewObject, boolean textMode) {
+	  if (viewObject == null) {
+		  return;
+	  }
 	  setTextMode(textMode);
 	  if (textMode) {		  super.setViewObject(viewObject);		  return;
 	  }
