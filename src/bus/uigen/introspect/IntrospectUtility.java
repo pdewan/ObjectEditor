@@ -3967,6 +3967,7 @@ public static boolean isKeysMethod(Method method) {
 					if (o == null) return null;
 //					ClassProxy realClass = RemoteSelector.getClass(o);
 					ClassProxy realClass = ReflectUtil.getProxyTargetClass(o);
+					if (realClass == null) return null;
 
 					ClassProxy[] argTypes = {};
 					try {
