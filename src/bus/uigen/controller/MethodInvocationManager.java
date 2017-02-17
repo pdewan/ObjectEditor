@@ -1963,7 +1963,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 
 	// public void invokeMethod() {
 	public uiFrame displayResult(Object result) {
-		uiFrame tf = ObjectEditor.edit(result);
+		uiFrame tf = (uiFrame) ObjectEditor.edit(result);
 		// tf.setTitle(result.toString());
 		tf.setTitle(getResultTitle(result));
 		return tf;

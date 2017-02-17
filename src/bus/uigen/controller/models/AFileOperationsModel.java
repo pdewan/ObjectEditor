@@ -347,7 +347,7 @@ public class AFileOperationsModel extends ABasicFileOperationsModel implements F
 		String fullName = directory+file;
 		//uiFrame f = uiGenerator.generateUIFrameFromFile(fullName);
 		Object obj = uiGenerator.getSavedObject(fullName);
-		uiFrame editor = ObjectEditor.edit(obj);
+		uiFrame editor = (uiFrame) ObjectEditor.edit(obj);
 		setSaveFileName(fullName);
 		frame.setVisible(true);
 		//f.loadAttributes(directory, file);

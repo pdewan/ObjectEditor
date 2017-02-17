@@ -50,7 +50,7 @@ public class uiGenerator {
       e.printStackTrace();
     }	  return null;
     }
-    */  public static uiFrame generateUIFrameFromFile(String fileName) {	  try {		  Object obj = uiGenerator.getSavedObject(fileName);			uiFrame editor = ObjectEditor.edit(obj);			/*      ObjectInputStream f = new ObjectInputStream(new FileInputStream(fileName));	        Object obj = f.readObject();	        f.close();	 uiFrame retVal = generateUIFrame(obj);	 retVal.setSaveFileName(fileName);	 return retVal;	 */	  } catch (Exception e) {      // Error in writing object      JOptionPane.showMessageDialog(null, 				    "Error reading object from "+ fileName,				    "Error",				    JOptionPane.ERROR_MESSAGE);      e.printStackTrace();    }	  return null;    }
+    */  public static uiFrame generateUIFrameFromFile(String fileName) {	  try {		  Object obj = uiGenerator.getSavedObject(fileName);			uiFrame editor = (uiFrame) ObjectEditor.edit(obj);			/*      ObjectInputStream f = new ObjectInputStream(new FileInputStream(fileName));	        Object obj = f.readObject();	        f.close();	 uiFrame retVal = generateUIFrame(obj);	 retVal.setSaveFileName(fileName);	 return retVal;	 */	  } catch (Exception e) {      // Error in writing object      JOptionPane.showMessageDialog(null, 				    "Error reading object from "+ fileName,				    "Error",				    JOptionPane.ERROR_MESSAGE);      e.printStackTrace();    }	  return null;    }
       public static uiFrame generateUIFrame(Object obj, ObjectAdapter sourceAdapter) {
 	  //System.out.println("Object:" + obj + "from: " + sourceAdapter);	  return generateUIFrame(obj, null, sourceAdapter);
   }

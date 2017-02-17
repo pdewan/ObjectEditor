@@ -37,7 +37,7 @@ public class ABasicNewEditorOperationsModel extends AnAbstractOperationsModel im
 		*/
 		uiGenerator.setTextMode (frame.getTextMode());
 		//uiFrame editor = uiGenerator.generateUIFrame(selection.getObject(), (ObjectAdapter) selection);
-		uiFrame editor = ObjectEditor.edit(selection.getObject(),  AClassDescriptor.withAttributeRegisterer(), new MenuSetter(), new AMenuDescriptor(), (ObjectAdapter) selection, null, null );
+		uiFrame editor = (uiFrame) ObjectEditor.edit(selection.getObject(),  AClassDescriptor.withAttributeRegisterer(), new MenuSetter(), new AMenuDescriptor(), (ObjectAdapter) selection, null, null );
 		//uiFrame editor = uiGenerator.generateUIFrame(this, s.getObject(),
 		//null);
 		frame.initDerivedFrame(editor);

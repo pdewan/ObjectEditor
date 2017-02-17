@@ -134,7 +134,7 @@ public class ABasicSourceOperationsModel extends AnAbstractOperationsModel imple
 //		Hashtable attributeTable = new Hashtable();
 //		attributeTable.put(AttributeNames.PREFERRED_WIDGET, VirtualTextArea.class.getName());
 //		uiFrame editor = ObjectEditor.edit(text, attributeTable, null);
-		uiFrame editor = ObjectEditor.edit(text, VirtualTextArea.class);
+		uiFrame editor = (uiFrame) ObjectEditor.edit(text, VirtualTextArea.class);
 
 		editor.setSize(500, 400);
 		editor.setTitle(aClassName);

@@ -50,7 +50,7 @@ public class AnInteractiveActualParameter implements InteractiveActualParameter 
 	}
 	void displayParameter(Object obj) {
 		
-		 uiFrame editor = ObjectEditor.edit(obj);
+		 uiFrame editor = (uiFrame) ObjectEditor.edit(obj);
 			//tf.setTitle(result.toString());
 			editor.setTitle(parameterName + ":" +  obj.toString());
 			

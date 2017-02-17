@@ -350,7 +350,7 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 			ObjectEditor oe = new ObjectEditor();
 			//editor = bus.uigen.uiGenerator.generateUIFrame(new ObjectEditor());
 			//editor = bus.uigen.uiGenerator.generateUIFrame(oe);
-			editor = ObjectEditor.edit(oe);
+			editor = (uiFrame) ObjectEditor.edit(oe);
 			//editor = bus.uigen.uiGenerator.generateUIFrame(new shapes.RectangleModel(new java.awt.Rectangle(100, 100, 100, 100)));
 			//editor.pack();			
 			lastEditor = editor;
@@ -708,7 +708,7 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 	}
 	
 	public static synchronized uiFrame graphicsEdit(Object obj) {
-		uiFrame frame = edit(obj);
+		uiFrame frame = (uiFrame) edit(obj);
 		frame.hideMainPanel();
 		frame.showDrawPanel();
 		return frame;
@@ -970,7 +970,7 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 	public static synchronized uiFrame textEdit(Object object) {
 		boolean prevMode = uiGenerator.textMode();
 		uiGenerator.setTextMode (true);
-		uiFrame editor = ObjectEditor.edit(object);
+		uiFrame editor = (uiFrame) ObjectEditor.edit(object);
 		uiGenerator.setTextMode( prevMode);	
 		return editor;
 	}
@@ -1090,7 +1090,7 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 	public static uiFrame browse (Object rootObject, Object parentObject, Object childObject) {
 		//register();
 		//uiFrame retVal = bus.uigen.uiGenerator.generateUIFrame(rootObject);
-		uiFrame retVal = ObjectEditor.edit(rootObject);
+		uiFrame retVal = (uiFrame) ObjectEditor.edit(rootObject);
 		//retVal.toggleElide (retVal.getAdapter(), 2);
 		retVal.internalElideTopChildren();
 		retVal.validate();
@@ -2159,12 +2159,12 @@ public static uiFrame editInTreeContainer(	Object object, VirtualContainer tree)
 		}
 	  return null;
   }
-  public static synchronized uiFrame editWithAttributes(Object o, Hashtable selfAttributes) {
+  public static synchronized CompleteOEFrame editWithAttributes(Object o, Hashtable selfAttributes) {
   	return editWithAttributes (o, selfAttributes, null);
   	
   }
-  public static synchronized uiFrame editWithAttributes(Object o, Hashtable selfAttributes, Vector childrenAttributes) {
-  	uiFrame uiF = edit (o, selfAttributes, childrenAttributes);
+  public static synchronized CompleteOEFrame editWithAttributes(Object o, Hashtable selfAttributes, Vector childrenAttributes) {
+	  CompleteOEFrame uiF = edit (o, selfAttributes, childrenAttributes);
   	//uiF.setAttributes(selfAttributes, childrenAttributes);
 //  	uiF.setAttributes(selfAttributes);
 //  	uiF.setChildrenAttributes(childrenAttributes);
@@ -2197,13 +2197,13 @@ public static boolean withAttributeRegisterer() {
   		childAttributes.put(AttributeNames.LABEL, childrenLabels[i]);
   		childrenAttributes.add(childAttributes);
   	}
-  	uiFrame uiF = editWithAttributes (o, null, childrenAttributes);
+  	uiFrame uiF = (uiFrame) editWithAttributes (o, null, childrenAttributes);
   	uiF.setTitle(selfLabel);
   	return uiF;
   }  
   public static uiFrame editWithTitle (Object o, String selfLabel) {
   
-  	uiFrame uiF = edit (o);
+  	uiFrame uiF = (uiFrame) edit (o);
   	uiF.setTitle(selfLabel);
   	return uiF;
   }
@@ -2211,40 +2211,40 @@ public static boolean withAttributeRegisterer() {
 	  uiGenerator.setProfile(true);
 	  uiGenerator.printTime("start of profiling");
 	  //return ObjectEditor.edit(o, true, new MenuSetter(), new AMenuDescriptor());
-	  return ObjectEditor.edit(o, AClassDescriptor.withAttributeRegisterer(), defaultMenuSetter, new AMenuDescriptor(), null, null);
+	  return (uiFrame) ObjectEditor.edit(o, AClassDescriptor.withAttributeRegisterer(), defaultMenuSetter, new AMenuDescriptor(), null, null);
 	  //return edit(o, null);
   }
   public static synchronized uiFrame editWithPromotedChild(Object o) {
 	  Hashtable table = new Hashtable();
 		table.put(AttributeNames.PROMOTE_ONLY_CHILD, true);
-		return ObjectEditor.editWithAttributes(o, table);
+		return (uiFrame) ObjectEditor.editWithAttributes(o, table);
   }
-  public static synchronized uiFrame edit (Object o) {
+  public static synchronized CompleteOEFrame edit (Object o) {
     return ObjectEditor.edit(o, null, null);
   }
   public static synchronized uiFrame edit (Object o, boolean showMenus) {
 	    return ObjectEditor.edit(o, showMenus, (Hashtable) null, null);
 	  }
-  public static synchronized uiFrame edit(Object o, Class widgetType) {
+  public static synchronized CompleteOEFrame edit(Object o, Class widgetType) {
 	  String widgetTypeName = widgetType.getName();
 	  Hashtable attributeTable = new Hashtable();
 		attributeTable.put(AttributeNames.PREFERRED_WIDGET, widgetTypeName);
 		return ObjectEditor.edit(o, attributeTable, null);
   }
-  public static synchronized uiFrame edit (Object o, Hashtable selfAttributes, Vector childrenAttributes) {
+  public static synchronized CompleteOEFrame edit (Object o, Hashtable selfAttributes, Vector childrenAttributes) {
 //	  /uiGenerator.printTime("start of edit");
 	  //return ObjectEditor.edit(o, true, new MenuSetter(), new AMenuDescriptor());
 	  return ObjectEditor.edit(o, AClassDescriptor.withAttributeRegisterer(), defaultMenuSetter, new AMenuDescriptor(), selfAttributes, childrenAttributes);
 	  //return edit(o, null);
   }
-  public static synchronized uiFrame edit (Object o, ObjectAdapter sourceAdapter) {
+  public static synchronized CompleteOEFrame edit (Object o, ObjectAdapter sourceAdapter) {
 	  //return ObjectEditor.edit(o, true, defaultMenuSetter, new AMenuDescriptor());
 	  return ObjectEditor.edit(o, AClassDescriptor.withAttributeRegisterer(), defaultMenuSetter, new AMenuDescriptor(), sourceAdapter, null, null);
 	  //return edit(o, null);
   }
   
   public static synchronized uiFrame edit (Object o, boolean showMenus, Hashtable selfAttributes, Vector childrenAttributes) {
-	  return ObjectEditor.edit(o, showMenus, defaultMenuSetter, new AMenuDescriptor(), selfAttributes, childrenAttributes);
+	  return (uiFrame) ObjectEditor.edit(o, showMenus, defaultMenuSetter, new AMenuDescriptor(), selfAttributes, childrenAttributes);
 	  //return edit(o, null);
   }
   
@@ -2669,7 +2669,7 @@ public static boolean withAttributeRegisterer() {
 	}
 	public synchronized  Object syncEditInstance(Object o) {
 		syncObject = o;		
-		uiFrame f = edit(o);
+		uiFrame f = (uiFrame) edit(o);
 		f.addDoneItemAndButton(this);
 		/*
 		MenuItem okMenuItem = f.addDoneItem();		
@@ -2698,7 +2698,7 @@ public static boolean withAttributeRegisterer() {
 	
 	public void run() {
 		
-		syncFrame = edit(syncObject);
+		syncFrame = (uiFrame) edit(syncObject);
 		VirtualMenuItem okButton = syncFrame.addDoneItem();		
 		okButton.addActionListener(this);
 		//return f.getAdapter().getValue();				
@@ -2741,7 +2741,7 @@ public static boolean withAttributeRegisterer() {
 	
 
 	
-	public static synchronized uiFrame edit(Object o, boolean showMenus, MenuSetter menuTest, AMenuDescriptor menuDescriptor, Hashtable selfAttributes, Vector childrenAttributes) {
+	public static synchronized CompleteOEFrame edit(Object o, boolean showMenus, MenuSetter menuTest, AMenuDescriptor menuDescriptor, Hashtable selfAttributes, Vector childrenAttributes) {
 		return edit(o, showMenus, menuTest, menuDescriptor, (ObjectAdapter) null, selfAttributes, childrenAttributes);
 		/*
 		//F.O. passing in null for string as if edit (0) called.
@@ -2752,7 +2752,7 @@ public static boolean withAttributeRegisterer() {
 		return retVal;
 		*/
 	}
-	public static synchronized uiFrame edit(Object o, boolean showMenus, MenuSetter menuTest, AMenuDescriptor menuDescriptor) {
+	public static synchronized CompleteOEFrame edit(Object o, boolean showMenus, MenuSetter menuTest, AMenuDescriptor menuDescriptor) {
 		return edit(o, showMenus, menuTest, menuDescriptor, null, null);
 		/*
 		//F.O. passing in null for string as if edit (0) called.
@@ -2763,13 +2763,13 @@ public static boolean withAttributeRegisterer() {
 		return retVal;
 		*/
 	}
-public static synchronized uiFrame edit(Object o, boolean showMenus, MenuSetter menuTest, AMenuDescriptor menuDescriptor, ObjectAdapter sourceAdapter, Hashtable selfAttributes, Vector childrenAttributes) {
+public static synchronized CompleteOEFrame edit(Object o, boolean showMenus, MenuSetter menuTest, AMenuDescriptor menuDescriptor, ObjectAdapter sourceAdapter, Hashtable selfAttributes, Vector childrenAttributes) {
 	if (isHeadless()) {
 
 //	if (GraphicsEnvironment.isHeadless()) {
 		System.err.println("Headless program, not generating UI");
-		uiFrame retVal = new uiFrame();
-		retVal.setIsDummy(true);
+		CompleteOEFrame retVal = new ADummyCompleteOEFrame();
+//		retVal.setIsDummy(true);
 		return retVal;
 	}
 	initStatic();
@@ -2856,7 +2856,7 @@ public static synchronized uiFrame edit(Object o, boolean showMenus, MenuSetter 
 		if (objectList.size() == 0) return null;
 		//registerEditors();
 		//uiFrame retVal = bus.uigen.uiGenerator.generateUIFrame(objectList.elementAt(0));
-		uiFrame retVal = ObjectEditor.edit(objectList.elementAt(0));
+		uiFrame retVal = (uiFrame) ObjectEditor.edit(objectList.elementAt(0));
 		ObjectAdapter firstAdapter = retVal.getAdapter();
 		
 //comp.
@@ -3616,7 +3616,7 @@ public static synchronized uiFrame edit(Object o, boolean showMenus, MenuSetter 
 		try {
 		File classFile = util.misc.Common.open(sourceDirectory, c);
 		String text = util.misc.Common.toText(classFile);
-		uiFrame editor = ObjectEditor.edit(text);
+		uiFrame editor = (uiFrame) ObjectEditor.edit(text);
 		editor.setTitle(c);
 		} catch (Exception e) {
 			Tracer.userMessage(e.getMessage());
@@ -3899,7 +3899,7 @@ public static void associateKeywordWithClassName(String keyword, ClassDescriptor
 			}
 			else {
 		      instance = objectClass.newInstance();
-		       f = edit(instance);
+		       f = (uiFrame) edit(instance);
 			  //f.setAnimationMode(animationEnabled);
 			}
 		} catch (IllegalAccessException iae) {
