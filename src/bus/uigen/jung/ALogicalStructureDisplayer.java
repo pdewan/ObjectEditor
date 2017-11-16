@@ -26,15 +26,33 @@ public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 		jungGraphManager = 	createLogicalStructureDisplay(graph,aFrame, false) ; 
 		TraceableBus.addTraceableListener(this);		  
 	}
-	public static JungGraphManager createLogicalStructureDisplay(Object aRoot,
-			JFrame aFrame) {
+	public static JungGraphManager createLogicalStructureDisplay(Object[] aRoots) {
+		JFrame aFrame = new JFrame();
+		return createLogicalStructureDisplay(aRoots, aFrame);
+		
+		
+	}
+	public static JungGraphManager createLogicalStructureDisplay(Object[] aRoots, JFrame aFrame) {
 		JungGraphApplet applet = new JungGraphApplet();
-		JungGraphManager retVal = createLogicalStructureDisplay(aRoot, aFrame, applet);
+		JungGraphManager retVal = createLogicalStructureDisplay(aRoots, aFrame, applet);
 		 applet.init();
 			applet.start();
 			aFrame.pack();
 			aFrame.setVisible(true);
 			return retVal;
+	}
+
+	public static JungGraphManager createLogicalStructureDisplay(Object aRoot,
+			JFrame aFrame) {
+		Object[] aRoots =  new Object[]{aRoot};
+		return createLogicalStructureDisplay(aRoots, aFrame);
+//		JungGraphApplet applet = new JungGraphApplet();
+//		JungGraphManager retVal = createLogicalStructureDisplay(aRoot, aFrame, applet);
+//		 applet.init();
+//			applet.start();
+//			aFrame.pack();
+//			aFrame.setVisible(true);
+//			return retVal;
 
 //		ObjectAdapter rootAdapter = ObjectEditor.toObjectAdapter(aRoot);
 //		ObjectAdapterToJungGraph<ObjectAdapter, ObjectAdapter> converter = new AnObjectAdapterToLogicalStructure();

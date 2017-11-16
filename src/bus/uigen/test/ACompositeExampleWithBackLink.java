@@ -6,10 +6,16 @@ import java.util.List;
 import bus.uigen.ObjectEditor;
 
 public class ACompositeExampleWithBackLink extends ACompositeExample {
+	ACompositeExample child = new ACompositeExample();
 	public Object getThis() {
 		return this;
 	}
-	
+	public Object getChild() {
+		return child;
+	}
+	public Object getSecondLink() {
+		return child;
+	}
 	public static void main (String[] args) {
 		List list = new ArrayList();
 		ACompositeExampleWithBackLink compositeExample = new ACompositeExampleWithBackLink();

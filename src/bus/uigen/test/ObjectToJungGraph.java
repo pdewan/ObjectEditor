@@ -1,6 +1,11 @@
 package bus.uigen.test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.JFrame;
+
+import org.apache.commons.collections15.map.HashedMap;
 
 import bus.uigen.ObjectEditor;
 import bus.uigen.jung.AnObjectAdapterToLogicalStructure;
@@ -14,11 +19,32 @@ import edu.uci.ics.jung.graph.Graph;
 
 public class ObjectToJungGraph {
 	public static void main (String[] args) {
-		Object root = new ACompositeExample();
+		Map aMap = new HashMap();
+		Map aChildMap = new HashMap();
+		Map aChild2Map = new HashMap();
+		
+//		Object root = new ACompositeExample();
+		Object compositeWithBackLink = new ACompositeExampleWithBackLink();
+		aChildMap.put ("one", "child1Map");
+		aChildMap.put("2", compositeWithBackLink);
+		aChild2Map.put("two", "child2Map");
+		aChild2Map.put("2",  compositeWithBackLink);
+		Object composite = new ACompositeExample();
+		aMap.put("one", aChildMap);
+		aMap.put("two", aChild2Map );
+		Object root = aMap;
+		
+
+
 //		new ALogicalStructureDisplayer(new JFrame());
 //		ObjectEditor.edit(root);
 		
-		ALogicalStructureDisplayer.createLogicalStructureDisplay(root, new JFrame());
+		Object[] roots = {root, aChildMap};
+		
+//		ALogicalStructureDisplayer.createLogicalStructureDisplay(roots, new JFrame());
+		Object aRetVal = ALogicalStructureDisplayer.createLogicalStructureDisplay(roots);
+		ObjectEditor.edit(aRetVal);
+
 //		Object root = new ACompositeExampleWithBackLink();
 //		ObjectAdapter rootAdapter = ObjectEditor.toObjectAdapter(root);
 //		ObjectAdapterToJungGraph<ObjectAdapter, ObjectAdapter> converter = new AnObjectAdapterToLogicalStructure();
