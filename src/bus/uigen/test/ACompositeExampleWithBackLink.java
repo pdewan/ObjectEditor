@@ -5,16 +5,18 @@ import java.util.List;
 
 import bus.uigen.ObjectEditor;
 
-public class ACompositeExampleWithBackLink extends ACompositeExample {
-	Object child = new ALabelAndString();
+public class ACompositeExampleWithBackLink 
+//extends ACompositeExample 
+{
+	ALabelAndString child = new ALabelAndString();
 	public Object getThis() {
 		return this;
 	}
-	public Object getChild() {
+	public ALabelAndString getChild() {
 		return child;
 	}
 	public Object getSecondLink() {
-		return getChild();
+		return getChild().getLabelModel();
 	}
 	public static void main (String[] args) {
 		List list = new ArrayList();

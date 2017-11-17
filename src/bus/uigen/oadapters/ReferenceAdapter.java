@@ -19,6 +19,7 @@ import bus.uigen.widgets.VirtualLabel;
 import java.util.List;
 public class ReferenceAdapter extends PrimitiveAdapter 
 {
+	private static final String ROOT_NAME = "root";
 	ObjectAdapter referentAdapter;
 
 	public ReferenceAdapter() throws RemoteException {
@@ -33,7 +34,17 @@ public class ReferenceAdapter extends PrimitiveAdapter
 	public void init(ObjectAdapter aReferentAdapter) {
 		referentAdapter = aReferentAdapter;
 	}		public String toString() {
-		return "Points to: " + referentAdapter.getReferencePath();
+		String aReferencePath = referentAdapter.getReferencePath();
+		int aRootComponentEnd = aReferencePath.indexOf(".");
+		if (aRootComponentEnd != -1) {
+			String aSuffix = aReferencePath.substring(aRootComponentEnd);
+			aReferencePath = ROOT_NAME + aSuffix;
+		} else {
+			aReferencePath = ROOT_NAME;
+		}
+//		return "Points to: " + referentAdapter.getReferencePath();
+		return "Points to: " + aReferencePath;
+
 	}
 	
 	public Object getViewObject() {

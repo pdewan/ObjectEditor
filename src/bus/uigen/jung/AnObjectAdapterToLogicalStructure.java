@@ -1,5 +1,6 @@
 package bus.uigen.jung;
 
+import bus.uigen.oadapters.GraphReferenceAdapter;
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.oadapters.ReferenceAdapter;
 import edu.uci.ics.jung.graph.Graph;
@@ -16,7 +17,9 @@ public class AnObjectAdapterToLogicalStructure extends AbstractObjectAdapterToJu
 				edgeAdapter = aDestination.getKeyAdapter(); 
 			}
 		// to make sure two links to the same  destination adapter are separate objects 
-			else { edgeAdapter = new ReferenceAdapter(aVertexDestination); }
+//			else { edgeAdapter = new ReferenceAdapter(aVertexDestination); }
+			else { edgeAdapter = new GraphReferenceAdapter(aVertexDestination); }
+
 		aGraph.addEdge(edgeAdapter, aVertexSource, aVertexDestination);
 		} catch (Exception e) {
 			e.printStackTrace();
