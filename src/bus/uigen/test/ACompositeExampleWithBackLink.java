@@ -6,7 +6,7 @@ import java.util.List;
 import bus.uigen.ObjectEditor;
 
 public class ACompositeExampleWithBackLink extends ACompositeExample {
-	ACompositeExample child = new ACompositeExample();
+	Object child = new ALabelAndString();
 	public Object getThis() {
 		return this;
 	}
@@ -14,7 +14,7 @@ public class ACompositeExampleWithBackLink extends ACompositeExample {
 		return child;
 	}
 	public Object getSecondLink() {
-		return child;
+		return getChild();
 	}
 	public static void main (String[] args) {
 		List list = new ArrayList();

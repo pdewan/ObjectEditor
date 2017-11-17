@@ -10,6 +10,7 @@ import javax.swing.Icon;
 
 import org.apache.commons.collections15.Transformer;
 
+import bus.uigen.CompleteOEFrame;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Context;
@@ -147,6 +148,9 @@ public interface JungGraphManager<VertexType, EdgeType> {
 	void setVertexRenderer(Vertex<VertexType, EdgeType> newVal);
 
 	Transformer<EdgeType, Paint> getEdgeDrawPaintTransformer();
+	
+	CompleteOEFrame getOEFrame();
+	void setOEFrame(CompleteOEFrame anOEFrame);
 
 //	Transformer<VertexType, Paint> getVertexFillPaintTransformer();
 

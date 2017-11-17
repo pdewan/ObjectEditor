@@ -33,6 +33,7 @@ import javax.swing.JSlider;
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.functors.ConstantTransformer;
 
+import bus.uigen.CompleteOEFrame;
 import util.annotations.MaxValue;
 import util.annotations.PreferredWidgetClass;
 import util.annotations.Visible;
@@ -80,6 +81,7 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	Container graphContainer;
 	private static final long serialVersionUID = -5345319851341875800L;
 	JungShapeModelDisplayer jungShapeModelDisplayer;
+	protected CompleteOEFrame oeFrame;
 
 	
 
@@ -1030,6 +1032,14 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	public Paint getVertexDrawColor(VertexType aVertex) {
 		// TODO Auto-generated method stub
 		return vertexDrawColorer.getColor(aVertex);
+	}
+	@Override
+	public CompleteOEFrame getOEFrame() {
+		return oeFrame;
+	}
+	@Override
+	public void setOEFrame(CompleteOEFrame anOEFrame) {
+		oeFrame = anOEFrame;
 	}
 	
 

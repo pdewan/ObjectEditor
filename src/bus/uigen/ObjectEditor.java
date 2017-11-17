@@ -967,13 +967,13 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 		return frame;
 	}
 	
-	public static synchronized uiFrame textEdit(Object object) {
+	public static synchronized CompleteOEFrame textEdit(Object object) {
 		boolean prevMode = uiGenerator.textMode();
 		uiGenerator.setTextMode (true);
 		uiFrame editor = (uiFrame) ObjectEditor.edit(object);
 		uiGenerator.setTextMode( prevMode);	
 		return editor;
-	}
+	}	
 	public static synchronized uiFrame desktopEdit (Object object) {
 		//register();
 		uiFrame frame = OEFrameSelector.createFrame(object);

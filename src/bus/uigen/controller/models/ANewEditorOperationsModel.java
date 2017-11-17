@@ -77,7 +77,7 @@ public class ANewEditorOperationsModel extends ABasicNewEditorOperationsModel im
 		
 		ObjectAdapter selection = getOperandAdapter();
 		boolean prevMode = uiGenerator.textMode();
-		uiFrame editor = ObjectEditor.textEdit(selection.getObject());
+		uiFrame editor = (uiFrame) ObjectEditor.textEdit(selection.getObject());
 //		uiGenerator.setTextMode (true);
 //		uiFrame editor = ObjectEditor.edit(selection.getObject());
 //		uiGenerator.setTextMode( prevMode);		

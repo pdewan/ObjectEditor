@@ -7,11 +7,15 @@ import java.rmi.RemoteException;
 import javax.swing.JFrame;
 
 import util.trace.TraceableBus;
+import bus.uigen.CompleteOEFrame;
 import bus.uigen.ObjectEditor;
+import bus.uigen.uiFrame;
+import bus.uigen.uiGenerator;
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.oadapters.ReferenceAdapter;
 import bus.uigen.oadapters.RootAdapter;
 import bus.uigen.trace.LogicalStructureNodeCreated;
+import bus.uigen.widgets.VirtualComponent;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Forest;
@@ -25,6 +29,21 @@ public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 		graph =   Graphs.<ObjectAdapter,ObjectAdapter>synchronizedDirectedGraph(new DirectedSparseMultigraph<ObjectAdapter,ObjectAdapter>());
 		jungGraphManager = 	createLogicalStructureDisplay(graph,aFrame, false) ; 
 		TraceableBus.addTraceableListener(this);		  
+	}
+	public static synchronized JungGraphManager<ObjectAdapter, ObjectAdapter> treeAndGraphDisplay(Object object) {
+		CompleteOEFrame aFrame = ObjectEditor.textEdit(object)	;
+		aFrame.showDrawPanel();
+		aFrame.hideMainPanel();
+		aFrame.showTreePanel();
+		VirtualComponent aVirtualComponent = aFrame.getDrawVirtualComponent();
+		Container aJPanel = (Container) aFrame.getDrawPanel().getPhysicalComponent();
+		Container aContainer = (Container) aVirtualComponent.getPhysicalComponent();
+//		JFrame aJFrame = (JFrame) aFrame.getFrame().getPhysicalComponent();
+		JungGraphManager aGraphManager = ALogicalStructureDisplayer.createLogicalStructureDisplay(object, (JFrame) null, aContainer);
+		aGraphManager.setOEFrame(aFrame);
+		aFrame.setSize(700, 500);		
+//		aJFrame.validate();			
+		return aGraphManager;
 	}
 	public static JungGraphManager createLogicalStructureDisplay(Object[] aRoots) {
 		JFrame aFrame = new JFrame();
@@ -98,6 +117,23 @@ public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 //		return createLogicalStructureDisplay(graph, aFrame,  isForest, aContainer);
 
 	}
+	public static JungGraphManager createLogicalStructureDisplay(Object aRoot,
+			CompleteOEFrame aFrame, Container aContainer) {
+		JungGraphManager aRetVal = createLogicalStructureDisplay(new Object[] {aRoot}, (JFrame) null, aContainer);
+		aRetVal.setOEFrame(aFrame);
+		return aRetVal;
+
+		//		ObjectAdapter rootAdapter = ObjectEditor.toObjectAdapter(aRoot);
+//		ObjectAdapterToJungGraph<ObjectAdapter, ObjectAdapter> converter = new AnObjectAdapterToLogicalStructure();
+//		boolean isForest = false;
+//		if (rootAdapter.hasTreeLogicalStructure()) {
+//			isForest = true;
+//		}
+//		Graph<ObjectAdapter, ObjectAdapter> graph = converter.createJungGraph(
+//				rootAdapter, isForest);
+//		return createLogicalStructureDisplay(graph, aFrame,  isForest, aContainer);
+
+	}
 	public static JungGraphManager createLogicalStructureDisplay(Graph<ObjectAdapter, ObjectAdapter> aGraph,
 			JFrame aFrame, boolean  isForest) {
 		JungGraphApplet applet = new JungGraphApplet();
@@ -147,14 +183,16 @@ public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 					(Forest<ObjectAdapter, ObjectAdapter>) aGraph, layout))
 					.traverse();
 		}
+		if (aFrame != null) {
 		aFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		aFrame.getContentPane().add(aContainer);
+		}
 		aContainer.setBackground(Color.blue);
 		// applet.init();
 //		aContainer.start();
 //		aFrame.pack();
 //		aFrame.setVisible(true);
-		ObjectEditor.edit(jungGraphManager);
+//		ObjectEditor.edit(jungGraphManager);
 		return jungGraphManager;
 	}
 	@Override
