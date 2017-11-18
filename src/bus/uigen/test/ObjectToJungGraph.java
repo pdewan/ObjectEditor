@@ -7,21 +7,25 @@ import javax.swing.JFrame;
 
 import org.apache.commons.collections15.map.HashedMap;
 
+import util.models.AListenableHashMap;
+import bus.uigen.ABasicObjectRegistry;
 import bus.uigen.ObjectEditor;
+import bus.uigen.ObjectRegistry;
 import bus.uigen.jung.AnObjectAdapterToLogicalStructure;
 import bus.uigen.jung.JungGraphApplet;
 import bus.uigen.jung.ALogicalStructureEdgeLabelTransformer;
 import bus.uigen.jung.ALogicalStructureVertexLabelTransformer;
 import bus.uigen.jung.ALogicalStructureDisplayer;
+import bus.uigen.jung.JungGraphManager;
 import bus.uigen.jung.ObjectAdapterToJungGraph;
 import bus.uigen.oadapters.ObjectAdapter;
 import edu.uci.ics.jung.graph.Graph;
 
 public class ObjectToJungGraph {
 	public static void main (String[] args) {
-		Map aMap = new HashMap();
-		Map aChildMap = new HashMap();
-		Map aChild2Map = new HashMap();
+		Map aMap = new AListenableHashMap();
+		Map aChildMap = new AListenableHashMap();
+		Map aChild2Map = new AListenableHashMap();
 		
 //		Object root = new ACompositeExample();
 		Object compositeWithBackLink = new ACompositeExampleWithBackLink();
@@ -42,8 +46,15 @@ public class ObjectToJungGraph {
 		Object[] roots = {root, aChildMap};
 		
 //		ALogicalStructureDisplayer.createLogicalStructureDisplay(roots, new JFrame());
-		Object aRetVal = ALogicalStructureDisplayer.createLogicalStructureDisplay(roots);
-		ObjectEditor.edit(aRetVal);
+		JungGraphManager aJungGraphManager = ALogicalStructureDisplayer.createLogicalStructureDisplay(roots);
+		ObjectAdapter anAdapter = ObjectRegistry.getObjectAdapter(aChildMap);
+		if (anAdapter != null) {
+			aJungGraphManager.setVertexVisibile(anAdapter, false);
+		}
+		ObjectEditor.edit(aJungGraphManager);
+
+//		aMap.put("3", "dynamic element");
+		
 
 //		Object root = new ACompositeExampleWithBackLink();
 //		ObjectAdapter rootAdapter = ObjectEditor.toObjectAdapter(root);
