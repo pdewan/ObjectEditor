@@ -8,7 +8,13 @@ public class ALogicalStructureVertexToolTipTransformer implements Transformer<Ob
 
 	@Override
 	public String transform(ObjectAdapter anOriginal) {
-		String retVal = anOriginal.getExplanation();
+		Object aRealObject = anOriginal.getRealObject();
+		if (aRealObject == null) {
+			return "null";
+		}
+		String retVal = aRealObject.toString();
+//		String retVal = anOriginal.getExplanation();
+		
 //		String retVal = anOriginal.getLabel();
 
 		return retVal;
