@@ -1,6 +1,6 @@
 package bus.uigen.jung;
 
-import bus.uigen.oadapters.GraphReferenceAdapter;
+import bus.uigen.oadapters.GraphEdgeReferenceAdapter;
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.oadapters.ReferenceAdapter;
 import edu.uci.ics.jung.graph.Graph;
@@ -18,7 +18,12 @@ public class AnObjectAdapterToLogicalStructure extends AbstractObjectAdapterToJu
 			}
 		// to make sure two links to the same  destination adapter are separate objects 
 //			else { edgeAdapter = new ReferenceAdapter(aVertexDestination); }
-			else { edgeAdapter = new GraphReferenceAdapter(aVertexDestination); }
+			else {
+//				edgeAdapter = new GraphReferenceAdapter(aVertexDestination);
+				// we need the label of the immediate destination
+				edgeAdapter = new GraphEdgeReferenceAdapter(aDestination);
+
+			}
 
 		aGraph.addEdge(edgeAdapter, aVertexSource, aVertexDestination);
 		} catch (Exception e) {
@@ -33,7 +38,13 @@ public class AnObjectAdapterToLogicalStructure extends AbstractObjectAdapterToJu
 		ObjectAdapter retVal = aVertexAdapter;
 
 		if (aVertexAdapter instanceof ReferenceAdapter) {
-			retVal = ((ReferenceAdapter) aVertexAdapter).getReferentAdapter();			
+			retVal = ((ReferenceAdapter) aVertexAdapter).getReferentAdapter();	
+//			try {
+//			retVal = new GraphVertexReferenceAdapter(((ReferenceAdapter) aVertexAdapter).getReferentAdapter());	
+//			} catch (RemoteException e) {
+//				e.printStackTrace();
+//			}
+
 		}
 		return retVal;
 //		Object aRealObject = aVertexAdapter.getRealObject();

@@ -151,6 +151,12 @@ public interface JungGraphManager<VertexType, EdgeType> {
 	
 	CompleteOEFrame getOEFrame();
 	void setOEFrame(CompleteOEFrame anOEFrame);
+	public TableDrivenColorer<VertexType> getVertexFillColorer();
+	public void setVertexFillColorer(
+			TableDrivenColorer<VertexType> vertexFillColorer) ;
+	public TableDrivenColorer<VertexType> getVertexDrawColorer() ;
+	public void setVertexDrawColorer(
+			TableDrivenColorer<VertexType> vertexDrawColorer) ;
 
 //	Transformer<VertexType, Paint> getVertexFillPaintTransformer();
 

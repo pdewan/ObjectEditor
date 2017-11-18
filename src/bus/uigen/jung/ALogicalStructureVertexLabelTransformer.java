@@ -4,7 +4,7 @@ import org.apache.commons.collections15.Transformer;
 
 import bus.uigen.oadapters.ObjectAdapter;
 
-public class ALogicalStructureVertexLabelTransformer implements Transformer<Object, String> {
+public class ALogicalStructureVertexLabelTransformer<ElementType> implements Transformer<ElementType, String> {
 
 	@Override
 	public String transform(Object anOriginal) {

@@ -131,8 +131,10 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	VisualizationViewer.Paintable postRenderer;
 	Map<VertexType, List<Color>> vertexToColors = new HashMap();
 	TableDrivenColorer<VertexType> vertexFillColorer = new ATableDrivenColorer<VertexType>();
+	
 	TableDrivenColorer<VertexType> vertexDrawColorer = new ATableDrivenColorer<VertexType>();
 
+	
 	TableDrivenColorer<EdgeType> edgeColorer = new ATableDrivenColorer<EdgeType>();
 //	Map<VertexType, Color> vertexToColor = new HashMap();
 //	Map<EdgeType, Color> edgeToColor = new HashMap();
@@ -1042,6 +1044,23 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 		oeFrame = anOEFrame;
 	}
 	
+	public TableDrivenColorer<VertexType> getVertexFillColorer() {
+		return vertexFillColorer;
+	}
+	public void setVertexFillColorer(
+			TableDrivenColorer<VertexType> vertexFillColorer) {
+		this.vertexFillColorer = vertexFillColorer;
+		setVertexFillPaintTransformer(vertexFillColorer);
+
+	}
+	public TableDrivenColorer<VertexType> getVertexDrawColorer() {
+		return vertexDrawColorer;
+	}
+	public void setVertexDrawColorer(
+			TableDrivenColorer<VertexType> vertexDrawColorer) {
+		this.vertexDrawColorer = vertexDrawColorer;
+		setVertexDrawPaintTransformer(vertexDrawColorer);
+	}
 
 	
 	

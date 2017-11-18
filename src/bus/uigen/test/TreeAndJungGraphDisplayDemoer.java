@@ -12,7 +12,7 @@ import bus.uigen.jung.ALogicalStructureDisplayer;
 import bus.uigen.widgets.VirtualComponent;
 import bus.uigen.widgets.swing.DelegateJPanel;
 
-public class GraphDisplayDemoer {
+public class TreeAndJungGraphDisplayDemoer {
 	public static void main (String[] args) {
 		ACompositeExampleWithBackLink graphObject = new ACompositeExampleWithBackLink();
 //		ObjectEditor.textEdit(graphObject);

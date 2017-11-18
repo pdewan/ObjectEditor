@@ -9,15 +9,20 @@ import java.util.Map;
 public class ATableDrivenColorer<ElementType> implements TableDrivenColorer<ElementType> {
 	
 	Map<ElementType, Paint> vertexToColor = new HashMap();
-	Paint defaultColor = Color.RED;
+	static Paint defaultColor = Color.MAGENTA;
 	public ATableDrivenColorer() {
 		
+	}
+	protected Paint defaultColor(ElementType input) {
+		return defaultColor;
 	}
 
 	@Override
 	public Paint transform(ElementType input) {
 		Paint retVal= vertexToColor.get(input);
-		if (retVal == null) return defaultColor;
+//		if (retVal == null) return defaultColor;
+		if (retVal == null) return defaultColor(input);
+
 		return retVal;
 	}
 

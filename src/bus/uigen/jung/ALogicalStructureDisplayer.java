@@ -168,15 +168,18 @@ public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 			JFrame aFrame, boolean  isForest, Container aContainer) {
 //		JungGraphApplet applet = new JungGraphApplet();
 //		applet.init();
-		JungGraphManager jungGraphManager = new AJungGraphManager<>(aGraph,
+		JungGraphManager<ObjectAdapter, ObjectAdapter> jungGraphManager = new AJungGraphManager<>(aGraph,
 				aContainer);
 		jungGraphManager.setForest(isForest);		
 		jungGraphManager
-				.setVertexLabelTransformer(new ALogicalStructureVertexLabelTransformer());
+				.setVertexLabelTransformer(new ALogicalStructureVertexLabelTransformer<ObjectAdapter>());
 		jungGraphManager
 				.setEdgeLabelTransformer(new ALogicalStructureEdgeLabelTransformer());
 		jungGraphManager
 				.setEdgeToolTipTransformer(new ALogicalStructureEdgeLabelTransformer());
+		TableDrivenColorer<ObjectAdapter> aTableDrivenColorer = new ATableDrivenObjectAdapterColorer();
+		jungGraphManager.setVertexFillColorer(aTableDrivenColorer);
+		jungGraphManager.setVertexDrawColorer(aTableDrivenColorer);
 		if (isForest) {
 			Layout layout = jungGraphManager.getGraphLayout();
 			(new DuplicateClassCollapser(

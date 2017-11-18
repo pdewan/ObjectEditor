@@ -17,15 +17,15 @@ import bus.uigen.viewgroups.OEView;
 import bus.uigen.widgets.VirtualLabel;
 
 import java.util.List;
-public class GraphReferenceAdapter extends ReferenceAdapter 
+public class GraphEdgeReferenceAdapter extends ReferenceAdapter 
 {
 	
-	public GraphReferenceAdapter(ObjectAdapter aReferentAdapter) throws RemoteException {
+	public GraphEdgeReferenceAdapter(ObjectAdapter aReferentAdapter) throws RemoteException {
 		super(aReferentAdapter);
 	}
 
 			public String toString() {
-		return this.getPropertyName();
+		return referentAdapter.getPropertyName();
 		
 
 	}
