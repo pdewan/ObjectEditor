@@ -15,6 +15,14 @@ import bus.uigen.widgets.swing.DelegateJPanel;
 public class TreeAndJungGraphDisplayDemoer {
 	public static void main (String[] args) {
 		ACompositeExampleWithBackLink graphObject = new ACompositeExampleWithBackLink();
+		String aString = new String("hello");
+		String aString2 = new String("hello");
+		System.out.println (aString.hashCode());
+		System.out.println (aString.hashCode());
+		System.out.println (System.identityHashCode(aString));
+		System.out.println (System.identityHashCode(aString2));
+
+
 //		ObjectEditor.textEdit(graphObject);
 		ALogicalStructureDisplayer.treeAndGraphDisplay(graphObject);
 //		CompleteOEFrame aFrame = ObjectEditor.textEdit(labelAndString);
