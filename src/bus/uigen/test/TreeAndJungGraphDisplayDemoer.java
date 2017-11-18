@@ -9,6 +9,7 @@ import bus.uigen.CompleteOEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.uiFrame;
 import bus.uigen.jung.ALogicalStructureDisplayer;
+import bus.uigen.jung.JungGraphManager;
 import bus.uigen.widgets.VirtualComponent;
 import bus.uigen.widgets.swing.DelegateJPanel;
 
@@ -24,7 +25,8 @@ public class TreeAndJungGraphDisplayDemoer {
 
 
 //		ObjectEditor.textEdit(graphObject);
-		ALogicalStructureDisplayer.treeAndGraphDisplay(graphObject);
+		JungGraphManager aJungGraphManager = ALogicalStructureDisplayer.treeAndGraphDisplay(graphObject);
+		ObjectEditor.edit(aJungGraphManager);
 //		CompleteOEFrame aFrame = ObjectEditor.textEdit(labelAndString);
 //		aFrame.showDrawPanel();
 //		aFrame.hideMainPanel();

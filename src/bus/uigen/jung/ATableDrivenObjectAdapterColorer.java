@@ -9,11 +9,16 @@ import java.util.Map;
 import bus.uigen.oadapters.ObjectAdapter;
 
 public class ATableDrivenObjectAdapterColorer extends ATableDrivenColorer<ObjectAdapter> {
+	public ATableDrivenObjectAdapterColorer(JungGraphManager aJungGraphManager) {
+		super(aJungGraphManager);
+		// TODO Auto-generated constructor stub
+	}
 	public static Color VIOLET = new Color(148, 0, 211);
 	public static Color INDIGO = new Color(75, 0, 130);	
 
 	public static Color[] LEVEL_COLORS = {
 		Color.MAGENTA, // levels start from 1, but just in case we go to zero
+		Color.BLACK, 
 		VIOLET, 
 		INDIGO,
 		Color.BLUE,
@@ -21,13 +26,11 @@ public class ATableDrivenObjectAdapterColorer extends ATableDrivenColorer<Object
 		Color.YELLOW,
 		Color.ORANGE,
 		Color.RED,
-		Color.BLACK,
 		Color.DARK_GRAY,
 		Color.LIGHT_GRAY,
-		Color.WHITE,
 		Color.PINK,
-		Color.CYAN
-		
+//		Color.CYAN,
+		Color.WHITE		
 		};
 	protected Paint defaultColor(ObjectAdapter input) {
 		int aLevel = input.getLevel();

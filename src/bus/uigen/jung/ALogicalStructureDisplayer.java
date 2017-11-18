@@ -178,7 +178,7 @@ public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 		jungGraphManager
 				.setEdgeToolTipTransformer(new ALogicalStructureEdgeLabelTransformer());
 		jungGraphManager.setVertexToolTipTransformer(new ALogicalStructureVertexToolTipTransformer());
-		TableDrivenColorer<ObjectAdapter> aTableDrivenColorer = new ATableDrivenObjectAdapterColorer();
+		TableDrivenColorer<ObjectAdapter> aTableDrivenColorer = new ATableDrivenObjectAdapterColorer(jungGraphManager);
 		jungGraphManager.setVertexFillColorer(aTableDrivenColorer);
 		jungGraphManager.setVertexDrawColorer(aTableDrivenColorer);
 		if (isForest) {
