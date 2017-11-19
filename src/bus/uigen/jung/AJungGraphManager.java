@@ -18,10 +18,13 @@ import java.awt.Font;
 import java.awt.Paint;
 import java.awt.Shape;
 import java.awt.Stroke;
+import java.awt.event.ActionEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -67,6 +70,8 @@ import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
 import edu.uci.ics.jung.visualization.renderers.Renderer.Vertex;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel;
+import edu.uci.ics.jung.visualization.subLayout.DelegatingGraphCollapser;
+import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
 import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
 
 /**
@@ -125,15 +130,19 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 
 	LayoutType layoutType = LayoutType.FruchtermanReingold;
 	CollapserType collapserType = CollapserType.CollapseDuplicateClasses;
+    protected GraphCollapser collapser;
 	Relaxer relaxer;
 
 	VisualizationViewer.Paintable postRenderer;
 	Map<VertexType, List<Color>> vertexToColors = new HashMap();
-	TableDrivenColorer<VertexType> vertexFillColorer = new ATableDrivenColorer<VertexType>(this);
+	TableDrivenColorer<VertexType> vertexFillColorer = new ATableDrivenColorer<VertexType>(
+			this);
 
-	TableDrivenColorer<VertexType> vertexDrawColorer = new ATableDrivenColorer<VertexType>(this);
+	TableDrivenColorer<VertexType> vertexDrawColorer = new ATableDrivenColorer<VertexType>(
+			this);
 
-	TableDrivenColorer<EdgeType> edgeColorer = new ATableDrivenColorer<EdgeType>(this);
+	TableDrivenColorer<EdgeType> edgeColorer = new ATableDrivenColorer<EdgeType>(
+			this);
 	// Map<VertexType, Color> vertexToColor = new HashMap();
 	// Map<EdgeType, Color> edgeToColor = new HashMap();
 	TableBasedGraphElementInclusionPredicate<VertexType, EdgeType, VertexType> vertexIncludePredicate;
@@ -141,11 +150,11 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 
 	// Transformer<VertexType, Shape> vertexTransformer
 
-	public AJungGraphManager() {
-	
-		// isForest = anIsForest;
-		init();
-	}
+//	public AJungGraphManager() {
+//
+//		// isForest = anIsForest;
+//		init();
+//	}
 
 	public AJungGraphManager(Graph<VertexType, EdgeType> aGraph,
 			Container aGraphContainer) {
@@ -652,6 +661,20 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	 * 
 	 * @see bus.uigen.jung.GenericJungGraph#init()
 	 */
+	ModalGraphMouse.Mode mouseMode = ModalGraphMouse.Mode.PICKING;
+
+	public ModalGraphMouse.Mode getMouseMode() {
+		return mouseMode;
+	}
+
+	public void setMouseMode(ModalGraphMouse.Mode aMouseMode) {
+		mouseMode = aMouseMode;
+		graphMouse.setMode(aMouseMode);
+
+	}
+
+	protected ModalGraphMouse graphMouse;
+
 	@Override
 	@Visible(false)
 	public void init() {
@@ -702,10 +725,10 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 		if (!isForest)
 
 			vv.getModel().getRelaxer().setSleepTime(500);
-		ModalGraphMouse aGraphMouse = new DefaultModalGraphMouse<VertexType, EdgeType>();
-//		vv.setGraphMouse(new DefaultModalGraphMouse<VertexType, EdgeType>());
-		aGraphMouse.setMode(ModalGraphMouse.Mode.PICKING);
-		vv.setGraphMouse(aGraphMouse);
+		graphMouse = new DefaultModalGraphMouse<VertexType, EdgeType>();
+		// vv.setGraphMouse(new DefaultModalGraphMouse<VertexType, EdgeType>());
+		graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
+		vv.setGraphMouse(graphMouse);
 
 		setVertexRenderer(new AVertexListShapeModelRenderer());
 		setVertexLabelRenderer(new AVertexListShapeModelLabelRenderer());
@@ -733,6 +756,8 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 
 		attachRenderContextTrapper((RenderContextTrapper<VertexType, EdgeType>) new ARenderContextTrapper<>());
 		attachGraphDecoratorTrapper(new AGraphicsDecoratorTrapper());
+		
+		collapser = new DelegatingGraphCollapser(graph);
 
 		// vv.setForeground(Color.white);
 		vv.setForeground(Color.black);
@@ -764,7 +789,46 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 		//
 		// timer = new Timer();
 	}
+    public void collapse() {
+    	Collection<VertexType> picked = new HashSet(vv.getPickedVertexState().getPicked());
+        if(picked.size() > 1) {
+            Graph<VertexType, EdgeType> inGraph = layout.getGraph();
+            Graph<VertexType, EdgeType> clusterGraph = collapser.getClusterGraph(inGraph, picked);
 
+            Graph g = collapser.collapse(layout.getGraph(), clusterGraph);
+            double sumx = 0;
+            double sumy = 0;
+            for(VertexType v : picked) {
+            	Point2D p = (Point2D)layout.transform(v);
+            	sumx += p.getX();
+            	sumy += p.getY();
+            }
+            Point2D cp = new Point2D.Double(sumx/picked.size(), sumy/picked.size());
+            vv.getRenderContext().getParallelEdgeIndexFunction().reset();
+            layout.setGraph(g);
+            
+            ((Layout)layout).setLocation(clusterGraph, cp);
+            vv.getPickedVertexState().clear();
+            vv.repaint();
+        }
+    }
+    public void expand() {
+        Collection picked = new HashSet(vv.getPickedVertexState().getPicked());
+        for(Object v : picked) {
+            if(v instanceof Graph) {
+                
+                Graph g = collapser.expand(layout.getGraph(), (Graph)v);
+                vv.getRenderContext().getParallelEdgeIndexFunction().reset();
+                layout.setGraph(g);
+            }
+            vv.getPickedVertexState().clear();
+           vv.repaint();
+        }
+    }
+    public void reset() {
+        layout.setGraph(graph);
+        vv.repaint();
+    }
 	@Override
 	public void addAndDisplayVertex(VertexType aVertex) {
 
@@ -1077,12 +1141,14 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 	}
 
 	@Override
+	@Visible(false)
 	public Paint getVertexDrawColor(VertexType aVertex) {
 		// TODO Auto-generated method stub
 		return vertexDrawColorer.getColor(aVertex);
 	}
 
 	@Override
+	@Visible(false)
 	public CompleteOEFrame getOEFrame() {
 		return oeFrame;
 	}
@@ -1102,7 +1168,7 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 		setVertexFillPaintTransformer(vertexFillColorer);
 
 	}
-
+	@Visible(false)
 	public TableDrivenColorer<VertexType> getVertexDrawColorer() {
 		return vertexDrawColorer;
 	}

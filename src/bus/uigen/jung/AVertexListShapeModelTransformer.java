@@ -11,7 +11,10 @@ import java.awt.geom.Ellipse2D;
 
 import org.apache.commons.collections15.functors.ConstantTransformer;
 
-public class AVertexListShapeModelTransformer<VertexType> extends  EllipseVertexShapeTransformer<VertexType>{
+public class AVertexListShapeModelTransformer<VertexType> 
+//		extends  EllipseVertexShapeTransformer<VertexType>
+		extends ClusterVertexShapeTransformer<VertexType>
+	{
 //public class AVertexListShapeModelTransformer<VertexType> extends  ConstantTransformer<VertexType>{
 
 		JungGraphManager<VertexType, Object> jungGraphManager;
@@ -27,12 +30,15 @@ public class AVertexListShapeModelTransformer<VertexType> extends  EllipseVertex
         @SuppressWarnings("unchecked")
 		@Override
         public Shape transform(VertexType v) {
-//        	Shape aPrototypeShape = super.transform(v);
+        	Shape aPrototypeShape = super.transform(v);
+        	return aPrototypeShape;
+        	/*
         	List<Color> aColors = jungGraphManager.getVertexColors(v);
         	if (aColors == null)
         		return regularShape;
         	ringsCompositeShape.set(aColors, regularShape);
         	return ringsCompositeShape;
+        	*/
         	
         	
 //            if(v instanceof Graph) {

@@ -9,15 +9,18 @@ public class ALogicalStructureVertexLabelTransformer<ElementType> implements Tra
 	@Override
 	public String transform(Object anOriginal) {
 		if (anOriginal instanceof ObjectAdapter) {
-			Object anOriginalObject = ((ObjectAdapter) anOriginal)
+			ObjectAdapter anOriginalObjectAdapter = (ObjectAdapter) anOriginal;
+			Object anOriginalObject = anOriginalObjectAdapter
 					.getRealObject();
+			
 			if (anOriginalObject == null) {
 				return "null";
 			} else {
 //				return anOriginalObject.getClass().getSimpleName();
 				String aSimpleName = anOriginalObject.getClass().getSimpleName();
 				String aHashString = Integer.toHexString(anOriginalObject.hashCode());
-				return aSimpleName + "(" + aHashString + ")";
+				String aValue = anOriginalObjectAdapter.isLeaf()?"="+ anOriginalObject.toString():":";
+				return aSimpleName + "(" + aHashString + ")" + aValue ;
 
 			}
 		}

@@ -18,19 +18,20 @@ public class ATableDrivenObjectAdapterColorer extends ATableDrivenColorer<Object
 
 	public static Color[] LEVEL_COLORS = {
 		Color.MAGENTA, // levels start from 1, but just in case we go to zero
-		Color.BLACK, 
-		VIOLET, 
-		INDIGO,
-		Color.BLUE,
-		Color.GREEN,
-		Color.YELLOW,
-		Color.ORANGE,
 		Color.RED,
-		Color.DARK_GRAY,
-		Color.LIGHT_GRAY,
-		Color.PINK,
+		Color.ORANGE,
+		Color.YELLOW,
+		Color.GREEN,
+		Color.BLUE,
+		INDIGO,
+		VIOLET, 
+//		Color.PINK
+
+//		Color.DARK_GRAY,
+//		Color.LIGHT_GRAY,
+//		Color.PINK,
 //		Color.CYAN,
-		Color.WHITE		
+//		Color.WHITE		
 		};
 	protected Paint defaultColor(ObjectAdapter input) {
 		int aLevel = input.getLevel();

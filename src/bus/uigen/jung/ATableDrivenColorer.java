@@ -6,12 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bus.uigen.oadapters.ObjectAdapter;
+import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.picking.PickedState;
 
 public class ATableDrivenColorer<ElementType> implements TableDrivenColorer<ElementType> {
 	
 	Map<ElementType, Paint> vertexToColor = new HashMap();
 	static Paint defaultColor = Color.MAGENTA;
+	static Paint selectedColor = Color.CYAN;
+	static Paint graphColor = defaultColor;
 	JungGraphManager jungGraphManager;
 	public ATableDrivenColorer(JungGraphManager aJungGraphManager) {
 		jungGraphManager = aJungGraphManager;
@@ -19,17 +23,32 @@ public class ATableDrivenColorer<ElementType> implements TableDrivenColorer<Elem
 	protected Paint defaultColor(ElementType input) {
 		return defaultColor;
 	}
+	
+	protected Paint selectedColor(ElementType input) {
+		return selectedColor;
+		
+	}
+	
+	protected Paint graphColor(ElementType input) {
+		return Color.MAGENTA;
+		
+	}
 
 	@Override
 	public Paint transform(ElementType input) {
+		
 		PickedState aState = jungGraphManager.getVisualizationViewer().getPickedVertexState();
 		if (aState.isPicked(input) ) {
-			return Color.CYAN;
+			return selectedColor(input);
+		}
+		if (input instanceof Graph) {
+			return graphColor(input);
 		}
 		Paint retVal= vertexToColor.get(input);
 //		if (retVal == null) return defaultColor;
-		if (retVal == null) return defaultColor(input);
-
+		if (retVal == null) {			
+			return defaultColor(input);		
+		}
 		return retVal;
 	}
 
