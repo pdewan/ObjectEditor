@@ -18,7 +18,12 @@ public class ALogicalStructureVertexLabelTransformer<ElementType> implements Tra
 			} else {
 //				return anOriginalObject.getClass().getSimpleName();
 				String aSimpleName = anOriginalObject.getClass().getSimpleName();
-				String aHashString = Integer.toHexString(anOriginalObject.hashCode());
+				
+				int aHashCode = anOriginalObject.getClass().equals(String.class)?
+						anOriginalObject.hashCode():System.identityHashCode(anOriginalObject);
+				
+				String aHashString = Integer.toHexString(aHashCode);
+				
 				String aValue = anOriginalObjectAdapter.isLeaf()?"="+ anOriginalObject.toString():":";
 				return aSimpleName + "(" + aHashString + ")" + aValue ;
 

@@ -18,10 +18,10 @@ public class TreeAndJungGraphDisplayDemoer {
 		ACompositeExampleWithBackLink graphObject = new ACompositeExampleWithBackLink();
 		String aString = new String("hello");
 		String aString2 = new String("hello");
-		System.out.println (aString.hashCode());
-		System.out.println (aString.hashCode());
-		System.out.println (System.identityHashCode(aString));
-		System.out.println (System.identityHashCode(aString2));
+//		System.out.println (aString.hashCode());
+//		System.out.println (aString.hashCode());
+//		System.out.println (System.identityHashCode(aString));
+//		System.out.println (System.identityHashCode(aString2));
 
 
 //		ObjectEditor.textEdit(graphObject);
