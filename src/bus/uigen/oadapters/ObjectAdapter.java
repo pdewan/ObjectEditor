@@ -8347,7 +8347,12 @@ ObjectAdapterInterface, Remote, Serializable
 			return true;
 		return (Boolean) retVal;
 	}
-
+	public boolean getNodeLabelIsToString() {
+		Object retVal = (Object) getMergedTempOrDefaultAttributeValue(AttributeNames.NODE_LABEL_IS_TO_STRING);
+		if (retVal == null)
+			return true;
+		return (Boolean) retVal;
+	}
 	static final int ELIDE_LENGTH = 20;
 
 	public String getElideString() {

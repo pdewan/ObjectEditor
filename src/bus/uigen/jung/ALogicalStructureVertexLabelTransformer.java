@@ -2,6 +2,7 @@ package bus.uigen.jung;
 
 import org.apache.commons.collections15.Transformer;
 
+import bus.uigen.attributes.AttributeNames;
 import bus.uigen.oadapters.ObjectAdapter;
 
 public class ALogicalStructureVertexLabelTransformer<ElementType> implements Transformer<ElementType, String> {
@@ -10,12 +11,17 @@ public class ALogicalStructureVertexLabelTransformer<ElementType> implements Tra
 	public String transform(Object anOriginal) {
 		if (anOriginal instanceof ObjectAdapter) {
 			ObjectAdapter anOriginalObjectAdapter = (ObjectAdapter) anOriginal;
+			
 			Object anOriginalObject = anOriginalObjectAdapter
 					.getRealObject();
 			
 			if (anOriginalObject == null) {
 				return "null";
 			} else {
+				
+				if (anOriginalObjectAdapter.getNodeLabelIsToString()) {
+					return anOriginalObject.toString();
+				}
 //				return anOriginalObject.getClass().getSimpleName();
 				String aSimpleName = anOriginalObject.getClass().getSimpleName();
 				

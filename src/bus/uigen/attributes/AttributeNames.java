@@ -195,6 +195,9 @@ public class AttributeNames {
 	public static final String ELIDE_STRING = "Elide String";
 	public static final String ELIDE_STRING_IS_TOSTRING = "Elide String Is ToString";
 	
+	public static final String NODE_LABEL_IS_TO_STRING = "Node Label Is To String";
+
+	
 	public static final String EXPLANATION = "Explanation";
 	
 	public static final String SHOW_DEBUG_INFO_WITH_TOOL_TIP = "Debug With Tool Tip";

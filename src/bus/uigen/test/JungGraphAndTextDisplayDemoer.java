@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import bus.uigen.CompleteOEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.uiFrame;
+import bus.uigen.attributes.AttributeNames;
 import bus.uigen.jung.AJungGraphManagerCustomization;
 import bus.uigen.jung.ALogicalStructureDisplayer;
 import bus.uigen.jung.JungGraphManager;
@@ -18,8 +19,8 @@ import bus.uigen.widgets.swing.DelegateJPanel;
 public class JungGraphAndTextDisplayDemoer {
 	public static void main (String[] args) {
 		ACompositeExampleWithBackLink graphObject = new ACompositeExampleWithBackLink();
-		String aString = new String("hello");
-		String aString2 = new String("hello");
+//		String aString = new String("hello");
+//		String aString2 = new String("hello");
 //		System.out.println (aString.hashCode());
 //		System.out.println (aString.hashCode());
 //		System.out.println (System.identityHashCode(aString));
@@ -27,6 +28,7 @@ public class JungGraphAndTextDisplayDemoer {
 
 
 //		ObjectEditor.textEdit(graphObject);
+		ObjectEditor.setDefaultAttribute(AttributeNames.NODE_LABEL_IS_TO_STRING, true);
 		JungGraphManagerCustomization aJungGraphCustomization = new AJungGraphManagerCustomization<>();
 		JungGraphManager aJungGraphManager = ALogicalStructureDisplayer.treeAndGraphDisplay(graphObject, 
 				aJungGraphCustomization);
