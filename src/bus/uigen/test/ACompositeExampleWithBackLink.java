@@ -15,21 +15,21 @@ public class ACompositeExampleWithBackLink
 	Integer int2 = new Integer(2);
 	
 	ALabelAndString child = new ALabelAndString();
-//	public Object getThis() {
-//		return this;
-//	}
-//	public String getString() {
-//		return string;
-//	}
-//	public String getString2() {
-//		return string2;
-//	}
-//	public String getString3() {
-//		return string3;
-//	}
-//	public int getInt1() {
-//		return int1;
-//	}
+	public Object getThis() {
+		return this;
+	}
+	public String getString() {
+		return string;
+	}
+	public String getString2() {
+		return string2;
+	}
+	public String getString3() {
+		return string3;
+	}
+	public int getInt1() {
+		return int1;
+	}
 	public Integer getInt2() {
 		return int2;	
 	}

@@ -17,13 +17,17 @@ public class AVertexListShapeModelTransformer<VertexType>
 	{
 //public class AVertexListShapeModelTransformer<VertexType> extends  ConstantTransformer<VertexType>{
 
-		JungGraphManager<VertexType, Object> jungGraphManager;
+//		JungGraphManager<VertexType, Object> jungGraphManager;
 		RingsCompositeShape ringsCompositeShape = new ARingsAttributedCompositeShape();
 		Ellipse2D.Float regularShape = new Ellipse2D.Float(-10,-10,20,20);
 		Color regularColor;
 
-        public AVertexListShapeModelTransformer(JungGraphManager<VertexType, Object> aJungGraphManager) {
-        	jungGraphManager = aJungGraphManager;
+//        public AVertexListShapeModelTransformer(JungGraphManager<VertexType, Object> aJungGraphManager) {
+//        	jungGraphManager = aJungGraphManager;
+//        	
+////            setSizeTransformer(new ClusterVertexSizeTransformer<V>(20));
+//        }
+        public AVertexListShapeModelTransformer() {
         	
 //            setSizeTransformer(new ClusterVertexSizeTransformer<V>(20));
         }

@@ -3,6 +3,7 @@ package bus.uigen.controller.models;
 import javax.swing.JFrame;
 
 import util.annotations.Explanation;
+import bus.uigen.jung.AJungGraphManagerCustomization;
 import bus.uigen.jung.ALogicalStructureDisplayer;
 import bus.uigen.oadapters.ObjectAdapter;
 @util.annotations.StructurePattern(util.annotations.StructurePatternNames.NO_PATTERN)
@@ -15,7 +16,7 @@ public class AGraphLogicalStructureModel extends AnAbstractOperationsModel imple
 		    JFrame jFrame = new JFrame();
 			ObjectAdapter topAdapter = frame.getTopAdapter();
 			Object topObject = topAdapter.getRealObject();
-			ALogicalStructureDisplayer.createLogicalStructureDisplay(topObject, jFrame);
+			ALogicalStructureDisplayer.createLogicalStructureDisplay(topObject, jFrame, new AJungGraphManagerCustomization<>());
 		}
 		
 		

@@ -4,41 +4,40 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Paint;
 import java.awt.Shape;
-import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import javax.swing.Icon;
 
 import org.apache.commons.collections15.Transformer;
 
+import util.models.PropertyListenerRegisterer;
 import bus.uigen.CompleteOEFrame;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Context;
 import edu.uci.ics.jung.visualization.VisualizationServer.Paintable;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.control.ModalGraphMouse.Mode;
 import edu.uci.ics.jung.visualization.renderers.Renderer.Vertex;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel;
 
-public interface JungGraphManager<VertexType, EdgeType> extends PropertyChangeListener
-//    , JungGraphManagerCustomization<VertexType, EdgeType> 
- {
+public interface JungGraphManagerCustomization<VertexType, EdgeType> extends PropertyListenerRegisterer {
 
 	//    public static final LengthFunction<Number> UNITLENGTHFUNCTION = new SpringLayout.UnitLengthFunction<Number>(
 	//            100);
 	public static final int EDGE_LENGTH = 100;
 
-	public Container getGraphContainer();
+//	public Container getGraphContainer();
 
-	public void setGraphContainer(Container graphContainer);
+//	public void setGraphContainer(Container graphContainer);
 
-	public Layout<VertexType, EdgeType> getGraphLayout();
+//	public Layout<VertexType, EdgeType> getGraphLayout();
+//
+//	public void setLayout(Layout<VertexType, EdgeType> layout);
 
-	public void setLayout(Layout<VertexType, EdgeType> layout);
+//	public Graph<VertexType, EdgeType> getGraph();
 
-	public Graph<VertexType, EdgeType> getGraph();
-
-	public void setGraph(Graph<VertexType, EdgeType> graph);
+//	public void setGraph(Graph<VertexType, EdgeType> graph);
 
 	public Transformer<VertexType, String> getVertexLabelTransformer();
 
@@ -60,34 +59,34 @@ public interface JungGraphManager<VertexType, EdgeType> extends PropertyChangeLi
 	public void setEdgeLabelTransformer(
 			Transformer<EdgeType, String> edgeLabelTransformer);
 
-	public boolean isForest();
+//	public boolean isForest();
 
-	public void setForest(boolean isForest);
+//	public void setForest(boolean isForest);
 
 	//    @Override
-	public void init();
+//	public void init();
 	
-	public void addAndDisplayVertex(VertexType aVertex);
+//	public void addAndDisplayVertex(VertexType aVertex);
 	
 
-	void addAndDisplayEdge(EdgeType anEdge, VertexType aVertex1, VertexType aVertex2);
+//	void addAndDisplayEdge(EdgeType anEdge, VertexType aVertex1, VertexType aVertex2);
 
 //	void addChild(EdgeType anEdge, VertexType aParentVertex,
 //			VertexType aChildVertex);
 
-	void removeAndUndisplayVertex(VertexType aVertex);
+//	void removeAndUndisplayVertex(VertexType aVertex);
 
-	void removeAndDisplayEdge(EdgeType anEdge);
+//	void removeAndDisplayEdge(EdgeType anEdge);
 
-	void addAndLayoutVertex(VertexType aVertex);
+//	void addAndLayoutVertex(VertexType aVertex);
 
-	void renderGraph();
+//	void renderGraph();
 
 	void setPostRenderer(Paintable newVal);
 
-	VisualizationViewer<VertexType, EdgeType> getVisualizationViewer();
+//	VisualizationViewer<VertexType, EdgeType> getVisualizationViewer();
 
-	void setVisualizationViewer(VisualizationViewer<VertexType, EdgeType> newVal);
+//	void setVisualizationViewer(VisualizationViewer<VertexType, EdgeType> newVal);
 
 	void setVertexIncludePredicate(
 			TableBasedGraphElementInclusionPredicate<VertexType, EdgeType, VertexType> newVal);
@@ -95,13 +94,13 @@ public interface JungGraphManager<VertexType, EdgeType> extends PropertyChangeLi
 	void setEdgeIncludePredicate(
 			TableBasedGraphElementInclusionPredicate<VertexType, EdgeType, EdgeType> newVal);
 
-	void setVertexVisibile(VertexType aVertex, boolean newVal);
+//	void setVertexVisibile(VertexType aVertex, boolean newVal);
 
-	boolean getVertexVisibile(VertexType aVertex);
+//	boolean getVertexVisibile(VertexType aVertex);
 
-	void setEdgeVisibile(EdgeType aVertex, boolean newVal);
+//	void setEdgeVisibile(EdgeType aVertex, boolean newVal);
 
-	boolean getEdgeVisibile(EdgeType aVertex);
+//	boolean getEdgeVisibile(EdgeType aVertex);
 
 	LayoutType getLayoutType();
 
@@ -118,22 +117,22 @@ public interface JungGraphManager<VertexType, EdgeType> extends PropertyChangeLi
 
 	void setVertexShapeTransformer(Transformer<VertexType, Shape> newVal);
 
-	void setVertexColors(VertexType aVertex, List<Color> aColors);
+//	void setVertexColors(VertexType aVertex, List<Color> aColors);
 
-	List<Color> getVertexColors(VertexType aVertex);
+//	List<Color> getVertexColors(VertexType aVertex);
 
 	VertexLabel<VertexType, EdgeType> getVertexLabelRenderer();
 
 	void setVertexLabelRenderer(VertexLabel<VertexType, EdgeType> newVal);
 
-	void setVertexFillColor(VertexType aVertex, Paint aColor);
-	Paint getVertexFillColor(VertexType aVertex);
+//	void setVertexFillColor(VertexType aVertex, Paint aColor);
+//	Paint getVertexFillColor(VertexType aVertex);
 	
-	void setVertexDrawColor(VertexType aVertex, Paint aColor);
-	Paint getVertexDrawColor(VertexType aVertex);
-	
-	void setEdgeDrawColor(EdgeType anEdge, Paint aColor);
-	Paint getEdgeDrawColor(EdgeType anEdge);
+//	void setVertexDrawColor(VertexType aVertex, Paint aColor);
+//	Paint getVertexDrawColor(VertexType aVertex);
+//	
+//	void setEdgeDrawColor(EdgeType anEdge, Paint aColor);
+//	Paint getEdgeDrawColor(EdgeType anEdge);
 	
 	void setVertexFillPaintTransformer(Transformer<VertexType, Paint> newVal);
 	void setEdgeDrawPaintTransformer(Transformer<EdgeType, Paint> newVal);
@@ -152,24 +151,48 @@ public interface JungGraphManager<VertexType, EdgeType> extends PropertyChangeLi
 
 	Transformer<EdgeType, Paint> getEdgeDrawPaintTransformer();
 	
-	CompleteOEFrame getOEFrame();
-	void setOEFrame(CompleteOEFrame anOEFrame);
-	public TableDrivenColorer<VertexType> getVertexFillColorer();
-	public void setVertexFillColorer(
-			TableDrivenColorer<VertexType> vertexFillColorer) ;
-	public TableDrivenColorer<VertexType> getVertexDrawColorer() ;
-	public void setVertexDrawColorer(
-			TableDrivenColorer<VertexType> vertexDrawColorer) ;
+//	CompleteOEFrame getOEFrame();
+//	void setOEFrame(CompleteOEFrame anOEFrame);
+//	public TableDrivenColorer<VertexType> getVertexFillColorer();
+//	public void setVertexFillColorer(
+//			TableDrivenColorer<VertexType> vertexFillColorer) ;
+//	public TableDrivenColorer<VertexType> getVertexDrawColorer() ;
+//	public void setVertexDrawColorer(
+//			TableDrivenColorer<VertexType> vertexDrawColorer) ;
 
-	JungGraphManagerCustomization<VertexType, EdgeType> getJungGraphCustomization();
+	Paintable getPostRenderer();
 
-	void setJungGraphCustomization(
-			JungGraphManagerCustomization<VertexType, EdgeType> jungGraphCustomization);
+	void init();
 
 //	Transformer<VertexType, Paint> getVertexFillPaintTransformer();
 
 //	void setRadial(boolean newVal);
 //
 //	boolean isRadial();
+	public int getTreeNodeDistanceX() ;
+	public void setTreeNodeDistanceX(int distanceX) ;
+	public int getTreeNodeDistanceY() ;
+	public void setTreeNodeDistanceY(int distanceY) ;
+	public Transformer<VertexType, Paint> getVertexPaintTransformer() ;
+	public void setVertexPaintTransformer(
+			Transformer<VertexType, Paint> vertexPaintTransformer);
+	public void setJungShapeModelDisplayer(
+			JungShapeModelDisplayer jungShapeModelDisplayer) ;
+
+	int getScale();
+
+	void setScale(int newVal);
+
+	int getEdgeLength();
+
+	void setEdgeLength(int newValue);
+
+	Mode getMouseMode();
+
+	void setMouseMode(Mode newValue);
+
+	TableBasedGraphElementInclusionPredicate<VertexType, EdgeType, VertexType> getVertexIncludePredicate();
+
+	TableBasedGraphElementInclusionPredicate<VertexType, EdgeType, EdgeType> getEdgeIncludePredicate();
 
 }

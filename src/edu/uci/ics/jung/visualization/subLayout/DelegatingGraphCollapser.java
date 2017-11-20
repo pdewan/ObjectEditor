@@ -37,7 +37,7 @@ public class DelegatingGraphCollapser extends GraphCollapser{
 //		    	 Graph aDelegate = getDelegate(myOriginalGraph, myOriginalGraph.getClass());
 		         
 //		    	 new DelegateForest ((DirectedGraph) aDelegate);	
-		    	 new DelegateForest(new ALinkedDirectedSparseGraph());	
+		    	 return new DelegateForest(new ALinkedDirectedSparseGraph());	
 		    	 
 		     }
 		     String aClassName = myOriginalGraph.getClass().getSimpleName();

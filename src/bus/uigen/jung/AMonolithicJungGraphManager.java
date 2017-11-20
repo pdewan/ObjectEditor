@@ -20,6 +20,7 @@ import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.geom.Point2D;
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -79,7 +80,7 @@ import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
  * 
  * @author Prasun Dewan
  */
-public class AJungGraphManager<VertexType, EdgeType> implements
+public class AMonolithicJungGraphManager<VertexType, EdgeType> implements
 		JungGraphManager<VertexType, EdgeType> {
 
 	/**
@@ -156,7 +157,7 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 //		init();
 //	}
 
-	public AJungGraphManager(Graph<VertexType, EdgeType> aGraph,
+	public AMonolithicJungGraphManager(Graph<VertexType, EdgeType> aGraph,
 			Container aGraphContainer) {
 		graph = aGraph;
 		graphContainer = aGraphContainer;
@@ -732,8 +733,10 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 
 		setVertexRenderer(new AVertexListShapeModelRenderer());
 		setVertexLabelRenderer(new AVertexListShapeModelLabelRenderer());
+//		setVertexShapeTransformer(new AVertexListShapeModelTransformer<VertexType>(
+//				(JungGraphManager<VertexType, Object>) this));
 		setVertexShapeTransformer(new AVertexListShapeModelTransformer<VertexType>(
-				(JungGraphManager<VertexType, Object>) this));
+				));
 		vv.getRenderer().getVertexLabelRenderer()
 				.setPosition(Renderer.VertexLabel.Position.CNTR);
 		vv.getRenderContext().setVertexLabelTransformer(vertexLabelTransformer);
@@ -1177,6 +1180,25 @@ public class AJungGraphManager<VertexType, EdgeType> implements
 			TableDrivenColorer<VertexType> vertexDrawColorer) {
 		this.vertexDrawColorer = vertexDrawColorer;
 		setVertexDrawPaintTransformer(vertexDrawColorer);
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public JungGraphManagerCustomization<VertexType, EdgeType> getJungGraphCustomization() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setJungGraphCustomization(
+			JungGraphManagerCustomization<VertexType, EdgeType> jungGraphCustomization) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

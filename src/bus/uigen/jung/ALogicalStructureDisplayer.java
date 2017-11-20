@@ -25,12 +25,15 @@ import edu.uci.ics.jung.graph.util.Graphs;
 public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 	Graph<ObjectAdapter, ObjectAdapter> graph;
 	JungGraphManager<ObjectAdapter, ObjectAdapter> jungGraphManager;
-	public ALogicalStructureDisplayer(JFrame aFrame) {
+	public ALogicalStructureDisplayer(JFrame aFrame, 
+			JungGraphManagerCustomization<ObjectAdapter, ObjectAdapter> aJungGraphManagerCustomization) {
 		graph =   Graphs.<ObjectAdapter,ObjectAdapter>synchronizedDirectedGraph(new DirectedSparseMultigraph<ObjectAdapter,ObjectAdapter>());
-		jungGraphManager = 	createLogicalStructureDisplay(graph,aFrame, false) ; 
+		jungGraphManager = 	createLogicalStructureDisplay(graph,aFrame, false, aJungGraphManagerCustomization) ; 
 		TraceableBus.addTraceableListener(this);		  
 	}
-	public static synchronized JungGraphManager<ObjectAdapter, ObjectAdapter> treeAndGraphDisplay(Object object) {
+	public static synchronized JungGraphManager<ObjectAdapter, ObjectAdapter> treeAndGraphDisplay(Object object,
+			  
+			JungGraphManagerCustomization<ObjectAdapter, ObjectAdapter> aJungGraphManagerCustomization) {
 		CompleteOEFrame aFrame = ObjectEditor.textEdit(object)	;
 		aFrame.showDrawPanel();
 		aFrame.hideMainPanel();
@@ -39,21 +42,25 @@ public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 		Container aJPanel = (Container) aFrame.getDrawPanel().getPhysicalComponent();
 		Container aContainer = (Container) aVirtualComponent.getPhysicalComponent();
 //		JFrame aJFrame = (JFrame) aFrame.getFrame().getPhysicalComponent();
-		JungGraphManager aGraphManager = ALogicalStructureDisplayer.createLogicalStructureDisplay(object, (JFrame) null, aContainer);
+		JungGraphManager aGraphManager = ALogicalStructureDisplayer.
+				createLogicalStructureDisplay(object, (JFrame) null, aContainer, aJungGraphManagerCustomization);
 		aGraphManager.setOEFrame(aFrame);
 		aFrame.setSize(700, 500);		
 //		aJFrame.validate();			
 		return aGraphManager;
 	}
-	public static JungGraphManager createLogicalStructureDisplay(Object[] aRoots) {
+	public static JungGraphManager createLogicalStructureDisplay(Object[] aRoots,  
+			JungGraphManagerCustomization<ObjectAdapter, ObjectAdapter> aJungGraphManagerCustomization) {
 		JFrame aFrame = new JFrame();
-		return createLogicalStructureDisplay(aRoots, aFrame);
+		return createLogicalStructureDisplay(aRoots, aFrame, aJungGraphManagerCustomization);
 		
 		
 	}
-	public static JungGraphManager createLogicalStructureDisplay(Object[] aRoots, JFrame aFrame) {
+	public static JungGraphManager createLogicalStructureDisplay(Object[] aRoots, 
+			JFrame aFrame, 
+			JungGraphManagerCustomization<ObjectAdapter, ObjectAdapter> aJungGraphManagerCustomization) {
 		JungGraphApplet applet = new JungGraphApplet();
-		JungGraphManager retVal = createLogicalStructureDisplay(aRoots, aFrame, applet);
+		JungGraphManager retVal = createLogicalStructureDisplay(aRoots, aFrame, applet, aJungGraphManagerCustomization);
 		 applet.init();
 			applet.start();
 			aFrame.pack();
@@ -62,9 +69,11 @@ public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 	}
 
 	public static JungGraphManager createLogicalStructureDisplay(Object aRoot,
-			JFrame aFrame) {
+			JFrame aFrame,
+			JungGraphManagerCustomization<ObjectAdapter, ObjectAdapter> aJungGraphManagerCustomization
+			) {
 		Object[] aRoots =  new Object[]{aRoot};
-		return createLogicalStructureDisplay(aRoots, aFrame);
+		return createLogicalStructureDisplay(aRoots, aFrame, aJungGraphManagerCustomization);
 //		JungGraphApplet applet = new JungGraphApplet();
 //		JungGraphManager retVal = createLogicalStructureDisplay(aRoot, aFrame, applet);
 //		 applet.init();
@@ -85,7 +94,9 @@ public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 
 	}
 	public static JungGraphManager createLogicalStructureDisplay(Object[] someRoots,
-			JFrame aFrame, Container aContainer) {
+			JFrame aFrame, 
+			Container aContainer, 
+			JungGraphManagerCustomization<ObjectAdapter, ObjectAdapter> aJungGraphManagerCustomization) {
 		ObjectAdapter[] someRootAdapters = new ObjectAdapter[someRoots.length];
 		boolean areForests = true;
 		for (int i = 0; i < someRoots.length; i++) {
@@ -100,12 +111,14 @@ public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 //		}
 		Graph<ObjectAdapter, ObjectAdapter> graph = converter.createJungGraph(
 				someRootAdapters, areForests);
-		return createLogicalStructureDisplay(graph, aFrame,  areForests, aContainer);
+		return createLogicalStructureDisplay(graph, aFrame,  areForests, aContainer, aJungGraphManagerCustomization);
 
 	}
 	public static JungGraphManager createLogicalStructureDisplay(Object aRoot,
-			JFrame aFrame, Container aContainer) {
-		return createLogicalStructureDisplay(new Object[] {aRoot}, aFrame, aContainer);
+			JFrame aFrame, 
+			Container aContainer, 
+			JungGraphManagerCustomization<ObjectAdapter, ObjectAdapter> aJungGraphManagerCustomization) {
+		return createLogicalStructureDisplay(new Object[] {aRoot}, aFrame, aContainer, aJungGraphManagerCustomization);
 //		ObjectAdapter rootAdapter = ObjectEditor.toObjectAdapter(aRoot);
 //		ObjectAdapterToJungGraph<ObjectAdapter, ObjectAdapter> converter = new AnObjectAdapterToLogicalStructure();
 //		boolean isForest = false;
@@ -118,8 +131,9 @@ public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 
 	}
 	public static JungGraphManager createLogicalStructureDisplay(Object aRoot,
-			CompleteOEFrame aFrame, Container aContainer) {
-		JungGraphManager aRetVal = createLogicalStructureDisplay(new Object[] {aRoot}, (JFrame) null, aContainer);
+			CompleteOEFrame aFrame, Container aContainer, 
+			JungGraphManagerCustomization<ObjectAdapter, ObjectAdapter> aJungGraphManagerCustomization) {
+		JungGraphManager aRetVal = createLogicalStructureDisplay(new Object[] {aRoot}, (JFrame) null, aContainer, aJungGraphManagerCustomization);
 		aRetVal.setOEFrame(aFrame);
 		return aRetVal;
 
@@ -135,12 +149,13 @@ public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 
 	}
 	public static JungGraphManager createLogicalStructureDisplay(Graph<ObjectAdapter, ObjectAdapter> aGraph,
-			JFrame aFrame, boolean  isForest) {
+			JFrame aFrame, boolean  isForest, 
+			JungGraphManagerCustomization<ObjectAdapter, ObjectAdapter> aJungGraphManagerCustomization) {
 		JungGraphApplet applet = new JungGraphApplet();
 //		applet.init();
 //		JungGraphManager jungGraphManager = new AJungGraphManager<>(aGraph,
 //				applet.getContentPane());
-		JungGraphManager jungGraphManager = createLogicalStructureDisplay(aGraph, aFrame, isForest, applet.getContentPane());
+		JungGraphManager jungGraphManager = createLogicalStructureDisplay(aGraph, aFrame, isForest, applet.getContentPane(), aJungGraphManagerCustomization);
 //		jungGraphManager.setForest(isForest);		
 //		jungGraphManager
 //				.setVertexLabelTransformer(new ALogicalStructureVertexLabelTransformer());
@@ -165,11 +180,14 @@ public class ALogicalStructureDisplayer implements LogicalStructureDisplayer {
 		return jungGraphManager;
 	}
 	public static JungGraphManager createLogicalStructureDisplay(Graph<ObjectAdapter, ObjectAdapter> aGraph,
-			JFrame aFrame, boolean  isForest, Container aContainer) {
+			JFrame aFrame, boolean  isForest, Container aContainer, 
+			JungGraphManagerCustomization<ObjectAdapter, ObjectAdapter> aJungGraphManagerCustomization) {
 //		JungGraphApplet applet = new JungGraphApplet();
 //		applet.init();
-		JungGraphManager<ObjectAdapter, ObjectAdapter> jungGraphManager = new AJungGraphManager<>(aGraph,
-				aContainer);
+//		JungGraphManager<ObjectAdapter, ObjectAdapter> jungGraphManager = new AMonolithicJungGraphManager<>(aGraph,
+//				aContainer);
+		JungGraphManager<ObjectAdapter, ObjectAdapter> jungGraphManager = new AModularJungGraphManager<>(aGraph,
+				aContainer, aJungGraphManagerCustomization);
 		jungGraphManager.setForest(isForest);		
 		jungGraphManager
 				.setVertexLabelTransformer(new ALogicalStructureVertexLabelTransformer<ObjectAdapter>());

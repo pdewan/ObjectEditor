@@ -21,7 +21,7 @@ import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel;
 /*
  * In progress
  */
-public class ADelegatingJungGraphManager<VertexType,EdgeType> extends AJungGraphManager<VertexType, EdgeType>
+public class ADelegatingJungGraphManager<VertexType,EdgeType> extends AMonolithicJungGraphManager<VertexType, EdgeType>
 	implements JungGraphManager<VertexType, EdgeType> {
 	JungGraphManager<VertexType, EdgeType> delegate;
 	public ADelegatingJungGraphManager(

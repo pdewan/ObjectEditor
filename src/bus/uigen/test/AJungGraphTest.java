@@ -21,7 +21,7 @@ import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.util.Context;
 import bus.uigen.ObjectEditor;
-import bus.uigen.jung.AJungGraphManager;
+import bus.uigen.jung.AMonolithicJungGraphManager;
 import bus.uigen.jung.JungGraphManager;
 import bus.uigen.jung.LayoutType;
 import bus.uigen.oadapters.ObjectAdapter;
@@ -61,7 +61,7 @@ public class AJungGraphTest {
 		aGraph.addEdge(5, bNode, cNode );
 		aGraph.addEdge(6, bNode, dNode );
 		ObservableGraph anObservableGraph = new ObservableGraph<>(aGraph);
-		JungGraphManager jungGraphManager = new AJungGraphManager<>(aGraph,
+		JungGraphManager jungGraphManager = new AMonolithicJungGraphManager<>(aGraph,
 				jungPanel);
 		jungGraphManager.setEdgeVisibile(1, false);
 		jungGraphManager.setVertexVisibile(cNode, false);

@@ -11,6 +11,7 @@ import util.models.AListenableHashMap;
 import bus.uigen.ABasicObjectRegistry;
 import bus.uigen.ObjectEditor;
 import bus.uigen.ObjectRegistry;
+import bus.uigen.jung.AJungGraphManagerCustomization;
 import bus.uigen.jung.AnObjectAdapterToLogicalStructure;
 import bus.uigen.jung.JungGraphApplet;
 import bus.uigen.jung.ALogicalStructureEdgeLabelTransformer;
@@ -46,7 +47,8 @@ public class ObjectToJungGraph {
 		Object[] roots = {root, aChildMap};
 		
 //		ALogicalStructureDisplayer.createLogicalStructureDisplay(roots, new JFrame());
-		JungGraphManager aJungGraphManager = ALogicalStructureDisplayer.createLogicalStructureDisplay(roots);
+		JungGraphManager aJungGraphManager = ALogicalStructureDisplayer.
+					createLogicalStructureDisplay(roots, new AJungGraphManagerCustomization<>());
 		ObjectAdapter anAdapter = ObjectRegistry.getObjectAdapter(aChildMap);
 		if (anAdapter != null) {
 			aJungGraphManager.setVertexVisibile(anAdapter, false);
