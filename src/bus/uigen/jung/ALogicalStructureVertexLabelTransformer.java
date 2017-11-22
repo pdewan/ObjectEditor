@@ -19,6 +19,11 @@ public class ALogicalStructureVertexLabelTransformer<ElementType> implements Tra
 				return "null";
 			} else {
 				
+				String aLabel = VertexObjectToLabelFactory.getLabeler().toLabel(anOriginalObject);
+				if (aLabel != null) {
+					return aLabel;
+				}
+				
 				if (anOriginalObjectAdapter.getNodeLabelIsToString()) {
 					return anOriginalObject.toString();
 				}
