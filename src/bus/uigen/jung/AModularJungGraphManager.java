@@ -755,6 +755,8 @@ public class AModularJungGraphManager<VertexType, EdgeType> implements
 		vv.getRenderContext().setVertexLabelTransformer(jungGraphCustomization.getVertexLabelTransformer());
 
 		vv.getRenderContext().setEdgeLabelTransformer(jungGraphCustomization.getEdgeLabelTransformer());
+		vv.getRenderContext().setVertexShapeTransformer(jungGraphCustomization.getVertexShapeTransformer());
+
 		setVertexFillPaintTransformer(vertexFillColorer);
 		setVertexDrawPaintTransformer(vertexDrawColorer);
 		edgeColorer.setDefaultColor(Color.BLACK);
