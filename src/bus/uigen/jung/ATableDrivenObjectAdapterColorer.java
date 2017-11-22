@@ -34,6 +34,10 @@ public class ATableDrivenObjectAdapterColorer extends ATableDrivenColorer<Object
 //		Color.WHITE		
 		};
 	protected Paint defaultColor(ObjectAdapter input) {
+		Color aColor = VertexObjectToColorFactory.getColorer().toColor(input.getRealObject());
+		if (aColor != null) {
+			return aColor;
+		}
 		int aLevel = input.getLevel();
 		String aPath = input.getPath();
 		if (aLevel < LEVEL_COLORS.length) {
