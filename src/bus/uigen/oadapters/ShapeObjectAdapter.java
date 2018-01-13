@@ -415,7 +415,7 @@ import bus.uigen.widgets.events.VirtualMouseEvent;
 			int y = concreteImage.getY();
 			String imageFileName = concreteImage.getImageFileName();
 		if (y < 0) {
-			ImageYLessThanZero.newCase(this, this);
+			ImageYLessThanZero.newCase(this, y, this);
 //			Tracer.warning("The Y property of Image shape " + getRealObject() + " is <= 0" );
 		}
 		if (imageFileName == null) {
@@ -1034,7 +1034,9 @@ public int recalculateViewObjectZAxis(RemoteShape shape) {
   			} else {
   			boolean retVal = respondToPropertyChange (evt);
   			if (!retVal) {
-  				if (!shapePropertiesSet.contains(evt.getPropertyName()))
+  				// changed it to lowercase, how did it work without that?
+  				// regardless of whether this warning is given, the event is processed if legal
+  				if (!shapePropertiesSet.contains(evt.getPropertyName().toLowerCase()))
   					UnknownPropertyNotification.newCase(evt.getPropertyName(), evt.getSource(), this);			recalculateViewObject();
   			}
   			}			//recalculateViewObjectColor()			if (getWidgetAdapter() != null)
@@ -1076,7 +1078,7 @@ public int recalculateViewObjectZAxis(RemoteShape shape) {
 			 return false;
 		 }
 	  }
-	 static String[] shapePropertiesArray = {"x", "y", "color", "filled", "zaxis", "3d", "rounded", "font", "fontsize", "gradientpaint", "basicstroke"};
+	 static String[] shapePropertiesArray = {"x", "y", "location", "color", "filled", "zaxis", "3d", "rounded", "font", "fontsize", "gradientpaint", "basicstroke"};
 	 
 	  static Set<String> shapePropertiesSet = new HashSet();
 	  
