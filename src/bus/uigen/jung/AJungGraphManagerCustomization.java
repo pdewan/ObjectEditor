@@ -1089,6 +1089,7 @@ public class AJungGraphManagerCustomization<VertexType, EdgeType> implements
 	@Override
 	@Visible(false)
 	public void setVertexRenderer(Vertex<VertexType, EdgeType> newVal) {
+		vertexRenderer = newVal;
 //		vv.getRenderer().setVertexRenderer(newVal);
 	}
 	VertexLabel<VertexType, EdgeType> vertexLabelRenderer;
@@ -1101,11 +1102,13 @@ public class AJungGraphManagerCustomization<VertexType, EdgeType> implements
 	@Override
 	@Visible(false)
 	public void setVertexLabelRenderer(VertexLabel<VertexType, EdgeType> newVal) {
+		vertexLabelRenderer = newVal;
 //		vv.getRenderer().setVertexLabelRenderer(newVal);
 	}
 	@Override
 	@Visible(false)
 	public void setVertexShapeTransformer(Transformer<VertexType, Shape> newVal) {
+		vertexShapeTransformer = newVal;
 //		vv.getRenderContext().setVertexShapeTransformer(newVal);
 	}
 	Transformer<Context<Graph<VertexType, EdgeType>, EdgeType>, Shape> edgeShapeTransformer;
@@ -1126,6 +1129,7 @@ public class AJungGraphManagerCustomization<VertexType, EdgeType> implements
 	@Visible(false)
 	public void setEdgeShapeTransformer(
 			Transformer<Context<Graph<VertexType, EdgeType>, EdgeType>, Shape> newVal) {
+		edgeShapeTransformer = newVal;
 //		vv.getRenderContext().setEdgeShapeTransformer(newVal);
 
 	}
@@ -1177,6 +1181,7 @@ public class AJungGraphManagerCustomization<VertexType, EdgeType> implements
 	@Visible(false)
 	public void setVertexFillPaintTransformer(
 			Transformer<VertexType, Paint> newVal) {
+		vertexFillPaintTransformer = newVal;
 	
 //		vv.getRenderContext().setVertexFillPaintTransformer(newVal);
 	}
@@ -1186,6 +1191,7 @@ public class AJungGraphManagerCustomization<VertexType, EdgeType> implements
 	@Visible(false)
 	public void setVertexDrawPaintTransformer(
 			Transformer<VertexType, Paint> newVal) {
+		vertexDrawPaintTransformer = newVal;
 //		vv.getRenderContext().setVertexDrawPaintTransformer(newVal);
 	}
 //	Transformer<VertexType, Paint> edgeDrawPaintTransformer;
@@ -1193,6 +1199,7 @@ public class AJungGraphManagerCustomization<VertexType, EdgeType> implements
 	@Override
 	@Visible(false)
 	public void setEdgeDrawPaintTransformer(Transformer<EdgeType, Paint> newVal) {
+		edgeDrawPaintTransformer = newVal;
 		// vv.getRenderContext().setEdgeFillPaintTransformer(newVal);
 //		vv.getRenderContext().setEdgeDrawPaintTransformer(newVal);
 
