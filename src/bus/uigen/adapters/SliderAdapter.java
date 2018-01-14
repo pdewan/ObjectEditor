@@ -6,10 +6,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import util.trace.Tracer;
+import util.trace.uigen.SliderOverflow;
 import bus.uigen.WidgetAdapter;
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.reflect.ClassProxy;
-import bus.uigen.trace.SliderOverflow;
 import bus.uigen.widgets.SliderSelector;
 import bus.uigen.widgets.VirtualComponent;
 import bus.uigen.widgets.VirtualSlider;

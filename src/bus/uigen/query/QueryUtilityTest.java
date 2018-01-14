@@ -4,7 +4,7 @@ import java.util.List;
 
 import util.trace.Traceable;
 import util.trace.TraceableLog;
-import bus.uigen.trace.TraceUtility;
+import util.trace.uigen.TraceUtility;
 
 public class QueryUtilityTest {
 	public static void main(String[] anArgs) {

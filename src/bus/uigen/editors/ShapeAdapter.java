@@ -1,12 +1,12 @@
 package bus.uigen.editors;import bus.uigen.*;
 import java.awt.Point;import java.awt.Rectangle;import java.awt.event.*;
 import slc.SLComposer;import slgc.SLGController;import slgc.ShapeListAWTMouseListener;import slgv.SLGView;
-import util.models.Listenable;import util.undo.Listener;import shapes.ShapesAPI;import slgc.SelectionListener;
+import util.models.Listenable;import util.trace.uigen.ShapeAddedToDrawingPanel;import util.undo.Listener;import shapes.ShapesAPI;import slgc.SelectionListener;
 import slm.SLModel;import slm.SLSetBoundsCommand;
 import shapes.RemoteShape;import shapes.ShapeModel;
 //import shapes.LineModel;import shapes.TextModel;
 //import java.lang.Math;
-import bus.uigen.introspect.Attribute;import bus.uigen.loggable.ACompositeLoggable;import bus.uigen.oadapters.ObjectAdapter;import bus.uigen.oadapters.ShapeObjectAdapter;import bus.uigen.reflect.ClassProxy;import bus.uigen.sadapters.ConcreteTextShape;import bus.uigen.trace.ShapeAddedToDrawingPanel;import bus.uigen.widgets.VirtualComponent;import java.awt.event.ActionListener;
+import bus.uigen.introspect.Attribute;import bus.uigen.loggable.ACompositeLoggable;import bus.uigen.oadapters.ObjectAdapter;import bus.uigen.oadapters.ShapeObjectAdapter;import bus.uigen.reflect.ClassProxy;import bus.uigen.sadapters.ConcreteTextShape;import bus.uigen.widgets.VirtualComponent;import java.awt.event.ActionListener;
 import java.util.List;import bus.uigen.ars.*;import bus.uigen.attributes.AttributeNames;import bus.uigen.controller.SelectionManager;import bus.uigen.controller.menus.RightMenuManager;public class ShapeAdapter extends WidgetAdapter implements Listener, SelectionListener, ActionListener, ShapeListAWTMouseListener {
 
   public ShapeAdapter() {

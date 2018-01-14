@@ -40,6 +40,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 
 import util.misc.Common;
+import util.trace.uigen.SeparateThreadRequest;
+import util.trace.uigen.UnsuccessfulValidation;
 import bus.uigen.ObjectEditor;
 import bus.uigen.ObjectRegistry;
 import bus.uigen.UnivMethodInvocation;
@@ -71,8 +73,6 @@ import bus.uigen.reflect.MethodProxy;
 import bus.uigen.reflect.RemoteSelector;
 import bus.uigen.reflect.local.AClassProxy;
 import bus.uigen.reflect.local.AVirtualMethod;
-import bus.uigen.trace.SeparateThreadRequest;
-import bus.uigen.trace.UnsuccessfulValidation;
 import bus.uigen.translator.TranslatorRegistry;
 import bus.uigen.undo.Command;
 import bus.uigen.undo.CommandCreator;

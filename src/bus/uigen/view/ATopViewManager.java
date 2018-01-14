@@ -11,13 +11,13 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
+import util.trace.uigen.DrawingPanelAdditionStarted;
+import util.trace.uigen.DrawingPanelDisplayEnded;
 import bus.uigen.uiFrame;
 import bus.uigen.uiFrameList;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.controller.AToolbarManager;
 import bus.uigen.oadapters.ObjectAdapter;
-import bus.uigen.trace.DrawingPanelAdditionStarted;
-import bus.uigen.trace.DrawingPanelDisplayEnded;
 import bus.uigen.visitors.HasUncreatedChildrenVisitor;
 import bus.uigen.widgets.InternalFrameSelector;
 import bus.uigen.widgets.ScrollPaneSelector;

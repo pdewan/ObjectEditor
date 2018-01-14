@@ -6,7 +6,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import bus.uigen.trace.AttributeSetInfo;
+import util.trace.uigen.AttributeSetInfo;
 
 public class AFeatureDescriptorProxy implements FeatureDescriptorProxy {
 	FeatureDescriptor fd;	

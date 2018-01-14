@@ -1,5 +1,5 @@
-package bus.uigen.sadapters;import util.annotations.StructurePatternNames;import util.trace.Tracer;import bus.uigen.uiFrame;
-import bus.uigen.attributes.AttributeNames;import bus.uigen.trace.NullLocationException;
+package bus.uigen.sadapters;import util.annotations.StructurePatternNames;import util.trace.Tracer;import util.trace.uigen.NullLocationException;import bus.uigen.uiFrame;
+import bus.uigen.attributes.AttributeNames;
 public class GenericPointToPoint extends GenericXYShapeToShape implements ConcretePoint {
 	public GenericPointToPoint (Object theTargetObject, uiFrame theFrame) {		if (theTargetObject == null) {//			Tracer.error("null location object, assuming coordinates of 0, 0");			init(theTargetObject, theFrame );			throw new NullLocationException("Assuming coordinates of 0, 0");		}		init(theTargetObject, theFrame );
 	}

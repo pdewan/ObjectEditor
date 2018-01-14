@@ -4,9 +4,9 @@ import java.beans.PropertyChangeEvent;
 
 import bus.uigen.ObjectEditor;
 import bus.uigen.oadapters.ObjectAdapter;
-import bus.uigen.trace.PropertyChangeEventInfo;
 import util.trace.TraceableBus;
 import util.trace.TraceableListener;
+import util.trace.uigen.ObjectAdapterPropertyChangeEventInfo;
 
 public class ATraceableBusTest implements TraceableListener {
 	 ACompositeObservable observable = new ACompositeObservable();
@@ -21,8 +21,8 @@ public class ATraceableBusTest implements TraceableListener {
 
 	@Override
 	public void newEvent(Exception aTraceable) {
-		if (aTraceable instanceof PropertyChangeEventInfo) {
-			PropertyChangeEventInfo aPropertyChange = (PropertyChangeEventInfo) aTraceable;
+		if (aTraceable instanceof ObjectAdapterPropertyChangeEventInfo) {
+			ObjectAdapterPropertyChangeEventInfo aPropertyChange = (ObjectAdapterPropertyChangeEventInfo) aTraceable;
 			System.out.println("Property change event:" + aTraceable);
 			Thread newThread = Thread.currentThread();
 			newThread.stop();

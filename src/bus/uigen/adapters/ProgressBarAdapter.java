@@ -6,11 +6,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import util.trace.Tracer;
+import util.trace.uigen.ProgressBarOverflow;
+import util.trace.uigen.ProgressBarUnderflow;
 import bus.uigen.WidgetAdapter;
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.reflect.ClassProxy;
-import bus.uigen.trace.ProgressBarOverflow;
-import bus.uigen.trace.ProgressBarUnderflow;
 import bus.uigen.widgets.ProgressBarSelector;
 import bus.uigen.widgets.VirtualComponent;
 import bus.uigen.widgets.VirtualProgressBar;

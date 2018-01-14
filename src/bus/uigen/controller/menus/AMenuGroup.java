@@ -12,10 +12,10 @@ import java.util.Vector;
 import util.models.ADynamicSparseList;
 
 
+import util.trace.uigen.MenuGroupCreated;
 import bus.uigen.uiFrame;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.controller.ExtendedMenu;
-import bus.uigen.trace.MenuGroupCreated;
 import bus.uigen.widgets.VirtualMenu;
 import bus.uigen.widgets.VirtualMenuBar;
 import bus.uigen.widgets.VirtualMenuComponent;

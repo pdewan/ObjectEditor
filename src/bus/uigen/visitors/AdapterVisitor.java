@@ -8,11 +8,10 @@ import java.util.Vector;
 import java.util.Enumeration;
 
 import util.trace.Tracer;
-
+import util.trace.uigen.TooManyNodesInDisplayedLogicalStructure;
 import bus.uigen.oadapters.ClassAdapter;
 import bus.uigen.oadapters.CompositeAdapter;import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.oadapters.PrimitiveAdapter;
-import bus.uigen.trace.TooManyNodesInDisplayedLogicalStructure;
 public abstract class AdapterVisitor {
 	public static int MAX_NODES = 5000;
 

@@ -19,6 +19,7 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 
 import util.misc.Common;
+import util.trace.uigen.WidgetShellComponentAdded;
 import bus.uigen.AutomaticRefresh;
 import bus.uigen.ObjectEditor;
 import bus.uigen.ObjectRegistry;
@@ -34,7 +35,6 @@ import bus.uigen.misc.OEMisc;
 import bus.uigen.oadapters.CompositeAdapter;
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.oadapters.PrimitiveAdapter;
-import bus.uigen.trace.WidgetShellComponentAdded;
 import bus.uigen.widgets.LabelSelector;
 import bus.uigen.widgets.TextFieldSelector;
 import bus.uigen.widgets.VirtualCheckBox;

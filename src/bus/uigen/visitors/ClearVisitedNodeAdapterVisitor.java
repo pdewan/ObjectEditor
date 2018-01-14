@@ -6,11 +6,11 @@ package bus.uigen.visitors;
 
 import java.util.Hashtable;
 
+import util.trace.uigen.TooManyLevelsInDisplayedLogicalStructure;
+import util.trace.uigen.TooManyNodesInDisplayedLogicalStructure;
 import bus.uigen.uiGenerator;
 import bus.uigen.oadapters.CompositeAdapter;
 import bus.uigen.oadapters.ObjectAdapter;
-import bus.uigen.trace.TooManyLevelsInDisplayedLogicalStructure;
-import bus.uigen.trace.TooManyNodesInDisplayedLogicalStructure;
 public class ClearVisitedNodeAdapterVisitor extends AdapterVisitor {	  
   public ClearVisitedNodeAdapterVisitor(ObjectAdapter root) {
     super(root);

@@ -9,13 +9,13 @@ import java.util.Set;
 import javax.swing.JTextField;
 
 import util.misc.Common;
+import util.trace.uigen.ATraceableDisplayAndWaitManager;
 import bus.uigen.ObjectEditor;
 import bus.uigen.diff.AChangeDescription;
 import bus.uigen.models.AComponentDrawer;
 import bus.uigen.reflect.ClassProxy;
 import bus.uigen.sadapters.RowToRecord;
 import bus.uigen.test.ALogo;
-import bus.uigen.trace.ATraceableDisplayAndWaitManager;
 
 public class ClassIntrospectionFilterer {
 	static Set<String> ignoreComponentsPackages = new HashSet();

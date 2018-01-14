@@ -20,13 +20,13 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+import util.trace.uigen.ToobarButtonAdded;
 import bus.uigen.uiFrame;
 import bus.uigen.uiGenerator;
 import bus.uigen.compose.ComponentPanel;
 import bus.uigen.controller.menus.VirtualMethodAction;
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.reflect.MethodProxy;
-import bus.uigen.trace.ToobarButtonAdded;
 import bus.uigen.view.ATopViewManager;
 import bus.uigen.widgets.ButtonSelector;
 import bus.uigen.widgets.LabelSelector;

@@ -1,9 +1,9 @@
 package bus.uigen.test;
 
 import util.trace.TraceableWarning;
+import util.trace.uigen.UnknownPropertyNotification;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
-import bus.uigen.trace.UnknownPropertyNotification;
 
 public class AWarningDisabler extends ACompositeObservable {
 	public void setString(String newVal) {

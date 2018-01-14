@@ -14,12 +14,6 @@ import com.thoughtworks.qdox.tools.QDoxTester.Reporter;
 
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.query.AnObjectQuery;
-import bus.uigen.trace.TraceUtility;
-import bus.uigen.trace.query.OrderedQueryTargetDisplaced;
-import bus.uigen.trace.query.OrderedQueryTargetFound;
-import bus.uigen.trace.query.OrderedQueryTargetMissing;
-import bus.uigen.trace.query.QueryTargetFound;
-import bus.uigen.trace.query.QueryTargetMissing;
 import util.misc.Common;
 import util.models.EqualPropertiesDefiner;
 import util.trace.Traceable;
@@ -39,6 +33,12 @@ import util.trace.query.OrderedEqualObjectDisplaced;
 import util.trace.query.OrderedEqualObjectFound;
 import util.trace.query.OrderedEqualObjectMissing;
 import util.trace.query.UnmatchedObject;
+import util.trace.uigen.TraceUtility;
+import util.trace.uigen.query.OrderedQueryTargetDisplaced;
+import util.trace.uigen.query.OrderedQueryTargetFound;
+import util.trace.uigen.query.OrderedQueryTargetMissing;
+import util.trace.uigen.query.QueryTargetFound;
+import util.trace.uigen.query.QueryTargetMissing;
 
 public class QueryUtility {
 	

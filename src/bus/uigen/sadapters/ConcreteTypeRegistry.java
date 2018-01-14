@@ -8,6 +8,9 @@ import java.util.Vector;
 
 import util.annotations.StructurePatternNames;
 import util.trace.Tracer;
+import util.trace.uigen.ConcreteStructureNodeCreated;
+import util.trace.uigen.SubstitutionOfDeclaredPattern;
+import util.trace.uigen.UndeclaredPattern;
 import bus.uigen.uiFrame;
 import bus.uigen.introspect.AClassDescriptor;
 import bus.uigen.introspect.IntrospectUtility;
@@ -15,9 +18,6 @@ import bus.uigen.loggable.ACompositeLoggable;
 import bus.uigen.reflect.ClassProxy;
 import bus.uigen.reflect.DynamicMethods;
 import bus.uigen.reflect.local.AClassProxy;
-import bus.uigen.trace.ConcreteStructureNodeCreated;
-import bus.uigen.trace.SubstitutionOfDeclaredPattern;
-import bus.uigen.trace.UndeclaredPattern;
 
 public class ConcreteTypeRegistry {
 	static boolean cloneAdapters = true;

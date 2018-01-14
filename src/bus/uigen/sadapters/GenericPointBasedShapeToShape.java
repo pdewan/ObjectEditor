@@ -1,14 +1,16 @@
 package bus.uigen.sadapters;
 import java.util.*;import java.lang.reflect.*;import java.beans.*;
+
 import bus.uigen.editors.*;import bus.uigen.reflect.ClassProxy;
 import bus.uigen.reflect.MethodProxy;
-import bus.uigen.trace.NullLocationException;
 import bus.uigen.undo.*;import bus.uigen.*;
 import bus.uigen.introspect.*;import bus.uigen.controller.MethodInvocationManager;
+
 import java.awt.Color;
 
 import util.misc.Common;
 import util.trace.Tracer;
+import util.trace.uigen.NullLocationException;
 public class GenericPointBasedShapeToShape extends GenericShapeToShape implements ConcreteLocatableShape {
   transient MethodProxy getLocationMethod = null;  transient MethodProxy setLocationMethod = null;
   ConcreteLocatableShape location;

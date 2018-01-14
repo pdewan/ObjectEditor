@@ -20,6 +20,8 @@ import javax.swing.border.TitledBorder;
 
 import util.misc.Common;
 import util.trace.Tracer;
+import util.trace.uigen.LogicalChildComponentAdded;
+import util.trace.uigen.SubrangeErrror;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.attributes.Configurable;
 import bus.uigen.controller.MethodInvocationManager;
@@ -32,8 +34,6 @@ import bus.uigen.oadapters.CompositeAdapter;
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.oadapters.RootAdapter;
 import bus.uigen.reflect.ClassProxy;
-import bus.uigen.trace.LogicalChildComponentAdded;
-import bus.uigen.trace.SubrangeErrror;
 import bus.uigen.translator.FormatException;
 import bus.uigen.translator.TranslatorRegistry;
 import bus.uigen.view.AGenericWidgetShell;

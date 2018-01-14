@@ -7,9 +7,9 @@ import java.util.Map;
 import shapes.RemoteShape;
 import shapes.RemoteText;
 import util.models.RemotePropertyChangeListener;
+import util.trace.uigen.IllegalPropertyNotification;
+import util.trace.uigen.ShapeRightXLessThanZero;
 import bus.uigen.sadapters.ConcreteTextShape;
-import bus.uigen.trace.IllegalPropertyNotification;
-import bus.uigen.trace.ShapeRightXLessThanZero;
 public class TextShapeAdapter extends BoundedShapeAdapter implements RemotePropertyChangeListener  { 
 	public TextShapeAdapter () throws RemoteException {
 		

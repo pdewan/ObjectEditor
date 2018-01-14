@@ -6,10 +6,10 @@ import java.beans.PropertyChangeEvent;
 import java.lang.reflect.*;
 
 import shapes.RemoteShape;
-import shapes.ShapeModel;import bus.uigen.*;import bus.uigen.introspect.*;import bus.uigen.sadapters.ConcreteBoundedShape;
-import bus.uigen.trace.IllegalPropertyNotification;
-import bus.uigen.trace.ShapeLowerYLessThanZero;
-import bus.uigen.trace.ShapeRightXLessThanZero;
+import shapes.ShapeModel;import util.trace.uigen.IllegalPropertyNotification;
+import util.trace.uigen.ShapeLowerYLessThanZero;
+import util.trace.uigen.ShapeRightXLessThanZero;
+import bus.uigen.*;import bus.uigen.introspect.*;import bus.uigen.sadapters.ConcreteBoundedShape;
 public class BoundedShapeAdapter extends ShapeObjectAdapter  {
 	public BoundedShapeAdapter () throws RemoteException {
 		

@@ -1,16 +1,15 @@
 package bus.uigen;
 
+import util.trace.uigen.WidgetInstantiated;
 import bus.uigen.ars.*;
 import bus.uigen.editors.*;
 import bus.uigen.introspect.uiClassFinder;
 import bus.uigen.loggable.ACompositeLoggable;
-
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.reflect.ClassProxy;
 import bus.uigen.reflect.RemoteSelector;
 import bus.uigen.reflect.StandardProxyTypes;
 import bus.uigen.reflect.local.AClassProxy;
-import bus.uigen.trace.WidgetInstantiated;
 import bus.uigen.widgets.VirtualComponent;
 public class Connector {	 static ComponentDictionary componentMapping = EditorRegistry.getComponentDictionary();
 	public static VirtualComponent linkAdapterToComponent(ObjectAdapter adaptor,

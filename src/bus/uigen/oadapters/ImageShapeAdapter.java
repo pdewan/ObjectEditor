@@ -11,8 +11,8 @@ import shapes.RemoteShape;
 import shapes.RemoteText;
 import util.misc.Common;
 import util.models.RemotePropertyChangeListener;
+import util.trace.uigen.IllegalPropertyNotification;
 import bus.uigen.sadapters.ConcreteImageShape;
-import bus.uigen.trace.IllegalPropertyNotification;
 public class ImageShapeAdapter extends BoundedShapeAdapter implements RemotePropertyChangeListener  { 
 //public class ImageShapeAdapter extends ShapeObjectAdapter implements RemotePropertyChangeListener  { 
 	public ImageShapeAdapter () throws RemoteException {

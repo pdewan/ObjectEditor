@@ -6,10 +6,10 @@ package bus.uigen.visitors;
 
 import java.util.Hashtable;
 
+import util.trace.uigen.TooManyLevelsInDisplayedLogicalStructure;
+import util.trace.uigen.TooManyNodesInDisplayedLogicalStructure;
 import bus.uigen.oadapters.CompositeAdapter;
 import bus.uigen.oadapters.ObjectAdapter;
-import bus.uigen.trace.TooManyLevelsInDisplayedLogicalStructure;
-import bus.uigen.trace.TooManyNodesInDisplayedLogicalStructure;
 public class CreateChildrenAdapterVisitor extends ElideAdapterVisitor {	  
   public CreateChildrenAdapterVisitor(ObjectAdapter root) {
     super(root);

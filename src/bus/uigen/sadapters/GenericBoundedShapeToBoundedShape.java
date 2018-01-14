@@ -1,16 +1,18 @@
 package bus.uigen.sadapters;
 import java.util.*;import java.lang.reflect.*;import java.beans.*;
+
 import bus.uigen.editors.*;import bus.uigen.reflect.ClassProxy;
 import bus.uigen.reflect.RemoteSelector;
 import bus.uigen.reflect.MethodProxy;
 import shapes.BoundedShape;
-import bus.uigen.trace.NullLocationException;
 import bus.uigen.undo.*;import bus.uigen.*;
 import bus.uigen.introspect.*;import bus.uigen.controller.MethodInvocationManager;
+
 import java.awt.Color;
 
 import shapes.ShapeModel;
 import util.trace.Tracer;
+import util.trace.uigen.NullLocationException;
 public class GenericBoundedShapeToBoundedShape extends GenericShapeToShape implements ConcreteBoundedShape {
 	
 	public static final String WIDTH_PROPERTY_NAME = "Color";

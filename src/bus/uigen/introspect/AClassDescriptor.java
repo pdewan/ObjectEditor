@@ -37,6 +37,10 @@ import util.models.PropertyListenerRegisterer;
 import util.models.VectorListener;
 import util.models.VectorListenerRegisterer;
 import util.trace.Tracer;
+import util.trace.uigen.MissingGetterOfProperty;
+import util.trace.uigen.MissingSetterOfEditableProperty;
+import util.trace.uigen.UndeclaredEditableProperty;
+import util.trace.uigen.UndeclaredProperty;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.loggable.ACompositeLoggable;
 import bus.uigen.reflect.ClassProxy;
@@ -48,10 +52,6 @@ import bus.uigen.reflect.RemoteSelector;
 import bus.uigen.reflect.local.AClassProxy;
 import bus.uigen.reflect.local.AVirtualMethod;
 import bus.uigen.reflect.local.ReflectUtil;
-import bus.uigen.trace.MissingGetterOfProperty;
-import bus.uigen.trace.MissingSetterOfEditableProperty;
-import bus.uigen.trace.UndeclaredEditableProperty;
-import bus.uigen.trace.UndeclaredProperty;
 
 public class AClassDescriptor implements ClassDescriptorInterface, Serializable {
 

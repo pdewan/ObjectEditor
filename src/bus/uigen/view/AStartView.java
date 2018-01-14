@@ -15,6 +15,12 @@ import javax.swing.JFrame;
 import slm.SLModel;
 import util.misc.ThreadSupport;
 import util.trace.TraceableBus;
+import util.trace.uigen.DrawingEditorGenerationEnded;
+import util.trace.uigen.EditorGenerationEnded;
+import util.trace.uigen.EditorGenerationStarted;
+import util.trace.uigen.FrameSetVisibleEnded;
+import util.trace.uigen.MajorStepInfo;
+import util.trace.uigen.TreeEditorGenerationEnded;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.controller.models.AboutManager;
 import bus.uigen.controller.models.BuildTimeManager;
@@ -22,12 +28,6 @@ import bus.uigen.models.ComputerDefinition;
 import bus.uigen.models.ComputerDefinitionsGenerator;
 import bus.uigen.models.ComputerDefinitionsManager;
 import bus.uigen.models.LogoReader;
-import bus.uigen.trace.DrawingEditorGenerationEnded;
-import bus.uigen.trace.EditorGenerationEnded;
-import bus.uigen.trace.EditorGenerationStarted;
-import bus.uigen.trace.FrameSetVisibleEnded;
-import bus.uigen.trace.MajorStepInfo;
-import bus.uigen.trace.TreeEditorGenerationEnded;
 import bus.uigen.widgets.swing.DelegateJPanel;
 
 

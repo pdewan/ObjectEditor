@@ -8,13 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import bus.uigen.trace.TraceUtility;
 import util.misc.Common;
 import util.models.ALocalGlobalTranscriptManager;
 import util.models.LocalGlobalTranscriptManager;
 import util.pipe.AConsoleModel;
 import util.pipe.ConsoleModel;
 import util.trace.Traceable;
+import util.trace.uigen.TraceUtility;
 
 public abstract class ADemoerAndTester implements DemoerAndTester {
 

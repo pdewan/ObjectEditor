@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import javax.swing.JFrame;
 
 import util.trace.TraceableBus;
+import util.trace.uigen.LogicalStructureNodeCreated;
 import bus.uigen.CompleteOEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.uiFrame;
@@ -14,7 +15,6 @@ import bus.uigen.uiGenerator;
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.oadapters.ReferenceAdapter;
 import bus.uigen.oadapters.RootAdapter;
-import bus.uigen.trace.LogicalStructureNodeCreated;
 import bus.uigen.widgets.VirtualComponent;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;

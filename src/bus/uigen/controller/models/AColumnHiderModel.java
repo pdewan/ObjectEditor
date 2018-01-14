@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import util.trace.Tracer;
-
+import util.trace.uigen.HidingLastChild;
 import bus.uigen.ObjectEditor;
 import bus.uigen.adapters.CommandAndStatePanelAdapter;
 import bus.uigen.attributes.AttributeNames;
@@ -15,7 +15,6 @@ import bus.uigen.oadapters.CompositeAdapter;
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.reflect.ClassProxy;
 import bus.uigen.sadapters.BeanToRecord;
-import bus.uigen.trace.HidingLastChild;
 import bus.uigen.widgets.VirtualLabel;
 @util.annotations.StructurePattern(util.annotations.StructurePatternNames.NO_PATTERN)
 public class AColumnHiderModel extends AColumnDisplayerAbstractModel {
