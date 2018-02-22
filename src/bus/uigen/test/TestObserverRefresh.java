@@ -14,6 +14,7 @@ import bus.uigen.shapes.ARectangleModel;
 public class TestObserverRefresh {
      
       public static void main(String[] args){
+    	  TraceableLogFactory.setEnableTraceableLog(true);
     	  TraceableLog log = TraceableLogFactory.getTraceableLog();
     	  TestObserverRefresh obj = new TestObserverRefresh();
           ObjectEditor.edit(obj);
