@@ -523,6 +523,7 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 			maybeSetDefaultFontSize();
 			
 			TraceableClassToInstancesFactory.getOrCreateTraceableClassToInstances();
+			if (TraceableLogFactory.isEnableTraceableLog())
 			TraceableLogFactory.getTraceableLog();	
 //			new AnOEFrameShutDownHook(this);
 			myFrame = newFrame;
