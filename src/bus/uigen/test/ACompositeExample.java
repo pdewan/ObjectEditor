@@ -4,8 +4,10 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import util.annotations.ComponentWidth;
+import util.annotations.EditablePropertyNames;
 import util.annotations.Explanation;
 import util.annotations.Position;
+import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.misc.ThreadSupport;
@@ -13,7 +15,9 @@ import util.models.PropertyListenerRegisterer;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
-public class ACompositeExample  {
+@PropertyNames({"String", "Int", "IntAndString"})
+@EditablePropertyNames({"String", "Int"})
+public class ACompositeExample implements CompositeExample  {
 	String string = "a string";
 	int intVal = 5;
 	String intAndString;
@@ -26,10 +30,12 @@ public class ACompositeExample  {
 		
 		
 	}
+	@Override
 	@Position(1)
 	public void incInt() {
 		intVal++;
 	}
+	@Override
 	public void setString(String newVal) {
 		String oldVal = string;
 
@@ -39,22 +45,26 @@ public class ACompositeExample  {
 
 
 	}
+	@Override
 	@Position(0)
 	@Explanation("A String")
 //	@PreferredWidgetClass(JLabel.class)
 	public String getString() {
 		return string;
 	}
+	@Override
 	@Explanation("An Int")
 	@Position(1)
 	public int getInt() {
 		return intVal;
 	}
 //	@Position(0)
+	@Override
 	public void setInt(int newVal) {
 		this.intVal = newVal;
 		
 	}
+	@Override
 	@Position(0)
 	public void set(String newString, int newInt) {
 		
@@ -64,6 +74,7 @@ public class ACompositeExample  {
 
 
 	}
+	@Override
 	@ComponentWidth(200)
 	public String getIntAndString() {
 		return string + intVal;
@@ -75,7 +86,7 @@ public class ACompositeExample  {
 //	}
 
 	public static void main (String[] args) {
-		ACompositeExample example = new ACompositeExample();
+		CompositeExample example = new ACompositeExample();
 		OEFrame mainFrame = ObjectEditor.edit(example);		
 		example.set("hello", 1);
 		ThreadSupport.sleep(1000);

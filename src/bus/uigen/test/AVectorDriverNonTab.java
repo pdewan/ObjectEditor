@@ -11,14 +11,14 @@ import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
 
 public class AVectorDriverNonTab {
-	ACompositeExample template = new ACompositeExample();
+	CompositeExample template = new ACompositeExample();
 	List<ACompositeExample> list = new Vector();
 	
-	public ACompositeExample getTemplate() {
+	public CompositeExample getTemplate() {
 		return template;
 	}
 
-	public void setTemplate(ACompositeExample template) {
+	public void setTemplate(CompositeExample template) {
 		this.template = template;
 	}
 

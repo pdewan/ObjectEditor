@@ -934,6 +934,11 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 					OEMisc.saveState(topAdapter.getRealObject());
 				if (isTopFrame() && exitEnabled)
 					System.exit(0);
+				if (!isTopFrame()) {
+//					uiFrameList.removeFrame(me);
+					setVisible(false);
+//					dispose();
+				}
 //				else {
 //					uiFrameList.removeFrame(me);
 //					setVisible(false);

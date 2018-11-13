@@ -33,7 +33,7 @@ public class ACompositeColorer extends ACompositeObservable {
 	}
 	public static void main (String[] args) {
 		ObjectEditor.setPropertyAttribute(ACompositeColorer.class, "String", AttributeNames.COMPONENT_FOREGROUND, Color.BLUE);
-		ACompositeExample example = new ACompositeColorer();
+		CompositeExample example = new ACompositeColorer();
 		OEFrame mainFrame = ObjectEditor.edit(example);	
 		ObjectEditor.treeEdit(example);
 //		example.setAString("");

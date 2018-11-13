@@ -41,7 +41,7 @@ public class ACompositeOpener extends ACompositeObservable {
 	}
 	public static void main (String[] args) {
 		ObjectEditor.setMethodAttribute(ACompositeOpener.class, "foo", AttributeNames.DOUBLE_CLICK_METHOD, true);
-		ACompositeExample example = new ACompositeOpener();
+		CompositeExample example = new ACompositeOpener();
 		OEFrame mainFrame = ObjectEditor.edit(example);	
 		ObjectEditor.treeEdit(example);
 //		example.setAString("");

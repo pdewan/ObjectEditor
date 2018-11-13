@@ -14,7 +14,7 @@ public class AutoTextInCustomFrame {
 
 	public static void main (String[] args) {
 //		ObjectEditor.edit(new AFooBar());
-		ACompositeExample random = new ACompositeExample();
+		CompositeExample random = new ACompositeExample();
 		JFrame frame1 = new JFrame();
 		uiFrame editor = ObjectEditor.createOEFrame(frame1);
 		VirtualContainer container1 = AWTContainer.virtualContainer(frame1.getContentPane());

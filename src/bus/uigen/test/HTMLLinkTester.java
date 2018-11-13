@@ -57,7 +57,7 @@ public class HTMLLinkTester {
 		        + " to go to the Java website.</HTML>";
 //		String regexp = "(http\\://[:/?#\\[\\]@!%$&'()*+,;=a-zA-Z0-9._\\-~]+)";
 		String regexp2 = "((https|http|ftp|file)\\://[:/?#\\[\\]@!%$&'()*+,;=a-zA-Z0-9._\\-~]+)";
-		ACompositeExample example = new ACompositeExample();
+		CompositeExample example = new ACompositeExample();
 //		example.setString("<HTML>Click the <FONT color=\"#000099\"><U>http://sourceforge.net/projects/jhyperlink/</U></FONT>"
 //        + " to go to the Java website.</HTML>");
 //		example.setString(link);

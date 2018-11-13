@@ -47,8 +47,8 @@ public class ACompositeObservable extends ACompositeExample  implements Property
 	public void setInt(int newVal) {
 		int oldVal = intVal;
 		super.setInt(newVal);
-		propertyChangeSupport.firePropertyChange("AnInt", oldVal, newVal);
-		propertyChangeSupport.firePropertyChange("AnIntAndString", null, getIntAndString());
+		propertyChangeSupport.firePropertyChange("Int", oldVal, newVal);
+		propertyChangeSupport.firePropertyChange("IntAndString", null, getIntAndString());
 
 	}
 	
@@ -56,9 +56,9 @@ public class ACompositeObservable extends ACompositeExample  implements Property
 		int oldInt = intVal;
 		String oldString = string;
 		super.set(newString, newInt);
-		propertyChangeSupport.firePropertyChange("AnInt", oldInt, newInt);
-		propertyChangeSupport.firePropertyChange("AString", oldString, newString);
-		propertyChangeSupport.firePropertyChange("AnIntAndString", null, getIntAndString());
+//		propertyChangeSupport.firePropertyChange("AnInt", oldInt, newInt);
+		propertyChangeSupport.firePropertyChange("String", oldString, newString);
+		propertyChangeSupport.firePropertyChange("IntAndString", null, getIntAndString());
 
 
 	}
@@ -96,6 +96,9 @@ public class ACompositeObservable extends ACompositeExample  implements Property
 	public void addPropertyChangeListener(PropertyChangeListener aListener) {
 		System.out.println("property change listener called");
 		propertyChangeSupport.addPropertyChangeListener(aListener);
+		propertyChangeSupport.firePropertyChange("AnInt", null, getInt());
+		propertyChangeSupport.firePropertyChange("AString", null, getString());
+		propertyChangeSupport.firePropertyChange("AnIntAndString", null, getIntAndString());
 		// TODO Auto-generated method stub
 		
 	}
