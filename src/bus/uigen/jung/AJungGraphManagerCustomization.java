@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 
-import javafx.scene.shape.VertexFormat;
+//import javafx.scene.shape.VertexFormat;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
