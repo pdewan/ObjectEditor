@@ -498,6 +498,19 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 	
 
 	public void maybeSetDefaultFontSize() {
+		if (!ObjectEditor.isScaleDensePixels()) {
+			return;
+		}
+		Dimension aScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int aResolution = Toolkit.getDefaultToolkit().getScreenResolution();
+		Font defaultFont = UIManager.getDefaults().getFont("TextPane.font");
+		if (regularFontSize == 0) { // this is static
+		regularFontSize = defaultFont.getSize();
+		}
+		if (aResolution > DENSE_SCREEN_RESOLUTION) {
+//		if (aScreenSize.width >= DENSE_WIDTH || aScreenSize.height > DENSE_HEIGHT) {
+			densePixels = true;
+		}
 		if (defaultFontSize !=regularFontSize  && defaultFontSize != 0)
 			return; // we have already done the JVM wide font change
 		defaultFontSize = regularFontSize;
@@ -510,16 +523,16 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 	}
 	public void init(VirtualFrame newFrame, VirtualContainer newContainer) {
 		try {
-			Dimension aScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			int aResolution = Toolkit.getDefaultToolkit().getScreenResolution();
-			Font defaultFont = UIManager.getDefaults().getFont("TextPane.font");
-			if (regularFontSize == 0) { // this is static
-			regularFontSize = defaultFont.getSize();
-			}
-			if (aResolution > DENSE_SCREEN_RESOLUTION) {
-//			if (aScreenSize.width >= DENSE_WIDTH || aScreenSize.height > DENSE_HEIGHT) {
-				densePixels = true;
-			}
+//			Dimension aScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//			int aResolution = Toolkit.getDefaultToolkit().getScreenResolution();
+//			Font defaultFont = UIManager.getDefaults().getFont("TextPane.font");
+//			if (regularFontSize == 0) { // this is static
+//			regularFontSize = defaultFont.getSize();
+//			}
+//			if (aResolution > DENSE_SCREEN_RESOLUTION) {
+////			if (aScreenSize.width >= DENSE_WIDTH || aScreenSize.height > DENSE_HEIGHT) {
+//				densePixels = true;
+//			}
 			maybeSetDefaultFontSize();
 			
 			TraceableClassToInstancesFactory.getOrCreateTraceableClassToInstances();

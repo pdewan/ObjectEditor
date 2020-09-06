@@ -148,6 +148,9 @@ import bus.uigen.widgets.universal.AUniversalWidget;
 @util.annotations.Keywords({"ObjectEditor", "Preconditions.menus", "Preconditions.properties", "BeanInfo", "AttributeRegistrer"})
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class ObjectEditor  implements java.io.Serializable, VirtualActionListener, Runnable   {
+	static boolean scaleDensePixels = false;
+	
+
 	static int frame_width = 700;
     static int frame_height = 150;
 	static transient bus.uigen.uiFrame lastEditor;
@@ -4864,9 +4867,17 @@ public static void associateKeywordWithClassName(String keyword, ClassDescriptor
 	public static Double getDenseMagnification() {
 		return denseMagnification;
 	}
+	
 	public static void setDenseMagnification(Double newVal) {
 		if (!freezeDenseMagnification)
 		denseMagnification = newVal;
+	}
+	public static boolean isScaleDensePixels() {
+		return scaleDensePixels;
+	}
+
+	public static void setScaleDensePixels(boolean scaleDensePixels) {
+		ObjectEditor.scaleDensePixels = scaleDensePixels;
 	}
 	
 	static Dimension screenSize;

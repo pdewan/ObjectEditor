@@ -23,7 +23,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/jung"/>
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/collections-generic-4.01.jar" sourcepath="C:/Users/dewan/.m2/repository/net/sourceforge/collections/collections-generic/4.01/collections-generic-4.01-sources.jar"/>
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/logging.zip"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/virtualtoolkit"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/object-diff"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/VirtualToolkit"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
