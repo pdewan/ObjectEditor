@@ -56,7 +56,7 @@ public class Connection  extends AListenable implements Listener {
 		int yOffset = 0;
 		try {
 		if (theSource == null) return;
-		System.out.println("set source");
+		System.err.println("set source");
 		if (source != null && source != theSource) 
 			source.removeListener(this);
 		if (source != null) {
@@ -69,17 +69,17 @@ public class Connection  extends AListenable implements Listener {
 		   source = theSource;		
 			source.addListener(this);
 		}
-		//System.out.println("changing lastSource Bounds" + lastSourceBounds);
+		//System.err.println("changing lastSource Bounds" + lastSourceBounds);
 		//Rectangle sourceBounds = source.getBounds();
 		//lastSourceBounds = theSource.getBounds();
 		lastSourceBounds = new Rectangle(source.getBounds());		
-		//System.out.println("changing lastSource Bounds" + lastSourceBounds);
-		//System.out.println ("lineOffset" + lineOffsetChosen);
+		//System.err.println("changing lastSource Bounds" + lastSourceBounds);
+		//System.err.println ("lineOffset" + lineOffsetChosen);
 		/*
 		if (lineOffsetChosen)
-		  System.out.println("cur dir" + direction + "new dir" + getDirection());
+		  System.err.println("cur dir" + direction + "new dir" + getDirection());
 		*/
-		//System.out.println("making connection");
+		//System.err.println("making connection");
 		if (line != null && direction == getDirection()) {
 			
 			moveDestination ( xOffset, yOffset);
@@ -93,7 +93,7 @@ public class Connection  extends AListenable implements Listener {
 		
 	}
 	public void move(RemoteShape shapeModel, int xOffset, int yOffset) {
-		//System.out.println("moving" + shapeModel + "x" + xOffset + "y" + yOffset);
+		//System.err.println("moving" + shapeModel + "x" + xOffset + "y" + yOffset);
 		try {
 		Rectangle bounds = shapeModel.getBounds();
 		shapeModel.setBounds(bounds.x + xOffset, bounds.y + yOffset, bounds.width, bounds.height);
@@ -150,7 +150,7 @@ public class Connection  extends AListenable implements Listener {
 	}
 	boolean firstLine;
 	public void setLine (String theKey, LineModel lineModel) {
-		System.out.println("setting line" + lineModel);
+		System.err.println("setting line" + lineModel);
 		//if (lineModel == line) return;
 		if (line != null && line != lineModel)
 			line.removeListener(this);
@@ -223,7 +223,7 @@ public class Connection  extends AListenable implements Listener {
 	int direction = -1;
 	public void makeConnection() {
 		try {
-		System.out.println("MAKING NEW CONNECTION");
+		System.err.println("MAKING NEW CONNECTION");
 		direction = getDirection();
 		switch (direction) {
 		case SOUTH:
@@ -255,7 +255,7 @@ public class Connection  extends AListenable implements Listener {
 		setLine(lineKey, lineModel);
 		} catch (Exception e) {
 			e.printStackTrace();
-			//System.out.println(e);
+			//System.err.println(e);
 		}
 	}
 	/*
@@ -362,7 +362,7 @@ public class Connection  extends AListenable implements Listener {
 			lineOffsetChosen = true;
 			return;
 		}
-		System.out.println("moveConnection");
+		System.err.println("moveConnection");
 		direction = getDirectionFromLine();
 		Rectangle lineBounds = line.getBounds();
 		Rectangle sourceBounds = source.getBounds();
@@ -405,7 +405,7 @@ public class Connection  extends AListenable implements Listener {
 	public void update(Listenable model, Object arg)
     { 
 		RemoteShape newShape;
-		//System.out.println("update" + model);
+		//System.err.println("update" + model);
 		if (model instanceof SLModel) update((SLModel) model, arg);
 		if (model instanceof RemoteShape) update((RemoteShape) model, arg);
 		/*
@@ -434,7 +434,7 @@ public class Connection  extends AListenable implements Listener {
 	public void update(SLModel model, Object arg)
     { 
 		RemoteShape newShape;
-		//System.out.println("update");
+		//System.err.println("update");
 		if (arg == null) return;
 		if (arg instanceof SLPutCommand) putUpdate((SLPutCommand) arg);
 		//if (arg instanceof SLSetBoundsCommand) setBoundsUpdate((SLSetBoundsCommand) arg);
@@ -464,7 +464,7 @@ public class Connection  extends AListenable implements Listener {
 	public void putUpdate(SLPutCommand command)
     { 
 		RemoteShape newShape;
-		//System.out.println(command);
+		//System.err.println(command);
 		String changeKey = command.getKey();
 		if (changeKey == null) return;
 		processChange(changeKey, drawing.get(changeKey));
@@ -494,7 +494,7 @@ public class Connection  extends AListenable implements Listener {
 	public void setBoundsUpdate(SLSetBoundsCommand command)
     { 
 		RemoteShape newShape;
-		System.out.println(command);
+		System.err.println(command);
 		String changeKey = command.getKey();
 		if (changeKey == null) return;
 		processChange(changeKey, drawing.get(changeKey));
@@ -502,7 +502,7 @@ public class Connection  extends AListenable implements Listener {
 		if (changeKey.equals(sourceKey)) {
 			newShape = drawing.get(sourceKey);
 			if (lastSourceBounds.equals(newShape.getBounds())) return;
-			System.out.println("new bounds");
+			System.err.println("new bounds");
 			setSource (sourceKey,  newShape);
 		} else if (changeKey.equals(destinationKey)) {
 			newShape = drawing.get(destinationKey);
@@ -525,13 +525,13 @@ public class Connection  extends AListenable implements Listener {
 	public void processChange(String changeKey, RemoteShape newShape)
     {
 		try {
-		//System.out.println("process change!!" + newShape.setBounds());
+		//System.err.println("process change!!" + newShape.setBounds());
 		if (sourceKey.equals(changeKey) || (newShape == source)) {
 			//newShape = drawing.get(sourceKey);
-			//System.out.println("last bounds" + lastSourceBounds);
-			//System.out.println("new bounds" + newShape.getBounds());
+			//System.err.println("last bounds" + lastSourceBounds);
+			//System.err.println("new bounds" + newShape.getBounds());
 			if (lastSourceBounds.equals(newShape.getBounds())) return;
-			//System.out.println("new bounds!!!!");
+			//System.err.println("new bounds!!!!");
 			setSource (sourceKey,  newShape);
 		} else if (destinationKey.equals(changeKey) || (newShape == destination)) {
 			//newShape = drawing.get(destinationKey);
@@ -555,9 +555,9 @@ public class Connection  extends AListenable implements Listener {
     { 
 		processChange(null, model);
 		/*
-		//System.out.println("udate" + model);
+		//System.err.println("udate" + model);
 		if ((model == source) || (model == destination)) {
-			//System.out.println("
+			//System.err.println("
 			if (moveConnection())
 				makeConnection();
 		} else if (model == line) {

@@ -46,7 +46,7 @@ import bus.uigen.*;import bus.uigen.introspect.*;import bus.uigen.sadapters.Co
 	  try {		    /*
 		    Object[] params = {};			String text = (String) getTextMethod.invoke(object, params);		  */		  String imageFileName = getConcreteLabelShape().getImageFileName();
 			if (labelShape.getImageFileName() != imageFileName)				labelShape.setImageFileName(imageFileName); 			oldImageFileName = imageFileName;
-		} catch (Exception e) {		  System.out.println("E**: exception invoking imageFileName methods");		  e.printStackTrace();
+		} catch (Exception e) {		  System.err.println("E**: exception invoking imageFileName methods");		  e.printStackTrace();
 		}	
 	  return shape;   }
   public boolean recalculateRealObject() {
@@ -57,7 +57,7 @@ import bus.uigen.*;import bus.uigen.introspect.*;import bus.uigen.sadapters.Co
 		    Object[] params = {text};			setTextMethod.invoke(object, params);			  */			  getConcreteLabelShape().setImageFileName(imageFileName);
 			retVal = true;		  }
 		  oldImageFileName = imageFileName;			 
-		} catch (Exception e) {		  System.out.println("E**: exception invoking set imageFileName  methods");		  e.printStackTrace();
+		} catch (Exception e) {		  System.err.println("E**: exception invoking set imageFileName  methods");		  e.printStackTrace();
 		}	  return retVal;
   }
   public static LabelShapeAdapter createLabelShapeAdapter (Object obj,											  Object obj1, 											  Object parentObject, 											  String name, 											  Class inputClass, 											  boolean propertyFlag, 											  ObjectAdapter adaptor)throws RemoteException  {

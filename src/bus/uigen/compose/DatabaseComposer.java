@@ -95,7 +95,7 @@ public class DatabaseComposer
 	
 	
 	public void doQuery() {
-		System.out.println("DO QUERY CALLED");
+		System.err.println("DO QUERY CALLED");
 		
 		try {
 			passVector = new Vector();

@@ -63,7 +63,7 @@ public class Connector {	 static ComponentDictionary componentMapping = EditorR
 			 {
 				return adaptor.getUIComponent();
 			}
-			if (widgetAdapterClassName.equals("none")) {				System.out.println("no widget adapter class found");
+			if (widgetAdapterClassName.equals("none")) {				System.err.println("no widget adapter class found");
 				return (VirtualComponent) cclass.newInstance();			}
 			String componentClass = EditorRegistry.getDefaultWidget(objectClassName, widgetAdapterClassName);
 			//if (componentClass != null) cclass = Class.forName(componentClass);

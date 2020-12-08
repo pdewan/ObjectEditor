@@ -53,7 +53,7 @@ class UIPreferenceSupport implements UIPreference {
     if (attributes.containsKey(name))
         return (String)(attributes.get(name));
     else {
-        System.out.println("Attrib "+name+" not found");
+        System.err.println("Attrib "+name+" not found");
         return ("");
     }
   }

@@ -479,27 +479,27 @@ public class OperationComposer
 			objsWithCommand = new Vector();
 			}
 			objsWithCommand.addElement(objects[i]); 
-			System.out.println("  "+objects[i].toString() + " | ");
+			System.err.println("  "+objects[i].toString() + " | ");
 			commandsToObj.put(currMeth ,objsWithCommand);
 			}//end for all commands
-			System.out.println();
+			System.err.println();
 			}//end for all objects.
 			
 			//find the buckets in the hashtable that have more than one object
 			
 			//not dealing with individual components here so no need to call componentpanel.	
 			
-			System.out.println("cmd to obj has "+commandsToObj.size());
+			System.err.println("cmd to obj has "+commandsToObj.size());
 			
 			Enumeration allMethods = commandsToObj.keys();
 			sharedInvokeButtons = new Vector();
 			for (allMethods = commandsToObj.keys() ; allMethods.hasMoreElements() ;) {
 			Method currMeth = (Method)allMethods.nextElement();
-			System.out.print("looking at "+currMeth.toString());
+			System.err.print("looking at "+currMeth.toString());
 			Vector objWithCommand = ((Vector)commandsToObj.get(currMeth));
 			if (objWithCommand.size() > 1) { //if this command has more than one obj implementing it
 			//then we want to create the Panel for it consisting of the the devices that should be in it
-			System.out.println("  has shared objects");
+			System.err.println("  has shared objects");
 			JPanel asB = new JPanel();
 			asB.setBorder(BorderFactory.createTitledBorder(currMeth.toString()));
 			Hashtable ckB = new Hashtable();  //will store this panels chkboxes
@@ -518,7 +518,7 @@ public class OperationComposer
 			usSB.add(asB);
 			pantoSbtns.put(currMeth,ckB);  //store this commands check boxes
 			}//end if
-			System.out.println("  doesn't have shared objs");
+			System.err.println("  doesn't have shared objs");
 			
 			}  //end for each shared command
 			JPanel btnPan2 = new JPanel();
@@ -627,7 +627,7 @@ public class OperationComposer
 				String currMethodName = currMeth.getName().toLowerCase();
 				//Vector objsWithCommand = (Vector)commandsToObj.get( currMeth ); 
 				Vector objsWithCommand = (Vector)commandsToObj.get( currMethodName );  
-				System.out.println("Method: " + currMeth);
+				System.err.println("Method: " + currMeth);
 				System.out.println("Name: " + currMeth.getName());
 				//hope that hashing a method that is the same basic method but from different object
 				//hashes to the same bucket...otherwise i'll have to change to hashing the methodname..a more basic type
@@ -890,7 +890,7 @@ public class OperationComposer
 					if (
 						propVec == null)
 					{ //if not 
-						System.out.println("new getter");
+						System.err.println("new getter");
 						getterObjects = new Vector();//make one
 						getterObjects.addElement(objects[i]);
 						propGetterHash.put(IntrospectUtility.getPropertyName(currentMethod), getterObjects);
@@ -899,7 +899,7 @@ public class OperationComposer
 					}
 					else
 					{//already have this property in the the hashtable
-						System.out.println("used getter");
+						System.err.println("used getter");
 						((Vector)propVec).addElement(objects[i]); //just add to it
 						propGetterHash.put(IntrospectUtility.getPropertyName(currentMethod), propVec);
 						//reput just in case pointers aren't straight
@@ -951,7 +951,7 @@ public class OperationComposer
 		}//endfor
 
 		txfrsLayout.setColumns(1);
-		System.out.println("transfers cnt" + txfrCount);
+		System.err.println("transfers cnt" + txfrCount);
 
 		txfrsLayout.setRows(txfrCount);
 		//JFrame transfersFrame = new JFrame("Value Transfers");
@@ -1657,7 +1657,7 @@ old no cleanup of device name
 								//get the display name of the method
 								 //think I need to add these new updates for the Uppercase/replaceAll stuff (don't want to change old methoddescriptor
 								
-//								System.out.print("targethas..." + aMeth + "...");
+//								System.err.print("targethas..." + aMeth + "...");
 								if (!( realMeth.getName().equals("toString") || realMeth.getName().equals("addPropertyChangeListener") )) {
 									//System.out.print("-"+aMeth+"-");
 									metHash.put(aMeth, realMeth); //putting this in here because in ControlPanel, need a hash of cmd name to real method
@@ -1698,7 +1698,7 @@ old no cleanup of device name
 			//Vector currNSMeth = null;
 			
 			while(allPanels.hasMoreElements() ) {
-				//System.out.println("After while");
+				//System.err.println("After while");
 				int curCmd = 0;  //count number of meth/prop that are shared w/ current UI
 				int curProp = 0;
 				
@@ -1997,7 +1997,7 @@ old no cleanup of device name
 			ComponentPanel bestPanel = (ComponentPanel)singlePanels.get(closestObj);
 			
 			if (bestPanel == null) {
-				System.out.println("didn't find a best panel - Oposer 1715");
+				System.err.println("didn't find a best panel - Oposer 1715");
 				System.exit(0);
 			}
 			bestPanel.convertUI(newTarget, targClass, targRealClass, metVec,

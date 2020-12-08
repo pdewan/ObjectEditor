@@ -73,7 +73,7 @@ public class ABasicProblemOperationsModel extends AnAbstractOperationsModel impl
 	public void invokeDynamicCommand (String commandName) {
 		Class exceptionClass = nameToTraceableClass.get(commandName);
 //		ClassProxy classProxy = AClassProxy.classProxy(exceptionClass);		
-		System.out.println(commandName);
+		System.err.println("dynamuc command:" + commandName);
 		ProblemDetails exceptionDetails = new AProblemDetails(exceptionClass);
 		ObjectEditor.edit(exceptionDetails);
 //		showInExistingBrowser(commandName);

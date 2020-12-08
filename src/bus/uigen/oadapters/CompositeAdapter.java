@@ -202,7 +202,7 @@ public abstract class CompositeAdapter extends ObjectAdapter implements Composit
 			ShapeObjectAdapter shape = adapters.get(i);
 			shape.addShape();
 		}
-	}  public void refreshValue(Object newValue) {	  //System.out.println("uiContainerAdapter-Set Value: " + newValue);
+	}  public void refreshValue(Object newValue) {	  //System.err.println("uiContainerAdapter-Set Value: " + newValue);
 	  refreshValue(newValue, false);  }
   //int maxComponentNameLength = 0;
 	public int getMaxComponentNameLength() {
@@ -294,7 +294,7 @@ public boolean getHasPrimitiveAndCompositeChildren () {
   }
   */
   public boolean isHorizontal() {	
-		//System.out.println (" " + this.getMergedAttributeValue("direction") + this);		//if (!"horizontal".equals(this.getMergedAttributeValue("direction")))		//System.out.println("is horizontal" + this.getDirection() + direction + this.getBeautifiedPath());    		if (!("horizontal".equals(this.getDirection())))
+		//System.err.println (" " + this.getMergedAttributeValue("direction") + this);		//if (!"horizontal".equals(this.getMergedAttributeValue("direction")))		//System.err.println("is horizontal" + this.getDirection() + direction + this.getBeautifiedPath());    		if (!("horizontal".equals(this.getDirection())))
 			return false;
 		else
 			return true;
@@ -304,7 +304,7 @@ public boolean getHasPrimitiveAndCompositeChildren () {
 		  atomicRefresh();
 	      return;
        }
-	   */	  //System.out.println(" normal objectadapter refresh" + this);
+	   */	  //System.err.println(" normal objectadapter refresh" + this);
       //setValue(getViewObject());
 	  refreshValue(getRealObject(), true);	//this.getGenericWidget().doLayout();	//this.getGenericWidget().validate();
   }
@@ -407,7 +407,7 @@ public boolean getHasPrimitiveAndCompositeChildren () {
   	 }
   	 } catch (Exception e) {
   		e.printStackTrace();
-  	 	//System.out.println(e);
+  	 	//System.err.println(e);
   	 }
   	
   	
@@ -446,14 +446,14 @@ public boolean getHasPrimitiveAndCompositeChildren () {
 	  return childrenCreated;
   }  public static int computeIndex(ObjectAdapter child) {				int index;
 				try {
-					if (child.isTopAdapter()) {						//System.out.println(this.getAdapterIndex());
+					if (child.isTopAdapter()) {						//System.err.println(this.getAdapterIndex());
 						index = Integer.parseInt(child.getAdapterIndex());
 											} else {
 						index = Integer.parseInt(child.getParentAdapter().getChildAdapterRealIndex(child));
-						if (index < 0) {							System.out.println("ADAPTER  NOT FOUND");							System.out.println("ADAPTER " + child.getID());
+						if (index < 0) {							System.err.println("ADAPTER  NOT FOUND");							System.err.println("ADAPTER " + child.getID());
 						}					}
 				} catch (NumberFormatException e) {
-					//e.printStackTrace();					System.out.println("returning negative index");
+					//e.printStackTrace();					System.err.println("returning negative index");
 					index = -1;
 				}
 				return index;	}  public Object getUserChange () {
@@ -477,7 +477,7 @@ public boolean getHasPrimitiveAndCompositeChildren () {
 		//propagateChange();	}	transient String direction = AttributeNames.VERTICAL;
 	public boolean processDirection(String newDirection) {
 		direction = newDirection;
-		//System.out.println("process Direction" + direction + this.getBeautifiedPath());		return this.getWidgetAdapter().processDirection(newDirection);	}
+		//System.err.println("process Direction" + direction + this.getBeautifiedPath());		return this.getWidgetAdapter().processDirection(newDirection);	}
 	boolean forceRebuild = false;
 	public boolean getForceRebuild() {
 		return forceRebuild;
@@ -910,17 +910,17 @@ public abstract int getNumberOfDynamicChildren();
 		  ((ObjectAdapter) elements.nextElement()).padLabelTo(maxLength);  }
 public void makeColumnTitles () {
 	/*
-	//System.out.println("making column titles");	  Enumeration enum = getChildren();
-	  if (!enum.hasMoreElements()) return;	 // System.out.println("returning from column titles");
+	//System.err.println("making column titles");	  Enumeration enum = getChildren();
+	  if (!enum.hasMoreElements()) return;	 // System.err.println("returning from column titles");
 	  Object firstChild = enum.nextElement();
 	  if (!(firstChild instanceof uiContainerAdapter)) return;	  //((uiContainerAdapter) enum.nextElement()).makeHorizontalColumnTitles();		  ((uiContainerAdapter) firstChild).makeHorizontalColumnTitles();	
 	  while (enum.hasMoreElements()) {		   Object container =  enum.nextElement();		   if (container instanceof uiContainerAdapter)
 	         //((uiContainerAdapter) enum.nextElement()).setHorizontalLabelVisible(false);			   ((uiContainerAdapter) container).setHorizontalLabelVisible(false);		   
 	  }
 	  */	 
-	   }/*	public void makeHorizontalDescendentColumnTitles() {		System.out.println("Make Colimn Totles called" + this + this.isHorizontal());
+	   }/*	public void makeHorizontalDescendentColumnTitles() {		System.err.println("Make Colimn Totles called" + this + this.isHorizontal());
 		//if (getParentAdapter().isHorizontal()) {
-			System.out.println(this + " is horizontal");			  //getGenericWidget().alignLabel(GridBagConstraints.NORTH);			  			  for (Enumeration children = getChildren();
+			System.err.println(this + " is horizontal");			  //getGenericWidget().alignLabel(GridBagConstraints.NORTH);			  			  for (Enumeration children = getChildren();
 				   children.hasMoreElements();)
 				  ((uiObjectAdapter) children.nextElement()).makeHorizontalColumnTitles();
 		//}	   
@@ -933,9 +933,9 @@ public abstract int getNumberOfDynamicChildren();
 			  		
 	}
 */
-    	public void makeHorizontalColumnTitles() {		//System.out.println("Make Colimn Totles called" + this + this.isHorizontal());
+    	public void makeHorizontalColumnTitles() {		//System.err.println("Make Colimn Totles called" + this + this.isHorizontal());
 		//if (getParentAdapter().isHorizontal()) {
-			//System.out.println(this + " is horizontal");			  //getGenericWidget().alignLabel(GridBagConstraints.NORTH);		//uiObjectAdapter adapter;
+			//System.err.println(this + " is horizontal");			  //getGenericWidget().alignLabel(GridBagConstraints.NORTH);		//uiObjectAdapter adapter;
 		/*
 		if (hasOnlyGraphicsDescendents())
 			return;
@@ -960,14 +960,14 @@ public abstract int getNumberOfDynamicChildren();
 	}
 				
 	public void setHorizontalLabelVisible(boolean visible) {
-		//System.out.println("setting horizontal" + visible);		//if (getParentAdapter().isHorizontal()) {			  //getGenericWidget().setLabelVisible(false);
+		//System.err.println("setting horizontal" + visible);		//if (getParentAdapter().isHorizontal()) {			  //getGenericWidget().setLabelVisible(false);
 		setShowChildrenColumnTitle(false);
 		if (isHorizontal()) //{
-			//System.out.println("IS HORIZONTAAL");			for (Enumeration children = getChildren(); children.hasMoreElements();) {
+			//System.err.println("IS HORIZONTAAL");			for (Enumeration children = getChildren(); children.hasMoreElements();) {
 
 				ObjectAdapter adapter;
 				  //((uiObjectAdapter) children.nextElement()).setHorizontalLabelVisible(visible);
-			   adapter = ((ObjectAdapter) children.nextElement());			   //System.out.println("set horiz");
+			   adapter = ((ObjectAdapter) children.nextElement());			   //System.err.println("set horiz");
 			   //adapter.getGenericWidget().setLabelVisible(false);
 			   adapter.setColumnTitleStatus(ColumnTitleStatus.hide);
 			   /*
@@ -986,7 +986,7 @@ public abstract int getNumberOfDynamicChildren();
 			   adapter.propagateAttributesToWidgetShell();
 		  			}
 			  		//}
-		 	}	public void nameChildChanged(String newVal) {		//String curLabel = this.getGenericWidget().getLabel();		//System.out.println("name child changed of " + this);		
+		 	}	public void nameChildChanged(String newVal) {		//String curLabel = this.getGenericWidget().getLabel();		//System.err.println("name child changed of " + this);		
 		WidgetShell gw = this.getGenericWidget();		if (((isTopAdapter() || getParentAdapter() instanceof VectorAdapter)) ) {
 			//&&	((!(this instanceof uiVectorAdapter)) && (!(this instanceof uiHashtableAdapter)))) {
 		   if (getSourceAdapter() != null)
@@ -1020,7 +1020,7 @@ public abstract int getNumberOfDynamicChildren();
 		
 	}
   public void resetChildrenVector(int from) {
-	  //System.out.println("from" + from + "size" + childrenVector.size());	  //System.out.println(childrenVector);
+	  //System.err.println("from" + from + "size" + childrenVector.size());	  //System.err.println(childrenVector);
 	  if (from == 0) {
 		  resetChildrenVector();
 		  return;
@@ -1033,8 +1033,8 @@ public abstract int getNumberOfDynamicChildren();
 	public abstract Vector getVisibleAndInvisibleChildAdapters();
 
   public void resetVisibleAndInvisibleChildrenVector(int from) {
-	  //System.out.println("from" + from + "size" + childrenVector.size());
-	  //System.out.println(childrenVector);
+	  //System.err.println("from" + from + "size" + childrenVector.size());
+	  //System.err.println(childrenVector);
 	  if (from == 0) {
 		  resetVisibleAndInvisibleChildrenVector();
 		  return;
@@ -1045,49 +1045,49 @@ public abstract int getNumberOfDynamicChildren();
 		  visibleAndNonVisibleChildrenVector.removeElementAt(visibleAndNonVisibleChildrenVector.size() - 1);
 	  
   }
-  public abstract void addComponents();  public void setChildAdapterMapping(ObjectAdapter adaptor) {	  //System.out.println("adding " + adaptor + "at " + childrenVector.size());
+  public abstract void addComponents();  public void setChildAdapterMapping(ObjectAdapter adaptor) {	  //System.err.println("adding " + adaptor + "at " + childrenVector.size());
       childrenVector.addElement(adaptor);
-	   //System.out.println("size" + childrenVector.size());			 //System.out.println("PROPERTY AND FIELD WITH SAME NAME!!!");  }
+	   //System.err.println("size" + childrenVector.size());			 //System.err.println("PROPERTY AND FIELD WITH SAME NAME!!!");  }
   public void setChildAdapterMapping(int index, ObjectAdapter adaptor) {
-	  //System.out.println("adding " + adaptor + "at " + childrenVector.size());
+	  //System.err.println("adding " + adaptor + "at " + childrenVector.size());
       childrenVector.insertElementAt(adaptor, index);
-	   //System.out.println("size" + childrenVector.size());
-			 //System.out.println("PROPERTY AND FIELD WITH SAME NAME!!!");
+	   //System.err.println("size" + childrenVector.size());
+			 //System.err.println("PROPERTY AND FIELD WITH SAME NAME!!!");
   }
   /*
   public void setChildAdapterMapping(int pos, uiObjectAdapter adaptor) {
-	  //System.out.println("adding " + adaptor + "at " + childrenVector.size());
+	  //System.err.println("adding " + adaptor + "at " + childrenVector.size());
       childrenVector.addElement(adaptor);
-	   //System.out.println("size" + childrenVector.size());
-			 //System.out.println("PROPERTY AND FIELD WITH SAME NAME!!!");
+	   //System.err.println("size" + childrenVector.size());
+			 //System.err.println("PROPERTY AND FIELD WITH SAME NAME!!!");
   }
   */
   public void unSetChildAdapterMapping(ObjectAdapter adaptor) {
-	  //System.out.println("adding " + adaptor + "at " + childrenVector.size());
+	  //System.err.println("adding " + adaptor + "at " + childrenVector.size());
       childrenVector.removeElement(adaptor);
-	   //System.out.println("size" + childrenVector.size());
-			 //System.out.println("PROPERTY AND FIELD WITH SAME NAME!!!");
+	   //System.err.println("size" + childrenVector.size());
+			 //System.err.println("PROPERTY AND FIELD WITH SAME NAME!!!");
   }
   public void resetChildAdapterMapping(ObjectAdapter oldAdapter, ObjectAdapter newAdapter) {
-	  //System.out.println("adding " + adaptor + "at " + childrenVector.size());
+	  //System.err.println("adding " + adaptor + "at " + childrenVector.size());
 	  int index = childrenVector.indexOf(oldAdapter);
 	  if (index == -1)
 		  return;
-	  System.out.println("resetChildAdapterMapping taking action after all");
+	  System.err.println("resetChildAdapterMapping taking action after all");
       childrenVector.setElementAt(newAdapter, index);
-	   //System.out.println("size" + childrenVector.size());
-			 //System.out.println("PROPERTY AND FIELD WITH SAME NAME!!!");
-  }  public void setChildAdapterMapping(ObjectAdapter adaptor, int pos, ObjectAdapter oldAdapter) {	  //System.out.println("replacing " + adaptor + "at " + pos);	  //System.out.println("size" + childrenVector.size());	  childrenVector.removeElement(oldAdapter);
+	   //System.err.println("size" + childrenVector.size());
+			 //System.err.println("PROPERTY AND FIELD WITH SAME NAME!!!");
+  }  public void setChildAdapterMapping(ObjectAdapter adaptor, int pos, ObjectAdapter oldAdapter) {	  //System.err.println("replacing " + adaptor + "at " + pos);	  //System.err.println("size" + childrenVector.size());	  childrenVector.removeElement(oldAdapter);
 	  if (pos >= 0 && pos <= childrenVector.size())
       childrenVector.insertElementAt(adaptor, pos);
 	  else
 		  Tracer.error("illegal vector pos:" + pos);
-	   //System.out.println("size" + childrenVector.size());			 //System.out.println("PROPERTY AND FIELD WITH SAME NAME!!!");  }  public void insertChildAdapterAt(ObjectAdapter adaptor, int pos) {	  
+	   //System.err.println("size" + childrenVector.size());			 //System.err.println("PROPERTY AND FIELD WITH SAME NAME!!!");  }  public void insertChildAdapterAt(ObjectAdapter adaptor, int pos) {	  
       //childrenVector.insertElementAt(adaptor, pos);
 	  visibleAndNonVisibleChildrenVector.insertElementAt(adaptor, pos);
-	     }  public void removeChildAdapterAt(int pos) {	  //System.out.println("replacing " + adaptor + "at " + pos);	  //System.out.println("size" + childrenVector.size());
+	     }  public void removeChildAdapterAt(int pos) {	  //System.err.println("replacing " + adaptor + "at " + pos);	  //System.err.println("size" + childrenVector.size());
       childrenVector.removeElementAt(pos);
-	   //System.out.println("size" + childrenVector.size());			 //System.out.println("PROPERTY AND FIELD WITH SAME NAME!!!");  }
+	   //System.err.println("size" + childrenVector.size());			 //System.err.println("PROPERTY AND FIELD WITH SAME NAME!!!");  }
 	transient boolean skippedAdapter = false;	transient ObjectAdapter onlyChild = null;	transient CompositeAdapter onlyCompositeChild = null;
 	void setSkippedAdapter() {	   skippedAdapter = true;
 //	   onlyChild = (ObjectAdapter) childrenVector.elementAt(0);
@@ -1108,23 +1108,23 @@ public abstract int getNumberOfDynamicChildren();
 		
 	}
 	*/	public boolean getAllowsChildren() {		
-		//System.out.println("get allows children");		return true;
+		//System.err.println("get allows children");		return true;
 	}
-		public Enumeration children() {		//System.out.println("children called");
+		public Enumeration children() {		//System.err.println("children called");
 		if (!childrenCreated)
 			createChildrenPropagating();		if (onlyCompositeChild != null) {
 			return onlyCompositeChild.children();		}
 		return getChildren();	}
 	
 		public boolean isLeaf() {		return isLeafAdapter();
-		/*		//System.out.println("is leaf");		if (onlyChild != null)			return onlyChild.isLeaf();
+		/*		//System.err.println("is leaf");		if (onlyChild != null)			return onlyChild.isLeaf();
 		//return isAtomic();
 		return false;
-		*/	}	public boolean isLeafAdapter() {		//System.out.println("is leaf");		if (onlyChild != null)			return onlyChild.isLeafAdapter();
+		*/	}	public boolean isLeafAdapter() {		//System.err.println("is leaf");		if (onlyChild != null)			return onlyChild.isLeafAdapter();
 		//return isAtomic();
 		return false;	}
 	/*	public TreeNode getParent() {
-				System.out.println("get parent:" + this + "onlyCompChild" + onlyCompositeChild);		uiContainerAdapter parent = (uiContainerAdapter) getParentAdapter();
+				System.err.println("get parent:" + this + "onlyCompChild" + onlyCompositeChild);		uiContainerAdapter parent = (uiContainerAdapter) getParentAdapter();
 		if (parent == null) return null;
 		uiContainerAdapter grandParent = parent.getParentAdapter();
 		if (grandParent == null ||grandParent.onlyCompositeChild == null )
@@ -1136,27 +1136,27 @@ public abstract int getNumberOfDynamicChildren();
 		//return parent;	}*/
 	public int getCurrentChildCount() {		return getChildrenVector().size();
 	}		public int getChildCount() {		return getChildAdapterCount();
-		/*		//System.out.println("get child count");
+		/*		//System.err.println("get child count");
 		if (!childrenCreated)
 			createChildrenPropagating();
 		if (onlyCompositeChild != null)
-			return onlyCompositeChild.getChildCount();		//System.out.println("returning "+ childrenVector.size());
+			return onlyCompositeChild.getChildCount();		//System.err.println("returning "+ childrenVector.size());
 		return childrenVector().size();
 		*/	}
 	
-	public int getChildAdapterCount() {		//System.out.println("get child count");
+	public int getChildAdapterCount() {		//System.err.println("get child count");
 		if (!childrenCreated)
 			createChildrenPropagating();
 		if (onlyCompositeChild != null)
-			return onlyCompositeChild.getChildAdapterCount();		//System.out.println("returning "+ childrenVector.size());
+			return onlyCompositeChild.getChildAdapterCount();		//System.err.println("returning "+ childrenVector.size());
 		return getChildrenVector().size();	}
 	
 	public int getChildAdapterCountWithoutSideEffects() {
-		//System.out.println("get child count");
+		//System.err.println("get child count");
 		
 		if (onlyCompositeChild != null)
 			return onlyCompositeChild.getChildAdapterCount();
-		//System.out.println("returning "+ childrenVector.size());
+		//System.err.println("returning "+ childrenVector.size());
 		return getChildrenVector().size();
 	}
 	public int getVisbileAndInvisibleChildAdapterCount() {
@@ -1164,37 +1164,37 @@ public abstract int getNumberOfDynamicChildren();
 			createChildrenPropagating();
 		if (onlyCompositeChild != null)
 			return onlyCompositeChild.getChildAdapterCount();
-		//System.out.println("returning "+ childrenVector.size());
+		//System.err.println("returning "+ childrenVector.size());
 		return visibleAndNonVisibleChildrenVector.size();
 		
 	}
 	public int getChildAdapterCountBasic() {
-		//System.out.println("get child count");
+		//System.err.println("get child count");
 		if (!childrenCreated)
 			createChildrenBasic();
 		if (onlyCompositeChild != null)
 			return onlyCompositeChild.getChildAdapterCountBasic();
-		//System.out.println("returning "+ childrenVector.size());
+		//System.err.println("returning "+ childrenVector.size());
 		return getChildrenVector().size();
 	}		public Vector<ObjectAdapter> getChildrenVector() {
 		return childrenVector;	}
 	
 	
 	public ObjectAdapter getChildAdapterAt(int childIndex) {		
-		//System.out.println("get child  for" + childIndex);		if (!childrenCreated)
+		//System.err.println("get child  for" + childIndex);		if (!childrenCreated)
 			createChildrenPropagating();		
 		if (onlyCompositeChild != null)
 			return onlyCompositeChild.getChildAdapterAt(childIndex);		return (ObjectAdapter) getChildrenVector().elementAt(childIndex);
 	}	public TreeNode getChildAt(int childIndex) {		
-		//System.out.println("get child  for" + childIndex);
+		//System.err.println("get child  for" + childIndex);
 		TreeNode retVal = (TreeNode) getChildAdapterAt(childIndex);
 		return retVal;//		return (TreeNode) getChildAdapterAt(childIndex);
 	}
 		public int getIndex(TreeNode node) {		return getAdapterIndex(node);
-		/*		//System.out.println("get Index of" + node);		if (onlyCompositeChild != null)			return onlyCompositeChild.getIndex(node);
+		/*		//System.err.println("get Index of" + node);		if (onlyCompositeChild != null)			return onlyCompositeChild.getIndex(node);
 		return childrenVector().indexOf(node);
 		*/	}
-	public int getAdapterIndex(TreeNode node) {		//System.out.println("get Index of" + node);		if (onlyCompositeChild != null)			return onlyCompositeChild.getAdapterIndex(node);
+	public int getAdapterIndex(TreeNode node) {		//System.err.println("get Index of" + node);		if (onlyCompositeChild != null)			return onlyCompositeChild.getAdapterIndex(node);
 		return getChildrenVector().indexOf(node);	}
 		public static void removeFromFrame(Container c, uiFrame f) {
      //if (c == f) return;
@@ -1202,7 +1202,7 @@ public abstract int getNumberOfDynamicChildren();
 	 Container parent = c.getParent();
 	 if (parent == null) return;
 	 parent.remove(c);	 
-	 System.out.println("removed c" + c );	 //if (parent == f) {	 if (parent == f.getFrame()) {
+	 System.err.println("removed c" + c );	 //if (parent == f) {	 if (parent == f.getFrame()) {
 		 f.emptyMainPanel();		 f.validate();	 } else
 	    removeFromFrame(parent, f);  }
   public static boolean checkIfNoVisibleChildren(CompositeAdapter adapter) {
@@ -1211,10 +1211,10 @@ public abstract int getNumberOfDynamicChildren();
 		  return false;	  if (adapter.getChildAdapterCount() == 0 ) return false;
 	  //if (adapter.getChildCount() == 0 && !adapter.childrenCreated) return false;
 	  //if (adapter.getChildCount() == 0 && !(adapter instanceof uiVectorAdapter)) return true;	  VirtualComponent component =  adapter.getUIComponent();	  if (component == null) return false;
-	  //System.out.println("component" + component);	  if (!(component instanceof Container)) return false;
+	  //System.err.println("component" + component);	  if (!(component instanceof Container)) return false;
 	  Container container = (Container) component;
 	  if (container.getComponentCount() != 0) return false;	
-	  //System.out.println("no component");
+	  //System.err.println("no component");
 	  //Container genWidget =  adapter.getGenericWidget();
 	  VirtualContainer genWidget =  adapter.getGenericWidget().getContainer();	  if (genWidget == null) return true;
 	  VirtualContainer parentContainer = genWidget.getParent();	  if (parentContainer == null) return true;
@@ -1242,28 +1242,28 @@ public abstract int getNumberOfDynamicChildren();
     int position = 0;
     position = childrenVector.indexOf(child);
     if (position < 0) {
-    	System.out.println("Replace Adapter: child position = " + position);
+    	System.err.println("Replace Adapter: child position = " + position);
     	return null;
     }
     // we dont need to look at components
     /*
-    Component[] components = ((Container) getUIComponent()).getComponents();	//System.out.println("componnets length" + components.length);
-	for (;position<components.length; position++) {		//System.out.println ("pos" + position + "comp" + components[position]);
+    Component[] components = ((Container) getUIComponent()).getComponents();	//System.err.println("componnets length" + components.length);
+	for (;position<components.length; position++) {		//System.err.println ("pos" + position + "comp" + components[position]);
       if (child.getGenericWidget().equals(components[position]))
 	break;
     if (position == components.length)
       return null;
 	}
-		//System.out.println("components size before removal" + components.length);	//System.out.println("position" + position);
+		//System.err.println("components size before removal" + components.length);	//System.err.println("position" + position);
 	 * 
 	 */
     //((Container) getUIComponent()).remove(child.getGenericWidget());
 	//child.removeUIComponentFromParent(((Container) getUIComponent()));
-	child.removeUIComponentFromParent(this);	//components = ((Container) getUIComponent()).getComponents();		//System.out.println("components size after removal" + components.length);	//System.out.println ("this" + this + "value" + getRealObject());	//System.out.println ("child" + child + "value" + newValue);
+	child.removeUIComponentFromParent(this);	//components = ((Container) getUIComponent()).getComponents();		//System.err.println("components size after removal" + components.length);	//System.err.println ("this" + this + "value" + getRealObject());	//System.err.println ("child" + child + "value" + newValue);
     ObjectAdapter adapter = uiGenerator.createObjectAdapter(
     		//(Container) getUIComponent(), 
     		this, newValue,  ReflectUtil.toMaybeProxyTargetClass(newValue), position, child.getPropertyName(), getRealObject(), (child.getAdapterType() == PROPERTY_TYPE));	//components = ((Container) getUIComponent()).getComponents();	
-	//System.out.println("components size after addition" + components.length);	//childrenVector.setElementAt(adapter, position);	this.setChildAdapterMapping(adapter, position, child);
+	//System.err.println("components size after addition" + components.length);	//childrenVector.setElementAt(adapter, position);	this.setChildAdapterMapping(adapter, position, child);
     // Set up property change listener link if required!	return adapter;
   }  public boolean isHomogeneous() {
 		return ClassDescriptorCache.toBoolean(getTempAttributeValue(HOMOGENEOUS));	    //return homogeneousVector;
@@ -1314,7 +1314,7 @@ public abstract int getNumberOfDynamicChildren();
 		//if (recordStructure.hasUserObject())
 			recordStructure.setUserObject(PrimitiveAdapter.valuePart((String) object));		
 		uiComponentValueChanged();
-		  //System.out.println("New Input:" + inputText);
+		  //System.err.println("New Input:" + inputText);
 	  }
 	  public void setCompleteUserObject(Object object)  {
 	  	if (!(concreteObject instanceof RecordStructure))  super.setUserObject(object);

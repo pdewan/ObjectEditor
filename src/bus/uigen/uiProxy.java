@@ -14,7 +14,7 @@ public class uiProxy extends UnicastRemoteObject implements uiProxyInterface {
   }
 
   public void setObject(Object object) throws RemoteException {
-    System.out.println("Connecting...");
+    System.err.println("Connecting...");
     myLockManager lman = new myLockManager();
     uiFrame frame = uiGenerator.generateUIFrame(object, 
 						lman);

@@ -53,7 +53,7 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
 			  }
 		}
 	  } catch (Exception e){
-		  System.out.println("UIGenLoggable.checkAndSetProgramUIComponent(): "+e.getMessage());
+		  System.err.println("UIGenLoggable.checkAndSetProgramUIComponent(): "+e.getMessage());
 		  e.printStackTrace();
 	  }
   }
@@ -77,7 +77,7 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
 	  }
 	  myLogger.processEvent(new UIGenLoggableObjectID("uigenCanvas",((UIGenLoggableEvent) command).getUIGenInternalID()),attribsWithDrawing,command);
     } catch(Exception e){
-	  System.out.println("Loggable(inInsert): Exception "+e.getMessage());
+	  System.err.println("Loggable(inInsert): Exception "+e.getMessage());
       e.printStackTrace();
     }
   }
@@ -96,7 +96,7 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
 			myLogger.irrcSetVisible(uigenCanvas,true);
 		}
     } catch (Exception e){
-      System.out.println("SharedShapes: Exception "+e.getMessage());
+      System.err.println("SharedShapes: Exception "+e.getMessage());
       e.printStackTrace();
     }
   }
@@ -107,19 +107,19 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
   {
 	  try{
 		checkAndSetProgramUIComponent();		if(!ObjectEditor.runUIComponentOnly && ObjectRegistry.loggableRole.equals(ObjectRegistry.UI_ROLE)){
-			System.out.println("UI: replayToModel called");			programComponent.uigenReplayToModel(command);		} else{ // PROGRAM_ROLE or UI_ROLE if runUIComponentOnly			if(command instanceof ForwardReturnValue){
-				System.out.println(ObjectRegistry.loggableRole+": ZZZ method call");				ForwardReturnValue frv = (ForwardReturnValue) command;
+			System.err.println("UI: replayToModel called");			programComponent.uigenReplayToModel(command);		} else{ // PROGRAM_ROLE or UI_ROLE if runUIComponentOnly			if(command instanceof ForwardReturnValue){
+				System.err.println(ObjectRegistry.loggableRole+": ZZZ method call");				ForwardReturnValue frv = (ForwardReturnValue) command;
 				UnivMethodInvocation umi = (UnivMethodInvocation) frv.obj;				// System.out.println("replaying "+umi);
 				ForwardReturnValue result = new ForwardReturnValue(frv.destName,umi.execute());				// System.out.println("returning "+result.obj+" to "+result.destName);				if(ObjectEditor.runUIComponentOnly){ // UI_ROLE and runUIComponentOnly
 					myLogger.returnValue(result);				} else{					// PROGRAM_ROLE and !runUIComponentOnly
 					uiComponent.uigenReturnValue(result);
 				}				// myLogger.returnValue(result);
-			} else if(command instanceof AutomaticRefresh){				System.out.println(ObjectRegistry.loggableRole+": automatic refresh");				if(!ObjectEditor.runUIComponentOnly){
+			} else if(command instanceof AutomaticRefresh){				System.err.println(ObjectRegistry.loggableRole+": automatic refresh");				if(!ObjectEditor.runUIComponentOnly){
 					uiComponent.uigenGiveNotifyOnLoggableEvent(command);
 				}				giveNotifyOnLoggableEvent(command);
-			} else{				System.out.println("ReplayToModel: Unrecognized command: "+command);				System.exit(1);			}
+			} else{				System.err.println("ReplayToModel: Unrecognized command: "+command);				System.exit(1);			}
 		}
-	  } catch (Exception e){		  System.out.println("UIGenLoggable.replayToModel(): "+e.getMessage());		  e.printStackTrace();	  }
+	  } catch (Exception e){		  System.err.println("UIGenLoggable.replayToModel(): "+e.getMessage());		  e.printStackTrace();	  }
   }
 
   public void uigenReplayToModel(Object command) throws RemoteException{ // PROGRAM_ROLE
@@ -127,18 +127,18 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
   }
   
   public void uigenReturnValue(ForwardReturnValue result) throws RemoteException{ // UI_ROLE
-	  System.out.println("UI: PPP returning method call return value");
+	  System.err.println("UI: PPP returning method call return value");
 	  myLogger.returnValue(result);
   }
   
   public void uigenGiveNotifyOnLoggableEvent(Object command) throws RemoteException{ // UI_ROLE
-	  System.out.println("UI: uigenGiveNotifyOnLoggableEvent called");	  giveNotifyOnLoggableEvent(command);
+	  System.err.println("UI: uigenGiveNotifyOnLoggableEvent called");	  giveNotifyOnLoggableEvent(command);
   }
   public void notify(Object objectName, String[] attribs){
-	System.out.println("UIGenLoggable.notify(): being notified with "+attribs[0]);
+	System.err.println("UIGenLoggable.notify(): being notified with "+attribs[0]);
 	if(attribs[0].equals(loggableEvents)){
 		try{
-			System.out.println(ObjectRegistry.loggableRole+": RRR issuing a get for automatic refresh");
+			System.err.println(ObjectRegistry.loggableRole+": RRR issuing a get for automatic refresh");
 			Object command = null;
 			if(ObjectRegistry.loggableRole.equals(ObjectRegistry.UI_ROLE)){
 				if(getChildAdapterCountReqSent==true){
@@ -158,7 +158,7 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
 				checkAndSetProgramUIComponent();
 				uiComponent.uigenProcessModify(new UIGenLoggableObjectID("eventLog",((UIGenLoggableObjectID) objectName).getUIGenInternalID()),a);
 			}
-			System.out.println(ObjectRegistry.loggableRole+": AAA got "+command);
+			System.err.println(ObjectRegistry.loggableRole+": AAA got "+command);
 			if(command instanceof UnivPropertyChange){
 				UnivPropertyChange upc = (UnivPropertyChange) command;				upc.execute();
 			} else if(command instanceof UnivVectorEvent){				// if(ObjectEditor.coupleElides || !inOutputReplay){					UnivVectorEvent uve = (UnivVectorEvent) command;					uve.execute();				// }
@@ -166,18 +166,18 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
 				if(ObjectEditor.coupleElides || !inOutputReplay){					AutomaticRefresh ar = (AutomaticRefresh) command;
 					ar.execute(myName);
 				}			} else{
-				System.out.println("Notify: Unrecognized command: "+command.getClass());
+				System.err.println("Notify: Unrecognized command: "+command.getClass());
 				System.exit(1);
 			}
 			if(ObjectRegistry.loggableRole.equals(ObjectRegistry.UI_ROLE)){
 				super.notify(objectName,attribs); // acknowledging in case inOutputReplay
 			}
 		} catch (Exception e){
-			System.out.println("UIGenLoggable.notify(): "+e.getMessage());
+			System.err.println("UIGenLoggable.notify(): "+e.getMessage());
 			e.printStackTrace();
 		}	} else if(attribs[0].equals(objectEvents)){
 	} else {
-	  System.out.println("UIGenLoggable.notify(): unrecognized attrib = "+attribs[0]);
+	  System.err.println("UIGenLoggable.notify(): unrecognized attrib = "+attribs[0]);
 	  System.exit(1);
 	}
   }
@@ -185,7 +185,7 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
   public synchronized void produceReply(Object objectName, String[] attribs, Object option) throws RemoteException{
 	  if(!ObjectEditor.runUIComponentOnly){
 		if(ObjectRegistry.loggableRole.equals(ObjectRegistry.UI_ROLE)) return;
-		else{			System.out.println("UIGenLoggable.produceReply(): unexpected invocation on programComponent");			System.exit(1);		}
+		else{			System.err.println("UIGenLoggable.produceReply(): unexpected invocation on programComponent");			System.exit(1);		}
 	  } else {		AttribValue[] a = new AttribValue[1];
 			Object[] o = new Object[1];
 			o[0] = new UIGenLoggableObjectID("eventLog",((UIGenLoggableObjectID) objectName).getUIGenInternalID());
@@ -195,7 +195,7 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
 			a[0] = new AttribValue(objectEvents,result,true,o);
 		} else{ // loggableEvents
 			    if(loggableGivenReply.size()==0){
-				    System.out.println("UIGenLoggable.produceReply(): loggableGivenReply not ready");
+				    System.err.println("UIGenLoggable.produceReply(): loggableGivenReply not ready");
 				    (new Exception()).printStackTrace();
 				    System.exit(1);
 			    }
@@ -203,10 +203,10 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
 			    loggableGivenReply.removeElementAt(0);
 		}
 		try{
-			    System.out.println("Logging reply to a get method call");
+			    System.err.println("Logging reply to a get method call");
 			myLogger.processModify(new UIGenLoggableObjectID("eventLog",((UIGenLoggableObjectID) objectName).getUIGenInternalID()),a);
 		} catch(Exception e){
-			System.out.println("UIGenLoggable.produceReply(): Exception "+e.getMessage());
+			System.err.println("UIGenLoggable.produceReply(): Exception "+e.getMessage());
 			e.printStackTrace();
 		}
 	  }
@@ -243,25 +243,25 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
 
   public void uigenProcessModify(Object objectName, AttribValue values[]) throws RemoteException{
 	  if(values[0].attribName.equals(objectEvents)){
-		System.out.println(ObjectRegistry.loggableRole+": AAA logging a reply for a get");
+		System.err.println(ObjectRegistry.loggableRole+": AAA logging a reply for a get");
 	  } else {
-		  System.out.println(ObjectRegistry.loggableRole+": AAA logging a reply for automatic refresh");
+		  System.err.println(ObjectRegistry.loggableRole+": AAA logging a reply for automatic refresh");
 	  }
 	  myLogger.processModify(objectName,values);
   }
   
   public Object logUnivMethodInvocation(UnivMethodInvocation umi){
 	if(ObjectRegistry.loggableRole.equals(ObjectRegistry.PROGRAM_ROLE)){
-		System.out.println("UIGenLoggable.logUnivMethodInvocation(): unexpected invocation on the program component");
+		System.err.println("UIGenLoggable.logUnivMethodInvocation(): unexpected invocation on the program component");
 		System.exit(1);
 	}
 	Object retVal = null;
 	try{
-		System.out.println("ZZZ logUnivMethodInvocation");
+		System.err.println("ZZZ logUnivMethodInvocation");
 		retVal = myLogger.invokeMethod(new UIGenLoggableObjectID("uigenCanvas",((UIGenLoggableEvent) umi).getUIGenInternalID()),attribsWithDrawing,umi);
-		System.out.println("ZZZ got "+retVal);
+		System.err.println("ZZZ got "+retVal);
 	} catch ( Exception e){
-		System.out.println("UIGenLoggable.logUnivMethodInvocation: Exception "+e.getMessage());
+		System.err.println("UIGenLoggable.logUnivMethodInvocation: Exception "+e.getMessage());
 		e.printStackTrace();
 	}
 	return(retVal);
@@ -269,16 +269,16 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
   
   public Object logIndependentReadMethodInvocation(UnivMethodInvocation umi){
 	if(ObjectRegistry.loggableRole.equals(ObjectRegistry.PROGRAM_ROLE)){
-		System.out.println("UIGenLoggable.logIndependentReadMethodInvocation(): unexpected invocation on the program component");
+		System.err.println("UIGenLoggable.logIndependentReadMethodInvocation(): unexpected invocation on the program component");
 		System.exit(1);
 	}
 	Object retVal = null;
 	try{
-		System.out.println("ZZZ logIndependentReadMethodInvocation");
+		System.err.println("ZZZ logIndependentReadMethodInvocation");
 		retVal = myLogger.getIndependent(new UIGenLoggableObjectID("uigenCanvas",((UIGenLoggableEvent) umi).getUIGenInternalID()),attribsWithDrawing,umi);
-		System.out.println("ZZZ got "+retVal);
+		System.err.println("ZZZ got "+retVal);
 	} catch ( Exception e){
-		System.out.println("UIGenLoggable.logUnivMethodInvocation: Exception "+e.getMessage());
+		System.err.println("UIGenLoggable.logUnivMethodInvocation: Exception "+e.getMessage());
 		e.printStackTrace();
 	}
 	return(retVal);
@@ -287,7 +287,7 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
   public Object logReadMethodInvocation(UnivMethodInvocation umi){
 	  Object retVal = null;
 	  try{
-		  System.out.println(ObjectRegistry.loggableRole+": AAA issuing a get for a property");
+		  System.err.println(ObjectRegistry.loggableRole+": AAA issuing a get for a property");
 		  if(ObjectRegistry.loggableRole.equals(ObjectRegistry.PROGRAM_ROLE)){
 			  retVal = umi.execute();
 			  AttribValue[] a = new AttribValue[1];
@@ -307,18 +307,18 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
 				logAutomaticRefresh(ar);
 				s[0] = loggableEvents;
 				if(inOutputReplay){
-					System.out.println("UIGenLoggable.logReadMethodInvocation: unexpected inOutputReplay state");
+					System.err.println("UIGenLoggable.logReadMethodInvocation: unexpected inOutputReplay state");
 					System.exit(1);
 				}
 				LogEvent evt = myLogger.get(new UIGenLoggableObjectID("eventLog",((UIGenLoggableEvent) umi).getUIGenInternalID()),s);
 				Object tmp = evt.arr[0].attribValue;
-				System.out.println(ObjectRegistry.loggableRole+": UIGenLoggable.logReadMethodInvocation(): got but discarding "+tmp);
+				System.err.println(ObjectRegistry.loggableRole+": UIGenLoggable.logReadMethodInvocation(): got but discarding "+tmp);
 			}
 			s[0] = objectEvents;
 			if(inOutputReplay)				myLogger.orrcReplayNextOutputMessage();			LogEvent evt = myLogger.get(new UIGenLoggableObjectID("eventLog",((UIGenLoggableEvent) umi).getUIGenInternalID()),s,umi);
 			retVal = evt.arr[0].attribValue;
 		  }
-		System.out.println(ObjectRegistry.loggableRole+": got "+retVal);
+		System.err.println(ObjectRegistry.loggableRole+": got "+retVal);
 		/*
 		if(retVal instanceof AListenableVector){
 			System.out.println("vector size = "+((AListenableVector) retVal).size());
@@ -326,7 +326,7 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
 		  */
 
 	} catch ( Exception e){
-		System.out.println("UIGenLoggable.logReadMethodInvocation: Exception "+e.getMessage());
+		System.err.println("UIGenLoggable.logReadMethodInvocation: Exception "+e.getMessage());
 		e.printStackTrace();
 	}
 	return(retVal);
@@ -334,36 +334,36 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
   
   public void logAutomaticRefresh(AutomaticRefresh ar){
 	if(ObjectRegistry.loggableRole.equals(ObjectRegistry.PROGRAM_ROLE)){
-		System.out.println("UIGenLoggable.logAutomaticRefresh(): unexpected invocation on the program component");
+		System.err.println("UIGenLoggable.logAutomaticRefresh(): unexpected invocation on the program component");
 		System.exit(1);
 	}
 	ar.setSource(myName);
-	System.out.println(ObjectRegistry.loggableRole+": PPP logging "+ar);
+	System.err.println(ObjectRegistry.loggableRole+": PPP logging "+ar);
 	inInsert(ar);
   }
 
-  private synchronized void giveNotifyOnLoggableEvent(Object command){	System.out.println(ObjectRegistry.loggableRole+": AAA logging loggableEvents notify with "+command);
+  private synchronized void giveNotifyOnLoggableEvent(Object command){	System.err.println(ObjectRegistry.loggableRole+": AAA logging loggableEvents notify with "+command);
 	if(ObjectRegistry.loggableRole.equals(ObjectRegistry.PROGRAM_ROLE) || ObjectEditor.runUIComponentOnly){
 	  loggableGivenReply.addElement(command);
 	}	String[] a = new String[1];	a[0] = loggableEvents;
 	try{		if(ObjectRegistry.loggableRole.equals(ObjectRegistry.PROGRAM_ROLE)){			notify(new UIGenLoggableObjectID("eventLog",((UIGenLoggableEvent) command).getUIGenInternalID()),a);
 		} else{			myLogger.processNotify(new UIGenLoggableObjectID("eventLog",((UIGenLoggableEvent) command).getUIGenInternalID()),a);		}
 	} catch ( Exception e){
-		System.out.println("UIGenLoggable.giveNotifyOnLoggableEvent: Exception "+e.getMessage());
+		System.err.println("UIGenLoggable.giveNotifyOnLoggableEvent: Exception "+e.getMessage());
 		e.printStackTrace();
 	}
   }
   
   public void logUnivPropertyChange(UnivPropertyChange upc){
 	  try{
-		  System.out.println(ObjectRegistry.loggableRole+": UnivPropertyChange occurred");
+		  System.err.println(ObjectRegistry.loggableRole+": UnivPropertyChange occurred");
 		if(ObjectRegistry.loggableRole.equals(ObjectRegistry.PROGRAM_ROLE)){
 			  checkAndSetProgramUIComponent();
 			  uiComponent.uigenLogUnivPropertyChange(upc);
 		}
 		giveNotifyOnLoggableEvent(upc);
 	  } catch ( Exception e){
-		System.out.println("UIGenLoggable.logUnivPropertyChange: Exception "+e.getMessage());
+		System.err.println("UIGenLoggable.logUnivPropertyChange: Exception "+e.getMessage());
 		e.printStackTrace();
 	  }
   }
@@ -374,14 +374,14 @@ public class UIGenLoggable extends Loggable implements UIGenLoggableInterface
 
   public void logUnivVectorEvent(UnivVectorEvent uve){
 	  try{
-		  System.out.println(ObjectRegistry.loggableRole+": UnivVectorEvent occurred");
+		  System.err.println(ObjectRegistry.loggableRole+": UnivVectorEvent occurred");
 		if(ObjectRegistry.loggableRole.equals(ObjectRegistry.PROGRAM_ROLE)){
 			  checkAndSetProgramUIComponent();
 			  uiComponent.uigenLogUnivVectorEvent(uve);
 		}
 		giveNotifyOnLoggableEvent(uve);
 	  } catch ( Exception e){
-		System.out.println("UIGenLoggable.logUnivVectorEvent: Exception "+e.getMessage());
+		System.err.println("UIGenLoggable.logUnivVectorEvent: Exception "+e.getMessage());
 		e.printStackTrace();
 	  }
   }

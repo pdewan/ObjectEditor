@@ -49,23 +49,23 @@ public class ANestedRelationModel {
 			/*
 			ConcreteType concreteType= ConcreteTypeRegistry.createConcreteType(element.getClass(), element,frame);
 			if (!(concreteType instanceof BeanToRecord)) {
-				System.out.println("E**" + relationClass + " does not have properties");
+				System.err.println("E**" + relationClass + " does not have properties");
 				return false;
 			}
 			BeanToRecord record = (BeanToRecord) concreteType;
 			*/
 			BeanToRecord record = createConcreteType(RemoteSelector.getClass(element), element,frame);
 			if (record == null) {
-				System.out.println("E**" + relationClass + " does not have properties");
+				System.err.println("E**" + relationClass + " does not have properties");
 				return false;
 			}
 			Vector componentNames =  record.componentNames();
 			if (componentNames.size() <= 1) {
-				System.out.println("E**" + relationClass + " has only one property");
+				System.err.println("E**" + relationClass + " has only one property");
 				return false;
 			}
 			if (!componentNames.contains(keyProperty)) {
-				System.out.println("E**" + relationClass + " does not have desired key property: " + keyProperty);
+				System.err.println("E**" + relationClass + " does not have desired key property: " + keyProperty);
 				return false;
 			}
 			//Object keyObject = record.get(keyProperty);
@@ -174,7 +174,7 @@ public class ANestedRelationModel {
 	
 			ConcreteType concreteType= ConcreteTypeRegistry.createConcreteType(RemoteSelector.getClass(element), element,frame);
 			if (!(concreteType instanceof BeanToRecord)) {
-				//System.out.println("E**" + relationClass + " does not have properties");
+				//System.err.println("E**" + relationClass + " does not have properties");
 				return null;
 			}
 			retVal = (BeanToRecord) concreteType;

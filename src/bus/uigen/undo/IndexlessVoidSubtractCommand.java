@@ -66,7 +66,7 @@ public  class IndexlessVoidSubtractCommand extends SubtractCommand {
 			return retVal;
 			
 		} catch (Exception e) {
-			System.out.println ("Could not execute: " + subtractMethod + " " + e);
+			System.err.println ("Could not execute: " + subtractMethod + " " + e);
 			return null;
 		}
     }  

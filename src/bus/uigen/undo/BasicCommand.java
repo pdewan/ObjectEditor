@@ -72,13 +72,13 @@ public class BasicCommand extends AbstractCommand implements Command {
 			//listener.commandActionPerformed();
 			return retVal;
 		} catch (Exception e) {
-			System.out.println ("Could not execute: " + method + " " + e);
+			System.err.println ("Could not execute: " + method + " " + e);
 			return null;
 		}
     }
     public void undo()    {
 		
-			System.out.println ("Cannot  undo: " + method);
+			System.err.println ("Cannot  undo: " + method);
 		
     }
     public void redo()    {

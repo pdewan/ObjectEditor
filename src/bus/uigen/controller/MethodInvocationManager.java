@@ -221,7 +221,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 
 	public MethodInvocationManager(Object parent, MethodProxy m) {
 		super();
-		// System.out.println("Method invoked" + m);
+		// System.err.println("Method invoked" + m);
 		method = m;
 		md = getMethodDescriptor(m);
 		init(parent);
@@ -232,7 +232,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	public MethodInvocationManager(Object parent, MethodProxy m,
 			Object[] parameters) {
 		super();
-		// System.out.println("Method invoked" + m);
+		// System.err.println("Method invoked" + m);
 		method = m;
 		md = getMethodDescriptor(m);
 		parameterValues = parameters;
@@ -249,7 +249,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	public MethodInvocationManager(uiFrame frame, Object parent, MethodProxy m,
 			CommandListener cl) {
 		super();
-		// System.out.println("Method invoked" + m);
+		// System.err.println("Method invoked" + m);
 		init(frame, parent, m, cl);
 		/*
 		 * 
@@ -269,7 +269,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 		implicitRefresh = (Boolean) AttributeManager
 				.getInheritedAttributeValue(methodDescriptor,
 						AttributeNames.IMPLICIT_REFRESH, null);
-		// System.out.println("Method invoked" + m);
+		// System.err.println("Method invoked" + m);
 
 		init(frame, parent, m, cl);
 		implicitRefresh = true;
@@ -333,7 +333,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 
 	public MethodInvocationManager(uiFrame frame, Object parent, MethodProxy m) {
 		super();
-		// System.out.println("Method invoked" + m);
+		// System.err.println("Method invoked" + m);
 		if (frame != null) {
 			if (!m.isConstructor())
 				// if (!m.isConstuctor())
@@ -405,7 +405,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 		super();
 		init(frame, parent, m, objectMethodsParam);
 		/*
-		 * //System.out.println("Method invoked" + m); commandListener = null;
+		 * //System.err.println("Method invoked" + m); commandListener = null;
 		 * parentFrame = frame; objectMethods = objectMethodsParam; if
 		 * (objectMethods == null || objectMethods.size() == 0) return; method =
 		 * (MethodProxy) objectMethods.elements().nextElement(); md =
@@ -441,7 +441,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	public void init(uiFrame frame, Object parent, MethodProxy m,
 			Hashtable objectMethodsParam) {
 
-		// System.out.println("Method invoked" + m);
+		// System.err.println("Method invoked" + m);
 		commandListener = null;
 		parentFrame = frame;
 		objectMethods = objectMethodsParam;
@@ -457,7 +457,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	public MethodInvocationManager(uiFrame frame, Object parent, MethodProxy m,
 			boolean displayResultParam) {
 		super();
-		// System.out.println("Method invoked" + m);
+		// System.err.println("Method invoked" + m);
 
 		commandListener = null;
 		method = m;
@@ -471,7 +471,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	public MethodInvocationManager(uiFrame frame, Object parent, MethodProxy m,
 			Object[] parameters) {
 		super();
-		// System.out.println("Method invoked" + m);
+		// System.err.println("Method invoked" + m);
 
 		commandListener = null;
 		method = m;
@@ -486,7 +486,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	public MethodInvocationManager(uiFrame frame, Object parent, MethodProxy m,
 			Object[] parameters, boolean displayResultParam) {
 		super();
-		// System.out.println("Method invoked" + m);
+		// System.err.println("Method invoked" + m);
 
 		commandListener = null;
 		method = m;
@@ -502,7 +502,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	public MethodInvocationManager(uiFrame frame, Object parent,
 			Object[] parents, MethodProxy m) {
 		super();
-		// System.out.println("Method invoked" + m);
+		// System.err.println("Method invoked" + m);
 
 		commandListener = null;
 		method = m;
@@ -519,7 +519,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	public MethodInvocationManager(uiFrame frame, Object parent,
 			AnObjectMethod[] parents, MethodProxy m) {
 		super();
-		// System.out.println("Method invoked" + m);
+		// System.err.println("Method invoked" + m);
 
 		commandListener = null;
 		method = m;
@@ -537,7 +537,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	public MethodInvocationManager(uiFrame frame, Object parent,
 			Object[] parents, MethodProxy m, Object[] parameters) {
 		super();
-		// System.out.println("Method invoked" + m);
+		// System.err.println("Method invoked" + m);
 
 		commandListener = null;
 		method = m;
@@ -561,19 +561,19 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 
 	// public void initConstructor (Object parent, Constructor c){
 	public void initConstructor(Object parent, MethodProxy c) {
-		// System.out.println("constructor called" + c);
+		// System.err.println("constructor called" + c);
 		constructor = c;
 		init(parent);
 		if (c == null)
 			return;
 
-		// System.out.println("Got Constructor for" +
+		// System.err.println("Got Constructor for" +
 		// c.getDeclaringClass().toString());
 		if (c.getDeclaringClass() == OBJECT_CLASS_PROXY) {
 			creatingObject = true;
-			// System.out.println("Creating Object");
+			// System.err.println("Creating Object");
 			initUI();
-			// System.out.println("Finished init UI");
+			// System.err.println("Finished init UI");
 		} else if (!checkIfArgumentsAvailable())
 			initUI();
 	}
@@ -590,7 +590,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	 * Constructor c) { //public uiMethodInvocationManager(uiFrame frame, Object
 	 * parent, VirtualMethod c) {
 	 * 
-	 * //this(parent, c); //System.out.println("Constructir" + frame);
+	 * //this(parent, c); //System.err.println("Constructir" + frame);
 	 * commandListener = null; parentFrame = frame; initConstructor (parent, c);
 	 * 
 	 * }
@@ -605,14 +605,14 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 			int theParameterNumber, Object parent, MethodProxy c) {
 
 		// this(parent, c);
-		// System.out.println("Constructir" + frame);
+		// System.err.println("Constructir" + frame);
 		commandListener = null;
 		parentMIM = theParentMIM;
 		this.parameterNumber = theParameterNumber;
 //		displayResult = false;
 		initConstructor(parent, c);
 		/*
-		 * super(); System.out.println("Constructor called" + c); constructor =
+		 * super(); System.err.println("Constructor called" + c); constructor =
 		 * c; parentFrame = frame; init(parent); if
 		 * (!checkIfArgumentsAvailable()) initUI();
 		 */
@@ -626,7 +626,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 			return true;
 
 		if (parameterTypes.length == 0) {
-			// System.out.println("length 0");
+			// System.err.println("length 0");
 			// parameterValues = null;
 			invokeMethod();
 			dispose();
@@ -635,20 +635,20 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 
 		if (parameterTypes.length == 1) {
 			ClassProxy ptype = parameterTypes[0];
-			// System.out.println("Ptype" + ptype);
-			// System.out.println("Integer.TYPE" + Integer.TYPE);
+			// System.err.println("Ptype" + ptype);
+			// System.err.println("Integer.TYPE" + Integer.TYPE);
 			// if (ptype == Integer.TYPE)
-			// System.out.println("Integer.TYPE" + Integer.TYPE);
+			// System.err.println("Integer.TYPE" + Integer.TYPE);
 			if (ptype.isPrimitive()) {
-				// System.out.println(ptype.toString());
+				// System.err.println(ptype.toString());
 				ptype = DefaultRegistry.getWrapper(ptype);
-				// System.out.println("Ptype" + ptype);
+				// System.err.println("Ptype" + ptype);
 			}
 			// Object obj = ObjectClipboard.get();
 			ObjectAdapter selection;
 			Object obj;
 
-			// System.out.println("selection" +
+			// System.err.println("selection" +
 			// (uiSelectionManager.getCurrentSelection().getObject()).getClass());
 
 			if (((selection = (ObjectAdapter) SelectionManager
@@ -672,9 +672,9 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 				// if (obj instanceof ptype)
 				// Ask permission first!
 				/*
-				 * System.out.println("obj" + selection.getObject());
-				 * System.out.println("robj" + selection.getRealObject());
-				 * System.out.println("vobj" + selection.getViewObject());
+				 * System.err.println("obj" + selection.getObject());
+				 * System.err.println("robj" + selection.getRealObject());
+				 * System.err.println("vobj" + selection.getViewObject());
 				 */
 				if (MethodParameters.ConfirmOnMethod == false
 						|| (JOptionPane.showConfirmDialog(null,
@@ -818,7 +818,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	}
 
 	private String getSignature() {
-		// System.out.println("getSignature" + method + constructor);
+		// System.err.println("getSignature" + method + constructor);
 		if (md != null)
 			return AMethodProcessor.getLabel(md);
 		if (method != null) {
@@ -832,7 +832,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 
 	/*
 	 * public static String getSignature(MethodProxy theMethod) {
-	 * //System.out.println("getSignature" + method + constructor);
+	 * //System.err.println("getSignature" + method + constructor);
 	 * MethodDescriptorProxy theMD = getMethodDescriptor(theMethod);
 	 * 
 	 * if (theMD != null) return AMethodProcessor.getLabel(theMD); if (theMethod
@@ -978,7 +978,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 
 		class ComboListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				// System.out.println("combo chnaged");
+				// System.err.println("combo chnaged");
 				if (e.getActionCommand().equals("comboBoxChanged") /*
 																	 * || e.
 																	 * getActionCommand
@@ -997,19 +997,19 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 
 		MouseAdapter mouseadapter = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				// System.out.println("mouse pressed");
+				// System.err.println("mouse pressed");
 				maybeShowPopup(e);
 			}
 
 			public void mouseReleased(MouseEvent e) {
-				// System.out.println("mouse released");
+				// System.err.println("mouse released");
 				maybeShowPopup(e);
 			}
 
 			public void maybeShowPopup(MouseEvent e) {
-				// System.out.println("maybe popup");
+				// System.err.println("maybe popup");
 				if (e.isPopupTrigger()) {
-					// System.out.println("popup trigger");
+					// System.err.println("popup trigger");
 					// Configure the menu
 					OEPopupMenu.configurePopupMenu(true, null);
 					OEPopupMenu.getPopupMenu().show(e.getComponent(), e.getX(),
@@ -1035,14 +1035,14 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 			l.setText("Object Class:");
 			p.add(l);
 			l.addMouseListener(mouseadapter);
-			// System.out.println("cause of error message starting");
+			// System.err.println("cause of error message starting");
 			// Vector choices =
 			// uiClassMapper.getClassMapping((Object.class).getName());
 			Vector choices = uiClassMapper.getClassMapping((method
 					.getDeclaringClass().objectClass()));
 
-			// System.out.println("cause ended");
-			// System.out.println("choices size" + choices.size());
+			// System.err.println("cause ended");
+			// System.err.println("choices size" + choices.size());
 			JComboBox t = new JComboBox(choices);
 			objectComboBox = t;
 			// t.addActionListener(this);
@@ -1086,7 +1086,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 				// uiClassMapper.getClassMapping(parameterTypes[i].getName());
 				Vector choices = uiClassMapper
 						.getClassMapping(parameterTypes[i]);
-				// System.out.println("choices size" + choices.size());
+				// System.err.println("choices size" + choices.size());
 				JComboBox t = new JComboBox(choices);
 				// t.addActionListener(this);
 				t.addActionListener(comboListener);
@@ -1132,17 +1132,17 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	}
 
 	private void init(Object parent) {
-		// System.out.println("init:" + parent);
+		// System.err.println("init:" + parent);
 		setExcludeClasses();
 
-		// System.out.println("exclude classes set");
+		// System.err.println("exclude classes set");
 		parentObject = parent;
 		parentObjects[0] = parent;
 		parameterTypes = getParameterTypes();
 		if (parameterTypes == null)
 			return;
 
-		// System.out.println("parameter types set");
+		// System.err.println("parameter types set");
 		parameterValues = new Object[parameterTypes.length];
 
 	}
@@ -1450,7 +1450,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 			}
 			// Runtime.getRuntime().traceMethodCalls(false);
 		} catch (NullPointerException e) {
-			System.out
+			System.err
 					.println("E** Unexpected null argument to invoke method. Object "
 							+ parentObject
 							+ " Method "
@@ -1461,9 +1461,9 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 		} catch (InvocationTargetException ite) {
 
 			Throwable actualException = ite.getTargetException();
-			System.out.println(actualException.getClass());
+			System.err.println(actualException.getClass());
 			if (actualException instanceof java.rmi.ConnectException) {
-				System.out.println(actualException.getMessage());
+				System.err.println(actualException.getMessage());
 			} else {
 				String s = "Error when calling method.";
 				s = s + "\nObject: " + parentObject + "\nMethod: "
@@ -1497,11 +1497,11 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 			s = s + "\nParameters: " + toString(parameterValues);
 			s = s + "\nPlease trace the method.";
 			JOptionPane.showMessageDialog(null, s);
-			// System.out.println(s);
+			// System.err.println(s);
 			result = null;
 			e.printStackTrace();
 		}
-		// System.out.println("Result of invoke method:" + method.getName() +
+		// System.err.println("Result of invoke method:" + method.getName() +
 		// " " + result);
 
 		return result;
@@ -2020,13 +2020,13 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 			 */
 		} else if (constructor != null) {
 			try {
-				// System.out.println("Constructor is "+constructor);
+				// System.err.println("Constructor is "+constructor);
 				// if (parentObject == null)
-				// System.out.println("Null parent object");
-				// System.out.println("Parent object is "+parentObject);
-				// System.out.println("Parameters are ");
+				// System.err.println("Null parent object");
+				// System.err.println("Parent object is "+parentObject);
+				// System.err.println("Parameters are ");
 				// for (int i=0; i<parameterValues.length; i++)
-				// System.out.println("Parameter "+(i+1)+":"+parameterValues[i]);
+				// System.err.println("Parameter "+(i+1)+":"+parameterValues[i]);
 
 				result = constructor.newInstance(parameterValues);
 			} catch (Exception e) {
@@ -2052,7 +2052,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 			
 			
 			// uiGenerator temp = new uiGenerator();
-			// System.out.println("calling generate" + parentFrame);
+			// System.err.println("calling generate" + parentFrame);
 			// uiFrame tf = uiGenerator.generateUIFrame(parentFrame, result);
 			// uiFrame tf = uiGenerator.generateUIFrame(result);
 			// if ( !manualUI && (Boolean)
@@ -2076,10 +2076,10 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 			VirtualMenuItem okButton = constructorFrame.addDoneItem();
 			if (okButton != null)
 				okButton.addActionListener(parentMIM);
-			// System.out.println(parameterNumber + " " + this);
+			// System.err.println(parameterNumber + " " + this);
 			constructorFrame.setParameterNumber(parameterNumber);
 			// }
-			// System.out.println("setting parameter number");
+			// System.err.println("setting parameter number");
 			// f.pack();
 			constructorFrame.setLocation(new Point(0,
 					150 * (parameterNumber + 1)));
@@ -2134,12 +2134,12 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	}
 
 	public void frameDone(uiFrame theFrame) {
-		System.out.println("done menu");
+		System.err.println("done menu");
 		// uiFrame c = ((DoneMenuItem) evt.getSource()).getUIFrame();
 		uiFrame c = theFrame;
 		int parameterNumber = ((uiFrame) c).getParameterNumber();
 		if (parameterNumber < 0) {
-			System.out.println("parameter number < 0");
+			System.err.println("parameter number < 0");
 			dispose();
 			return;
 		}
@@ -2148,7 +2148,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 		ObjectAdapter adaptor = ((uiFrame) c).getAdapter();
 		parameterValues[parameterNumber] = adaptor.getValue();
 		// Dispose of the frame
-		// System.out.println("disposing frame");
+		// System.err.println("disposing frame");
 		// ((Frame) c).dispose();
 		((uiFrame) c).dispose();
 		// Feedback
@@ -2162,7 +2162,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	}
 
 	public void actionPerformed(ActionEvent evt) {
-		// System.out.println("action performed");
+		// System.err.println("action performed");
 
 		if (evt.getSource() instanceof Button
 				|| evt.getSource() instanceof JButton) {
@@ -2179,7 +2179,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 				}/*
 				 * else { //uiMethodInvocationManager mim =
 				 * (uiMethodInvocationManager) c.getFrame();
-				 * //System.out.println("action performed on invoke button");
+				 * //System.err.println("action performed on invoke button");
 				 * //parameterValues[mim.parameterNumber] = mim.result; //if
 				 * (parentMIM != null) { invokeMethod(); dispose(); //}
 				 * 
@@ -2196,11 +2196,11 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 																 * ).equals("Done"
 																 * )
 																 */) {
-				System.out.println("done menu");
+				System.err.println("done menu");
 				uiFrame c = ((DoneMenuItem) evt.getSource()).getUIFrame();
 				int parameterNumber = ((uiFrame) c).getParameterNumber();
 				if (parameterNumber < 0) {
-					System.out.println("parameter number < 0");
+					System.err.println("parameter number < 0");
 					dispose();
 					return;
 				}
@@ -2213,7 +2213,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 				ObjectAdapter adaptor = ((uiFrame) c).getAdapter();
 				parameterValues[parameterNumber] = adaptor.getValue();
 				// Dispose of the frame
-				// System.out.println("disposing frame");
+				// System.err.println("disposing frame");
 				// ((Frame) c).dispose();
 				((uiFrame) c).dispose();
 				// Feedback
@@ -2226,13 +2226,13 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 				}
 			}
 		} else if (evt.getSource() instanceof JTextField) {
-			// System.out.println("JTextField edited");
+			// System.err.println("JTextField edited");
 			JTextField tf = (JTextField) evt.getSource();
 			int parameterNumber = textFieldToParameterMapping.indexOf(tf);
 			Object obj = null;
 			ClassProxy ptype = getParameterType(parameterNumber);
 			try {
-				// System.out.println(tf.getText());
+				// System.err.println(tf.getText());
 				obj = TranslatorRegistry.convert(ptype.getName(), tf.getText());
 			} catch (bus.uigen.translator.FormatException e) {
 			}
@@ -2249,7 +2249,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 		 * (JComboBox) evt.getSource(); int param =
 		 * comboBoxToParameterMapping.indexOf(cb); if (param != -1) { String
 		 * selection = (String) cb.getSelectedItem();
-		 * System.out.println("For type "
+		 * System.err.println("For type "
 		 * +parameterTypes[param].getName()+" event is "+selection); // Now
 		 * modify the class mapping Class pclass = getParameterType(param); if
 		 * (!pclass.equals(parameterTypes[param]))
@@ -2259,7 +2259,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	}
 	
 	public void actionPerformed(VirtualActionEvent evt) {
-		// System.out.println("action performed");
+		// System.err.println("action performed");
 
 		if (evt.getSource() instanceof Button
 				|| evt.getSource() instanceof JButton) {
@@ -2276,7 +2276,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 				}/*
 				 * else { //uiMethodInvocationManager mim =
 				 * (uiMethodInvocationManager) c.getFrame();
-				 * //System.out.println("action performed on invoke button");
+				 * //System.err.println("action performed on invoke button");
 				 * //parameterValues[mim.parameterNumber] = mim.result; //if
 				 * (parentMIM != null) { invokeMethod(); dispose(); //}
 				 * 
@@ -2293,11 +2293,11 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 																 * ).equals("Done"
 																 * )
 																 */) {
-				System.out.println("done menu");
+				System.err.println("done menu");
 				uiFrame c = ((DoneMenuItem) evt.getSource()).getUIFrame();
 				int parameterNumber = ((uiFrame) c).getParameterNumber();
 				if (parameterNumber < 0) {
-					System.out.println("parameter number < 0");
+					System.err.println("parameter number < 0");
 					dispose();
 					return;
 				}
@@ -2310,7 +2310,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 				ObjectAdapter adaptor = ((uiFrame) c).getAdapter();
 				parameterValues[parameterNumber] = adaptor.getValue();
 				// Dispose of the frame
-				// System.out.println("disposing frame");
+				// System.err.println("disposing frame");
 				// ((Frame) c).dispose();
 				((uiFrame) c).dispose();
 				// Feedback
@@ -2323,13 +2323,13 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 				}
 			}
 		} else if (evt.getSource() instanceof JTextField) {
-			// System.out.println("JTextField edited");
+			// System.err.println("JTextField edited");
 			JTextField tf = (JTextField) evt.getSource();
 			int parameterNumber = textFieldToParameterMapping.indexOf(tf);
 			Object obj = null;
 			ClassProxy ptype = getParameterType(parameterNumber);
 			try {
-				// System.out.println(tf.getText());
+				// System.err.println(tf.getText());
 				obj = TranslatorRegistry.convert(ptype.getName(), tf.getText());
 			} catch (bus.uigen.translator.FormatException e) {
 			}
@@ -2346,7 +2346,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 		 * (JComboBox) evt.getSource(); int param =
 		 * comboBoxToParameterMapping.indexOf(cb); if (param != -1) { String
 		 * selection = (String) cb.getSelectedItem();
-		 * System.out.println("For type "
+		 * System.err.println("For type "
 		 * +parameterTypes[param].getName()+" event is "+selection); // Now
 		 * modify the class mapping Class pclass = getParameterType(param); if
 		 * (!pclass.equals(parameterTypes[param]))
@@ -2357,7 +2357,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 
 	public uiFrame processParamType(int i, ClassProxy pclass,
 			String pChangedType, boolean chooseConstructor) {
-		// System.out.println("process paramtype" + pChangedType);
+		// System.err.println("process paramtype" + pChangedType);
 		if (pclass == null)
 			return null;
 		if (pChangedType == null)
@@ -2372,7 +2372,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 			if (nclass != null && pclass.isAssignableFrom(nclass)) {
 				pclass = nclass;
 			} else {
-				// System.out.println(pclass.getName()+" is not assignable from "+nclass.getName());
+				// System.err.println(pclass.getName()+" is not assignable from "+nclass.getName());
 				/*
 				 * String interfacePackageName =
 				 * Misc.packageName(pclass.getName()); String inputPackageName =
@@ -2390,25 +2390,25 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 				return null;
 			}
 		} catch (Exception e) {
-			// System.out.println("Class finder exception" + pclass);
+			// System.err.println("Class finder exception" + pclass);
 			return null;
 
 		}
-		// System.out.println("checking interfcae");
+		// System.err.println("checking interfcae");
 		if (pclass.isInterface())
 			return null;
 		if (Modifier.isAbstract(pclass.getModifiers()))
 			return null;
-		// System.out.println("checking length" + pclass +
+		// System.err.println("checking length" + pclass +
 		// pclass.getConstructors().length );
 		if (pclass.getConstructors().length == 0)
 			return null;
-		// System.out.println("checking composite");
+		// System.err.println("checking composite");
 		if (!isComposite(pclass)) {
 			return null;
 		}
 
-		// System.out.println("found composite");
+		// System.err.println("found composite");
 		if (!creatingObject && i >= 0)
 			((JTextField) textFieldToParameterMapping.elementAt(i))
 					.setEnabled(false);
@@ -2424,20 +2424,20 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 		 * null) constructor = pclass.getConstructors()[0]; //constructor =
 		 * ClassDescriptor.getConstructors(pclass)[0]; //constructor =
 		 * pclass.getConstructors()[0]; } // Create a new MIManager.
-		 * //System.out.println("UImETHOD" + parentFrame); //setVisible(true);
+		 * //System.err.println("UImETHOD" + parentFrame); //setVisible(true);
 		 * uiMethodInvocationManager mim = new uiMethodInvocationManager(this,
 		 * i, null, //uiMethodInvocationManager mim = new
 		 * uiMethodInvocationManager(parentFrame, null, constructor);
 		 * 
-		 * //System.out.println("cons rame" + mim.constructorFrame); if
+		 * //System.err.println("cons rame" + mim.constructorFrame); if
 		 * (!creatingObject) {
 		 * 
-		 * //System.out.println("Constructor manager successfully created"); if
+		 * //System.err.println("Constructor manager successfully created"); if
 		 * ( !creatingObject && (mim.invokeButton != null ) &&
 		 * mim.invokeButton.isVisible()) {
 		 * 
 		 * mim.invokeButton.addActionListener(this); }
-		 * //System.out.println("setting parameter number" + i + mim);
+		 * //System.err.println("setting parameter number" + i + mim);
 		 * mim.parameterNumber = i;
 		 * 
 		 * 
@@ -2452,7 +2452,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	public uiFrame instantiateClass(int i, ClassProxy pclass,
 			boolean chooseConstructor) {
 
-		// System.out.println("found composite");
+		// System.err.println("found composite");
 		if (!creatingObject && i >= 0)
 			((JTextField) textFieldToParameterMapping.elementAt(i))
 					.setEnabled(false);
@@ -2471,7 +2471,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 			// constructor = pclass.getConstructors()[0];
 		}
 		// Create a new MIManager.
-		// System.out.println("UImETHOD" + parentFrame);
+		// System.err.println("UImETHOD" + parentFrame);
 		// setVisible(true);
 		MethodInvocationManager mim = new MethodInvocationManager(this, i,
 				null,
@@ -2479,10 +2479,10 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 				// uiMethodInvocationManager(parentFrame, null,
 				constructor);
 
-		// System.out.println("cons rame" + mim.constructorFrame);
+		// System.err.println("cons rame" + mim.constructorFrame);
 		if (!creatingObject) {
 
-			// System.out.println("Constructor manager successfully created");
+			// System.err.println("Constructor manager successfully created");
 			if (!creatingObject && (mim.invokeButton != null)
 					&& mim.invokeButton.isVisible()) {
 
@@ -2492,7 +2492,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 			 * mim.constructorFrame.getDoneItem().addActionListener(this);
 			 * mim.constructorFrame.setParameterNumber(i); }
 			 */
-			// System.out.println("setting parameter number" + i + mim);
+			// System.err.println("setting parameter number" + i + mim);
 			mim.parameterNumber = i;
 			/*
 			 * 
@@ -2545,7 +2545,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	}
 
 	void createObject(ActionEvent evt, boolean chooseConstructor) {
-		// System.out.println("do create");
+		// System.err.println("do create");
 		Component c;
 		if (!((c = (Component) evt.getSource()) instanceof JComboBox)) {
 			JPopupMenu popup = (JPopupMenu) ((Component) evt.getSource())
@@ -2571,28 +2571,28 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 				// comboBoxToParameterMapping.elementAt(i)).getSelectedItem();*/
 				pChangedType = (String) ((JComboBox) comboBoxToParameterMapping
 						.elementAt(i)).getSelectedItem();
-				// System.out.println("pchanged type " + pChangedType);
+				// System.err.println("pchanged type " + pChangedType);
 				// Object pobj = parameterValues[i];
 			} else {
 				pclass = OBJECT_CLASS_PROXY;
 				pChangedType = (String) objectComboBox.getSelectedItem();
-				// System.out.println("pchanged type " + pChangedType);
+				// System.err.println("pchanged type " + pChangedType);
 			}
 			processParamType(i, pclass, pChangedType, chooseConstructor);
-			// System.out.println("processed param type");
+			// System.err.println("processed param type");
 		}
 	}
 
 	/*
 	 * public void createObject(int i, ClassProxy pclass, String pChangedType,
-	 * boolean chooseConstructor) { //System.out.println("do create");
+	 * boolean chooseConstructor) { //System.err.println("do create");
 	 * 
 	 * 
 	 * if (creatingObject) { pclass = OBJECT_CLASS_PROXY; pChangedType =
 	 * (String) objectComboBox.getSelectedItem();
-	 * //System.out.println("pchanged type " + pChangedType); }
+	 * //System.err.println("pchanged type " + pChangedType); }
 	 * processParamType(i, pclass, pChangedType, chooseConstructor);
-	 * //System.out.println("processed param type");
+	 * //System.err.println("processed param type");
 	 * 
 	 * }
 	 */
@@ -2612,7 +2612,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 			if (tf.isEnabled() && !isComposite(ptype)) {
 				Object obj = null;
 				try {
-					// System.out.println(tf.getText());
+					// System.err.println(tf.getText());
 					obj = TranslatorRegistry.convert(ptype.getName(),
 							tf.getText());
 				} catch (bus.uigen.translator.FormatException e) {
@@ -2627,7 +2627,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	private void doCreateAction(ActionEvent evt) {
 		createObject(evt, true);
 		/*
-		 * System.out.println("do create"); Component c; if (!((c = (Component)
+		 * System.err.println("do create"); Component c; if (!((c = (Component)
 		 * evt.getSource()) instanceof JComboBox)) { JPopupMenu popup =
 		 * (JPopupMenu) ((Component)evt.getSource()).getParent(); c =
 		 * popup.getInvoker(); }
@@ -2643,12 +2643,12 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 		 * comboBoxToParameterMapping.elementAt(i)).getSelectedItem();
 		 * pChangedType = (String) ((JComboBox)
 		 * comboBoxToParameterMapping.elementAt(i)).getSelectedItem();
-		 * //System.out.println("pchanged type " + pChangedType); Object pobj =
+		 * //System.err.println("pchanged type " + pChangedType); Object pobj =
 		 * parameterValues[i]; } else { pclass = OBJECT_CLASS; pChangedType =
 		 * (String) objectComboBox.getSelectedItem();
-		 * System.out.println("pchanged type " + pChangedType); }
+		 * System.err.println("pchanged type " + pChangedType); }
 		 * processParamType(i, pclass, pChangedType, true);
-		 * System.out.println("processed param type");
+		 * System.err.println("processed param type");
 		 * 
 		 * 
 		 * }
@@ -2689,19 +2689,19 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 				excludeClasses.addElement(RemoteSelector
 						.forName(excludeClassesArray[i]));
 			} catch (Exception e) {
-				System.out.println("Internal Error in Coverting "
+				System.err.println("Internal Error in Coverting "
 						+ excludeClassesArray[i] + "to class");
 			}
 		;
 	}
 
 	public boolean isComposite(ClassProxy pclass) {
-		// System.out.println("composite" + pclass);
+		// System.err.println("composite" + pclass);
 		if (pclass.isPrimitive())
 			return false;
-		// System.out.println("execlide" + excludeClasses);
+		// System.err.println("execlide" + excludeClasses);
 		// boolean b= excludeClasses.contains(pclass);
-		// System.out.println(b);
+		// System.err.println(b);
 		// if (b) return false;
 		if (excludeClasses.contains(pclass))
 			return false;
@@ -2709,9 +2709,9 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 	}
 
 	public uiFrame editParameter(int i) {
-		// System.out.println("edit paame" + i);
+		// System.err.println("edit paame" + i);
 		if (i < 0)
-			System.out.println("negative i " + i);
+			System.err.println("negative i " + i);
 		Object pobj = parameterValues[i];
 		ClassProxy pclass = getParameterType(i);
 		return this.processParamType(i, pclass, pclass.getName(), false);
@@ -2729,7 +2729,7 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 		 * 
 		 * f.pack(); f.setLocation( new Point (0, 150*(i + 1)));
 		 * f.setVisible(true); return f; } else {
-		 * System.out.println("Couldnt instantiate parameter type " +
+		 * System.err.println("Couldnt instantiate parameter type " +
 		 * pclass.getName()); return null; }
 		 */
 	}
@@ -2773,20 +2773,20 @@ public class MethodInvocationManager extends Frame implements ActionListener,
 			// Get the current selection and check if type matches.
 			// Object selection = ((uiObjectAdapter)
 			// uiSelectionManager.getCurrentSelection()).getRealObject();
-			// System.out.println(selection.getClass().toString());
+			// System.err.println(selection.getClass().toString());
 			Object selection = ObjectClipboard.getFirst();
 			if (parameterTypes[parameterNumber]
 					.isAssignableFrom(ACompositeLoggable
 							.getTargetClass(selection))) {
 				// Can perform a paste
-				// System.out.println("Selection is "+selection);
+				// System.err.println("Selection is "+selection);
 				parameterValues[parameterNumber] = selection;
 				// Feedback
 				JTextField tf = (JTextField) textFieldToParameterMapping
 						.elementAt(parameterNumber);
 				tf.setText(selection.toString());
 			} else
-				System.out.println("Wrong parameter type:"
+				System.err.println("Wrong parameter type:"
 						+ ACompositeLoggable.getTargetClass(selection)
 								.toString() + " Expecting: "
 						+ parameterTypes[parameterNumber].toString());

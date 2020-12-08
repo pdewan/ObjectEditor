@@ -30,7 +30,7 @@ public class CalcActionListener  implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		try {
-			System.out.println(op);		if (op.equals("total")) 
+			System.err.println(op);		if (op.equals("total")) 
 			showTotal();
 				else if (op.equals("average")) 
 			showAverage();

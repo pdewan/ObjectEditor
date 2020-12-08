@@ -165,7 +165,7 @@ import bus.uigen.widgets.events.VirtualFocusListener;
 	  	lastSelectedItem = selVal;
 	  	return selVal;
 	  }  catch (Exception e) {
-		  System.out.println("Returning null from getSelectedItem");		  return null;
+		  System.err.println("Returning null from getSelectedItem");		  return null;
 	  }
 	  	  /*
 	  try {
@@ -411,13 +411,13 @@ import bus.uigen.widgets.events.VirtualFocusListener;
   }
   */
   public void keyReleased(KeyEvent k) {
-	  System.out.println("000000");    }  public void keyPressed(KeyEvent k) {	  if (haveSetModel) return;
-	  System.out.println("33434324");  	  if (k.getKeyCode() == KeyEvent.VK_ENTER)/* && (noItemState))  */{		  super.uiComponentValueEdited(true);			
+	  System.err.println("000000");    }  public void keyPressed(KeyEvent k) {	  if (haveSetModel) return;
+	  System.err.println("33434324");  	  if (k.getKeyCode() == KeyEvent.VK_ENTER)/* && (noItemState))  */{		  super.uiComponentValueEdited(true);			
 	  
 	  }	    }
   
     public void keyTyped (KeyEvent k) {
-	 System.out.println("ppppp");   
+	 System.err.println("ppppp");   
 	  
 	  /*	  if (actionPerformed)		  actionPerformed = false;	  else
 	      super.uiComponentValueEdited();	

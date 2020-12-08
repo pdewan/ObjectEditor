@@ -111,14 +111,14 @@ public class ATopViewManager  implements TopViewManager /*extends Frame*/ {
 			splitPane.setResizeWeight(0.5);
 			splitPane.setContinuousLayout(true);
 			VirtualDimension d = (VirtualDimension) spane.getMinimumSize();			
-			System.out.println ("SplitPane component min size" + d.getHeight() + "," + d.getWidth());
+			System.err.println ("SplitPane component min size" + d.getHeight() + "," + d.getWidth());
 			spane.setMinimumSize(new VirtualDimension(50, 50));
 			newScrollPane.setMinimumSize(new VirtualDimension (50, 50));
 			 d = (VirtualDimension) spane.getMinimumSize();			
-			System.out.println ("SplitPane component min size" + d.getHeight() + "," + d.getWidth());			//JSplitPane splitPane = new JSplitPane(direction);			/*
+			System.err.println ("SplitPane component min size" + d.getHeight() + "," + d.getWidth());			//JSplitPane splitPane = new JSplitPane(direction);			/*
 			if (direction == JSplitPane.HORIZONTAL_SPLIT)			this.setSize(size.width*2, size.height);			else			this.setSize(size.width, size.height*2);			*/
 			
-			//System.out.println("size" + size.width + " " + size.height);			//splitPane.setDividerLocation(0.5);
+			//System.err.println("size" + size.width + " " + size.height);			//splitPane.setDividerLocation(0.5);
 			//splitPane.setLeftComponent(spane);        
 			//splitPane.setRightComponent(newScrollPane);			if (secondPanel) {				parent.add(splitPane);				/*
 				if (parent instanceof Frame)
@@ -158,7 +158,7 @@ public class ATopViewManager  implements TopViewManager /*extends Frame*/ {
 	}
 				/*	Panel   drawPanel;	//Connections   drawing = new Connections();
 	SLModel drawing =   new SLModel();	public SLModel getDrawing() {
-		//System.out.println("drawing   is" +  drawing);
+		//System.err.println("drawing   is" +  drawing);
 		return drawing;
 		
 			}	uiObjectAdapter drawingAdapter;	public uiObjectAdapter getDrawingAdapter() {
@@ -175,11 +175,11 @@ public class ATopViewManager  implements TopViewManager /*extends Frame*/ {
 			uiGenerator.generateInUIPanel(frame,  drawing, drawPanel);			//drawingAdapter = (uiObjectAdapter) currentAdapters.elementAt(currentAdapters.size() -1);
 			//uiGenerator.generateUI(drawPanel, new Connections().getDrawing());			//frame.add(drawPanel, BorderLayout.SOUTH);			showDrawPanel();						//drawPanel.setBackground(Color.white);
 			//int drawHeight = drawPanel.getBounds().height;
-			Dimension mySize = frame.getSize();  			//System.out.println(drawHeight);
+			Dimension mySize = frame.getSize();  			//System.err.println(drawHeight);
 			frame.setSize(Math.max(mySize.width, SLComposer.FRAME_WIDTH), mySize.height + SLComposer.FRAME_HEIGHT);
 			//frame.setSize(300, 300);			mySize = getSize();
-			//System.out.println(mySize);		}   catch (Exception e) {
-			System.out.println(e);		}		
+			//System.err.println(mySize);		}   catch (Exception e) {
+			System.err.println(e);		}		
 	}
 	*/	public void maybeHideMainPanel() {		/*
 		if (!foundGenericWidget(mainScrollPane))		hideMainPanel();		*/
@@ -363,9 +363,9 @@ public class ATopViewManager  implements TopViewManager /*extends Frame*/ {
 			//uiGenerator.generateUI(uigenPanel, new Connections().getDrawing());			frame.add(windowHistoryPanel, BorderLayout.EAST);
 			currentObjects.addElement(frame.getAdapterHistory());			//uigenPanel.setBackground(Color.white);
 			//int drawHeight = uigenPanel.getBounds().height;
-			//Dimension mySize = frame.getSize();    			//System.out.println(drawHeight);
+			//Dimension mySize = frame.getSize();    			//System.err.println(drawHeight);
 			//frame.setSize(mySize.width, mySize.height*2);		}   catch (Exception e) {
-			System.out.println(e);		}
+			System.err.println(e);		}
 	}
 	*/	boolean drawPanelIsVisible = false;
 	
@@ -499,7 +499,7 @@ public class ATopViewManager  implements TopViewManager /*extends Frame*/ {
 			jTree.addTreeExpansionListener(frame);   
 			treePanel.setSize((int) 200, frame.getSize().height);			treePanelIsVisible = false;
 			showTreePanel();			//frame.add(treePanel,BorderLayout.WEST);
-			} catch (Exception e) {				System.out.println("createTreePanel " + e);
+			} catch (Exception e) {				System.err.println("createTreePanel " + e);
 			}		}			}	*/
 	public boolean treePanelIsVisible = false;
 		public void treePanel() {
@@ -617,9 +617,9 @@ public class ATopViewManager  implements TopViewManager /*extends Frame*/ {
 	}
 		/*
 	
-	public void treeExpanded(TreeExpansionEvent event) {		//System.out.println("Tree expanded");
+	public void treeExpanded(TreeExpansionEvent event) {		//System.err.println("Tree expanded");
 	}
-	public void treeCollapsed(TreeExpansionEvent event) {		//System.out.println("tree expanded");
+	public void treeCollapsed(TreeExpansionEvent event) {		//System.err.println("tree expanded");
 	}
 	boolean treeSelected = false;	public void valueChanged(TreeSelectionEvent e)  {
 				// suppress duplicate   event from replaceTreeSelections     
@@ -628,22 +628,22 @@ public class ATopViewManager  implements TopViewManager /*extends Frame*/ {
 			return;
 		}
 				TreePath treePath   = jTree.getSelectionPath();		TreePath eventPath = e.getNewLeadSelectionPath();		TreePath eventPathOld   = e.getOldLeadSelectionPath();
-		if (treePath == null)   {			//System.out.println("null selection");
+		if (treePath == null)   {			//System.err.println("null selection");
 			return;
 		}		uiObjectAdapter treeNode = (uiObjectAdapter) treePath.getLastPathComponent();
 		
-		uiObjectAdapter newTreeNode =   (uiObjectAdapter) eventPath.getLastPathComponent();		//System.out.println("calling   select" + treeNode);
+		uiObjectAdapter newTreeNode =   (uiObjectAdapter) eventPath.getLastPathComponent();		//System.err.println("calling   select" + treeNode);
 		TreePath[] selectedPaths = jTree.getSelectionPaths();
 		Vector selectedTreeNodes = new Vector();		for (int i = 0; i   < selectedPaths.length; i++) {
-			//System.out.println("no:" + i + "node" +   selectedPaths[i]);
+			//System.err.println("no:" + i + "node" +   selectedPaths[i]);
 			selectedTreeNodes.addElement((uiObjectAdapter)selectedPaths[i].getLastPathComponent());		}
-		//System.out.println(selectedNodes);		treeSelected = true;
+		//System.err.println(selectedNodes);		treeSelected = true;
 		uiSelectionManager.replaceSelections(selectedTreeNodes);		setTitle();
 				
 		//uiSelectionManager.replaceSelections((uiObjectAdapter)createdTreePath.getLastPathComponent());		
 				//uiSelectionManager.select(treeNode,   true);		//uiSelectionManager.replaceSelections(treeNode);
 		//treeNode.uiComponentFocusGained();		//replaceFrame();
-		//System.out.println("TreeNode is   " + treeNode);
+		//System.err.println("TreeNode is   " + treeNode);
 		
 			}
 	public void clearTreeSelection() {
@@ -652,10 +652,10 @@ public class ATopViewManager  implements TopViewManager /*extends Frame*/ {
 	public void setJTreeSelectionPaths(TreePath[]   selectedPaths) {		
 		
 		//jTree.clearSelection();     
-		//System.out.println("Selected Paths"   + selectedPaths);
+		//System.err.println("Selected Paths"   + selectedPaths);
 		
-		//TreePath createdTreePath = jTree.getPathForLocation(0,0);		//System.out.println(createdTreePath);		//createdTreePath.pathByAddingChild(topAdapter);
-		//System.out.println(selectedPaths[0]);
+		//TreePath createdTreePath = jTree.getPathForLocation(0,0);		//System.err.println(createdTreePath);		//createdTreePath.pathByAddingChild(topAdapter);
+		//System.err.println(selectedPaths[0]);
 		//jTree.setSelectionPaths(selectedPaths);		//jTree.setSelectionPath(createdTreePath);
 		internalTreeEvent   = true;
 				if ((jTree !=   null) && treePanelIsVisible)			jTree.setSelectionPaths(selectedPaths);
@@ -663,7 +663,7 @@ public class ATopViewManager  implements TopViewManager /*extends Frame*/ {
 	}	public void mouseClicked(MouseEvent e) {		
 		if ((e.getClickCount() == 2) ) {
 			TreePath treePath = jTree.getSelectionPath();			if (treePath == null) return;
-			System.out.println(treePath);			uiObjectAdapter treeNode = (uiObjectAdapter) treePath.getLastPathComponent();
+			System.err.println(treePath);			uiObjectAdapter treeNode = (uiObjectAdapter) treePath.getLastPathComponent();
 			if (!uiMethodInvocationManager.invokeDoubleClickMethod(treeNode))				frame.replaceFrame(treeNode);
 		}		
 		//if (listener !=   null) 
@@ -933,30 +933,30 @@ public JButton addToolBarButton(Object targetObject, String label,   Icon icon, 
 }
 void printToolbarButtons() {
 	Component[] comps   = toolBar.getComponents();
-	System.out.println("Toolbar Buttons");
+	System.err.println("Toolbar Buttons");
 	for (int i=0;   i<comps.length; i++)
-		System.out.println(((JButton)   comps[i]).getLabel());
+		System.err.println(((JButton)   comps[i]).getLabel());
 }
 public void removeToolBarButtons(uiObjectAdapter adapter)   {   
-	System.out.println("removing buttons of" + adapter.getMethodActions());     
+	System.err.println("removing buttons of" + adapter.getMethodActions());     
 	printToolbarButtons();
 	Vector methodActions = adapter.getMethodActions();
 	for (int i=0;   i < methodActions.size(); i++) {
 		VirtualMethodAction ma =   (VirtualMethodAction) methodActions.elementAt(i);
-		//System.out.print(" rembut" + ma.getButton().getLabel());
-		//System.out.print("index" + indexOf(toolBar.getComponents(),   ma.getButton()));
+		//System.err.print(" rembut" + ma.getButton().getLabel());
+		//System.err.print("index" + indexOf(toolBar.getComponents(),   ma.getButton()));
 		toolBar.remove(frame.indexOf(toolBar.getComponents(), ma.getButton()));
 		//toolBar.remove(ma.getButton());
 	}
 	
 }
 public void addToolBarButtons(uiObjectAdapter   adapter) {
-	//System.out.println("adding buttons of" + adapter.getMethodActions());
-	System.out.println("Toolbar Buttons");
+	//System.err.println("adding buttons of" + adapter.getMethodActions());
+	System.err.println("Toolbar Buttons");
 	Vector methodActions = adapter.getMethodActions();
 	for (int i=0;   i < methodActions.size(); i++) {
 		VirtualMethodAction ma =   (VirtualMethodAction) methodActions.elementAt(i);
-		//System.out.print("addbut" + ma.getButton().getLabel());
+		//System.err.print("addbut" + ma.getButton().getLabel());
 		toolBar.add(ma.getButton());
 	}
 	//validate();
@@ -975,7 +975,7 @@ public void addUIFrameToolBarButton(String label,   Icon icon) {
 	
 }
 public JButton addUIFrameToolBarButton(String   label, Icon icon, ActionListener listener) {
-	System.out.println("Adding Button " + label);
+	System.err.println("Adding Button " + label);
 	if (toolBarButtons.contains(label)) return null;
 	//showToolBar();
 	//toolBar.setVisible(true);
@@ -1202,10 +1202,10 @@ public JButton addUIGenToolBarButton(String label, Icon icon,   Object obj) {
 	public void addToBottomPanel(Container toadd) {  
 				//toolPanel.add(toadd);   //for now let's do a simple add at end of flow				frame.add(toadd, BorderLayout.SOUTH);
 		
-		if (toadd != null)			System.out.println("added a toolpanel to orig");			}	public void addToMiddlePanel(Container toadd) {  
+		if (toadd != null)			System.err.println("added a toolpanel to orig");			}	public void addToMiddlePanel(Container toadd) {  
 				//toolPanel.add(toadd);   //for now let's do a simple add at end of flow				frame.add(toadd, BorderLayout.CENTER);
 		
-		if (toadd != null)			System.out.println("added a toolpanel to mid - orig");			}
+		if (toadd != null)			System.err.println("added a toolpanel to mid - orig");			}
 	*/	public boolean treePanelIsVisible() {		return treePanelIsVisible;
 	}
 			}

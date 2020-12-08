@@ -30,7 +30,7 @@ public class UnivMethodParameter implements java.io.Serializable
 			if(adapterPath!=null){
 				ObjectAdapter adapter = ObjectRegistry.getAdapter(adapterPath);
 				if(adapter==null){
-					System.out.println("local adapter ("+adapterPath+") does not exist");
+					System.err.println("local adapter ("+adapterPath+") does not exist");
 					System.exit(1);
 				}
 				retVal = adapter.computeAndMaybeSetViewObject();

@@ -33,7 +33,7 @@ public class SLPutCommand extends util.undo.AbstractCommand
     public void execute()
     {
         originalShapeModel = shapesList.put(keyArg, shapeModelArg);
-		//System.out.println("shapeModelArg " + shapeModelArg + "original" + originalShapeModel);
+		//System.err.println("shapeModelArg " + shapeModelArg + "original" + originalShapeModel);
     }
     public void undo()
     {
@@ -49,12 +49,12 @@ public class SLPutCommand extends util.undo.AbstractCommand
 
     public static void printKeys(ShapesList theShapesList)
     {
-        System.out.println("Printing Keys");
+        System.err.println("Printing Keys");
         for (Enumeration keys = theShapesList.keys();
                 keys.hasMoreElements();)
             {
                 String key = (String) keys.nextElement();
-                System.out.println("Key" + (String) key);
+                System.err.println("Key" + (String) key);
             }
     }
 

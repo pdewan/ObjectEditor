@@ -38,7 +38,7 @@ public class UnivPropertyChange implements java.io.Serializable, UIGenLoggableEv
 				adapter.subPropertyChange(pce);
 			}
 		} catch (Exception e) {
-			System.out.println("UnivPropertyChange.execute(): Exception "+e);
+			System.err.println("UnivPropertyChange.execute(): Exception "+e);
 			e.printStackTrace();
 		}
 	}

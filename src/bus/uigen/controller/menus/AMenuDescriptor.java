@@ -30,7 +30,7 @@ public class AMenuDescriptor {
 	}
 	public void setAttribute (String[] menus, String attr, Object[] values) {
 		if (menus.length != values.length) {
-			System.out.println("setAttribute: length menus[] != length values");
+			System.err.println("setAttribute: length menus[] != length values");
 			return;
 		}
 		for (int i = 0; i < menus.length; i++) {

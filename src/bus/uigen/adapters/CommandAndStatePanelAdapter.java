@@ -4002,12 +4002,12 @@ public class CommandAndStatePanelAdapter extends PanelAdapter implements
 			// resetWidget(c);
 		} else {
 			int panelSize = unboundPropertiesPanel.getComponentCount();
-			System.out.println("container size:" + panelSize);
+			System.err.println("container size:" + panelSize);
 			VirtualComponent lastComponent = unboundPropertiesPanel
 					.getComponent(panelSize - 1);
 			// c.setVisible(true);
 			if (lastComponent != c) {
-				System.out.println("last component to be made visible");
+				System.err.println("last component to be made visible");
 				c.setVisible(true);
 			} else {
 				// removeAllInvisible(unboundPropertiesPanel);

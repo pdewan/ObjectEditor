@@ -41,7 +41,7 @@ public class CondConnComposer extends OperationComposer  implements PropertyChan
 		super.init (_components, names);
 		System.out.println("making condconn");
 		if ((_components != null) && (_components.size() > 0)) {
-			System.out.println("making condconn");
+			System.err.println("making condconn");
 			//nameToObj = new Hashtable();
 			for (int i = 0; i < objects.length; i++) {//copy vector contents to it.
 				objects[i] = (Object)_components.elementAt(i);
@@ -108,7 +108,7 @@ public class CondConnComposer extends OperationComposer  implements PropertyChan
 			//objectPropPanel.setBorder(BorderFactory.createTitledBorder(objects[i].toString()));
 			objectPropPanel.setBorder(BorderFactory.createTitledBorder((String) objToCleanName.get(objects[i])));
 			
-			System.out.println("has " + widgets.size());
+			System.err.println("has " + widgets.size());
 			sort(widgets);
 			
 			for (int j = 0; j < widgets.size(); j++)  {//dump widgets to state panel
@@ -207,7 +207,7 @@ public class CondConnComposer extends OperationComposer  implements PropertyChan
 						if (ck.isSelected()) {
 							
 							truecommands.addElement(truecmd);
-							System.out.println("***********"+truecmd);
+							System.err.println("***********"+truecmd);
 						}
 					}
 				}//endfor
@@ -241,10 +241,10 @@ public class CondConnComposer extends OperationComposer  implements PropertyChan
 	public void propertyChange(PropertyChangeEvent evt) {
 		//String condition = evt.getSource().toString() +  evt.getPropertyName().toLowerCase() + evt.getNewValue();
 		String condition = (String) objToCleanName.get(evt.getSource()) +  evt.getPropertyName().toLowerCase() + evt.getNewValue();
-				try {			if (conditions !=null && conditions.get(condition) != null) {				System.out.println("condition met" + truecommands.size() );				for (int x = 0; x < truecommands.size(); x++) {					
+				try {			if (conditions !=null && conditions.get(condition) != null) {				System.err.println("condition met" + truecommands.size() );				for (int x = 0; x < truecommands.size(); x++) {					
 					String cmdStr =  (String)truecommands.elementAt(x);
-					System.out.println("__ " + cmdStr);					String objName = cmdStr.substring(0, cmdStr.indexOf(":::") );					String cmdName = cmdStr.substring(cmdStr.indexOf(":::")+ 3);					//Object theobj = nameToObj.get(objName);					Object theobj = cleanNameToObj.get(objName);
-					System.out.println("__ " + objName);
+					System.err.println("__ " + cmdStr);					String objName = cmdStr.substring(0, cmdStr.indexOf(":::") );					String cmdName = cmdStr.substring(cmdStr.indexOf(":::")+ 3);					//Object theobj = nameToObj.get(objName);					Object theobj = cleanNameToObj.get(objName);
+					System.err.println("__ " + objName);
 					//stem.out.println("__ " + cmdName);
 					if (theobj != null) {
 						

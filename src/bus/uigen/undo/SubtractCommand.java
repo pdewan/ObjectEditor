@@ -106,7 +106,7 @@ public abstract class SubtractCommand extends AbstractCommand implements Command
 			return subtractedValue;
 			
 		} catch (Exception e) {
-			System.out.println ("Could not execute: " + subtractMethod + " " + e);
+			System.err.println ("Could not execute: " + subtractMethod + " " + e);
 			return null;
 		}
     }
@@ -118,7 +118,7 @@ public abstract class SubtractCommand extends AbstractCommand implements Command
 												   addParams);
 			listener.commandActionPerformed();
 		} catch (Exception e) {
-			System.out.println ("Could not undo: " + subtractMethod + " " + e);
+			System.err.println ("Could not undo: " + subtractMethod + " " + e);
 		}
     }
     public void redo()    {

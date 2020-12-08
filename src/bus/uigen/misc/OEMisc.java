@@ -82,7 +82,7 @@ public class OEMisc {
 	}
 	public static void shallowCopy (List objectList, List resultList) {
 		if (objectList.size() != resultList.size()) {
-			System.out.println("shallowCopy: source and result lists of different sizes");
+			System.err.println("shallowCopy: source and result lists of different sizes");
 		}
 		for (int i = 0; i < objectList.size(); i++)
 			resultList.set (i, objectList.get(i));
@@ -179,7 +179,7 @@ public class OEMisc {
 			return o;
 		
 //		if (o.getClass().getName().startsWith ("edu.unc.sync"))
-//			System.out.println("Sync class cloned");
+//			System.err.println("Sync class cloned");
 				//return 0;
 		
 		try {		
@@ -229,7 +229,7 @@ public class OEMisc {
 			return o;
 		
 //		if (o.getClass().getName().startsWith ("edu.unc.sync"))
-//			System.out.println("Sync class cloned");
+//			System.err.println("Sync class cloned");
 				//return 0;
 		
 		try {		
@@ -243,7 +243,7 @@ public class OEMisc {
 	
 	public static void saveState(Object o, String fileName) {
 		if (!(o instanceof java.io.Serializable)) {
-			System.out.println("E*** " + o.getClass() + " CANNOT BE SAVED AS IT IS NOT SERIALIABLE");
+			System.err.println("E*** " + o.getClass() + " CANNOT BE SAVED AS IT IS NOT SERIALIABLE");
 			return ;
 		}
 		try {
@@ -264,7 +264,7 @@ public class OEMisc {
 		  return saved_object;
 		} catch (Exception e) {
 			//e.printStackTrace();
-			//System.out.println("Info**: Did not load saved state" );
+			//System.err.println("Info**: Did not load saved state" );
 			return null;
 		}
 	}

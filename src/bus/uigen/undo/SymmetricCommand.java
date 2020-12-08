@@ -95,7 +95,7 @@ public class SymmetricCommand implements Command {
 			return retVal;
 			
 		} catch (Exception e) {
-			System.out.println ("Could not execute: " + doMethod + " " + e);
+			System.err.println ("Could not execute: " + doMethod + " " + e);
 			return null;
 		}
     }
@@ -108,7 +108,7 @@ public class SymmetricCommand implements Command {
 			if (listener != null)
 				listener.commandActionPerformed();
 		} catch (Exception e) {
-			System.out.println ("Could not undo: " + inverseMethod + " " + e);
+			System.err.println ("Could not undo: " + inverseMethod + " " + e);
 		}
     }
     public void redo()    {

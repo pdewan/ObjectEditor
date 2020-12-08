@@ -212,7 +212,7 @@ public class ComponentPanel
 		//VirtualContainer txfrdata = new JPanel(new FlowLayout());
 		VirtualContainer txfrdata = PanelSelector.createPanel();
 		txfrdata.setLayout(new FlowLayout());
-		System.out.println("genericWidgets " + objWidgets.size());
+		System.err.println("genericWidgets " + objWidgets.size());
 		for (int i= 0; i < objWidgets.size(); i++)   //for each widget, place it on the frame's panel
 			txfrdata.add(((WidgetShell)objWidgets.elementAt(i)).getContainer());
 		
@@ -805,8 +805,8 @@ public class ComponentPanel
 		for (int i=0; i < commands.size(); i++) {			//for each command.
 			
 			ButtonCommand cmd = (ButtonCommand)commands.elementAt(i);
-			System.out.println (cmd.displayName + " Row:" + cmd.getRow());
-			System.out.println (cmd.displayName + " Col:" + cmd.getColumn());
+			System.err.println (cmd.displayName + " Row:" + cmd.getRow());
+			System.err.println (cmd.displayName + " Col:" + cmd.getColumn());
 		//	String cmdBtnName = cmd.toString().toUpperCase().replaceAll("OR","/").replaceAll("_","").trim();
 			String cmdBtnName = cmd.toString();
 			//VirtualButton cmdBtn = new JButton(cmdBtnName);

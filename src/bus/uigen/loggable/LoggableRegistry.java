@@ -441,7 +441,7 @@ public class LoggableRegistry {
 	 */
 	public static String getMethodStringId(MethodProxy method) {
 		if (method == null)
-			System.out.println("Null Method to be invoked");
+			System.err.println("Null Method to be invoked");
 		String retVal = method.toString();
 		
 		// this is inefficient
@@ -449,7 +449,7 @@ public class LoggableRegistry {
 //			MethodProxy unparsedMethod = stringToMethodProxy(retVal);
 //			if (method != unparsedMethod)
 //				Message.warning("Unparse does not work");
-//			System.out.println("registering " + retVal);
+//			System.err.println("registering " + retVal);
 			setMethodId(method, retVal);
 		
 		}
@@ -577,7 +577,7 @@ public class LoggableRegistry {
 			LoggableRegistry.setMethodReturnsValue( method );
 		 }
 		 catch ( Exception e ) {
-			 System.out.println( methodId );
+			 System.err.println( methodId );
 		 }
 	}
 

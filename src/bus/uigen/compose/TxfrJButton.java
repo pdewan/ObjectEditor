@@ -81,7 +81,7 @@ public void actionPerformed(VirtualActionEvent e) {
 						
 			Object[] toSetVal = new Object[1];
 			toSetVal[0] = getter.invoke(selected,null);  //get the value to set it to.
-			if (toSetVal[0] != null) {  //invoke the setter here using oe original invocation method to ensure proper updates				System.out.println("trying to invokemethod");
+			if (toSetVal[0] != null) {  //invoke the setter here using oe original invocation method to ensure proper updates				System.err.println("trying to invokemethod");
 				//uiMethodInvocationManager iman = new uiMethodInvocationManager(oeFrame,toSet,setter,toSetVal);
 				oeFrame.getUndoer().execute (
 						new SetGetLastCommand(oeFrame.getAdapter(), 
@@ -91,7 +91,7 @@ public void actionPerformed(VirtualActionEvent e) {
 							myGetter							
 							));
 
-				System.out.println("just invoked "+ setter.getName() + " to " + toSetVal[0].toString());				oeFrame.doImplicitRefresh();
+				System.err.println("just invoked "+ setter.getName() + " to " + toSetVal[0].toString());				oeFrame.doImplicitRefresh();
 			}
 		}
 		catch (Exception ex) {ex.printStackTrace();}	}
@@ -132,10 +132,10 @@ public void actionPerformed(VirtualActionEvent e) {
 						
 			Object[] toSetVal = new Object[1];
 			toSetVal[0] = getter.invoke(selected,null);  //get the value to set it to.
-			if (toSetVal[0] != null) {  //invoke the setter here using oe original invocation method to ensure proper updates				System.out.println("trying to invokemethod");
+			if (toSetVal[0] != null) {  //invoke the setter here using oe original invocation method to ensure proper updates				System.err.println("trying to invokemethod");
 				uiMethodInvocationManager iman = new uiMethodInvocationManager(oeFrame,toSet,setter,toSetVal);
 
-				System.out.println("just invoked "+ setter.getName() + " to " + toSetVal[0].toString());				
+				System.err.println("just invoked "+ setter.getName() + " to " + toSetVal[0].toString());				
 			}
 		}
 		catch (Exception ex) {ex.printStackTrace();}	}

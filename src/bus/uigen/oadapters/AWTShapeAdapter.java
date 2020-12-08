@@ -73,7 +73,7 @@ import util.models.RemotePropertyChangeListener;
 				oldAWTShape = newAWTShape;
 				
 			} catch (Exception e) {
-			  System.out.println("E**: exception invoking shape methods");
+			  System.err.println("E**: exception invoking shape methods");
 			  e.printStackTrace();
 			}	
 		  return shape;
@@ -100,7 +100,7 @@ import util.models.RemotePropertyChangeListener;
 			  }
 			  
 			} catch (Exception e) {
-			  System.out.println("E**: exception invoking set shape  methods");
+			  System.err.println("E**: exception invoking set shape  methods");
 			  e.printStackTrace();
 			}
 		  return retVal;

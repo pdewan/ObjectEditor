@@ -31,7 +31,7 @@ public class TraceUtility {
 		try {
 		Class traceableClass = TraceableInfo.toEvtTypeClass(aMessage);
 		if (traceableClass == null) {
-			System.out.println("Could not find traceable class for message:" + aMessage);
+			System.err.println("Could not find traceable class for message:" + aMessage);
 			return null;
 		}
 		Class[] parameterTypes = {String.class}; 
@@ -237,7 +237,7 @@ public class TraceUtility {
 //	public static boolean valid(List<Integer> anIndexList) {
 //		List<Integer> anInvalidIndices = indicesOfInvalidIndices(anIndexList);
 //		if (anInvalidIndices.size() != 0) {
-////			System.out.println("Missing events:" + missingClasses(anExpectedClasses, anInvalidIndices));
+////			System.err.println("Missing events:" + missingClasses(anExpectedClasses, anInvalidIndices));
 //			return false;
 //		}
 //		return true;

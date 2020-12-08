@@ -261,7 +261,7 @@ public class GenericListToVectorStructure extends
 	public void setElementAt(Object element, int pos,
 			CommandListener commandListener) {
 		if (pos == -1) {
-			System.out.println("Unexpected negative index in setElementAt");
+			System.err.println("Unexpected negative index in setElementAt");
 			return;
 		}
 		Object params[] = { new Integer(pos), element };

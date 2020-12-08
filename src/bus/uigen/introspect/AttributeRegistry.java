@@ -57,7 +57,7 @@ public class AttributeRegistry {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("AttributeRegistry: Register All: " + e);
+			System.err.println("AttributeRegistry: Register All: " + e);
 		}
 	}
 	public static void registerAttributeRegistrer (ClassProxy modelClass, Object theFrame) {
@@ -79,7 +79,7 @@ public class AttributeRegistry {
 				//if (theFrame != null)
 					//theFrame.addClassToSourceMenu(attributeRegistrerClass);
 			} else
-				System.out.println(attributeRegistrerClass + " must implement ExecutableCommand");
+				System.err.println(attributeRegistrerClass + " must implement ExecutableCommand");
 		} catch (Exception e) {
 			
 		}

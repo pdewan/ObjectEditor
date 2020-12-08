@@ -28,10 +28,10 @@ public abstract class SBTextComponentAdapter extends TextComponentAdapter {
     return sb;
   }
   public void insertUpdate(DocumentEvent e) {	  int pos = e.getOffset();	  char newChar = jtf.getText().charAt(pos);
-	  System.out.println("inserted" + newChar + "at pos" + pos);	  sb.insert(pos,newChar);
+	  System.err.println("inserted" + newChar + "at pos" + pos);	  sb.insert(pos,newChar);
   }
 
-  public void removeUpdate(DocumentEvent e) { 	   int pos = e.getOffset();	   System.out.println("removing at pos" + pos);
+  public void removeUpdate(DocumentEvent e) { 	   int pos = e.getOffset();	   System.err.println("removing at pos" + pos);
 	  AMutableString.removeElementAt(sb, pos, 1);	 
   }
    public void keyTyped (KeyEvent k) {	  if (actionPerformed)		  actionPerformed = false;	  else

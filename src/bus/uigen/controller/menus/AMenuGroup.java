@@ -99,7 +99,7 @@ public class AMenuGroup {
 		else if (menu instanceof VirtualMenu && childMenu instanceof VirtualMenuItem)
 			((VirtualMenu) menu).add((VirtualMenuItem)childMenu);
 		else
-			System.out.println("E**: Could not add:" + childMenu.getClass() + " to" + menu.getClass());
+			System.err.println("E**: Could not add:" + childMenu.getClass() + " to" + menu.getClass());
 	}
 	public static void add (VirtualMenuContainer menu, String item) {
 		

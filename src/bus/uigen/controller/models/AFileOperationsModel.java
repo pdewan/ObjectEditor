@@ -180,7 +180,7 @@ public class AFileOperationsModel extends ABasicFileOperationsModel implements F
 		*/
 		//fileDialog.setFile(this.getTitle() + ".obj");
 		fileDialog.setVisible(true);
-		//System.out.println (fileDialog.getFile());
+		//System.err.println (fileDialog.getFile());
 		String fileName = fileDialog.getFile();
 		String directoryName = fileDialog.getDirectory();
 		if (fileName == null) return; 
@@ -372,7 +372,7 @@ public class AFileOperationsModel extends ABasicFileOperationsModel implements F
 		*/
 		//fileDialog.setFile(this.getTitle() + ".obj");
 		textFileDialog.setVisible(true);
-		//System.out.println (fileDialog.getFile());
+		//System.err.println (fileDialog.getFile());
 		lastTextFileName = textFileDialog.getFile();
 		lastTextDirectoryName = textFileDialog.getDirectory();
 		if (lastTextFileName == null) return; 
@@ -406,10 +406,10 @@ public class AFileOperationsModel extends ABasicFileOperationsModel implements F
 		(new ToTextAdapterVisitor(frame.getBrowser().getOriginalAdapter())).traverse(frame.getBrowser().getOriginalAdapter(), results, 0, 0);
 		for (int i = 0; i < results.size(); i++ ) {
 			sb.append((String) results.elementAt(i));
-			System.out.println(results.elementAt(i));
+			System.err.println("Save text " + results.elementAt(i));
 		}
-		System.out.println(fileName);
-		//System.out.println(sb.toString());
+		System.err.println("Save text:" + fileName);
+		//System.err.println(sb.toString());
 		
 
 		try {

@@ -21,11 +21,11 @@ public class RegisterObject {
 
   public static void main(String[] args) {
     if (args.length != 2) {
-      System.out.println("Usage is java RegisterObject <bus agent name> <object name>");
+      System.err.println("Usage is java RegisterObject <bus agent name> <object name>");
       System.exit(0);
     }
     Integer n = new Integer(10);
     String gid = register(args[0], n, args[1]);
-    System.out.println("Registered object: "+gid);
+    System.err.println("Registered object: "+gid);
   }
 }

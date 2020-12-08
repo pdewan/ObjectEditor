@@ -38,7 +38,7 @@ TextComponentAdapter {
   ModelClass modelObject = null;			   
     public VirtualComponent instantiateComponent(ClassProxy cclass, ObjectAdapter adapter) {	  //modelObject = new ModelClass(getObjectAdapter().getPropertyClass());  //expecting to inherit the getObjAdpt() from super.super...uiWidgetAdaptper
 
-	  System.out.println("instantiating jtextfield with decinc " + DECINCUNIT + ", " + NUM_COLUMNS);	  //jDItf = new DecIncWidget("", NUM_COLUMNS, DECINCUNIT);  //pass in object
+	  System.err.println("instantiating jtextfield with decinc " + DECINCUNIT + ", " + NUM_COLUMNS);	  //jDItf = new DecIncWidget("", NUM_COLUMNS, DECINCUNIT);  //pass in object
 	  try {
 	  Object widget = cclass.newInstance();
 	  if (widget instanceof DecIncWidget)
@@ -91,7 +91,7 @@ TextComponentAdapter {
 
 	    //	System.out.println("instantiating jtextfield for class " + getObjectAdapter().getPropertyClass().getName());			 			modelObject = new ModelClass(getObjectAdapter().getPropertyClass());  //expecting to inherit the getObjAdpt() from super.super...uiWidgetAdaptper			
 			jDItf.setModelObject(modelObject);
-			jDItf.setObjectAdapter(this.getObjectAdapter());			modelCreated = true;		 }		 else			System.out.println("XXXXXXXXXattempt to make model failed");
+			jDItf.setObjectAdapter(this.getObjectAdapter());			modelCreated = true;		 }		 else			System.err.println("XXXXXXXXXattempt to make model failed");
 		 	 }	 	 	try {      jtf.setText((String) newval);
 	  text = (String) newval;    } catch (ClassCastException e) {
     }	 

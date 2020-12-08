@@ -41,6 +41,7 @@ import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 import util.models.ADynamicEnum;
 import util.models.AListenableVector;
+import util.models.ATerminalModel;
 import util.models.DynamicEnum;
 import util.pipe.AConsoleModel;
 import util.trace.Tracer;
@@ -239,10 +240,10 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 		//if(args.length == 6 || args.length == 7){
 			shareBeans = true;
 			if(runUIComponentOnly){
-				System.out.println("Running a locally-non-replicated uigen instance: no dynamic program replication allowed");
+				System.err.println("Running a locally-non-replicated uigen instance: no dynamic program replication allowed");
 			}
 			if(unserializableOutput){
-				System.out.println("Only Replicated sharing allowed");
+				System.err.println("Only Replicated sharing allowed");
 				args[4] = "true";
 			}
 		}
@@ -253,7 +254,7 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 			try {
 				//System.out.println(args.length);
 				//objectClassName = args[0];
-				System.out.println(args[0]);
+				System.err.println("Args 0:" + args[0]);
 				//internalNewInstance(toClassName(toCompleteName(toShortName(args[0]))));
 				//processFile(toCompleteName(toShortName(args[0])));
 				if( args.length == 5 ){
@@ -587,7 +588,9 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 		//if (AttributeRegistry.get(APropertyAndCommandFilter.class) == null)
 		AttributeRegistry.setAttributeRegisterer(AClassProxy.classProxy(AListenableVector.class), AClassProxy.classProxy(AListenableVectorAR.class));
 
+		AttributeRegistry.setAttributeRegisterer(AClassProxy.classProxy(ATerminalModel.class), AClassProxy.classProxy( bus.uigen.ars.ATerminalModelAR.class));
 		AttributeRegistry.setAttributeRegisterer(AClassProxy.classProxy(AConsoleModel.class), AClassProxy.classProxy(AConsoleModelAR.class));
+
 		AttributeRegistry.setAttributeRegisterer(AClassProxy.classProxy(StringBuilder.class), AClassProxy.classProxy(StringBuilderAR.class));
 
 		AttributeRegistry.setAttributeRegisterer(AClassProxy.classProxy(java.awt.Point.class), AClassProxy.classProxy(bus.uigen.ars.PointAR.class));
@@ -674,6 +677,15 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 		/*		Container treeComponent = frame.treeComponent();
 		uiObjectAdapter treeRoot = uiGenerator.generateInUIPanel(frame, obj, null,   null, treeContainer, null, treeComponent);		frame.setTreeRoot(treeRoot);		*/
 		//return treeContainer;				}
+	static boolean doPrints = true;
+	public static boolean isDoPrints() {
+		return doPrints;
+	}
+
+	public static void setDoPrints(boolean doPrints) {
+		ObjectEditor.doPrints = doPrints;
+	}
+
 	public static synchronized uiFrame drawEdit(Object obj) {
 		VirtualFrame frame = FrameSelector.createFrame();		
 		uiFrame editor = OEFrameSelector.createFrame(frame, frame.getContentPane());
@@ -1429,7 +1441,7 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 								  java.util.List<Hashtable> attributeTableList, boolean rootPanel) {
 		if (objects == null || containers == null) return null;
 		if (objects.length != containers.length) {
-			System.out.println("Browse Exception: object and container arrays of different lengths");
+			System.err.println("Browse Exception: object and container arrays of different lengths");
 			return null;
 		}
 		//uiFrame uiF = FrameSelector.createFrame(frame, frameContainer);
@@ -1460,7 +1472,7 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 		if (objects == null || containers == null)
 			return null;
 		if (objects.length != containers.length) {
-			System.out
+			System.err
 					.println("Browse Exception: object and container arrays of different lengths");
 			return null;
 		}
@@ -1507,7 +1519,7 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 	public static uiFrame treeBrowse (uiFrame uiF, Object[] treeObjects, VirtualContainer[] treeContainers,
 								  Object[] objects, VirtualContainer[] containers) {
 		if (treeObjects.length != treeContainers.length) {
-			System.out.println("E***treeBrowse: length of tree objects and containsers does not match");
+			System.err.println("E***treeBrowse: length of tree objects and containsers does not match");
 			return null;
 		}
 		for (int i = 0; i < treeObjects.length; i++)
@@ -1705,7 +1717,7 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 	public static uiFrame edit (VirtualFrame frame, VirtualContainer frameContainer,
 								  Object[] objects, VirtualContainer[] containers) {
 		if (objects.length != containers.length) {
-			System.out.println("Edit Exception: object and container arrays of different lengths");
+			System.err.println("Edit Exception: object and container arrays of different lengths");
 			return null;
 		}
 		uiFrame uiF = OEFrameSelector.createFrame(frame, frameContainer);
@@ -2083,7 +2095,7 @@ public static uiFrame editInTreeContainer(	Object object, VirtualContainer tree)
 								  Object[] objects, VirtualContainer[] containers, boolean rootPanel) {
 		if (objects == null || containers == null) return null;
 		if (objects.length != containers.length) {
-			System.out.println("Edit Exception: object and container arrays of different lengths");
+			System.err.println("Edit Exception: object and container arrays of different lengths");
 			return null;
 		}
 		//uiFrame uiF = FrameSelector.createFrame(frame, frameContainer);
@@ -2539,7 +2551,7 @@ public static boolean withAttributeRegisterer() {
 		if (firstLevels.size() == 0)
 			return edit(o, (String) null);
 		else {
-			System.out.println("Found HT: " + o);
+			System.err.println("Found HT: " + o);
 			Vector secondLevels = null;			
 			ObjectAdapter firstKey = getFirstKey(firstLevels);
 			Object firstKeyValue;
@@ -2549,7 +2561,7 @@ public static boolean withAttributeRegisterer() {
 				firstKeyValue =  firstKey.getExpandedAdapter().getRealObject();
 				secondLevels = nextLevelHTs(firstLevels);
 			}			
-			System.out.println("First key Value" +  firstKeyValue);
+			System.err.println("First key Value" +  firstKeyValue);
 			//Vector secondLevels = nextLevelHTs(firstLevels);
 			if (secondLevels == null || secondLevels.size() == 0) {
 				return treeBrowse(o, firstKeyValue);
@@ -2827,7 +2839,7 @@ public static synchronized CompleteOEFrame edit(Object o, boolean showMenus, Men
 			String command = commandHeader+" logging.logger.LoggerUIStarter "+loggerUIRMIName;
 			Process p = Runtime.getRuntime().exec(command,null);
 		} catch (Exception e){
-			System.out.println(e.getMessage());
+			System.err.println("OE Edit:" + e.getMessage());
 			e.printStackTrace();
 		}
 		if (ObjectEditor.colabMode()) {
@@ -3168,14 +3180,14 @@ public static synchronized CompleteOEFrame edit(Object o, boolean showMenus, Men
 		int omittedLength = Integer.parseInt("" + origFileName.charAt(i+1)); 
 		String fileName = toShortName(origFileName.toLowerCase());
 		i = fileName.lastIndexOf('~');
-		System.out.println("omitted length" + omittedLength);
+		System.err.println("omitted length" + omittedLength);
 		String prefix = fileName.substring(0,i);		
-		System.out.println("prefix" + prefix);
+		System.err.println("prefix" + prefix);
 		i = fileName.lastIndexOf(".");
 		String suffix = "";
 		if (i >= 0 && i < fileName.length())
 		  suffix = fileName.substring(i, fileName.length());				
-		System.out.println("suffix" + suffix);
+		System.err.println("suffix" + suffix);
 		//File dir = new File(".");
 		File dir = new File(directoryName);
 		String[] files = dir.list();
@@ -3251,7 +3263,7 @@ public static synchronized CompleteOEFrame edit(Object o, boolean showMenus, Men
 
 	public ObjectEditor(boolean loadFile) {
 		init();
-		System.out.println("Creating object editor");		
+		System.err.println("Creating object editor");		
 		if (loadFile)
 		    loadState();
 		//readDirectory();

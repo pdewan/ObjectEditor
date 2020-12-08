@@ -74,7 +74,7 @@ import bus.uigen.sadapters.ConcreteTextShape;
 					curveShape.setControlY2(controlY2);
 				oldControlX2 = controlX2;
 				oldControlY2 = controlY2;
-		} catch (Exception e) {		  System.out.println("E**: exception invoking control methods");		  e.printStackTrace();
+		} catch (Exception e) {		  System.err.println("E**: exception invoking control methods");		  e.printStackTrace();
 		}	
 	  return shape;   }
   public boolean recalculateRealObject() {
@@ -99,7 +99,7 @@ import bus.uigen.sadapters.ConcreteTextShape;
 			retVal = true;
 		  }
 		  oldControlY = controlY;	
-		} catch (Exception e) {		  System.out.println("E**: exception invoking set angle  methods");		  e.printStackTrace();
+		} catch (Exception e) {		  System.err.println("E**: exception invoking set angle  methods");		  e.printStackTrace();
 		}	  return retVal;
   }
   public static CurveAdapter createCurveAdapter (Object obj,											  Object obj1, 											  Object parentObject, 											  String name, 											  Class inputClass, 											  boolean propertyFlag, 											  ObjectAdapter adaptor)throws RemoteException  {

@@ -118,9 +118,9 @@ public class EditorRegistry {
 	  registerEditors();
   }
 static void registerEditors() {
-	//System.out.println("checking if editors registered");
+	//System.err.println("checking if editors registered");
 	//if (editorsRegistered) return;
-	//System.out.println("registering editors");
+	//System.err.println("registering editors");
 	try {
 		/*
 		registerWidget("slm.SLModel", "java.awt.Container", "bus.uigen.editors.ShapesAdapter");
@@ -186,7 +186,7 @@ static void registerEditors() {
 		
 	} catch (Exception e) {
 		e.printStackTrace();
-		System.out.println("While registering:" + e);
+		System.err.println("While registering:" + e);
 	}
 	//editorsRegistered = true;
 }

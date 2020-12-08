@@ -262,18 +262,18 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 
 	void print(ClassProxy[] classes) {
 		for (int i = 0; i < classes.length; i++)
-			System.out.println(classes[i]);
+			System.err.println(classes[i]);
 	}
 
 	// need a virtual class here
 	protected AClassDescriptor(ClassProxy c) {
-		// System.out.println("CD" + c);
+		// System.err.println("CD" + c);
 		// Class[] classes;
-		// System.out.println ("classes");
+		// System.err.println ("classes");
 		// print(c.getClasses());
-		// System.out.println ("declared classes");
+		// System.err.println ("declared classes");
 		// print(c.getDeclaredClasses());
-		// System.out.println( "component type" + c.getComponentType());
+		// System.err.println( "component type" + c.getComponentType());
 		// setClass(c);
 		init(c);
 	}
@@ -532,13 +532,13 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 
 	public AClassDescriptor(ClassProxy c, Object thePrototypeObject,
 			String theVirtualClass) {
-		// System.out.println("CD" + c);
+		// System.err.println("CD" + c);
 		// Class[] classes;
-		// System.out.println ("classes");
+		// System.err.println ("classes");
 		// print(c.getClasses());
-		// System.out.println ("declared classes");
+		// System.err.println ("declared classes");
 		// print(c.getDeclaredClasses());
-		// System.out.println( "component type" + c.getComponentType());
+		// System.err.println( "component type" + c.getComponentType());
 		prototypeObject = thePrototypeObject;
 		if (prototypeObject != null)
 			prototypeInitialized = true;
@@ -582,7 +582,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 		util.annotations.BooleanAttributes booleanAttributes = (util.annotations.BooleanAttributes) elementProxy
 				.getAnnotation(util.annotations.BooleanAttributes.class);
 		/*
-		 * if (booleanAttributes != null) { System.out.println ("" + realClass);
+		 * if (booleanAttributes != null) { System.err.println ("" + realClass);
 		 * }
 		 */
 		Vector<Attribute> booleanAttributeVector = toAttributeVector(booleanAttributes);
@@ -867,7 +867,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 		// customizer = new ClassDescriptorCustomizer(this);
 		
 		if (c.equals(c.proxyClass())) 
-			System.out.println("Proxy Class");
+			System.err.println("Proxy Class");
 
 		setClass(c);
 		boolean componentsIgnored = ClassIntrospectionFilterer.componentsIgnored(c);
@@ -945,7 +945,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 		FieldProxy[] f = c.getFields();
 		int i, modifiers;
 		for (i = 0; i < f.length; i++) {
-			// System.out.println("field" + f[i].getName());
+			// System.err.println("field" + f[i].getName());
 			modifiers = f[i].getModifiers();
 			if (Modifier.isPublic(modifiers)
 			// && Modifier.isStatic(modifiers)
@@ -956,7 +956,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 		}
 		/*
 		 * f = c.getDeclaredFields(); for (i=0; i<f.length; i++) {
-		 * System.out.println("field" + f[i].getName()); modifiers =
+		 * System.err.println("field" + f[i].getName()); modifiers =
 		 * f[i].getModifiers(); if (Modifier.isPublic(modifiers) &&
 		 * Modifier.isStatic(modifiers) && Modifier.isFinal(modifiers)) { if
 		 * (!vc.contains(f[i])) vc.addElement(f[i]); } else if
@@ -1067,7 +1067,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			if (i >= 0 && i <= cName.length()) {
 				numContainedInterfaceNames++;
 				containedInterfaceName = iName;
-				// System.out.println("found " + containedInterfaceName);
+				// System.err.println("found " + containedInterfaceName);
 			}
 		}
 		if (numContainedInterfaceNames == 1)
@@ -1451,7 +1451,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			// Check if the method belongs to a super class
 			/*
 			 * if (m.getName().equals("calculateBMI"))
-			 * System.out.println(" Method " + m + "Declaring class" +
+			 * System.err.println(" Method " + m + "Declaring class" +
 			 * m.getDeclaringClass() + " class " + c);
 			 */
 			if (!m.isMethod()
@@ -1623,7 +1623,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			Object value) {
 		PropertyDescriptorProxy pd = getPropertyDescriptor(property);
 		/*
-		 * if (pd == null) {System.out.println("Unknown property " + property);
+		 * if (pd == null) {System.err.println("Unknown property " + property);
 		 * else pd.setValue(attribute, value);
 		 */
 		if (pd == null) {
@@ -1659,7 +1659,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 	public Object getPropertyAttribute(String property, String attribute) {
 		PropertyDescriptorProxy pd = getPropertyDescriptor(property);
 		/*
-		 * if (pd == null) {System.out.println("Unknown property " + property);
+		 * if (pd == null) {System.err.println("Unknown property " + property);
 		 * else pd.setValue(attribute, value);
 		 */
 		if (pd == null) {
@@ -1695,7 +1695,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			return null;
 		MethodDescriptorProxy md = this.getMethodDescriptor(method);
 		if (md == null) {
-			// System.out.println("Unknown method " + method);
+			// System.err.println("Unknown method " + method);
 			/*
 			 * VirtualMethodDescriptor vmd =
 			 * namesToMethodDescriptors.get(method); if (vmd == null) { vmd =
@@ -1717,7 +1717,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			return null;
 		MethodDescriptorProxy md = this.getMethodDescriptor(method);
 		if (md == null) {
-			// System.out.println("Unknown method " + method);
+			// System.err.println("Unknown method " + method);
 			/*
 			 * VirtualMethodDescriptor vmd =
 			 * namesToMethodDescriptors.get(method); if (vmd == null) { vmd =
@@ -1794,7 +1794,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 	public void setMethodAttribute(String method, String attribute, Object value) {
 		MethodDescriptorProxy md = this.getMethodDescriptor(method);
 		if (md == null) {
-			// System.out.println("Unknown method " + method);
+			// System.err.println("Unknown method " + method);
 			/*
 			 * VirtualMethodDescriptor vmd =
 			 * namesToMethodDescriptors.get(method); if (vmd == null) { vmd =
@@ -2117,11 +2117,11 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 	private void initMethods(ClassProxy c) {
 		Vector vm = new Vector();
 		MethodProxy[] m = c.getMethods();
-		// System.out.println("get methods called for "+ c.getName() +
+		// System.err.println("get methods called for "+ c.getName() +
 		// m.length);
 		int i, modifiers;
 		for (i = 0; i < m.length; i++) {
-			System.out.println(m[i].getName());
+			System.err.println(m[i].getName());
 			modifiers = m[i].getModifiers();
 			if (Modifier.isPublic(modifiers))
 				vm.addElement(m[i]);
@@ -2132,7 +2132,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 			methods[i] = new AMethodDescriptorProxy(
 					(MethodProxy) vm.elementAt(i));
 
-			// System.out.println(methods[i].getName());
+			// System.err.println(methods[i].getName());
 		}
 		initMethodAttribs();
 		// why was this call there?
@@ -2235,7 +2235,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 					}
 				}
 			} catch (Exception e) {
-				System.out.println("Dynamic Properties: " + e);
+				System.err.println("Dynamic Properties: " + e);
 			}
 		}
 		dynamicPropertyDescriptors = v;
@@ -2318,7 +2318,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("Dynamic Properties: " + e);
+				System.err.println("Dynamic Properties: " + e);
 			}
 		}
 		dynamicMethodDescriptors = v;
@@ -2398,7 +2398,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 	 * null) { for (int i = 0; i < dynamicProperties.size(); i++) {
 	 * v.addElement(new PropertyDescriptor
 	 * (dynamicProperties.elementAt(0).toString(), null, null)); } } } catch
-	 * (Exception e) { System.out.println ("Dynamic Properties: " + e); } }
+	 * (Exception e) { System.err.println ("Dynamic Properties: " + e); } }
 	 * return v;
 	 * 
 	 * }
@@ -2522,7 +2522,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 				 * dynamicProperties.size(); i++) { v.addElement(new
 				 * PropertyDescriptor
 				 * (dynamicProperties.elementAt(0).toString(), null, null)); } }
-				 * } catch (Exception e) { System.out.println
+				 * } catch (Exception e) { System.err.println
 				 * ("Dynamic Properties: " + e); }
 				 */
 				dynamicPropertyDescriptors();
@@ -2546,7 +2546,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 				}
 				// }
 			} catch (Exception e) {
-				System.out.println("Dynamic Properties: " + e);
+				System.err.println("Dynamic Properties: " + e);
 			}
 		}
 		//
@@ -2556,7 +2556,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 
 		/*
 		 * if (realClass.toString().indexOf("Number") != -1)
-		 * System.out.println("NumberClass");
+		 * System.err.println("NumberClass");
 		 */
 
 		PropertyDescriptorProxy[] pds;
@@ -3187,7 +3187,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 	 * return BeanInfoWriter.writeBeanInfo(this, filename); } // Expose this
 	 * method as Save in the File menu public boolean writeBeanInfo() { //return
 	 * BeanInfoWriter.writeBeanInfo(this, filename) && compile (fileName);
-	 * System.out.println("writing to file:" + beanFile); return
+	 * System.err.println("writing to file:" + beanFile); return
 	 * BeanInfoWriter.writeBeanInfo(this, beanFile); }
 	 */
 	/*
@@ -3198,7 +3198,7 @@ public class AClassDescriptor implements ClassDescriptorInterface, Serializable 
 	 * sun.tools.javac.Main compiler; try { compiler = new
 	 * sun.tools.javac.Main(System.err, "javac"); compiler.compile(arguments);
 	 * return true; } catch (Exception e) {
-	 * System.out.println("Could not load the JDK compiler"); //System.exit(1);
+	 * System.err.println("Could not load the JDK compiler"); //System.exit(1);
 	 * return false; } }
 	 */
 	private Object[] helpers = null;

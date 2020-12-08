@@ -15,7 +15,7 @@ public class ConstructorChooser {
   public ConstructorChooser(ClassProxy c) {
     //Constructor[] constructors = c.getConstructors();    //VirtualMethod[] constructors = ClassDescriptor.getConstructors(c);    MethodProxy[] constructors = c.getConstructors();
 	if (constructors.length == 0) {
-		System.out.println ("null constructor for " + c.getName());
+		System.err.println ("null constructor for " + c.getName());
 		return;
 	}	//uiFrame firstFrame = (uiFrame) uiFrameList.getList().elementAt(0);	//JFrame f;	    //firstFrame.setFontSize(JOptionPane.getRootFrame());		if (constructors.length == 1) constructor = constructors[0];    //else    constructor = (Constructor) JOptionPane.showInputDialog(null,    else    constructor = (MethodProxy) JOptionPane.showInputDialog(null,    		
 							    "Constructors",

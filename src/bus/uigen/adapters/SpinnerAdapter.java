@@ -211,7 +211,7 @@ public class SpinnerAdapter extends AbstractEnumerationWidgetAdapter {
 				}// end try
 
 				catch (Exception fcb) {
-					System.out.println("can't fill alts");
+					System.err.println("can't fill alts");
 				}
 
 				try {

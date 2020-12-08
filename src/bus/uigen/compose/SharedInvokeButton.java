@@ -34,7 +34,7 @@ public class SharedInvokeButton extends JButton implements ActionListener {  //n
 				targets[i] =  (AnObjectMethod)_objects.elementAt(i);
 		}
 		else 
-			System.out.println("Objects has no elements for ALL");
+			System.err.println("Objects has no elements for ALL");
 		
 		method = _method;
 		addActionListener(this);
@@ -44,7 +44,7 @@ public class SharedInvokeButton extends JButton implements ActionListener {  //n
 	public void actionPerformed(ActionEvent e) {
 				//not sure whether old uigen had threads for each invocation.	
 		try {
-		//		for (int j=0;   j < objects.length; j++)									System.out.println("trying invoke" + method + "on num obj" + targets.length);
+		//		for (int j=0;   j < objects.length; j++)									System.err.println("trying invoke" + method + "on num obj" + targets.length);
 													//uiMethodInvocationManager iman = new uiMethodInvocationManager(oeFrame,targets[0],targets,method);
 				MethodProxy firstMethod = ((AnObjectMethod) targets[0]).getMethod();
 				//uiMethodInvocationManager iman = new uiMethodInvocationManager(oeFrame,targets[0],targets,method);
@@ -53,7 +53,7 @@ public class SharedInvokeButton extends JButton implements ActionListener {  //n
 				//uiMethodInvocationManager iman = new uiMethodInvocationManager(null,null,objects,method);
 	
 				//uiMethodInvocationManager.invokeMethod(objects[j],method);
-							System.out.println("just invoked all");		
+							System.err.println("just invoked all");		
 		}
 		catch (Exception ex) {ex.printStackTrace();}	}
 	

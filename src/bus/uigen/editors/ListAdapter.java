@@ -45,7 +45,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 		//if (adapter instanceof uiContainerAdapter) return inputCol;
 		//not sure why this isAtomic is special cased out, commenting it
 		//if (!adapter.isAtomic()) return inputCol;		//String label = adapter.columnTitle(adapter);
-		String label = adapter.columnTitleJTable();		//System.out.println("Adapter: " + adapter.getID() + label);
+		String label = adapter.columnTitleJTable();		//System.err.println("Adapter: " + adapter.getID() + label);
 		int colNum = inputCol;
 		if (colNames[inputCol] == null) 
 			colNames[inputCol] = label;
@@ -61,7 +61,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 		//String label = adapter.columnTitle(adapter);
 		if (hasLabels) return;
 		String label = adapter.columnTitleJTable();
-		//System.out.println("Adapter: " + adapter.getID() + label);
+		//System.err.println("Adapter: " + adapter.getID() + label);
 		int colNum = inputCol;
 		if (colNames[inputCol] == null) 
 			colNames[inputCol] = label;
@@ -87,7 +87,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 			int colNum = inputColNum;// dont change the input col to move value		/*		if (maybeRegisterClass(adapter))
 			customEditor[inputColNum] = true;		*/
 					//maybeRegisterClass(adapter, colNum);
-		//System.out.println("Assigning " + adapter.toString() + " row" + rowNum + " col " + colNum);		int matrixSize = matrix.size();		for (int i = matrixSize; i <= rowNum ; i ++)			matrix.addElement(new Vector());
+		//System.err.println("Assigning " + adapter.toString() + " row" + rowNum + " col " + colNum);		int matrixSize = matrix.size();		for (int i = matrixSize; i <= rowNum ; i ++)			matrix.addElement(new Vector());
 		Vector row = (Vector) matrix.elementAt(rowNum);
 		int rowSize = row.size();
 		for (int i = rowSize; i <= colNum ; i ++)			row.addElement(uninitCell);		Object existingElement = row.get(colNum);
@@ -99,7 +99,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 		//labelColumn(adapter, rowNum, colNum);
 		
 		} catch (Exception e) {
-			//System.out.println(e);
+			//System.err.println(e);
 			e.printStackTrace();
 		}
 	}
@@ -195,7 +195,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 	public void linkUIComponentToMe(VirtualComponent component) {
 		frame = this.getObjectAdapter().getUIFrame();
 		if (component == spane)
-			System.out.println("spane");
+			System.err.println("spane");
 		if (component instanceof VirtualList  && virtualList != component) {
 		//if (component instanceof VirtualTable && parentVirtualTable == null &&!frame.isDummy()) {
 			//createParentVirtualTable();
@@ -289,7 +289,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 		//virtualTable.validate();
 		//virtualTable.updateUI();
 		
-		//System.out.println ("Autocreate? "  + virtualTable.getAutoCreateColumnsFromModel());
+		//System.err.println ("Autocreate? "  + virtualTable.getAutoCreateColumnsFromModel());
 		//initJTree((JTree) component);
 		/*
 		
@@ -323,7 +323,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 		int rowHeight = virtualTable.getRowHeight();		try {
 			for (int colNum = 0; colNum < this.getColumnCount(); colNum++) {				//int width;								refreshPreferredColumnSize(colNum);							}
 			//virtualTable.getColumnModel().getColumn(colNum).sizeWidthToFit();
-		} catch (Exception e) {			System.out.println("refresh preferred column size " + e);
+		} catch (Exception e) {			System.err.println("refresh preferred column size " + e);
 			e.printStackTrace();
 		}	}
 	*/
@@ -432,7 +432,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 	}
 	
 	public void printSelection() {
-		System.out.println ("Selection. Min Row " + minSelRow + " Max Row " + maxSelRow
+		System.err.println ("Selection. Min Row " + minSelRow + " Max Row " + maxSelRow
 							+ " Min Col " + minSelCol + " Max Col " + maxSelCol);
 		//virtualTable.clearSelection();
 	}
@@ -484,9 +484,9 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 		ListSelectionModel lsm = (ListSelectionModel) e.getSource();
 		if (minSelCol == lsm.getMinSelectionIndex() && maxSelCol == lsm.getMaxSelectionIndex()) return;
 		minSelCol = lsm.getMinSelectionIndex();
-		maxSelCol = lsm.getMaxSelectionIndex();		//System.out.println("Col Event");		//printSelection();		processSelectionEvent();
-		/*		System.out.println("New selected col: " + min + " lead " + colNum);
-		System.out.println("Selected index. minx: " + lsm.getMinSelectionIndex() + " max " + lsm.getMaxSelectionIndex());
+		maxSelCol = lsm.getMaxSelectionIndex();		//System.err.println("Col Event");		//printSelection();		processSelectionEvent();
+		/*		System.err.println("New selected col: " + min + " lead " + colNum);
+		System.err.println("Selected index. minx: " + lsm.getMinSelectionIndex() + " max " + lsm.getMaxSelectionIndex());
 		*/		
 	}	public void valueChanged(ListSelectionEvent e)  {
 		if (updatingUI) return;
@@ -514,7 +514,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 	}	public void noItemSelected() {		clearSelection();
 	}	public void multipleItemsSelected() {
 		JList list = (JList) virtualList.getPhysicalComponent();		
-		//System.out.println ("Column Selection Allowed" + lis.getColumnSelectionAllowed());
+		//System.err.println ("Column Selection Allowed" + lis.getColumnSelectionAllowed());
 		internalTableEvent = true;
 		//clearSelection();
 		/*
@@ -576,16 +576,16 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 			return;
 		}
 				TreePath treePath   = jTree.getSelectionPath();		TreePath eventPath = e.getNewLeadSelectionPath();		TreePath eventPathOld   = e.getOldLeadSelectionPath();
-		if (treePath == null)   {			//System.out.println("null selection");
+		if (treePath == null)   {			//System.err.println("null selection");
 			return;
 		}		uiObjectAdapter treeNode = (uiObjectAdapter) treePath.getLastPathComponent();
 		
-		uiObjectAdapter newTreeNode =   (uiObjectAdapter) eventPath.getLastPathComponent();		//System.out.println("calling   select" + treeNode);
+		uiObjectAdapter newTreeNode =   (uiObjectAdapter) eventPath.getLastPathComponent();		//System.err.println("calling   select" + treeNode);
 		TreePath[] selectedPaths = jTree.getSelectionPaths();
 		Vector selectedTreeNodes = new Vector();		for (int i = 0; i   < selectedPaths.length; i++) {
-			//System.out.println("no:" + i + "node" +   selectedPaths[i]);
+			//System.err.println("no:" + i + "node" +   selectedPaths[i]);
 			selectedTreeNodes.addElement((uiObjectAdapter)selectedPaths[i].getLastPathComponent());		}
-		//System.out.println(selectedNodes);		treeSelected = true;
+		//System.err.println(selectedNodes);		treeSelected = true;
 		uiSelectionManager.replaceSelections(selectedTreeNodes);
 		if (frame != null)		frame.setTitle();
 				
@@ -593,7 +593,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 		
 				//uiSelectionManager.select(treeNode,   true);		//uiSelectionManager.replaceSelections(treeNode);
 		//treeNode.uiComponentFocusGained();		//replaceFrame();
-		//System.out.println("TreeNode is   " + treeNode);
+		//System.err.println("TreeNode is   " + treeNode);
 		
 			}
 	public void clearTreeSelection() {
@@ -602,10 +602,10 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 	public void setJTreeSelectionPaths(TreePath[]   selectedPaths) {		
 		
 		//jTree.clearSelection();     
-		//System.out.println("Selected Paths"   + selectedPaths);
+		//System.err.println("Selected Paths"   + selectedPaths);
 		
-		//TreePath createdTreePath = jTree.getPathForLocation(0,0);		//System.out.println(createdTreePath);		//createdTreePath.pathByAddingChild(topAdapter);
-		//System.out.println(selectedPaths[0]);
+		//TreePath createdTreePath = jTree.getPathForLocation(0,0);		//System.err.println(createdTreePath);		//createdTreePath.pathByAddingChild(topAdapter);
+		//System.err.println(selectedPaths[0]);
 		//jTree.setSelectionPaths(selectedPaths);		//jTree.setSelectionPath(createdTreePath);
 		internalTreeEvent   = true;
 				if ((jTree !=   null) && frame.treePanelIsVisible())			jTree.setSelectionPaths(selectedPaths);
@@ -613,7 +613,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 	}	public void mouseClicked(MouseEvent e) {		
 		if ((e.getClickCount() == 2) ) {
 			TreePath treePath = jTree.getSelectionPath();			if (treePath == null) return;
-			System.out.println(treePath);			uiObjectAdapter treeNode = (uiObjectAdapter) treePath.getLastPathComponent();
+			System.err.println(treePath);			uiObjectAdapter treeNode = (uiObjectAdapter) treePath.getLastPathComponent();
 			if (!uiMethodInvocationManager.invokeDoubleClickMethod(treeNode))				frame.replaceFrame(treeNode);
 		}		
 		//if (listener !=   null) 
@@ -714,7 +714,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 			this.refreshPreferredColumnSize();
 		this.refreshPreferredRowSize(getRowNum);
 		cellEditorListeners.addElement(l);
-		//System.out.println("leaving register listener");
+		//System.err.println("leaving register listener");
 		
 		//refreshPreferredColumnSize();
 		//virtualTable.updateUI();
@@ -760,7 +760,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
  int getRowNum = -1;
  int getColumnNum = -1; public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
 	 try {
-		 System.out.println("getTableCellEditor called");
+		 System.err.println("getTableCellEditor called");
 	 getValue = value;
 	 getRowNum = row;
 	 getColumnNum = column;
@@ -768,7 +768,7 @@ public class ListAdapter extends WidgetAdapter /*extends Frame*/
 	 uiObjectAdapter adapter = get(row, column);
 	 return (Component) adapter.getUIComponent().getPhysicalComponent();	 
 	 } catch (Exception e) {
-		 System.out.println("getTableCelleditor " + e);
+		 System.err.println("getTableCelleditor " + e);
 		 return new TextField("Error Component");
 		 //return TextFieldSelector.createTextField("Error Component");
 	 }

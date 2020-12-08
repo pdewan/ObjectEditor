@@ -342,7 +342,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 	}
 
 	public void setSecondaryObjectAdapter(ObjectAdapter newVal) {
-		// System.out.println("Adding secondary " + newVal.getID());
+		// System.err.println("Adding secondary " + newVal.getID());
 		secondaryObjectAdapter = newVal;
 		// containerAdapterTable.put(frame.getSecondaryScrollPane(), newVal);
 		/*
@@ -395,7 +395,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 	 * JSplitPane(direction);
 	 * 
 	 * 
-	 * //System.out.println("size" + size.width + " " + size.height);
+	 * //System.err.println("size" + size.width + " " + size.height);
 	 * //splitPane.setDividerLocation(0.5); //splitPane.setLeftComponent(spane);
 	 * //splitPane.setRightComponent(newScrollPane); if (secondPanel) {
 	 * parent.add(splitPane);
@@ -480,7 +480,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		 * JSplitPane(direction);
 		 * 
 		 * 
-		 * //System.out.println("size" + size.width + " " + size.height);
+		 * //System.err.println("size" + size.width + " " + size.height);
 		 * //splitPane.setDividerLocation(0.5);
 		 * //splitPane.setLeftComponent(spane);
 		 * //splitPane.setRightComponent(newScrollPane); if (secondPanel) {
@@ -523,30 +523,30 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 	// removing this as there are no references
 	/*
 	 * public void changeChildPanelLayered(VirtualContainer newChildPanel) {
-	 * //System.out.e(childPanel); //newChildPanel.setVisible(false);
+	 * //System.err.e(childPanel); //newChildPanel.setVisible(false);
 	 * //spane.remove(childPanel); //childPanel.setVisible(false); //childPanel =
 	 * newChildPanel; //spane.add(newChildPanel);
 	 * //newChildPanel.setVisible(true); layeredPane.add(newChildPanel);
-	 * //System.out.println(spane.getComponentCount());
+	 * //System.err.println(spane.getComponentCount());
 	 * //mainPanel.add(childPanel); //this.doLayout(); //this.validate();
 	 * //this.repaint();
 	 *  }
 	 */
 	public void changeChildPanel(VirtualContainer newChildPanel) {
 		// if (spane == null) return;
-		// System.out.println("changing child panel");
-		// System.out.println(newChildPanel);
-		// System.out.println(spane);
-		// System.out.e(childPanel);
+		// System.err.println("changing child panel");
+		// System.err.println(newChildPanel);
+		// System.err.println(spane);
+		// System.err.e(childPanel);
 		newChildPanel.setVisible(false);
-		// System.out.println("new childPanel " + newChildPanel);
-		// System.out.println("childPanel" + newChildPanel + childPanel);
-		// System.out.println(spane);
+		// System.err.println("new childPanel " + newChildPanel);
+		// System.err.println("childPanel" + newChildPanel + childPanel);
+		// System.err.println(spane);
 		// spane.remove(childPanel);
-		// System.out.println("removing" + spane.getComponent(0));
+		// System.err.println("removing" + spane.getComponent(0));
 		if (currentRootPane.getComponentCount() > 0)
 			currentRootPane.remove(currentRootPane.getComponent(0));
-		// System.out.println("removed childPanel " + childPanel);
+		// System.err.println("removed childPanel " + childPanel);
 		// childPanel.setVisible(false);
 		childPanel = newChildPanel;
 		// if (spane != childPanel && newChildPanel.getParent() != null)
@@ -555,19 +555,19 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		newChildPanel.setBackground(currentRootPane.getBackground());
 		// mainScrollPane = spane;
 		// mainScrollPane.setName(this.MAIN_PANEL_NAME);
-		// System.out.println("added to spane" + newChildPanel);
+		// System.err.println("added to spane" + newChildPanel);
 		newChildPanel.setVisible(true);
-		// System.out.println("made visible");
-		// System.out.println(spane.getComponentCount());
+		// System.err.println("made visible");
+		// System.err.println(spane.getComponentCount());
 		// mainPanel.add(childPanel);
 		// this.doLayout();
 		// this.validate();
 		// this.repaint();
 		/*
-		 * System.out.println(childPanel);
-		 * System.out.println(childPanel.getComponentCount()); for (int i = 0; i <
+		 * System.err.println(childPanel);
+		 * System.err.println(childPanel.getComponentCount()); for (int i = 0; i <
 		 * childPanel.getComponentCount(); i++)
-		 * System.out.println(childPanel.getComponent(i));
+		 * System.err.println(childPanel.getComponent(i));
 		 */
 	}
 
@@ -607,27 +607,27 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 	}
 
 	public void changeToExistingAdapter(ObjectAdapter adapter) {
-		System.out.println("starting change to existing" + adapter);
+		System.err.println("starting change to existing" + adapter);
 		/*
-		 * System.out.println("change to exisiting"); debugScroll(adapter);
+		 * System.err.println("change to exisiting"); debugScroll(adapter);
 		 */
 
 		changeAdapter(adapter);
 		if (adapter == null)
 			return;
-		// System.out.println(adapter.getUIComponent());
+		// System.err.println(adapter.getUIComponent());
 		restoreAdapter(adapter);
 		// changeChildPanel( (VirtualContainer)
 		// adapter.getParentAdapter().getUIComponent());
 		changeRootPanel((VirtualContainer) adapter.getParentAdapter()
 				.getUIComponent());
-		// System.out.println("returned from child panel");
+		// System.err.println("returned from child panel");
 		// changeAdapter(adapter);
-		// System.out.println("returned from change Adapter");
+		// System.err.println("returned from change Adapter");
 		// adapter.refresh();
 		// deepElide(adapter);
 		frame.validate();
-		// System.out.println("finished validation");
+		// System.err.println("finished validation");
 		// this.repaint();
 	}
 
@@ -637,12 +637,12 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 				&& (currentAdapters.contains(adapter)
 						|| adapter.getRealObject() == drawing || adapter
 						.getRealObject() == adapterHistory)) {
-			// System.out.println("prev curent adapter " + adapter);
-			// System.out.println("current" +
+			// System.err.println("prev curent adapter " + adapter);
+			// System.err.println("current" +
 			// currentAdapters.contains(adapter));
-			// System.out.println("drawing" + (adapter.getRealObject() ==
+			// System.err.println("drawing" + (adapter.getRealObject() ==
 			// drawing));
-			// System.out.println("history" + (adapter.getRealObject() ==
+			// System.err.println("history" + (adapter.getRealObject() ==
 			// adapterHistory));
 
 			/*
@@ -650,7 +650,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 			 * adapter.getParentAdapter().getUIComponent().getParent();
 			 * //childPanel = (Container)
 			 * adapter.getParentAdapter().getUIComponent();
-			 * //System.out.println(childPanel.getParent()); spane =
+			 * //System.err.println(childPanel.getParent()); spane =
 			 * (ScrollPane) childPanel.getParent();
 			 */
 			// this.resetScrollPane(adapter);
@@ -658,7 +658,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 			// topAdapter = adapter;
 			return skipPrevCurrentAdapters(adapterHistory.toPrevAdapter());
 		} else {
-			System.out.println("prev adapter " + adapter);
+			System.err.println("prev adapter " + adapter);
 			return adapter;
 		}
 	}
@@ -669,11 +669,11 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 				&& (currentAdapters.contains(adapter)
 						|| adapter.getRealObject() == drawing || adapter
 						.getRealObject() == adapterHistory)) {
-			// System.out.println("next curent adapter " + adapter);
+			// System.err.println("next curent adapter " + adapter);
 			/*
 			 * childPanel = (Container)
 			 * adapter.getParentAdapter().getUIComponent().getParent();
-			 * //System.out.println(childPanel.getParent()); spane =
+			 * //System.err.println(childPanel.getParent()); spane =
 			 * (ScrollPane) childPanel.getParent();
 			 */
 			// resetScrollPane(adapter);
@@ -682,7 +682,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 			return skipNextCurrentAdapters(adapterHistory.toNextAdapter());
 		} else {
 
-			// System.out.println("next adapter " + adapter);
+			// System.err.println("next adapter " + adapter);
 			return adapter;
 		}
 	}
@@ -692,18 +692,18 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 			return;
 		int index = currentAdapters.indexOf(cur);
 		if (index < 0)
-			System.out.println("current adapter not there");
+			System.err.println("current adapter not there");
 		else {
-			// System.out.println("cur" + cur);
-			// System.out.println("next" + cur);
-			// System.out.println("index" + index);
+			// System.err.println("cur" + cur);
+			// System.err.println("next" + cur);
+			// System.err.println("index" + index);
 			frame.getToolbarManager().removeToolBarButtons(cur);
 			frame.getToolbarManager().addToolBarButtons(next);
-			System.out.println(currentAdapters);
+			System.err.println(currentAdapters);
 			currentAdapters.removeElement(cur);
 			currentAdapters.insertElementAt(next, index);
-			System.out.println("after swap");
-			// System.out.println(currentAdapters);
+			System.err.println("after swap");
+			// System.err.println(currentAdapters);
 		}
 
 	}
@@ -774,7 +774,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		if (getOriginalAdapter() == null || origAdapter.getRealObject() == null) {
 			// origAdapter = adapter;
 			setOriginalAdapter(adapter);
-			// System.out.println("original adapter" + origAdapter);
+			// System.err.println("original adapter" + origAdapter);
 		}
 
 		swapCurrentAdapters(topAdapter, adapter);
@@ -792,8 +792,8 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 			// setSaveMenuItemEnabled(isSavable(topAdapter));
 			// frame.setSaveAsMenuItemEnabled(frame.isSavable(getOriginalAdapter()));
 			notifySaveAsListeners(frame.isSavable(getOriginalAdapter()));
-		// System.out.println(currentAdapters);
-		// System.out.println(obj);
+		// System.err.println(currentAdapters);
+		// System.err.println(obj);
 
 		/*
 		 * if (!isSavable(topAdapter)) //if (!(obj instanceof
@@ -808,22 +808,22 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		 */
 		// Set the frame title
 		/*
-		 * System.out.println("change:"); adapter = adapter.getParentAdapter();
-		 * System.out.println("adaptor" + adapter); Component component =
-		 * adapter.getUIComponent(); //System.out.println("component" +
-		 * component); //System.out.println("parent adaptor" +
-		 * adapter.getParentAdapter()); System.out.println("parent component" +
+		 * System.err.println("change:"); adapter = adapter.getParentAdapter();
+		 * System.err.println("adaptor" + adapter); Component component =
+		 * adapter.getUIComponent(); //System.err.println("component" +
+		 * component); //System.err.println("parent adaptor" +
+		 * adapter.getParentAdapter()); System.err.println("parent component" +
 		 * component.getParent());
 		 */
 	}
 
 	public void debugScroll(ObjectAdapter adapter) {
 		adapter = adapter.getParentAdapter();
-		System.out.println("adaptor" + adapter);
+		System.err.println("adaptor" + adapter);
 		VirtualComponent component = adapter.getUIComponent();
-		// System.out.println("component" + component);
-		// System.out.println("parent adaptor" + adapter.getParentAdapter());
-		System.out.println("parent component" + component.getParent());
+		// System.err.println("component" + component);
+		// System.err.println("parent adaptor" + adapter.getParentAdapter());
+		System.err.println("parent component" + component.getParent());
 
 	}
 
@@ -866,15 +866,15 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		// this.setTitle(toStringBackAdapters() + " " +
 		// toStringCurrentAdapters() + " " + toStringForwardAdapters());
 		/*
-		 * System.out.println ("after set:"); debugScroll(adapter);
+		 * System.err.println ("after set:"); debugScroll(adapter);
 		 */
 		/*
-		 * adapter = adapter.getParentAdapter(); System.out.println("adaptor" +
+		 * adapter = adapter.getParentAdapter(); System.err.println("adaptor" +
 		 * adapter); Component component = adapter.getUIComponent();
 		 * 
-		 * //System.out.println("component" + component);
-		 * //System.out.println("parent adaptor" + adapter.getParentAdapter());
-		 * System.out.println("parent component" + component.getParent());
+		 * //System.err.println("component" + component);
+		 * //System.err.println("parent adaptor" + adapter.getParentAdapter());
+		 * System.err.println("parent component" + component.getParent());
 		 * 
 		 * //topAdapter = adapter;
 		 */
@@ -909,7 +909,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 	/*
 	 * public void createDrawPanel() { try { drawPanel = new SLComposer(this);
 	 * this.add(drawPanel, BorderLayout.SOUTH); } catch (Exception e) {
-	 * System.out.println(e); } }
+	 * System.err.println(e); } }
 	 */
 
 	public void setOriginalAdapter(ObjectAdapter newVal) {
@@ -921,10 +921,10 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 	}
 
 	public ObjectAdapter getDefaultAdapter() {
-		// System.out.println("getting default dapter");
-		// System.out.println (currentAdapters);
+		// System.err.println("getting default dapter");
+		// System.err.println (currentAdapters);
 		if (currentAdapters.size() != 0) {
-			// System.out.println(currentAdapters.elementAt(0));
+			// System.err.println(currentAdapters.elementAt(0));
 			return (ObjectAdapter) currentAdapters.elementAt(0);
 		} else
 			return null;
@@ -932,9 +932,9 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 	}
 
 	/*
-	 * public void print(Vector v) { System.out.println("Vector Start"); for
-	 * (int i = 0; i<v.size(); i++) System.out.println(v.elementAt(i));
-	 * System.out.println("Vector End"); }
+	 * public void print(Vector v) { System.err.println("Vector Start"); for
+	 * (int i = 0; i<v.size(); i++) System.err.println(v.elementAt(i));
+	 * System.err.println("Vector End"); }
 	 */
 	Hashtable adapterRootPaneTable = new Hashtable();
 
@@ -949,33 +949,33 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 	}
 
 	public void resetScrollPaneOld(ObjectAdapter a) {
-		// System.out.println(a);
+		// System.err.println(a);
 		ObjectAdapter parent = a.getParentAdapter();
 		VirtualComponent c = parent.getUIComponent();
-		// System.out.println("component" + c);
+		// System.err.println("component" + c);
 		while ((c.getParent() != null)
 				&& !(c.getParent() instanceof ScrollPane))
 			c = c.getParent();
 		childPanel = (VirtualContainer) c;
-		// System.out.println("child panel" + childPanel);
-		// System.out.println("parent " + c.getParent());
+		// System.err.println("child panel" + childPanel);
+		// System.err.println("parent " + c.getParent());
 		if (c.getParent() != null)
 			// spane = (ScrollPane) c.getParent();
 			currentRootPane = (VirtualContainer) c.getParent();
 	}
 
 	public void resetScrollPane(ObjectAdapter a) {
-		// System.out.println(a);
+		// System.err.println(a);
 		childPanel = (VirtualContainer) a.getRootAdapter().getUIComponent();
 		/*
 		 * uiObjectAdapter parent = a.getParentAdapter(); Component c =
-		 * parent.getUIComponent(); //System.out.println("component" + c);
+		 * parent.getUIComponent(); //System.err.println("component" + c);
 		 * while((c.getParent() != null) && !(c.getParent() instanceof
 		 * ScrollPane) ) c = c.getParent();
 		 */
 		// childPanel =(Container) c;
-		// System.out.println("child panel" + childPanel);
-		// System.out.println("parent " + c.getParent());
+		// System.err.println("child panel" + childPanel);
+		// System.err.println("parent " + c.getParent());
 		if (childPanel.getParent() != null)
 			currentRootPane = (VirtualContainer) childPanel.getParent();
 
@@ -985,41 +985,41 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 
 		// uiObjectAdapter selectionAdapter =
 		// (uiObjectAdapter)uiSelectionManager.getCurrentSelection();
-		// System.out.println("calling select with nll");
+		// System.err.println("calling select with nll");
 		SelectionManager.select(null);
 		// Container origScrollPane = (ScrollPane)
 		// adapterScrollPaneTable.get(adapter);
 		VirtualContainer origRootPane = (VirtualContainer) adapterRootPaneTable
 				.get(adapter);
-		// System.out.println("returning" + origScrollPane + "for" + adapter);
+		// System.err.println("returning" + origScrollPane + "for" + adapter);
 		// Container c = (Container)
 		// adapter.getParentAdapter().getUIComponent();
 		currentRootPane = origRootPane;
 		return currentRootPane;
 		// changeChildPanel(c);
 		/*
-		 * System.out.println("restore:"); debugScroll(adapter);
+		 * System.err.println("restore:"); debugScroll(adapter);
 		 */
 		/*
-		 * adapter = adapter.getParentAdapter(); System.out.println("adaptor" +
+		 * adapter = adapter.getParentAdapter(); System.err.println("adaptor" +
 		 * adapter); Component component = adapter.getUIComponent();
-		 * //System.out.println("component" + component);
-		 * //System.out.println("parent adaptor" + adapter.getParentAdapter());
-		 * System.out.println("parent component" + component.getParent());
+		 * //System.err.println("component" + component);
+		 * //System.err.println("parent adaptor" + adapter.getParentAdapter());
+		 * System.err.println("parent component" + component.getParent());
 		 */
 
 	}
 
 	/*
 	 * public void replaceFrame (uiObjectAdapter adapter) {
-	 * //System.out.println("replace Frame called with " + adapter); if (adapter !=
+	 * //System.err.println("replace Frame called with " + adapter); if (adapter !=
 	 * null) { toolBar.removeAll();
 	 * addUIFrameToolBarButton(FORWARD_ADAPTER_NAME, null);
 	 * addUIFrameToolBarButton(BACK_ADAPTER_NAME, null); uiObjectAdapter
 	 * selectionTop = adapter.getTopAdapter(adapter);
-	 * //System.out.println("selection Top" + selectionTop); uiObjectAdapter
+	 * //System.err.println("selection Top" + selectionTop); uiObjectAdapter
 	 * replaced; int index = currentAdapters.indexOf(selectionTop);
-	 * //System.out.println("replacement index " + index); if (index + 1 <
+	 * //System.err.println("replacement index " + index); if (index + 1 <
 	 * currentAdapters.size()) { replaced =(uiObjectAdapter)
 	 * currentAdapters.elementAt(index + 1);
 	 * //currentAdapters.insertElementAt(adapter, index + 1); } else { replaced =
@@ -1027,14 +1027,14 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 	 * 
 	 * //topAdapter = replaced; //currentAdapters.removeElement(replaced);
 	 * 
-	 * //System.out.println("childPanel" + childPanel.getParent()); //childPanel =
+	 * //System.err.println("childPanel" + childPanel.getParent()); //childPanel =
 	 * (Container) replaced.getParentAdapter().getUIComponent().getParent();
-	 * //System.out.println("replavced: " + replaced);
-	 * //System.out.println("replaced parent" + replaced.getParentAdapter());
+	 * //System.err.println("replavced: " + replaced);
+	 * //System.err.println("replaced parent" + replaced.getParentAdapter());
 	 * 
 	 * //resetScrollPane(replaced); restoreAdapter(replaced);
 	 * 
-	 * //System.out.println("putting" + adapter + spane);
+	 * //System.err.println("putting" + adapter + spane);
 	 * //adapterScrollPaneTable.put(adapter.getTopAdapter(adapter), spane);
 	 * topAdapter = replaced; this.removeToolBarButtons(replaced); uiFrame
 	 * editor = uiGenerator.generateUIFrame(this, adapter.getObject(), null,
@@ -1047,7 +1047,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 	 */
 	public void browseObjectOld(ObjectAdapter adapter, Object obj,
 			String title) {
-		// System.out.println("replace Frame called with " + adapter);
+		// System.err.println("replace Frame called with " + adapter);
 
 		// toolBar.removeAll();
 		// toolBarButtons.removeAllElements();
@@ -1065,7 +1065,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		// selectionTop = topAdapter;
 		// else
 		selectionTop = adapter.getTopAdapter(adapter);
-		// System.out.println("selection Top" + selectionTop);
+		// System.err.println("selection Top" + selectionTop);
 		ObjectAdapter replaced = null;
 		// Container replacedPanel = null;
 		// int index;
@@ -1093,7 +1093,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 				return;
 			}
 			// if (index < 0 || index + 1 >= currentAdapters.size()) return;
-			// System.out.println("replacement index " + index);
+			// System.err.println("replacement index " + index);
 			// if (index + 1 < currentAdapters.size()) { // next adpter is also
 			// visible, replace its frame
 			replaced = (ObjectAdapter) currentAdapters.elementAt(index + 1);
@@ -1104,20 +1104,20 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		// }
 		// if (replaced == null) return;
 		/*
-		 * System.out.println("replacing Frame"); debugScroll(replaced);
+		 * System.err.println("replacing Frame"); debugScroll(replaced);
 		 */
 		// topAdapter = replaced;
 		// currentAdapters.removeElement(replaced);
-		// System.out.println("childPanel" + childPanel.getParent());
+		// System.err.println("childPanel" + childPanel.getParent());
 		// childPanel = (Container)
 		// replaced.getParentAdapter().getUIComponent().getParent();
-		// System.out.println("replavced: " + replaced);
-		// System.out.println("replaced parent" + replaced.getParentAdapter());
+		// System.err.println("replavced: " + replaced);
+		// System.err.println("replaced parent" + replaced.getParentAdapter());
 		/*
 		 * childPanel = (Container)
 		 * replaced.getParentAdapter().getUIComponent();
-		 * System.out.println("childPanel" + childPanel);
-		 * System.out.println("spane" + childPanel.getParent()); ScrollPane
+		 * System.err.println("childPanel" + childPanel);
+		 * System.err.println("spane" + childPanel.getParent()); ScrollPane
 		 * replacedScrollPane = (ScrollPane) childPanel.getParent();
 		 * //topAdapter = replaced; if (replacedScrollPane != null) spane =
 		 * replacedScrollPane;
@@ -1127,7 +1127,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 				replaced).getComponent(0);
 		replacedPanel.removeAll();
 
-		// System.out.println("putting" + adapter + spane);
+		// System.err.println("putting" + adapter + spane);
 		// adapterScrollPaneTable.put(adapter.getTopAdapter(adapter), spane);
 		// topAdapter = replaced;
 		// this.removeToolBarButtons(replaced);
@@ -1148,12 +1148,12 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		// frame.showToolBar();
 		// editor.setVisible(true);
 		/*
-		 * System.out.println("after generation"); debugScroll(replaced);
+		 * System.err.println("after generation"); debugScroll(replaced);
 		 */
 	}
 
 	public void replaceFrame(ObjectAdapter adapter, Object obj, String title) {
-		// System.out.println("replace Frame called with " + adapter);
+		// System.err.println("replace Frame called with " + adapter);
 		/*
 		 * if (adapter == null) return;
 		 */
@@ -1175,13 +1175,13 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 			selectionTop = topAdapter;
 		else
 			selectionTop = adapter.getTopAdapter(adapter);
-		// System.out.println("selection Top" + selectionTop);
+		// System.err.println("selection Top" + selectionTop);
 		// we change to current adapter through single click so commenting this
 		// out
 		/*
 		 * uiObjectAdapter replaced; int index =
 		 * currentAdapters.indexOf(selectionTop);
-		 * //System.out.println("replacement index " + index); if (index + 1 <
+		 * //System.err.println("replacement index " + index); if (index + 1 <
 		 * currentAdapters.size()) { // next adpter is also visible, replace its
 		 * frame replaced =(uiObjectAdapter) currentAdapters.elementAt(index +
 		 * 1); //currentAdapters.insertElementAt(adapter, index + 1); } else {
@@ -1197,7 +1197,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		 * (replacedRootPane == null) return; VirtualContainer newRootPanel =
 		 * this.createNewChildPanel();
 		 * 
-		 * //System.out.println("putting" + adapter + spane);
+		 * //System.err.println("putting" + adapter + spane);
 		 * //adapterScrollPaneTable.put(adapter.getTopAdapter(adapter), spane);
 		 * topAdapter = replaced; //this.removeToolBarButtons(replaced);
 		 * //uiFrame editor = //uiGenerator.generateUIFrame(frame, obj, null,
@@ -1211,13 +1211,13 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		 * frame.setVisible(true);
 		 */
 		/*
-		 * System.out.println("after generation"); debugScroll(replaced);
+		 * System.err.println("after generation"); debugScroll(replaced);
 		 */
 	}
 
 	public void replaceFrame(ObjectAdapter adapter, Object obj,
 			ObjectAdapter replaced) {
-		// System.out.println("replace Frame called with " + adapter);
+		// System.err.println("replace Frame called with " + adapter);
 		/*
 		 * if (adapter == null) return;
 		 */
@@ -1240,13 +1240,13 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		 * uiObjectAdapter selectionTop; if (adapter == null) selectionTop =
 		 * topAdapter; else selectionTop = adapter.getTopAdapter(adapter);
 		 */
-		// System.out.println("selection Top" + selectionTop);
+		// System.err.println("selection Top" + selectionTop);
 		// we change to current adapter through single click so commenting this
 		// out
 		/*
 		 * uiObjectAdapter replaced; int index =
 		 * currentAdapters.indexOf(selectionTop);
-		 * //System.out.println("replacement index " + index); if (index + 1 <
+		 * //System.err.println("replacement index " + index); if (index + 1 <
 		 * currentAdapters.size()) { // next adpter is also visible, replace its
 		 * frame replaced =(uiObjectAdapter) currentAdapters.elementAt(index +
 		 * 1); //currentAdapters.insertElementAt(adapter, index + 1); } else {
@@ -1254,20 +1254,20 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		 */
 		// uiObjectAdapter replaced = selectionTop; // simpler semantics
 		/*
-		 * System.out.println("replacing Frame"); debugScroll(replaced);
+		 * System.err.println("replacing Frame"); debugScroll(replaced);
 		 */
 		// topAdapter = replaced;
 		// currentAdapters.removeElement(replaced);
-		// System.out.println("childPanel" + childPanel.getParent());
+		// System.err.println("childPanel" + childPanel.getParent());
 		// childPanel = (Container)
 		// replaced.getParentAdapter().getUIComponent().getParent();
-		// System.out.println("replavced: " + replaced);
-		// System.out.println("replaced parent" + replaced.getParentAdapter());
+		// System.err.println("replavced: " + replaced);
+		// System.err.println("replaced parent" + replaced.getParentAdapter());
 		/*
 		 * childPanel = (Container)
 		 * replaced.getParentAdapter().getUIComponent();
-		 * System.out.println("childPanel" + childPanel);
-		 * System.out.println("spane" + childPanel.getParent()); ScrollPane
+		 * System.err.println("childPanel" + childPanel);
+		 * System.err.println("spane" + childPanel.getParent()); ScrollPane
 		 * replacedScrollPane = (ScrollPane) childPanel.getParent();
 		 * //topAdapter = replaced; if (replacedScrollPane != null) spane =
 		 * replacedScrollPane;
@@ -1282,7 +1282,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		frame.addUIFrameToolBarButton(BACK_ADAPTER_NAME, null);
 		VirtualContainer newRootPanel = this.createNewChildPanel();
 
-		// System.out.println("putting" + adapter + spane);
+		// System.err.println("putting" + adapter + spane);
 		// adapterScrollPaneTable.put(adapter.getTopAdapter(adapter), spane);
 		topAdapter = replaced;
 		// this.removeToolBarButtons(replaced);
@@ -1300,7 +1300,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		// editor.setVisible(true);
 		frame.setVisible(true);
 		/*
-		 * System.out.println("after generation"); debugScroll(replaced);
+		 * System.err.println("after generation"); debugScroll(replaced);
 		 */
 	}
 
@@ -1338,10 +1338,10 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 	 * adapters.nextElement()); //Object object;
 	 * 
 	 * Object object = adapter.getValueOrRealObject();
-	 * //System.out.println("trying adapter:" + adapter + "object" + object); if
+	 * //System.err.println("trying adapter:" + adapter + "object" + object); if
 	 * (object != null &&
 	 * method.getDeclaringClass().isAssignableFrom(object.getClass())) { //
-	 * System.out.println("successful: " + method.getDeclaringClass() +
+	 * System.err.println("successful: " + method.getDeclaringClass() +
 	 * object.getClass());
 	 * 
 	 * targetAdapters.addElement(adapter); } }
@@ -1437,7 +1437,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		currentAdapters.removeElementAt(index);
 		currentAdapters.insertElementAt(newAdapter, index);
 		// int newIndex = currentAdapters.indexOf(newAdapter);
-		// if (index != newIndex) System.out.println("index " + index + " new
+		// if (index != newIndex) System.err.println("index " + index + " new
 		// index" + newIndex);
 		Object scrollPane = adapterRootPaneTable.get(oldAdapter);
 		if (scrollPane == null)
@@ -1464,7 +1464,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		Object drawing = frame.getDrawing();
 		// JToolBar toolBar = frame.getToolBar();
 		VirtualContainer toolBar = frame.getToolBar();
-		// System.out.println("adding " + adapter);
+		// System.err.println("adding " + adapter);
 		/*
 		 * if (adapter.getRealObject() == drawing) { frame.setDrawingAdapter
 		 * (adapter); return; }
@@ -1499,8 +1499,8 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		// this.setTitle(toStringBackAdapters() + " " +
 		// toStringCurrentAdapters() + " " + toStringForwardAdapters());
 		// mainScrollPane = spane;
-		// System.out.println("adding current adapter");
-		// System.out.println(currentAdapters);
+		// System.err.println("adding current adapter");
+		// System.err.println(currentAdapters);
 	}
 
 	public VirtualContainer getChildPanel() {
@@ -1652,7 +1652,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		// public void newAdapter (uiObjectAdapter adapter, VirtualScrollPane
 		// container) {
 		// if (container != null) addBrowsableContainer(container);
-		// System.out.println("adding adapter " + adapter.getID());
+		// System.err.println("adding adapter " + adapter.getID());
 		// containerAdapterTable.put(container, adapter);
 		if (container == frame.getSecondaryScrollPane()) {
 			// if (adapter == getSecondaryObjectAdapter())
@@ -1735,7 +1735,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 	// public void browseObject (uiObjectAdapter adapter, Object obj, String
 	// title) {
 	public void browseObject(ObjectAdapter adapter) {
-		// System.out.println("replace Frame called with " + adapter);
+		// System.err.println("replace Frame called with " + adapter);
 
 		// toolBar.removeAll();
 		// toolBarButtons.removeAllElements();
@@ -1757,7 +1757,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		// selectionTop = topAdapter;
 		// else
 		selectionTop = adapter.getTopAdapter(adapter);
-		// System.out.println("selection Top" + selectionTop);
+		// System.err.println("selection Top" + selectionTop);
 		ObjectAdapter replaced = null;
 		/*
 		 * //Container replacedPanel = null; //int index; if (selectionTop ==
@@ -1785,7 +1785,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 				replacedPanel = getSecondaryScrollPane();
 			}
 		} else {
-			// System.out.println("replacement index " + index);
+			// System.err.println("replacement index " + index);
 			// if (index + 1 < currentAdapters.size()) { // next adpter is also
 			// visible, replace its frame
 			replaced = (ObjectAdapter) currentAdapters.elementAt(index + 1);
@@ -1809,7 +1809,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		// else
 		replacedPanel.removeAll();
 
-		// System.out.println("putting" + adapter + spane);
+		// System.err.println("putting" + adapter + spane);
 		// adapterScrollPaneTable.put(adapter.getTopAdapter(adapter), spane);
 		// topAdapter = replaced;
 		// this.removeToolBarButtons(replaced);
@@ -1866,7 +1866,7 @@ public class AFlexibleBrowser implements SelectionListener/* extends Frame */
 		// frame.showToolBar();
 		// editor.setVisible(true);
 		/*
-		 * System.out.println("after generation"); debugScroll(replaced);
+		 * System.err.println("after generation"); debugScroll(replaced);
 		 */
 	}
 

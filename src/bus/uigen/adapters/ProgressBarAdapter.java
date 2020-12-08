@@ -199,13 +199,13 @@ implements ChangeListener, VirtualFocusListener, VirtualActionListener, javax.sw
     //System.out.println("Event");
 	  //if ( scaledValue != progressBar.getValue()) {
 	   if ( value != progressBar.getValue()) {
-		  System.out.println("new progressBar value:" + progressBar.getValue());
+		  System.err.println("new progressBar value:" + progressBar.getValue());
     uiComponentValueChanged();
 	  }
   }
   public void actionPerformed(VirtualActionEvent e) {
 	  if ( value != progressBar.getValue()) {
-		  System.out.println("new progressBar value:" + progressBar.getValue());
+		  System.err.println("new progressBar value:" + progressBar.getValue());
 	       uiComponentValueChanged();
 	  }
 	     

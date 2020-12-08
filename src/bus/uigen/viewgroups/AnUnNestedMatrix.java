@@ -44,7 +44,7 @@ public class AnUnNestedMatrix {
 			Object element = GenerateViewObject.getViewObject(parentAdapter, origElement, null);
 			ConcreteType childType= ConcreteTypeRegistry.createConcreteType(RemoteSelector.getClass(element), element, parentAdapter.getUIFrame());
 			  if (!(childType instanceof VectorStructure)) {
-					System.out.println("E**" + element.getClass() + " is not a vector");
+					System.err.println("E**" + element.getClass() + " is not a vector");
 					continue;
 					//return false;
 				}

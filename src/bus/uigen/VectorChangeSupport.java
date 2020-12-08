@@ -198,7 +198,7 @@ public class VectorChangeSupport implements java.io.Serializable{
 							     (changeable, VectorChangeEvent.DeleteComponentEvent,
 								  pos, oldElement, null, changeableCopy.size() - 1));
 		changeableCopy.removeElementAt(pos);
-		notifyElementRemoved(pos);		} catch (Exception e) {			System.out.println("Illegal remove index:" + pos + " in " + changeable);			e.printStackTrace();		}
+		notifyElementRemoved(pos);		} catch (Exception e) {			System.err.println("Illegal remove index:" + pos + " in " + changeable);			e.printStackTrace();		}
 		
 	}
 	void notifyElementRemoved(int pos) {

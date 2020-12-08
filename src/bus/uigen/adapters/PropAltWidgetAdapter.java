@@ -36,7 +36,7 @@ import java.util.Vector;
 	  //else there are some so fill
 	  
 	  System.out.println("found alt strings" + defaultStrings.size());	  cb = new JComboBox(defaultStrings);	  */
-	  System.out.println("instantiating  jcombo");	  //cb = new JComboBox();
+	  System.err.println("instantiating  jcombo");	  //cb = new JComboBox();
 	  cb = ComboBoxSelector.createComboBox();
 	  instantiatedComponent = true;
 
@@ -63,11 +63,11 @@ import java.util.Vector;
 					 }					
 					 if (defaultStrings != null) {  //if alternatives
 						
-											  System.out.println("alternatives found " + defaultStrings.size() );					  for (int j = 0;j < defaultStrings.size(); j++) { 
+											  System.err.println("alternatives found " + defaultStrings.size() );					  for (int j = 0;j < defaultStrings.size(); j++) { 
 						  cb.addItem(new String((String)defaultStrings.elementAt(j)));
 						  System.out.println((String)defaultStrings.elementAt(j));
 					  }
-					  					  System.out.println("and added" + " " + cb.getItemCount());
+					  					  System.err.println("and added" + " " + cb.getItemCount());
 					  cb.setEditable(true);
 					  
 						
@@ -107,7 +107,7 @@ import java.util.Vector;
 		try {
 		 
 			val = new String((String)cb.getSelectedItem());		  
-		} 		catch (ClassCastException e) {			System.out.println("exeception in getUIcom");		}	  }
+		} 		catch (ClassCastException e) {			System.err.println("exeception in getUIcom");		}	  }
 		return val;
   }
   
@@ -187,7 +187,7 @@ import java.util.Vector;
 	      super.uiComponentValueEdited();	
 	  */  }
   
-  public void itemStateChanged(ItemEvent ev) {    System.out.println("itemstatechangeEvent " + cb.isEditable());
+  public void itemStateChanged(ItemEvent ev) {    System.err.println("itemstatechangeEvent " + cb.isEditable());
     uiComponentValueChanged();
   }
     // Methods invoked on focus gain/loss in the view

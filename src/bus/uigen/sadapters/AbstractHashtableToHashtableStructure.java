@@ -274,7 +274,7 @@ import bus.uigen.controller.MethodInvocationManager;
 		return MethodInvocationManager.invokeMethod(targetObject, putMethod, params);
 	}
 	public Object put(Object key, Object value, CommandListener commandListener) {
-		//System.out.println("put called with key " + key + " value" + value);
+		//System.err.println("put called with key " + key + " value" + value);
 		if (putMethod == null)
 			return null;
 		Object[] params = {key, value};
@@ -293,7 +293,7 @@ import bus.uigen.controller.MethodInvocationManager;
 		
 	}
 	public Object remove(Object key, CommandListener commandListener) {
-		//System.out.println("remove called with key " + key);
+		//System.err.println("remove called with key " + key);
 		if (removeMethod == null)
 			return null;
 		Object[] params = {key};
@@ -364,8 +364,8 @@ import bus.uigen.controller.MethodInvocationManager;
 			Object retVal = MethodInvocationManager.invokeMethod(targetObject, sizeMethod, params);
 			return ((Integer) retVal).intValue();
 		} catch (Exception e) {
-			System.out.println(e);
-			System.out.println("Please trace size method of:" + targetObject);
+//			System.err.println(e);
+			System.err.println("Please trace size method of:" + targetObject + " exception:" + e);
 			return -1;
 		}
 	}

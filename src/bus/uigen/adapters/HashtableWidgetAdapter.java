@@ -97,7 +97,7 @@ public class HashtableWidgetAdapter extends WidgetAdapter implements TableModel 
 
   public int getRowCount() {
     if (getViewObject() == null) {
-      System.out.println("View object is null!!");
+      System.err.println("View object is null!!");
       return 0;
     }
     return getViewObject().size();

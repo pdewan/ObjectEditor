@@ -196,7 +196,7 @@ ObjectAdapterInterface, Remote, Serializable
 	transient ObjectAdapter keyAdapter;
 
 	public Object getKey() {
-		// System.out.println("getKey + ID " + this.getID() + " " + key);
+		// System.err.println("getKey + ID " + this.getID() + " " + key);
 		return key;
 	}
 
@@ -235,17 +235,17 @@ ObjectAdapterInterface, Remote, Serializable
 	}
 
 	public ObjectAdapter getKeyAdapter() {
-		// System.out.println("getKey + ID " + this.getID() + " " + key);
+		// System.err.println("getKey + ID " + this.getID() + " " + key);
 		return keyAdapter;
 	}
 
 	public void setKey(Object newVal) {
-		// System.out.println("setKey + ID " + this.getID() + " " + newVal);
+		// System.err.println("setKey + ID " + this.getID() + " " + newVal);
 		key = newVal;
 	}
 
 	public void setKeyAdapter(ObjectAdapter newVal) {
-		// System.out.println("setKey + ID " + this.getID() + " " + newVal);
+		// System.err.println("setKey + ID " + this.getID() + " " + newVal);
 		if (keyAdapter == newVal)
 			return;
 		keyAdapter = newVal;
@@ -673,7 +673,7 @@ ObjectAdapterInterface, Remote, Serializable
 			return getRealObject().toString();
 		else {
 
-			// System.out.println("calling to String");
+			// System.err.println("calling to String");
 			// if (!isLabelled() && isTopAdapter()) return getFrameTitle();
 			// if (!isLabelled()) return "";
 			// if (!isLabelled()) return toTextLine(this);
@@ -917,7 +917,7 @@ ObjectAdapterInterface, Remote, Serializable
 			} catch (Exception e) {
 				// Nothing matters any more
 				// 
-				System.out
+				System.err
 						.println("E** Could not invoke addPropertyChangeListener on"
 								+ listenable);
 
@@ -951,8 +951,8 @@ ObjectAdapterInterface, Remote, Serializable
 			} catch (Exception e) {
 				// Nothing matters any more
 				// 
-				System.out.println(e);
-				System.out
+				System.err.println(e);
+				System.err
 						.println("E** Could not invoke addPropertyChangeListener on"
 								+ listenable);
 				return false;
@@ -989,7 +989,7 @@ ObjectAdapterInterface, Remote, Serializable
 			} catch (Exception e) {
 				// Nothing matters any more
 				// 
-				System.out
+				System.err
 						.println("E** Could not invoke addTableModelListener on"
 								+ viewObject);
 				// e.printStackTrace();
@@ -1013,7 +1013,7 @@ ObjectAdapterInterface, Remote, Serializable
 			} catch (Exception e) {
 				// Nothing matters any more
 				// 
-				System.out
+				System.err
 						.println("E** Could not invoke removeTableModelListener on"
 								+ viewObject);
 				// e.printStackTrace();
@@ -1050,7 +1050,7 @@ ObjectAdapterInterface, Remote, Serializable
 			} catch (Exception e) {
 				// Nothing matters any more
 				// 
-				System.out.println("E** Could not invoke addRefresher on"
+				System.err.println("E** Could not invoke addRefresher on"
 						+ viewObject);
 				// e.printStackTrace();
 			}
@@ -1079,7 +1079,7 @@ ObjectAdapterInterface, Remote, Serializable
 					} catch (Exception e) {
 						// Nothing matters any more
 						// 
-						System.out.println("E** Could not invoke addObserver on"
+						System.err.println("E** Could not invoke addObserver on"
 								+ viewObject);
 						// e.printStackTrace();
 					}
@@ -1100,7 +1100,7 @@ ObjectAdapterInterface, Remote, Serializable
 			} catch (Exception e) {
 				// Nothing matters any more
 				// 
-				System.out.println("E** Could not invoke DeleteObserver on"
+				System.err.println("E** Could not invoke DeleteObserver on"
 						+ viewObject);
 				// e.printStackTrace();
 			}
@@ -1137,7 +1137,7 @@ ObjectAdapterInterface, Remote, Serializable
 			} catch (Exception e) {
 				// Nothing matters any more
 				// 
-				System.out
+				System.err
 						.println("E** Could not invoke addTreeModelListener on"
 								+ viewObject);
 				// e.printStackTrace();
@@ -1161,7 +1161,7 @@ ObjectAdapterInterface, Remote, Serializable
 			} catch (Exception e) {
 				// Nothing matters any more
 				// 
-				System.out
+				System.err
 						.println("E** Could not invoke RemoveTreeModelListener on"
 								+ viewObject);
 				// e.printStackTrace();
@@ -1240,7 +1240,7 @@ ObjectAdapterInterface, Remote, Serializable
 
 		// Object viewObject = uiGenerator.getViewObject(obj1, textMode);
 		/*
-		 * if (this instanceof uiContainerAdapter) System.out.println("***D" +
+		 * if (this instanceof uiContainerAdapter) System.err.println("***D" +
 		 * ((uiContainerAdapter) this).getDirection());
 		 */
 		this.setParentAdapter((CompositeAdapter) adaptor);
@@ -1282,12 +1282,12 @@ ObjectAdapterInterface, Remote, Serializable
 		if (getUIFrame() != null && !isGraphicsLeafObject() && !isGraphicsCompositeObject() &&!isDrawingAdapter() && ! (this instanceof PrimitiveAdapter))
 			RightMenuManager.getRightMenu(ReflectUtil.toMaybeProxyTargetClass(realObject), this, realObject);
 		/*
-		 * if (this instanceof uiContainerAdapter) System.out.println("***D" +
+		 * if (this instanceof uiContainerAdapter) System.err.println("***D" +
 		 * ((uiContainerAdapter) this).getDirection());
 		 */
 		// this.setParentAdapter((uiContainerAdapter) adaptor);
 		/*
-		 * if (this instanceof uiContainerAdapter) System.out.println("***D" +
+		 * if (this instanceof uiContainerAdapter) System.err.println("***D" +
 		 * ((uiContainerAdapter) this).getDirection());
 		 */
 		/*
@@ -3546,7 +3546,7 @@ ObjectAdapterInterface, Remote, Serializable
 			return !getPreWrite() || readOnlyAttribute || dynamicReadOnly
 					|| parent.isReadOnly(this);
 		} catch (Exception e) {
-			System.out.println("isReadOnly " + e);
+			System.err.println("isReadOnly " + e);
 			return false;
 		}
 	}
@@ -3555,7 +3555,7 @@ ObjectAdapterInterface, Remote, Serializable
 		try {
 			return getParentRecordStructure().get(propertyName);
 		} catch (Exception e) {
-			System.out.println("get " + e);
+			System.err.println("get " + e);
 			return null;
 		}
 	}
@@ -3568,7 +3568,7 @@ ObjectAdapterInterface, Remote, Serializable
 			else
 				return getParentRecordStructure().set(propertyName, newVal);
 		} catch (Exception e) {
-			System.out.println("set " + e);
+			System.err.println("set " + e);
 			return null;
 		}
 	}
@@ -4096,7 +4096,7 @@ ObjectAdapterInterface, Remote, Serializable
 	public static ObjectAdapter getTopAdapter(ObjectAdapter a) {
 		if (a.getParentAdapter() == null
 				|| a.getParentAdapter().getParentAdapter() == null) {
-			// System.out.println("top adapter" + a + a.getRealObject());
+			// System.err.println("top adapter" + a + a.getRealObject());
 			return a;
 		} else
 			return getTopAdapter(a.getParentAdapter());
@@ -4107,7 +4107,7 @@ ObjectAdapterInterface, Remote, Serializable
 			return getWidgetAdapter();
 		CompositeAdapter parent = getParentAdapter();
 		if (parent != null)
-			// System.out.println("top adapter" + a + a.getRealObject());
+			// System.err.println("top adapter" + a + a.getRealObject());
 			return parent.getContainingWidgetAdapter();
 		return null;
 
@@ -4117,7 +4117,7 @@ ObjectAdapterInterface, Remote, Serializable
 		if (a.isRootAdapter())
 			return (RootAdapter) a;
 		if (a.getParentAdapter() != null)
-			// System.out.println("top ada
+			// System.err.println("top ada
 			return getRootAdapter(a.getParentAdapter());
 		return null;
 	}
@@ -4235,8 +4235,8 @@ ObjectAdapterInterface, Remote, Serializable
 	public synchronized void propertyChange(PropertyChangeEvent evt) {
 		ObjectAdapterReceivedPropertyChangeEvent.newCase((ObjectAdapter) this, evt) ;
 
-//		System.out.println ("Synchronized Property Change Listener Started");
-		// System.out.println("Property change:
+//		System.err.println ("Synchronized Property Change Listener Started");
+		// System.err.println("Property change:
 		// "+evt.getPropertyName()+"="+evt.getNewValue());
 		
 		if (evt.getSource() == null) {
@@ -4281,7 +4281,7 @@ ObjectAdapterInterface, Remote, Serializable
 //			 adapter.setLocalAttribute(attribute);
 			 adapter.setTempAttributeValue(attribute.getAttributeName(), attribute.getValue());
 //			 Object aForeground = adapter.getComponentForeground();
-//			 System.out.println("foreground:" + aForeground);
+//			 System.err.println("foreground:" + aForeground);
 			 // no refresh if suppessing
 			 if (!getUIFrame().isSuppressPropertyNotifications())
 				 adapter.refreshAttributes();
@@ -4328,7 +4328,7 @@ ObjectAdapterInterface, Remote, Serializable
 		 
 		if (!ObjectEditor.shareBeans()) {
 			subPropertyChange(evt);
-//			System.out.println ("Synchronized Property Change Listener Left");
+//			System.err.println ("Synchronized Property Change Listener Left");
 
 			// propagateChange();
 		} else {
@@ -4337,14 +4337,14 @@ ObjectAdapterInterface, Remote, Serializable
 						this, evt));
 			} else {
 				String myPath = getCompletePathOnly();
-				System.out.print("PPP propertyChange at " + myPath);
+				System.err.print("PPP propertyChange at " + myPath);
 				if (myPath != null) {
 					ObjectRegistry
 							.logUnivPropertyChange(new UnivPropertyChange(
 									myPath, evt));
 				} else {
 					subPropertyChange(evt);
-					// System.out.println("PPP discarding propertyChange because
+					// System.err.println("PPP discarding propertyChange because
 					// adapter has not been mapped");
 				}
 			}
@@ -4480,7 +4480,7 @@ ObjectAdapterInterface, Remote, Serializable
 		if (evt.getPropertyName().toLowerCase().equals(
 				propertyName.toLowerCase())) {
 			if (getAdapterType() == PROPERTY_TYPE) {
-				// System.out.println("Setting property to "+evt.getNewValue());
+				// System.err.println("Setting property to "+evt.getNewValue());
 				// setValue(evt.getNewValue());
 				if (getParentAdapter() != null) {
 					ObjectAdapter adapter = ((ClassAdapter) getParentAdapter())
@@ -4675,7 +4675,7 @@ ObjectAdapterInterface, Remote, Serializable
 		 * parentObject, removeElementMethod, params); } } //index =
 		 * Integer.parseInt(vectorAdapter.getChildAdapterIndex(this)); } catch
 		 * (Exception e) { //e.printStackTrace();
-		 * System.out.println("Exception"); index = 0; } }
+		 * System.err.println("Exception"); index = 0; } }
 		 */
 
 	}
@@ -4705,7 +4705,7 @@ ObjectAdapterInterface, Remote, Serializable
 	 * //uiMethodInvocationManager.invokeMethod(this.getUIFrame(), parentObject,
 	 * removeElementMethod, params); } } //index =
 	 * Integer.parseInt(vectorAdapter.getChildAdapterIndex(this)); } catch
-	 * (Exception e) { //e.printStackTrace(); System.out.println("Exception");
+	 * (Exception e) { //e.printStackTrace(); System.err.println("Exception");
 	 * index = 0; } }
 	 *  }
 	 */
@@ -4801,9 +4801,9 @@ ObjectAdapterInterface, Remote, Serializable
 		// }
 
 		Object parentObject = parent.computeAndMaybeSetViewObject();
-		// System.out.println("ui component value changed");
+		// System.err.println("ui component value changed");
 		if (parent == null) {
-			System.out
+			System.err
 					.println("Parent adaptor is NULL. Cannot set value of primitive type");
 			if (getWidgetAdapter() != null)
 				getWidgetAdapter().userInputUpdated(false);
@@ -4833,7 +4833,7 @@ ObjectAdapterInterface, Remote, Serializable
 		 * 
 		 * virtualParent = parent; }
 		 */
-		// System.out.println("uiCVC " + this.getID() + "VP " +
+		// System.err.println("uiCVC " + this.getID() + "VP " +
 		// virtualParent.getID());
 		Object newValue = getUserChange();
 		if (newValue == null)
@@ -4870,9 +4870,9 @@ ObjectAdapterInterface, Remote, Serializable
 	 * genericWidget.setUpdated(); //}
 	 * 
 	 * 
-	 * Object parentObject = parent.getViewObject(); // System.out.println("ui
+	 * Object parentObject = parent.getViewObject(); // System.err.println("ui
 	 * component value changed"); if (getAdapterType() == PROPERTY_TYPE) {
-	 * //System.out.println("prop type"); // Get the property value using a
+	 * //System.err.println("prop type"); // Get the property value using a
 	 * getValue() call // Find the write method of this property and // invoke
 	 * this method on the parent object. //if (propertyWriteMethod != null) { if
 	 * (!isReadOnly()) { //Object parentObject = parent.getViewObject(); Object
@@ -4881,7 +4881,7 @@ ObjectAdapterInterface, Remote, Serializable
 	 * getOriginalValue(); set(newValue, initialChange);
 	 * refreshConcreteObject(newValue); }} else // NOT SURE WHY THIS CHECK
 	 * EXISTS. DELETING IT TO ALLOW PASTE { if (parent == null)
-	 * System.out.println("Parent adaptor is NULL. Cannot set value of primitive
+	 * System.err.println("Parent adaptor is NULL. Cannot set value of primitive
 	 * type"); else { //Object parentObject = parent.getViewObject(); if
 	 * (parentObject == null) { realObject = getOriginalValue(); // why assign
 	 * this? if (!(this instanceof uiShapeAdapter)) viewObject =
@@ -4889,19 +4889,19 @@ ObjectAdapterInterface, Remote, Serializable
 	 * return; } //factoring out code in all container branches
 	 * 
 	 * int index; uiContainerAdapter virtualParent = null; try { if
-	 * (this.isTopAdapter()) { //System.out.println(this.getAdapterIndex());
+	 * (this.isTopAdapter()) { //System.err.println(this.getAdapterIndex());
 	 * index = Integer.parseInt(this.getAdapterIndex()); virtualParent =
 	 * (getOriginalSourceAdapter().getParentAdapter());
-	 * System.out.println(virtualParent); } else {
-	 * //System.out.println(parentAdapter.getChildAdapterIndex(this));
-	 * //System.out.println(hashtableAdapter.getChildAdapterIndex(this));
+	 * System.err.println(virtualParent); } else {
+	 * //System.err.println(parentAdapter.getChildAdapterIndex(this));
+	 * //System.err.println(hashtableAdapter.getChildAdapterIndex(this));
 	 * //index = Integer.parseInt(parentAdapter.getChildAdapterIndex(this));
 	 * virtualParent = parent; index =
 	 * Integer.parseInt(virtualParent.getChildAdapterIndex(this)); if (index <
-	 * 0) { System.out.println("ADAPTER NOT FOUND"); System.out.println("ADAPTER " +
-	 * this.getID()); System.out.println("PARENT " + virtualParent.getID());
+	 * 0) { System.err.println("ADAPTER NOT FOUND"); System.err.println("ADAPTER " +
+	 * this.getID()); System.err.println("PARENT " + virtualParent.getID());
 	 * return; } } } catch (NumberFormatException e) { //e.printStackTrace();
-	 * System.out.println(e); index = -1; }
+	 * System.err.println(e); index = -1; }
 	 * 
 	 * 
 	 * //if (uiBean.isHashtable(parentObject)) {
@@ -4912,7 +4912,7 @@ ObjectAdapterInterface, Remote, Serializable
 	 * hashtableAdapter = (uiHashtableAdapter) virtualParent; HashtableStructure
 	 * hashtableStructure = hashtableAdapter.getHashtableStructure(); // In
 	 * these cases, we'll have to perform a // vector.setElementAt(). Object
-	 * newValue = getOriginalValue(); //System.out.println("New componnet value" +
+	 * newValue = getOriginalValue(); //System.err.println("New componnet value" +
 	 * newValue); Object key = null; Object oldKey = null; Object value = null;
 	 * //uiContainerAdapter parentAdapter = (uiContainerAdapter)
 	 * getParentAdapter(); //int index;
@@ -4937,8 +4937,8 @@ ObjectAdapterInterface, Remote, Serializable
 	 * (uiVectorAdapter) virtualParent; // In these cases, we'll have to perform
 	 * a // vector.setElementAt(). Object newValue = getOriginalValue();
 	 * VectorStructure vectorStructure = vectorAdapter.getVectorStructure();
-	 * //System.out.println("New componnet value" + newValue); if
-	 * (vectorStructure == null) { System.out.println("Unexected null virtual
+	 * //System.err.println("New componnet value" + newValue); if
+	 * (vectorStructure == null) { System.err.println("Unexected null virtual
 	 * structure"); return; } if (vectorStructure.canSetChild()) if (
 	 * initialChange) // only initial propagating change needs to be logged
 	 * vectorStructure.setElementAt(newValue, index, this); else
@@ -4948,32 +4948,32 @@ ObjectAdapterInterface, Remote, Serializable
 	 * else if (parentObject.getClass().isArray()) { uiArrayAdapter arrayAdapter =
 	 * null; // In these cases, we'll have to perform a //
 	 * vector.setElementAt(). Object newValue = getOriginalValue();
-	 * //System.out.println("New componnet value" + newValue);
+	 * //System.err.println("New componnet value" + newValue);
 	 * uiContainerAdapter parentAdapter = (uiContainerAdapter)
 	 * getParentAdapter(); //int index; try { if (this.isTopAdapter()) {
-	 * //System.out.println(this.getAdapterIndex()); index =
+	 * //System.err.println(this.getAdapterIndex()); index =
 	 * Integer.parseInt(this.getAdapterIndex()); arrayAdapter = (uiArrayAdapter)
 	 * (getOriginalSourceAdapter().getParentAdapter()); } else { arrayAdapter =
 	 * (uiArrayAdapter) parent;
-	 * //System.out.println(parentAdapter.getChildAdapterIndex(this));
-	 * //System.out.println(vectorAdapter.getChildAdapterIndex(this)); index =
+	 * //System.err.println(parentAdapter.getChildAdapterIndex(this));
+	 * //System.err.println(vectorAdapter.getChildAdapterIndex(this)); index =
 	 * Integer.parseInt(parentAdapter.getChildAdapterIndex(this)); //index =
 	 * Integer.parseInt(vectorAdapter.getChildAdapterIndex(this)); } } catch
 	 * (NumberFormatException e) { //e.printStackTrace();
-	 * System.out.println("Exception"); index = 0; } try {
+	 * System.err.println("Exception"); index = 0; } try {
 	 * 
 	 * 
 	 * 
-	 * System.out.println("Setting component "+index+" of vector to "+newValue);
+	 * System.err.println("Setting component "+index+" of vector to "+newValue);
 	 * Array.set(parentObject, index, newValue);
 	 *  // } catch (ArrayIndexOutOfBoundsException e) { } catch (Exception e) {
-	 * System.out.println("Could not set " + index + "of" + parentObject + "to" +
+	 * System.err.println("Could not set " + index + "of" + parentObject + "to" +
 	 * newValue); } } //else if (parentObject instanceof Hashtable) { //else if
 	 * (parent instanceof uiHashtableAdapter) { } } //if (!initialChange)
 	 * propagateChange();
 	 * 
-	 * //System.out.println ("generic widget" + getGenericWidget());
-	 * //System.out.println("text adaoter" + this);
+	 * //System.err.println ("generic widget" + getGenericWidget());
+	 * //System.err.println("text adaoter" + this);
 	 * //getTopAdapter(this).getGenericWidget().getUIFrame().doRefresh(); }
 	 */
 	public boolean recalculateRealObject() {
@@ -4981,7 +4981,7 @@ ObjectAdapterInterface, Remote, Serializable
 	}
 
 	public void padLabelTo(int max) {
-		// System.out.println("Padding to " + max);
+		// System.err.println("Padding to " + max);
 		/*
 		 * JLabel labelComponent = getGenericWidget().getLabelComponent();
 		 * labelComponent.setPreferredSize(new Dimension (100,
@@ -4991,18 +4991,18 @@ ObjectAdapterInterface, Remote, Serializable
 			max++;
 		String label = getGenericWidget().getLabel();
 		// max = 100;
-		// System.out.println(label + ":");
+		// System.err.println(label + ":");
 		// max += (int) ((max - label.length())*1.5);
 		for (int i = label.length(); i < max; i++)
 			label = label + " ";
-		// System.out.println(label + ":");
+		// System.err.println(label + ":");
 		getGenericWidget().setLabel(label);
 		// getGenericWidget().doLayout();
 
 	}
 
 	public String padLabel(String origLabel, int max) {
-		// System.out.println("Padding to " + max);
+		// System.err.println("Padding to " + max);
 		/*
 		 * JLabel labelComponent = getGenericWidget().getLabelComponent();
 		 * labelComponent.setPreferredSize(new Dimension (100,
@@ -5010,14 +5010,14 @@ ObjectAdapterInterface, Remote, Serializable
 		 */
 
 		// max = 100;
-		// System.out.println(label + ":");
+		// System.err.println(label + ":");
 		// max += (int) ((max - label.length())*1.5);
 		String label = origLabel;
 		if (getCopiedLabel())
 			max++;
 		for (int i = label.length(); i < max; i++)
 			label = label + " ";
-		// System.out.println(label + ":");
+		// System.err.println(label + ":");
 		return label;
 		// getGenericWidget().doLayout();
 
@@ -5039,7 +5039,7 @@ ObjectAdapterInterface, Remote, Serializable
 
 	/*
 	 * public static boolean checkMask (ActionEvent e, int mask) { int
-	 * modifiers; //System.out.println("modifiers" + e.getModifiers() + "mask" +
+	 * modifiers; //System.err.println("modifiers" + e.getModifiers() + "mask" +
 	 * mask +":"); modifiers = e.getModifiers(); return (modifiers & mask) ==
 	 * mask; }
 	 * 
@@ -5121,7 +5121,7 @@ ObjectAdapterInterface, Remote, Serializable
 
 	/*
 	 * public static boolean checkMask (FocusEvent e, int mask) { int modifiers;
-	 * //System.out.println("modifiers" + e.getModifiers() + "mask" + mask
+	 * //System.err.println("modifiers" + e.getModifiers() + "mask" + mask
 	 * +":"); //modifiers = e.getModifiers(); if (modifiers == 0) modifiers =
 	 * e.BUTTON1_MASK; return (modifiers & mask) == mask; }
 	 */
@@ -5131,7 +5131,7 @@ ObjectAdapterInterface, Remote, Serializable
 		// getWidgetAdapter().setUIComponentSelected();
 		/*
 		 * if (checkMask(e, e.ADJUSTMENT_EVENT_MASK))
-		 * System.out.println("Adjustment event!");
+		 * System.err.println("Adjustment event!");
 		 */
 		if (getGenericWidget() != null
 				&& getGenericWidget().getUIFrame() != null)
@@ -5209,7 +5209,7 @@ ObjectAdapterInterface, Remote, Serializable
 
 	// duplicated from primitiveAdapter - move it to object adapter
 	public void atomicSetValue(Object newValue1) {
-		// System.out.println("primitive set value");
+		// System.err.println("primitive set value");
 
 		// Object newValue = uiGenerator.getViewObject(newValue1);
 		Object newValue;
@@ -5235,7 +5235,7 @@ ObjectAdapterInterface, Remote, Serializable
 				// if
 				// (!(getWidgetAdapter().getUIComponentValue().equals(newValue)))
 				getWidgetAdapter().setUIComponentValue(newValue);
-			// System.out.println("Replaced with "+newValue);
+			// System.err.println("Replaced with "+newValue);
 		} else {
 			// Replace this attributed object with the correct one
 			if (getParentAdapter() instanceof ReplaceableChildren)
@@ -5250,7 +5250,7 @@ ObjectAdapterInterface, Remote, Serializable
 		// if (newValue1.equals(getValue())) return;
 		// First check if the type of newValue
 		// matches the type this attributed object represents
-		// System.out.println("primtive set value");
+		// System.err.println("primtive set value");
 		// Object newValue = uiGenerator.getViewObject(newValue1);
 		// if (!setRealObject(newValue1)) return;
 		setRealObject(newValue1);
@@ -5276,10 +5276,10 @@ ObjectAdapterInterface, Remote, Serializable
 		 * if (newValue == null) { if (getWidgetAdapter().getUIComponentValue() !=
 		 * null) getWidgetAdapter().setUIComponentValue(newValue); } else if
 		 * (newValue.getClass().equals(getPropertyClass())) {
-		 * //System.out.println("calling setUIComp value"); if
+		 * //System.err.println("calling setUIComp value"); if
 		 * (!getWidgetAdapter().getUIComponentValue().equals(newValue.toString()) &&
 		 * !isEdited()) { getWidgetAdapter().setUIComponentValue(newValue);
-		 * //System.out.println("Replaced with "+newValue); } } else { //
+		 * //System.err.println("Replaced with "+newValue); } } else { //
 		 * Replace this attributed object with the correct one if
 		 * (getParentAdapter() instanceof uiReplaceableChildren)
 		 * ((uiReplaceableChildren)
@@ -5331,7 +5331,7 @@ ObjectAdapterInterface, Remote, Serializable
 			// && !isEdited()) {
 		} else if (uiChanged(newValue)) {
 			getWidgetAdapter().setUIComponentValue(newValue);
-			// System.out.println("Replaced with "+newValue);
+			// System.err.println("Replaced with "+newValue);
 		}
 	}
 
@@ -5378,7 +5378,7 @@ ObjectAdapterInterface, Remote, Serializable
 		return 0;
 	}
 	public void implicitRefresh(boolean adapterInitiated) {
-		// System.out.println(" normal objectadapter refresh" + this);
+		// System.err.println(" normal objectadapter refresh" + this);
 		// if (isAtomic() || isParentedTopAdapter()){
 		
 		
@@ -5539,17 +5539,17 @@ ObjectAdapterInterface, Remote, Serializable
 			this.getGenericWidget().setPreRead();
 		else if (setPreWrite())
 			this.getWidgetAdapter().setPreWrite();
-		// System.out.println("uiObjectAdapter: atomic refresh" + this.getPath()
+		// System.err.println("uiObjectAdapter: atomic refresh" + this.getPath()
 		// + this);
-		// System.out.println("adapter field" + getAdapterField());
+		// System.err.println("adapter field" + getAdapterField());
 		edited = false;
 		if (genericWidget != null)
 			genericWidget.setUpdated();
 		Object parentObject = parent.computeAndMaybeSetViewObject();
-		// System.out.println("atomicRefresh: " + parentObject);
+		// System.err.println("atomicRefresh: " + parentObject);
 		// Object parentObject = parent.getRealObject();
 		if (getAdapterType() == PROPERTY_TYPE) {
-			// System.out.println("prop type");
+			// System.err.println("prop type");
 			// Get the property value using a getValue() call
 			// Find the write method of this property and
 			// invoke this method on the parent object.
@@ -5562,10 +5562,10 @@ ObjectAdapterInterface, Remote, Serializable
 				 * Object parms[] = {}; try { newValue =
 				 * propertyReadMethod.invoke(parentObject, parms);
 				 */
-				// System.out.println("parent" + parentObject + " new " +
+				// System.err.println("parent" + parentObject + " new " +
 				// newValue + " old " + getValue());
 				// if (newValue == getValue()) return;
-				// System.out.println("widget adapter" + getWidgetAdapter());
+				// System.err.println("widget adapter" + getWidgetAdapter());
 				if (isAtomic())
 					// getWidgetAdapter().setUIComponentValue(newValue);
 					// getWidgetAdapter().setUIComponentValue(uiGenerator.getViewObject(newValue));
@@ -5576,14 +5576,14 @@ ObjectAdapterInterface, Remote, Serializable
 					refreshValue(newValue);
 				}
 				/*
-				 * } catch (Exception e) { System.out.println("Exception occured
+				 * } catch (Exception e) { System.err.println("Exception occured
 				 * while trying to call "+propertyReadMethod.getName()+" on
 				 * "+parentObject); e.printStackTrace(); }
 				 */
 			}
 
 		} else {
-			// System.out.println("not prop type: vectror element");
+			// System.err.println("not prop type: vectror element");
 			// Object parentObject = parent.getViewObject();
 			if (parentObject instanceof Vector) {
 				// In these cases, we'll have to perform a
@@ -5591,19 +5591,19 @@ ObjectAdapterInterface, Remote, Serializable
 				Object newValue;
 				int index;
 				try {
-					// System.out.println(this.getAdapterIndex());
+					// System.err.println(this.getAdapterIndex());
 					index = Integer.parseInt(this.getAdapterIndex());
 				} catch (NumberFormatException e) {
 					// e.printStackTrace();
-					System.out.println("Exception");
+					System.err.println("Exception");
 					index = 0;
 				}
 				try {
 
-					// System.out.println("Getting component "+index+" of
+					// System.err.println("Getting component "+index+" of
 					// vector" + parentObject);
 					newValue = ((Vector) parentObject).elementAt(index);
-					// System.out.println("new value" + newValue + "old value" +
+					// System.err.println("new value" + newValue + "old value" +
 					// getValue());
 					// check here if they are deep equal!
 					// if (newValue == getValue()) return;
@@ -5615,17 +5615,17 @@ ObjectAdapterInterface, Remote, Serializable
 				}
 				/*
 				 * } else if (this.getAdapterField() != null ){
-				 * //System.out.println("trying field"); try { Object newValue =
+				 * //System.err.println("trying field"); try { Object newValue =
 				 * getAdapterField().get(parentObject); // Lookup the adaptor
 				 * corresponding to this field. // till here //if (newValue ==
-				 * getValue()) return; //System.out.println ("new value" +
+				 * getValue()) return; //System.err.println ("new value" +
 				 * newValue); if (isAtomic())
 				 * //getWidgetAdapter().setUIComponentValue(newValue);
 				 * //getWidgetAdapter().setUIComponentValue(uiGenerator.getViewObject(newValue));
 				 * getWidgetAdapter().setUIComponentValue(getViewObject(newValue));
 				 * else setValue(newValue); } catch (Exception e) {
-				 * System.out.println("Exception occured when setting" +
-				 * getAdapterField()); System.out.println(e); }
+				 * System.err.println("Exception occured when setting" +
+				 * getAdapterField()); System.err.println(e); }
 				 */
 
 			} else {
@@ -5936,7 +5936,7 @@ ObjectAdapterInterface, Remote, Serializable
 	private void printList(Vector list) {
 		for (int i = 0; i < list.size(); i++) {
 			Attribute att = (Attribute) list.elementAt(i);
-			System.out.println(att.getName() + "=" + att.getValue());
+			System.err.println(att.getName() + "=" + att.getValue());
 		}
 	}
 
@@ -5953,7 +5953,7 @@ ObjectAdapterInterface, Remote, Serializable
 					&& afield.toLowerCase().equals(field.toLowerCase())) {
 				Attribute b = new Attribute(a.getAttributeName(), a.getValue());
 				fieldAttributes.addElement(b);
-				// System.out.println("Adding attribute
+				// System.err.println("Adding attribute
 				// "+b.getName()+"="+b.getValue());
 			}
 		}
@@ -5978,7 +5978,7 @@ ObjectAdapterInterface, Remote, Serializable
 					&& pathMatch(genericPath, specificVector, ancestorLevel)) {
 				Attribute b = new Attribute(a.getAttributeName(), a.getValue());
 				pathAttributes.addElement(b);
-				// System.out.println("Adding attribute
+				// System.err.println("Adding attribute
 				// "+b.getName()+"="+b.getValue());
 			}
 		}
@@ -6120,10 +6120,10 @@ ObjectAdapterInterface, Remote, Serializable
 		Vector<Attribute> attributes, temp, temp1;
 		attributes = null;
 		// First try any Class attributes
-		// System.out.println("get attributs");
+		// System.err.println("get attributs");
 		if (AttributeManager.getEnvironment() == null)
-			System.out.println("null environment");
-		// System.out.println("got environment");
+			System.err.println("null environment");
+		// System.err.println("got environment");
 		// attributes =
 		// CopyAttributeVector.copyVector(AttributeManager.getEnvironment().getClassAttributes(getPropertyClass().getName()));
 		// attributes =
@@ -6316,8 +6316,8 @@ ObjectAdapterInterface, Remote, Serializable
 
 			}
 		}
-		// System.out.println("got parent atributes");
-		// System.out.println("getting local parent attributes");
+		// System.err.println("got parent atributes");
+		// System.err.println("getting local parent attributes");
 		// And the local attributes of the parent object
 		
 		// sould use the method getFieldAttrinbutes above
@@ -6328,7 +6328,7 @@ ObjectAdapterInterface, Remote, Serializable
 		}
 
 		// Next try any local attributes
-		// System.out.println("getting local attributes");
+		// System.err.println("getting local attributes");
 		CopyAttributeVector.mergeAttributeLists(attributes, localAttributeList);
 
 		// Note that the preferredWidget attribute should be the
@@ -6379,7 +6379,7 @@ ObjectAdapterInterface, Remote, Serializable
 			 * if (attr.equals(AttributeNames.LABEL) && parent instanceof
 			 * uiHashtableAdapter)
 			 * 
-			 * System.out.println("SetAdapter: " + this.getID() + "Index " +
+			 * System.err.println("SetAdapter: " + this.getID() + "Index " +
 			 * this.getIndex() + "Label " + (String) val);
 			 */
 
@@ -6412,7 +6412,7 @@ ObjectAdapterInterface, Remote, Serializable
 		 * if (attr.equals(AttributeNames.LABEL) && parent instanceof
 		 * uiHashtableAdapter)
 		 * 
-		 * System.out.println("GetAdapter: " + this.getID() + "Index " +
+		 * System.err.println("GetAdapter: " + this.getID() + "Index " +
 		 * this.getIndex() + "Label " + (String) val);
 		 */
 		// always mergeortemp wil be called
@@ -6483,14 +6483,14 @@ ObjectAdapterInterface, Remote, Serializable
 	 * getWidgetAdapter(); //if ((wa != null) && (processAttribute(attrib) ==
 	 * false)) { if (processAttribute(attrib) == false) {
 	 * uiWidgetAdapterInterface wa = getWidgetAdapter(); if (wa != null) {
-	 * //System.out.println("process attribute starting");
+	 * //System.err.println("process attribute starting");
 	 * //getWidgetAdapter().processAttribute(attrib);
-	 * wa.processAttribute(attrib); //System.out.println("process attribute
+	 * wa.processAttribute(attrib); //System.err.println("process attribute
 	 * ending"); } } } WidgetShell ws = getWidgetShell(); if (ws != null) {
-	 * //System.out.println("process attribute starting");
-	 * ws.processAttributes(); //System.out.println("process attribute ending"); }
+	 * //System.err.println("process attribute starting");
+	 * ws.processAttributes(); //System.err.println("process attribute ending"); }
 	 * 
-	 * //System.out.println ("end of process attribute list"); }
+	 * //System.err.println ("end of process attribute list"); }
 	 */
 	/*
 	 * public void setNameChild() { isNameChild = isString(); }
@@ -6513,18 +6513,18 @@ ObjectAdapterInterface, Remote, Serializable
 	public void propagateAttributesToWidgetShell() {
 		WidgetShell ws = getWidgetShell();
 		if (ws != null) {
-			// System.out.println("process attribute starting");
+			// System.err.println("process attribute starting");
 			ws.processAttributes();
-			// System.out.println("process attribute ending");
+			// System.err.println("process attribute ending");
 		}
 	}
 
 	public void propagateAttributesToWidgetAdapter() {
 		WidgetAdapterInterface wa = getWidgetAdapter();
 		if (wa != null) {
-			// System.out.println("process attribute starting");
+			// System.err.println("process attribute starting");
 			wa.processAttributes();
-			// System.out.println("process attribute ending");
+			// System.err.println("process attribute ending");
 		} else {
 //			ObjectAdapter aParent = getNearestObjectAdapterWithWidgetAdapter();
 //			wa = aParent.getWidgetAdapter();
@@ -6534,7 +6534,7 @@ ObjectAdapterInterface, Remote, Serializable
 //				aTree.updateUI();
 //
 //			}
-//			System.out.println ("validating");
+//			System.err.println ("validating");
 //			wa.getUIComponent().validate();
 //			wa.getUIComponent().repaint(); // for property notifications
 
@@ -6547,17 +6547,17 @@ ObjectAdapterInterface, Remote, Serializable
 			return;
 		WidgetAdapterInterface wa = parent.getWidgetAdapter();
 		if (wa != null) {
-			// System.out.println("process attribute starting");
+			// System.err.println("process attribute starting");
 			wa.processAttributes();
-			// System.out.println("process attribute ending");
+			// System.err.println("process attribute ending");
 		}
 	}
 
 	public void processSynthesizedAttributesWithDefaults() {
 		/*
 		 * WidgetShell ws = getWidgetShell(); if (ws != null) {
-		 * //System.out.println("process attribute starting");
-		 * ws.processAttributes(); //System.out.println("process attribute
+		 * //System.err.println("process attribute starting");
+		 * ws.processAttributes(); //System.err.println("process attribute
 		 * ending"); }
 		 */
 	}
@@ -6586,10 +6586,10 @@ ObjectAdapterInterface, Remote, Serializable
 		processAttribute(attrib);
 		WidgetAdapterInterface wa = getWidgetAdapter();
 		if (wa != null) {
-			// System.out.println("process attribute starting");
+			// System.err.println("process attribute starting");
 			// getWidgetAdapter().processAttribute(attrib);
 			wa.processAttribute(attrib);
-			// System.out.println("process attribute ending");
+			// System.err.println("process attribute ending");
 		}
 		propagateDescendentProcessAttrib(this, attrib);
 		// } else {
@@ -6638,12 +6638,12 @@ ObjectAdapterInterface, Remote, Serializable
 			 * null) && (processAttribute(attrib) == false)) { if
 			 * (processAttribute(attrib) == false) { uiWidgetAdapterInterface wa =
 			 * getWidgetAdapter(); if (wa != null) {
-			 * //System.out.println("process attribute starting");
+			 * //System.err.println("process attribute starting");
 			 * getWidgetAdapter().processAttribute(attrib);
-			 * //System.out.println("process attribute ending"); } }
+			 * //System.err.println("process attribute ending"); } }
 			 */
 		}
-		// System.out.println ("end of process attribute list");
+		// System.err.println ("end of process attribute list");
 		// dont know why we need getTempAAttributes with side effects
 		// Hashtable defaultAttrs = getTempAttributes();
 		Hashtable defaultAttrs = tempAttributes;
@@ -6658,8 +6658,8 @@ ObjectAdapterInterface, Remote, Serializable
 		propagateAttributesToWidgetShell();
 		/*
 		 * WidgetShell ws = getWidgetShell(); if (ws != null) {
-		 * //System.out.println("process attribute starting");
-		 * ws.processAttributes(); //System.out.println("process attribute
+		 * //System.err.println("process attribute starting");
+		 * ws.processAttributes(); //System.err.println("process attribute
 		 * ending"); }
 		 */
 	}
@@ -6725,7 +6725,7 @@ ObjectAdapterInterface, Remote, Serializable
 		 * else { isNameKey = isNameKey(); if (isNameKey && getValueAdapter() !=
 		 * null) processNameChild (getValueAdapter().getValue()); }
 		 */
-		// System.out.println("NameChild label " + label + " isString" +
+		// System.err.println("NameChild label " + label + " isString" +
 		// isString() + "isNameChild" + isNameChild );
 	}
 
@@ -6842,9 +6842,9 @@ ObjectAdapterInterface, Remote, Serializable
 		 * try { //Connector.linkAdapterToComponent(this, (String)
 		 * this.getTempAttributeValue(AttributeNames.PREFERRED_WIDGET));
 		 * Connector.linkAdapterToComponent(this, getPreferredWidget()); } catch
-		 * (Exception e) { //System.out.println("could not link to" +
+		 * (Exception e) { //System.err.println("could not link to" +
 		 * this.getTempAttributeValue(AttributeNames.PREFERRED_WIDGET));
-		 * System.out.println("could not link to" + getPreferredWidget());
+		 * System.err.println("could not link to" + getPreferredWidget());
 		 * e.printStackTrace(); }
 		 */
 	}
@@ -6866,16 +6866,16 @@ ObjectAdapterInterface, Remote, Serializable
 		 * //genericWidget.setComponent(c); addUIComponentToParent(c);
 		 * 
 		 * if (genericWidget != null) genericWidget.invalidate(); return true; }
-		 * catch (Exception e) { System.out.println("could not link");
+		 * catch (Exception e) { System.err.println("could not link");
 		 * e.printStackTrace(); } } else if (!(this instanceof
 		 * uiContainerAdapter) &&
 		 * !getWidgetAdapter().getUIComponent().getClass().getName().equals(widgetClassName)) {
-		 * //System.out.println("Changing component"); try { Object oldValue =
+		 * //System.err.println("Changing component"); try { Object oldValue =
 		 * getWidgetAdapter().getUIComponentValue(); VirtualComponent c =
 		 * Connector.linkAdapterToComponent(this, widgetClassName);
-		 * genericWidget.setComponent(c); //System.out.println("comp value" +
+		 * genericWidget.setComponent(c); //System.err.println("comp value" +
 		 * oldValue); getWidgetAdapter().setUIComponentValue(oldValue); return
-		 * false; } catch (Exception e) { System.out.println("could not link
+		 * false; } catch (Exception e) { System.err.println("could not link
 		 * 2"); e.printStackTrace(); } } return false;
 		 */
 	}
@@ -6887,7 +6887,7 @@ ObjectAdapterInterface, Remote, Serializable
 		/*
 		 * if ( !(this.isRootAdapter()) && (this == getTopAdapter(this)) &&
 		 * propertyClass.getName().equals("java.lang.String")) {
-		 * //System.out.println(this + propertyClass.getName() +
+		 * //System.err.println(this + propertyClass.getName() +
 		 * widgetClassName); widgetClassName = "javax.swing.JTextArea"; }
 		 */
 
@@ -6917,7 +6917,7 @@ ObjectAdapterInterface, Remote, Serializable
 				 */
 				return true;
 			} catch (Exception e) {
-				System.out.println("could not link");
+				System.err.println("could not link");
 				e.printStackTrace();
 			}
 		} else if (
@@ -6927,7 +6927,7 @@ ObjectAdapterInterface, Remote, Serializable
 				&& !(this instanceof RootAdapter)
 				&& !getWidgetAdapter().getUIComponent().getClass().getName()
 						.equals(widgetClassName)) {
-			 //System.out.println("Changing component");
+			 //System.err.println("Changing component");
 			try {
 
 				// Object oldValue = getWidgetAdapter().getUIComponentValue();
@@ -6937,10 +6937,10 @@ ObjectAdapterInterface, Remote, Serializable
 //				if (c == getUIComponent())
 //					return false;
 				if (c != getUIComponent()) {
-				System.out.println("Changing component");
+				System.err.println("Changing component");
 				if (genericWidget != null)
 				genericWidget.setComponent(c);
-				// System.out.println("comp value" + oldValue);
+				// System.err.println("comp value" + oldValue);
 				// getWidgetAdapter().setUIComponentValue(oldValue);
 				// getWidgetAdapter().setUIComponentValue(newValue);
 				if (!(isRootAdapter()))
@@ -6978,7 +6978,7 @@ ObjectAdapterInterface, Remote, Serializable
 
 				return true;
 			} catch (Exception e) {
-				System.out.println("could not link 2");
+				System.err.println("could not link 2");
 				e.printStackTrace();
 			}
 		}
@@ -6991,7 +6991,7 @@ ObjectAdapterInterface, Remote, Serializable
 		 * // Check for any known attributes // preferredWidget, hidden are two
 		 * I can think of // now. String name = attribute.getName();
 		 * 
-		 * //System.out.println("processing" + name);
+		 * //System.err.println("processing" + name);
 		 * 
 		 * //if (name.equals("preferredWidget")) { if
 		 * (name.equals(AttributeNames.PREFERRED_WIDGET)) { return true;
@@ -7044,12 +7044,12 @@ ObjectAdapterInterface, Remote, Serializable
 		// if (getParent() == null || getParent().getParent() == null) {
 		if (treeParent == null || treeParent.getParent() == null) {
 			// if (treeParent == null ) {
-			// System.out.println("uiFrame" + getUIFrame());
-			// System.out.println("null parent, and me" + this);
+			// System.err.println("uiFrame" + getUIFrame());
+			// System.err.println("null parent, and me" + this);
 			return (TreePath) this.getUIFrame().getJTree().getPathForLocation(
 					0, 0);
 		} else {
-			// System.out.println("non null parent + me:" + this);
+			// System.err.println("non null parent + me:" + this);
 			// return ((uiObjectAdapter)
 			// getParent()).getTreePath().pathByAddingChild(this);
 			return treeParent.getTreePath().pathByAddingChild(this);
@@ -7598,7 +7598,7 @@ ObjectAdapterInterface, Remote, Serializable
 	 */
 	public TreeNode getParent() {
 
-		// System.out.println("get parent:" + this + "onlyCompChild" +
+		// System.err.println("get parent:" + this + "onlyCompChild" +
 		// onlyCompositeChild);
 		CompositeAdapter parent = (CompositeAdapter) getParentAdapter();
 		if (parent == null)
@@ -7744,7 +7744,7 @@ ObjectAdapterInterface, Remote, Serializable
 					 * ClassDescriptor.toShortName(adapter.getPropertyClass().getName());
 					 */
 					e.printStackTrace();
-					// System.out.println(e);
+					// System.err.println(e);
 				}
 			}
 			frameTitle = title;

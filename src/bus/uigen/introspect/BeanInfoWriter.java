@@ -311,7 +311,7 @@ public class BeanInfoWriter {
 
   private static boolean writeFormattedJavaFile(String filename, String text) {
     try {
-      System.out.println("Writing file "+filename);
+      System.err.println("Writing file "+filename);
       FileWriter fout = new FileWriter(filename);
       StringReader sr = new StringReader(text);
   

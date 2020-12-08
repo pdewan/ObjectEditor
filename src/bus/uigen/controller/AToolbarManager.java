@@ -280,7 +280,7 @@ public void checkPre () {
 	}
 	} catch (Exception e) {
 		
-		System.out.println("");
+		System.err.println("Check Pre exception:" + e);
 		
 	}
 	/*
@@ -348,30 +348,30 @@ public VirtualButton addToolBarButton(Object targetObject, String label,   Icon 
 }
 void printToolbarButtons() {
 	VirtualComponent[] comps   = toolBar.getComponents();
-	System.out.println("Toolbar Buttons");
+	System.err.println("Toolbar Buttons");
 	for (int i=0;   i<comps.length; i++)
-		System.out.println(((VirtualButton)   comps[i]).getLabel());
+		System.err.println(((VirtualButton)   comps[i]).getLabel());
 }
 public void removeToolBarButtons(ObjectAdapter adapter)   {   
-	System.out.println("removing buttons of" + adapter.getMethodActions());     
+	System.err.println("removing buttons of" + adapter.getMethodActions());     
 	printToolbarButtons();
 	Vector methodActions = adapter.getMethodActions();
 	for (int i=0;   i < methodActions.size(); i++) {
 		VirtualMethodAction ma =   (VirtualMethodAction) methodActions.elementAt(i);
-		//System.out.print(" rembut" + ma.getButton().getLabel());
-		//System.out.print("index" + indexOf(toolBar.getComponents(),   ma.getButton()));
+		//System.err.print(" rembut" + ma.getButton().getLabel());
+		//System.err.print("index" + indexOf(toolBar.getComponents(),   ma.getButton()));
 		toolBar.remove(frame.indexOf(toolBar.getComponents(), ma.getButton()));
 		//toolBar.remove(ma.getButton());
 	}
 	
 }
 public void addToolBarButtons(ObjectAdapter   adapter) {
-	//System.out.println("adding buttons of" + adapter.getMethodActions());
-	System.out.println("Toolbar Buttons");
+	//System.err.println("adding buttons of" + adapter.getMethodActions());
+	System.err.println("Toolbar Buttons");
 	Vector methodActions = adapter.getMethodActions();
 	for (int i=0;   i < methodActions.size(); i++) {
 		VirtualMethodAction ma =   (VirtualMethodAction) methodActions.elementAt(i);
-		//System.out.print("addbut" + ma.getButton().getLabel());
+		//System.err.print("addbut" + ma.getButton().getLabel());
 		toolBar.add(ma.getButton());
 	}
 	//validate();
@@ -410,7 +410,7 @@ public void addUIFrameToolBarButton(String label,   Icon icon) {
 }
 //public JButton addUIFrameToolBarButton(String   label, Icon icon, ActionListener listener) {
 public VirtualButton addUIFrameToolBarButton(String   label, Icon icon, VirtualActionListener listener) {	
-	System.out.println("Adding Button " + label);
+	System.err.println("Adding Button " + label);
 	if (toolBarButtons.contains(label)) return null;
 	//showToolBar();
 	//toolBar.setVisible(true);
@@ -474,7 +474,7 @@ public VirtualButton addUIGenToolBarButton(String label, Icon icon,   Object obj
 		frame.add(toadd, BorderLayout.SOUTH);
 		
 		if (toadd != null)
-			System.out.println("added a toolpanel to orig");
+			System.err.println("added a toolpanel to orig");
 		
 	}
 
@@ -485,7 +485,7 @@ public VirtualButton addUIGenToolBarButton(String label, Icon icon,   Object obj
 		frame.add(toadd, BorderLayout.CENTER);
 		
 		if (toadd != null)
-			System.out.println("added a toolpanel to mid - orig");
+			System.err.println("added a toolpanel to mid - orig");
 		
 	}
 	

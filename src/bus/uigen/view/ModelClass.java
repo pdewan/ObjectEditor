@@ -20,7 +20,7 @@ public class ModelClass {
 		
 		modelClass = (ClassProxy)propertyClass;
 		
-		System.out.println("created model for decinc of type " +  modelClass.getName());
+		System.err.println("created model for decinc of type " +  modelClass.getName());
 	}
 	
 	
@@ -58,7 +58,7 @@ public class ModelClass {
 			return (String.valueOf(temp));
 	/*		
 			//double temp = ((Double)(TranslatorRegistry.convert("java.lang.Double", currentValue))).doubleValue()+1.0;
-			System.out.println("incing double w/ " + temp);			
+			System.err.println("incing double w/ " + temp);			
 			newValue =	new Double(temp);
 	
 			if (newValue != null)
@@ -83,7 +83,7 @@ public class ModelClass {
 		
 		else if (modelClass.getName().equals("java.lang.String"))  {}
 		
-		else {System.out.println("Model doesn't support incrememnt of modelclass");}
+		else {System.err.println("Model doesn't support incrememnt of modelclass");}
 	
 		return currentValue;
 	
@@ -145,7 +145,7 @@ public class ModelClass {
 		
 		else if (modelClass.getName().equals("java.lang.String"))  {}
 		
-		else {System.out.println("Model doesn't support decrement of modelclass");}
+		else {System.err.println("Model doesn't support decrement of modelclass");}
 
 	return currentValue;
 	

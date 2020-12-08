@@ -151,7 +151,7 @@ public boolean isVoid () {
 			//listener.commandActionPerformed();
 			return retVal;
 		} catch (Exception e) {
-			System.out.println ("Could not execute: " + writeMethod + " " + e);
+			System.err.println ("Could not execute: " + writeMethod + " " + e);
 			return null;
 		}
     }
@@ -164,7 +164,7 @@ public boolean isVoid () {
 												   undoWriteMethodParams);
 			listener.commandActionPerformed();
 		} catch (Exception e) {
-			System.out.println ("Could not undo: " + writeMethod + " " + e);
+			System.err.println ("Could not undo: " + writeMethod + " " + e);
 		}
     }
     public void redo()    {

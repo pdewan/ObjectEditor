@@ -130,18 +130,18 @@ public class MulticastEditor extends Frame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() instanceof MenuItem) {
 			String command = e.getActionCommand();
-			if (command.equals(" Add Multicast Member")) {				System.out.println("Adding "+member.getText()+" to ["+sourceObject.getCompletePathOnly()+"]");				ObjectRegistry.logAddMulticastUser(sourceObject.getCompletePathOnly(),member.getText());
+			if (command.equals(" Add Multicast Member")) {				System.err.println("Adding "+member.getText()+" to ["+sourceObject.getCompletePathOnly()+"]");				ObjectRegistry.logAddMulticastUser(sourceObject.getCompletePathOnly(),member.getText());
 			} else if (command.equals(" Remove Multicast Member")) {
-				System.out.println("Removing "+member.getText()+" from ["+sourceObject.getCompletePathOnly()+"]");
+				System.err.println("Removing "+member.getText()+" from ["+sourceObject.getCompletePathOnly()+"]");
 				ObjectRegistry.logDeleteMulticastUser(sourceObject.getCompletePathOnly(),member.getText());			} else if (command.equals(" Remove All Multicast Members")) {
-				System.out.println("Removing All Members from ["+sourceObject.getCompletePathOnly()+"]");
-				ObjectRegistry.logDeleteAllMulticastUsers(sourceObject.getCompletePathOnly());			} else if (command.equals("Reset to Broadcast")){				System.out.println("Broadcast on for ["+sourceObject.getCompletePathOnly()+"]");
-				ObjectRegistry.logResetToBroadcast(sourceObject.getCompletePathOnly());			} else if (command.equals("Reset to Multicast")){				System.out.println("Multicast on for ["+sourceObject.getCompletePathOnly()+"]");				ObjectRegistry.logResetToMulticast(sourceObject.getCompletePathOnly());
+				System.err.println("Removing All Members from ["+sourceObject.getCompletePathOnly()+"]");
+				ObjectRegistry.logDeleteAllMulticastUsers(sourceObject.getCompletePathOnly());			} else if (command.equals("Reset to Broadcast")){				System.err.println("Broadcast on for ["+sourceObject.getCompletePathOnly()+"]");
+				ObjectRegistry.logResetToBroadcast(sourceObject.getCompletePathOnly());			} else if (command.equals("Reset to Multicast")){				System.err.println("Multicast on for ["+sourceObject.getCompletePathOnly()+"]");				ObjectRegistry.logResetToMulticast(sourceObject.getCompletePathOnly());
 			} else if (command.equals("Close")) {			} else if (command.equals("Couple")) {
-				System.out.println("Coupling ["+sourceObject.getCompletePathOnly()+"]");				ObjectRegistry.logCoupleProgramReplicas(sourceObject.getCompletePathOnly(),true);
-			} else if (command.equals("Uncouple")) {				System.out.println("Uncoupling ["+sourceObject.getCompletePathOnly()+"]");				ObjectRegistry.logCoupleProgramReplicas(sourceObject.getCompletePathOnly(),false);
-			} else if (command.equals("Object Only")){				System.out.println("Only ["+sourceObject.getCompletePathOnly()+"] affected");
-				ObjectRegistry.logSetBroadMultiCastDomain(sourceObject.getCompletePathOnly(),false);			} else if (command.equals("Include All Descendants")){				System.out.println("All Descendants of ["+sourceObject.getCompletePathOnly()+"] affected, too");
+				System.err.println("Coupling ["+sourceObject.getCompletePathOnly()+"]");				ObjectRegistry.logCoupleProgramReplicas(sourceObject.getCompletePathOnly(),true);
+			} else if (command.equals("Uncouple")) {				System.err.println("Uncoupling ["+sourceObject.getCompletePathOnly()+"]");				ObjectRegistry.logCoupleProgramReplicas(sourceObject.getCompletePathOnly(),false);
+			} else if (command.equals("Object Only")){				System.err.println("Only ["+sourceObject.getCompletePathOnly()+"] affected");
+				ObjectRegistry.logSetBroadMultiCastDomain(sourceObject.getCompletePathOnly(),false);			} else if (command.equals("Include All Descendants")){				System.err.println("All Descendants of ["+sourceObject.getCompletePathOnly()+"] affected, too");
 				ObjectRegistry.logSetBroadMultiCastDomain(sourceObject.getCompletePathOnly(),true);			}
 			dispose();
 		} 

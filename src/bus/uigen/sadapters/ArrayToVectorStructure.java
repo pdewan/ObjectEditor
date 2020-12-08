@@ -28,7 +28,7 @@ import bus.uigen.controller.MethodInvocationManager;
 		
 	public void setElementAt(Object element, int pos) {
 		try {			 Array.set(targetObject, pos, element);
-		} catch (Exception e) {			System.out.println("setElementAt " + e);
+		} catch (Exception e) {			System.err.println("setElementAt " + e);
 		}
 	}
 		
@@ -58,12 +58,12 @@ import bus.uigen.controller.MethodInvocationManager;
 		setElementAt(element, pos);
 		
 	}
-	public void removeElement(int index, Object element, CommandListener commandListener) {		System.out.println("Array remove element should not have been called");
+	public void removeElement(int index, Object element, CommandListener commandListener) {		System.err.println("Array remove element should not have been called");
 	}
 	public void removeElementAt(int index, CommandListener commandListener) {
-		System.out.println("Array remove element at should not have been called");
+		System.err.println("Array remove element at should not have been called");
 	}	public void addElement(Object element, CommandListener commandListener){
-		System.out.println("Array add element should not have been called");	}
+		System.err.println("Array add element should not have been called");	}
 	public void insertElementAt (Object element, int pos, CommandListener commandListener) {
 		addElement(element, commandListener);
 		

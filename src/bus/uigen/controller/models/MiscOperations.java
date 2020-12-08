@@ -36,10 +36,10 @@ public class MiscOperations {
 	public  static void selection() {
 		ObjectAdapter selected = (ObjectAdapter) SelectionManager.getCurrentSelection();
 		if (selected != null) {
-			System.out.println("Creating editor");
+			System.err.println("Creating editor");
 			Frame   editor = new AttributeEditor(selected);
 		} else
-			System.out.println("Selection   is null");
+			System.err.println("Selection   is null");
 		
 	}
 	

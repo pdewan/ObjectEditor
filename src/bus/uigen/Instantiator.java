@@ -242,7 +242,7 @@ public class Instantiator {
 	}
 	MethodProxy constructor = chooseConstructor(constructors);
 	if(constructor == null) {
-	  System.out.println("Couldnt choose a constructor");
+	  System.err.println("Couldnt choose a constructor");
 	  return null;
 	}
 	ClassProxy[] parameterTypes = constructor.getParameterTypes();

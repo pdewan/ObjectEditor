@@ -126,7 +126,7 @@ import bus.uigen.introspect.*;import bus.uigen.controller.MethodInvocationManag
 			Object element = getChildAtMethod.invoke(targetObject, args);
 			setUserObject(element, newVal);
 			*/
-		} catch (Exception e) {			System.out.println("setElementAt " + e);
+		} catch (Exception e) {			System.err.println("setElementAt " + e);
 		}
 	}
 		

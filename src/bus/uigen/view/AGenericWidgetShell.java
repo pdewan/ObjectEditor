@@ -130,7 +130,7 @@ public class AGenericWidgetShell implements
 
 	public static boolean checkMask(MouseEvent e, int mask) {
 		int modifiers;
-		// System.out.println("modifiers" + e.getModifiers() + "mask" + mask
+		// System.err.println("modifiers" + e.getModifiers() + "mask" + mask
 		// +":");
 		modifiers = e.getModifiers();
 		if (modifiers == 0)
@@ -319,8 +319,8 @@ public class AGenericWidgetShell implements
 		// uiWidgetAdapter.setColors(container, getObjectAdapter());
 		int componentCount = container.getComponentCount();
 		if (componentCount != 0)
-			System.out.println("non zero component count" + componentCount);
-		// System.out.println ("Num container children:" +
+			System.err.println("non zero component count" + componentCount);
+		// System.err.println ("Num container children:" +
 		// container.getComponentCount());
 		// widget = this;
 
@@ -381,7 +381,7 @@ public class AGenericWidgetShell implements
 		
 		if (component.getParent() == null) {
 			WidgetShellComponentAdded.newCase(container, component, this);
-//			System.out.println("adding " +  component.getName() + " to " + container.getName());
+//			System.err.println("adding " +  component.getName() + " to " + container.getName());
 			container.add(component, BorderLayout.CENTER);
 
 		}
@@ -424,7 +424,7 @@ public class AGenericWidgetShell implements
 		makeBorder();
 		// doLayout();
 		getContainer().doLayout();
-		// System.out.println("aligning label" + labelConstraints.anchor);
+		// System.err.println("aligning label" + labelConstraints.anchor);
 		// add(label, labelConstraints);
 		// add(component, componentConstraints);
 	}
@@ -499,7 +499,7 @@ public class AGenericWidgetShell implements
 
 	/* public */boolean forceInternalElide() {
 		// if ((elideComponent != null) && !elideComponent.isVisible()) {
-		// System.out.println("internal elide");
+		// System.err.println("internal elide");
 
 		elideComponent = getElideComponent();
 		if (elideComponent == null)
@@ -507,11 +507,11 @@ public class AGenericWidgetShell implements
 		if (!elided || elideComponent.getParent() == null) {
 			elided = true;
 			if (expandedElideString) {
-				// System.out.println("expanded elide string");
+				// System.err.println("expanded elide string");
 				restoreElideString();
 				return true;
 			}
-			// System.out.println(elideString + elideComponent);
+			// System.err.println(elideString + elideComponent);
 			if (component != null)
 				remove(component);
 			// component.setVisible(false);
@@ -540,7 +540,7 @@ public class AGenericWidgetShell implements
 		// labelComponent.setVisible(false);
 		/*
 		 * if (getParent() != null) getParent().doLayout(); else
-		 * System.out.println ("null parent");
+		 * System.err.println ("null parent");
 		 */
 
 	}
@@ -664,7 +664,7 @@ public class AGenericWidgetShell implements
 			add(component);
 			restoreElideString();
 		} else
-			System.out.println("Elide component should not be null");
+			System.err.println("Elide component should not be null");
 	}
 
 	public boolean isElided() {
@@ -674,7 +674,7 @@ public class AGenericWidgetShell implements
 	public boolean redoExpand() {
 		if (component == null)
 			return false;
-		// System.out.println("redo expand");
+		// System.err.println("redo expand");
 		if (elided)
 			return false;
 		// unnecessarily was eliding empty vectors
@@ -685,7 +685,7 @@ public class AGenericWidgetShell implements
 			restoreComponent();
 			return true;
 		}
-		// System.out.println("nothing restored");
+		// System.err.println("nothing restored");
 		if (s != null && s != expandString) {
 			expandElideString(s);
 			return true;
@@ -793,7 +793,7 @@ public class AGenericWidgetShell implements
 
 	/* public */boolean forceInternalExpand() {
 		// component.setVisible(true);
-		// System.out.println("internal expand");
+		// System.err.println("internal expand");
 		/*
 		 * String s; if ((s = expandedElideString()) == null &&
 		 * expandedElideString) { restoreComponent(); return true; } if ( s !=
@@ -816,10 +816,10 @@ public class AGenericWidgetShell implements
 		
 		if (redoExpand())
 			return true;
-		// System.out.println("redo expand failed");
+		// System.err.println("redo expand failed");
 		if (!elided)
 			return false;
-		// System.out.println("not expanded");
+		// System.err.println("not expanded");
 		elided = false;
 		if (expandElidedString())
 			return true;
@@ -830,7 +830,7 @@ public class AGenericWidgetShell implements
 		}
 		// elideHandle.setText("-");
 		makeExpandHandleLabel();
-		// System.out.println("not null elideComponent");
+		// System.err.println("not null elideComponent");
 		try {
 			if (component != null)
 				add(component);
@@ -840,7 +840,7 @@ public class AGenericWidgetShell implements
 		if (adapter instanceof CompositeAdapter)
 			((CompositeAdapter) adapter).expandPrimitiveChildren();
 		makeBorder();
-		// System.out.println("not null component");
+		// System.err.println("not null component");
 		return true;
 		/*
 		 * if (elideComponent != null) elideComponent.setVisible(false);
@@ -885,7 +885,7 @@ public class AGenericWidgetShell implements
 		 * p.doLayout(); }
 		 */
 		// getUIFrame(this).doRefresh();
-		// System.out.println("about to validate");
+		// System.err.println("about to validate");
 		getUIFrame().validate();
 	}
 
@@ -937,7 +937,7 @@ public class AGenericWidgetShell implements
 		 */
 		/*
 		 * if (l != null && l.equals("B") || l.equals(""))
-		 * System.out.println("Where did this come from?");
+		 * System.err.println("Where did this come from?");
 		 */
 		uneditedLabel = l;
 		// if (l == null || !labelVisible)
@@ -953,7 +953,7 @@ public class AGenericWidgetShell implements
 
 	public void setLabel(String l) {
 		setLabelWithoutChangingBorder(l);
-		// System.out.println("setting label to" + l + ":");
+		// System.err.println("setting label to" + l + ":");
 		/*
 		 * if (l == null && label != null) { setEditedLabel(l); return; } // if
 		 * (label != l || label.equals(l)) return; borderVisible = true; if
@@ -962,7 +962,7 @@ public class AGenericWidgetShell implements
 		 * 
 		 * 
 		 * 
-		 * // System.out.println(l+":"+l.equals("Name"));
+		 * // System.err.println(l+":"+l.equals("Name"));
 		 */
 
 		makeBorder();
@@ -970,7 +970,7 @@ public class AGenericWidgetShell implements
 	}
 
 	void setLabelWithoutChangingBorder(String l) {
-		// System.out.println("setting label to" + l + ":");
+		// System.err.println("setting label to" + l + ":");
 		if (l == null && label != null) {
 			internalSetLabel(l);
 			setUneditedLabel(l);
@@ -991,7 +991,7 @@ public class AGenericWidgetShell implements
 		 * editedInvisibleLabel;
 		 */
 
-		// System.out.println(l+":"+l.equals("Name"));
+		// System.err.println(l+":"+l.equals("Name"));
 
 		// makeBorder();
 		// labelComponent.setText(l);
@@ -1009,14 +1009,14 @@ public class AGenericWidgetShell implements
 
 	public void editedUIComponentFocusLost() {
 		/*
-		 * if (component != null) { System.out.println("changing edited color");
+		 * if (component != null) { System.err.println("changing edited color");
 		 * component.setBackground(EDITED_COLOR); }
 		 */
 	}
 
 	public void editedUIComponentFocusGained() {
 		/*
-		 * System.out.println("changing original color"); if (component != null)
+		 * System.err.println("changing original color"); if (component != null)
 		 * { component.setBackground(originalColor); }
 		 */
 	}
@@ -1028,7 +1028,7 @@ public class AGenericWidgetShell implements
 	}
 
 	public void setEdited() {
-		// System.out.println("setting label to" + l + ":");
+		// System.err.println("setting label to" + l + ":");
 		if (!adapter.getShowBorder() && !isLabelVisible())
 			return;
 		edited = true;
@@ -1039,14 +1039,14 @@ public class AGenericWidgetShell implements
 		/*
 		 * if (!labelVisible) borderJustification = TitledBorder.LEFT;
 		 */
-		// System.out.println(l+":"+l.equals("Name"));
+		// System.err.println(l+":"+l.equals("Name"));
 
 		makeBorder();
 		// labelComponent.setText(l);
 	}
 
 	public void setUpdated() {
-		// System.out.println("setting label to" + l + ":");
+		// System.err.println("setting label to" + l + ":");
 		if (!adapter.getShowBorder() && !isLabelVisible())
 			return;
 		// label = e
@@ -1125,7 +1125,7 @@ public class AGenericWidgetShell implements
 		StringBuffer sb = new StringBuffer(s.length());
 		for (int index = 0; index < s.length(); index++)
 			sb.append(' ');
-		// System.out.println("returning" + sb.toString() + ";");
+		// System.err.println("returning" + sb.toString() + ";");
 		return sb.toString();
 	}
 
@@ -1230,7 +1230,7 @@ public class AGenericWidgetShell implements
 		}
 		labelChanged = !borderLabel.equals(prevBorderLabel);
 
-		// System.out.println("Label Visible" + labelVisible);
+		// System.err.println("Label Visible" + labelVisible);
 		// if ((labelVisible || isEdited()) && label != null)
 		// if ((labelVisible ) && label != null)
 		/*
@@ -1238,7 +1238,7 @@ public class AGenericWidgetShell implements
 		 * borderLabel = "";
 		 */
 		// borderLabel = " ";
-		// System.out.println("border Label" + borderLabel + "label" + label);
+		// System.err.println("border Label" + borderLabel + "label" + label);
 		// this seems like unreachable code.commenting it out
 		// moving code from below and commenting out check
 		// if
@@ -1400,7 +1400,7 @@ public class AGenericWidgetShell implements
 		 * if (getContainer() == null) return; if (labelComponent == null) {
 		 * 
 		 * labelComponent = new JLabel(label); //this.add(labelComponent,
-		 * BorderLayout.EAST ); System.out.println("Generic widget, adding label
+		 * BorderLayout.EAST ); System.err.println("Generic widget, adding label
 		 * component EAST"); this.getContainer().add(labelComponent,
 		 * BorderLayout.EAST );
 		 * 
@@ -1455,7 +1455,7 @@ public class AGenericWidgetShell implements
 	/* public */void setBorderVisible(boolean v) {
 		// labelComponent.setVisible(v);
 		nonEmptyBorder = v;
-		// System.out.println("label visible" + labelVisible);
+		// System.err.println("label visible" + labelVisible);
 		makeBorder();
 
 	}
@@ -1465,7 +1465,7 @@ public class AGenericWidgetShell implements
 	/* public */void setBorderJustification(int j) {
 		// labelComponent.setVisible(v);
 		borderJustification = j;
-		// System.out.println("label visible" + labelVisible);
+		// System.err.println("label visible" + labelVisible);
 		makeBorder();
 
 	}
@@ -1535,7 +1535,7 @@ public class AGenericWidgetShell implements
 			// internalSetLabel(oldLabel);
 			internalSetLabel(getTrueLabel());
 			if (getLabel().equals("B"))
-				System.out.println("got it");
+				System.err.println("got it");
 			setUneditedLabel(getLabel());
 			// setUneditedLabel(getTrueLabel());
 		}
@@ -1555,8 +1555,8 @@ public class AGenericWidgetShell implements
 		// labelComponent.setVisible(v);
 		/*
 		 * if (component instanceof VirtualCheckBox && !v)
-		 * System.out.println("VCB being made invisible"); if (labelVisible ==
-		 * v) return; labelVisible = v; // System.out.println("label visible" +
+		 * System.err.println("VCB being made invisible"); if (labelVisible ==
+		 * v) return; labelVisible = v; // System.err.println("label visible" +
 		 * labelVisible); if (!labelVisible) { editedLabel =
 		 * editedInvisibleLabel; if (edited) // label = editedLabel;
 		 * internalSetLabel(editedLabel); }
@@ -1575,11 +1575,11 @@ public class AGenericWidgetShell implements
 	void setLabelVisibleWithoutChangingBorder(boolean v) {
 		// labelComponent.setVisible(v);
 		// if (component instanceof VirtualCheckBox && !v)
-		// System.out.println("VCB being made invisible");
+		// System.err.println("VCB being made invisible");
 		if (labelVisible == v)
 			return;
 		labelVisible = v;
-		// System.out.println("label visible" + labelVisible);
+		// System.err.println("label visible" + labelVisible);
 		if (!labelVisible) {
 			// editedLabel = EDITED_INVISIBLE_LABEL;
 			setEditedLabel(EDITED_INVISIBLE_LABEL);
@@ -1743,10 +1743,10 @@ public class AGenericWidgetShell implements
 		 * componentConstraints);
 		 */
 		// add(nc, c);
-		// System.out.println("set component" + listener );
+		// System.err.println("set component" + listener );
 		/*
 		 * if (listener instanceof uiPrimitiveAdapter) {
-		 * System.out.println("expanding" + listener); internalExpand(); }
+		 * System.err.println("expanding" + listener); internalExpand(); }
 		 */
 		/*
 		 * component.setVisible(true); add(component);
@@ -1863,7 +1863,7 @@ public class AGenericWidgetShell implements
 
 	void initiallyExpandListener() {
 		if (adapter instanceof PrimitiveAdapter) {
-			System.out.println("expanding" + adapter);
+			System.err.println("expanding" + adapter);
 			internalExpand();
 		}
 	}
@@ -1926,7 +1926,7 @@ public class AGenericWidgetShell implements
 	Object oldColor;
 
 	/* public */void selectElideComponent() {
-		// System.out.println("Elide Component Selected");
+		// System.err.println("Elide Component Selected");
 		if (elideComponent == null)
 			return;
 		if (elideComponent.getBackground() != AttributeNames.getSelectionColor())
@@ -1937,26 +1937,26 @@ public class AGenericWidgetShell implements
 	/* public */void unselectElideComponent() {
 		if (elideComponent == null)
 			return;
-		// System.out.println("Elide Component unselected");
+		// System.err.println("Elide Component unselected");
 		elideComponent.setBackground(oldColor);
 	}
 
 	private void doPasteAction() {
-		System.out.println("Paste");
+		System.err.println("Paste");
 		Object selection = ((ObjectAdapter) SelectionManager
 				.getCurrentSelection()).getRealObject();
-		System.out.println("Setting value to " + selection);
+		System.err.println("Setting value to " + selection);
 		adapter.refreshValue(selection);
 		adapter.uiComponentValueChanged();
-		System.out.println("Done");
+		System.err.println("Done");
 	}
 
 	private void doCreateAction() {
-		System.out.println("Create: Not implemented");
+		System.err.println("Create: Not implemented");
 	}
 
 	private void doOtherAction(ActionEvent evt) {
-		System.out.println("Select/Edit: TBDS");
+		System.err.println("Select/Edit: TBDS");
 	}
 
 	Frame f = null;
@@ -1964,27 +1964,27 @@ public class AGenericWidgetShell implements
 	uiFrame uiF = null;
 
 	/*
-	 * public Frame getFrame(Component c) { //System.out.println("parameter"
-	 * +c); if (f == null) { //System.out.println("null f"); while (c != null) {
+	 * public Frame getFrame(Component c) { //System.err.println("parameter"
+	 * +c); if (f == null) { //System.err.println("null f"); while (c != null) {
 	 * 
-	 * //System.out.println("componnet" + c.getName()); if (c instanceof Frame)
+	 * //System.err.println("componnet" + c.getName()); if (c instanceof Frame)
 	 * { f = (Frame) c; uiF = (uiFrame) f; return f; } c = c.getParent(); } }
-	 * //System.out.println("returning" + f); return f; }
+	 * //System.err.println("returning" + f); return f; }
 	 */
 	/*
 	 * public uiFrame getUIFrame(Component c) { if (uiF == null) uiF = (uiFrame)
-	 * getFrame(c); //System.out.println("uif = " + uiF); return uiF; } public
+	 * getFrame(c); //System.err.println("uif = " + uiF); return uiF; } public
 	 * uiFrame getUIFrame() { if (uiF == null) if (f == null) uiF = (uiFrame)
 	 * getFrame(this);
 	 * 
-	 * //System.out.println("uif = " + uiF); return uiF; }
+	 * //System.err.println("uif = " + uiF); return uiF; }
 	 */
 	/*
 	 * public uiFrame getUIFrame(Component c) { return getUIFrame(); }
 	 */
 	public uiFrame getUIFrame() {
 		if (adapter == null) {
-			// System.out.println("Null Adapter of generic widget, do not know
+			// System.err.println("Null Adapter of generic widget, do not know
 			// UIFrame");
 			return null;
 		} else

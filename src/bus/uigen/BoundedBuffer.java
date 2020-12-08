@@ -18,7 +18,7 @@ public class BoundedBuffer {
 	public synchronized Object get() {
 		try {
 			while (buffer.size() == 0) {
-				System.out.println("wait called by" + Thread.currentThread());
+				System.err.println("wait called by" + Thread.currentThread());
 				this.wait();
 			}
 			System.out.println("method invocation thread:" + Thread.currentThread());

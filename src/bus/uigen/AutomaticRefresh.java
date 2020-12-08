@@ -85,7 +85,7 @@ public class AutomaticRefresh implements java.io.Serializable, UIGenLoggableEven
 		} else if (command.equals("deepElide") || command.equals("getChildCount")){
 			return adapterPath2;
 		} else {
-			System.out.println("Unrecognized command: "+command);
+			System.err.println("Unrecognized command: "+command);
 			System.exit(1);
 		}
 		return null;
@@ -100,7 +100,7 @@ public class AutomaticRefresh implements java.io.Serializable, UIGenLoggableEven
 			!command.equals("doUpdateAll") && !command.equals("doImplicitRefresh")){
 			return;
 		}
-		System.out.println("########### XXX AutomaticRefresh.execute(): executing "+command);
+		System.err.println("########### XXX AutomaticRefresh.execute(): executing "+command);
 		if(command.equals("doUpdateAll") || command.equals("doImplicitRefresh")){
 			uiFrame f = ObjectRegistry.uiFrameAt(id);
 			if(command.equals("doUpdateAll")){

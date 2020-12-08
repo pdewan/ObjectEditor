@@ -41,7 +41,7 @@ public class CopyAttributeVector {
     Attribute a;
     for (int i=0; i<v.size(); i++) {
       a = (Attribute) v.elementAt(i);
-      System.out.println(a.getName()+"="+a.getValue());
+      System.err.println(a.getName()+"="+a.getValue());
     }
   }
 }

@@ -1638,7 +1638,7 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 				&& (selection.getPropertyClass().isAssignableFrom(
 						ACompositeLoggable.getTargetClass(target)) || selection
 						.isAddableToParent(target));
-		System.out.println("paste enable? " + retVal);
+		System.err.println("paste enable? " + retVal);
 		pasteItem.setEnabled(retVal);
 		/*
 		 * 
@@ -3834,7 +3834,7 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 			if (((Vector) vectorList.elementAt(i)).contains(obj))
 				return i;
 		}
-		System.out
+		System.err
 				.println("Internal Error***   did not find object in vector list");
 		return -1;
 	}
@@ -4570,7 +4570,7 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 	 * (autoRefreshAll) autoRefresh = true; }
 	 */
 	public void printContainerTree(VirtualComponent c, String offset) {
-		System.out.println(offset + c.getName() + " " + c.getClass() + " " + c);
+		System.err.println(offset + c.getName() + " " + c.getClass() + " " + c);
 		if (c instanceof Container) {
 			VirtualContainer con = (VirtualContainer) c;
 			for (int i = 0; i < con.getComponentCount(); i++) {
@@ -4933,7 +4933,7 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 	public void addUIGenMenuItem(String menuLabel, int position, String label,
 			Object obj) {
 		MenuComponent test;
-		System.out.println("Label   Called: " + label);
+		System.err.println("Label   Called: " + label);
 		OEMenuItem item = new OEMenuItem(label, obj);
 		VirtualMenu menu = getMenu(menuLabel);
 		menu.add(item.getMenuItem());
@@ -5666,16 +5666,16 @@ public class uiFrame /* extends Frame */ extends ADummyCompleteOEFrame implement
 	}
 
 	public void keyPressed(KeyEvent event) {
-		System.out.println("KeyPressed");
+		System.err.println("KeyPressed");
 	}
 
 	public void keyReleased(KeyEvent event) {
-		System.out.println("KeyReleased");
+		System.err.println("KeyReleased");
 	}
 
 	public void keyTyped(KeyEvent event) {
 		int keyChar = event.getKeyChar();
-		System.out.println("KeyTyped:" + keyChar);
+		System.err.println("KeyTyped:" + keyChar);
 	}
 	boolean fullRefreshOnEachOperation = false;
 	public void setFullRefreshOnEachOperation(boolean newVal) {

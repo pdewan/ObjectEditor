@@ -59,13 +59,13 @@ public class ObjectRegistry implements GenericLoggableInterface
 	public static ObjectAdapter getAdapter(String path){
 		ObjectAdapter retVal = null;
 		Vector pathVector = ObjectAdapter.pathToVector(path);
-		System.out.println("PPP "+path+" "+pathVector);
+		System.err.println("PPP "+path+" "+pathVector);
 		if(currentAdapter!=null){
 			try{
 				retVal = currentAdapter.pathToObjectAdapter(pathVector);
 			} catch (NullPointerException e){
 			} catch (Exception e){
-				  System.out.println(e.getMessage());
+				  System.err.println(e.getMessage());
 				  e.printStackTrace();
 			}
 		}
@@ -73,7 +73,7 @@ public class ObjectRegistry implements GenericLoggableInterface
 	}
 	
 	public static void addUIFrame(uiFrame f){
-		System.out.println("LLL adding frame "+f+" to list of size "+frameList.size());
+		System.err.println("LLL adding frame "+f+" to list of size "+frameList.size());
 		frameList.addElement(f);
 	}
 	
@@ -187,7 +187,7 @@ public class ObjectRegistry implements GenericLoggableInterface
 		}	}	
 	public PseudoServerFront createJoiner(String UserName,String myRmiName,boolean UserHasProgram,boolean UserRunsProgram,String TimeServerName){	    try{
 		logger = new UIGenLoggable(UserName,myRmiName,UserHasProgram,UserRunsProgram,TimeServerName,loggerUIRMIName);	    } catch (Exception e){
-		System.out.println("ObjectRegistry.createJoiner(): Exception "+e.getMessage());
+		System.err.println("ObjectRegistry.createJoiner(): Exception "+e.getMessage());
 		e.printStackTrace();
 	    }	    return((PseudoServerFront) logger);
 	}
@@ -196,7 +196,7 @@ public class ObjectRegistry implements GenericLoggableInterface
 	    try{
 		logger = new UIGenLoggable(ProgramName,UserName,myRmiName,UserHasProgram,UserRunsProgram,TimeServerName,loggerUIRMIName);
 	    } catch (Exception e){
-		System.out.println("ObjectRegistry.createInitiator(): Exception "+e.getMessage());
+		System.err.println("ObjectRegistry.createInitiator(): Exception "+e.getMessage());
 		e.printStackTrace();
 	    }	    return((PseudoServerFront) logger);	}
 	
@@ -212,7 +212,7 @@ public class ObjectRegistry implements GenericLoggableInterface
 			Integer htVal = (Integer) listHash.get(oldObj);
 			if(htVal!=null){
 				int index = htVal.intValue();
-				System.out.println("LLL replacing (or removing) "+oldObj+" with "+newObj+" at index "+index);
+				System.err.println("LLL replacing (or removing) "+oldObj+" with "+newObj+" at index "+index);
 				if(newObj != null){
 					list.setElementAt(newObj,index);
 					listHash.put(newObj,htVal);
@@ -226,7 +226,7 @@ public class ObjectRegistry implements GenericLoggableInterface
 	
 	public static void addObject(Object obj){
 		if(obj != null){
-			System.out.println("LLL adding object "+obj+" to list of size "+list.size());
+			System.err.println("LLL adding object "+obj+" to list of size "+list.size());
 			list.addElement(obj);
 			listHash.put(obj,new Integer(list.size()-1));
 		}
@@ -263,7 +263,7 @@ public class ObjectRegistry implements GenericLoggableInterface
 	}
 	
 	public static void addWidget(WidgetShell w){
-		System.out.println("LLL adding widget "+w+" to list of size "+widgetList.size());
+		System.err.println("LLL adding widget "+w+" to list of size "+widgetList.size());
 		widgetList.addElement(w);
 	}
 	

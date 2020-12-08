@@ -23,7 +23,7 @@ public class UnivMethodInvocation implements java.io.Serializable, UIGenLoggable
 				parameterValues[i] = new UnivMethodParameter(theParameterValues[i]);
 			}
 		}
-		System.out.println("**************** XXX Calling "+theMethod+" of "+theParentObject);
+		System.err.println("**************** XXX Calling "+theMethod+" of "+theParentObject);
 	}
 	
 	public String getUIGenInternalID(){
@@ -50,7 +50,7 @@ public class UnivMethodInvocation implements java.io.Serializable, UIGenLoggable
 			} else{
 				ObjectAdapter adapter = ObjectRegistry.getAdapter(parentObjectPath);
 				if(adapter==null){
-					System.out.println("local adapter ("+parentObjectPath+") does not exist");
+					System.err.println("local adapter ("+parentObjectPath+") does not exist");
 					System.exit(1);
 				} else{
 					obj = adapter.computeAndMaybeSetViewObject();
@@ -60,14 +60,14 @@ public class UnivMethodInvocation implements java.io.Serializable, UIGenLoggable
 			Method methods[] = cls.getMethods();
 			for(int i=0;i<methods.length;i++){
 				if(methodDescriptor.describes(AVirtualMethod.virtualMethod(methods[i]))){
-					System.out.print("ZZZ calling "+methods[i]+" of "+obj);
+					System.err.print("ZZZ calling "+methods[i]+" of "+obj);
 					Object result = methods[i].invoke(obj,myParams);
-					System.out.println(" to get "+result);
+					System.err.println(" to get "+result);
 					return(result);
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("UnivMethodInvocation.execute(): Exception "+e.getMessage());
+			System.err.println("UnivMethodInvocation.execute(): Exception "+e.getMessage());
 			e.printStackTrace();
 		}
 		return null;

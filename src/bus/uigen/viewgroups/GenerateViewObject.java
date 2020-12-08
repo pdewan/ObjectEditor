@@ -53,7 +53,7 @@ public class GenerateViewObject {
 	  // Otherwise return the original object
 	  public static Object getViewObject(CompositeAdapter parentAdapter, Object object, boolean textMode, String property) {
 		  if (object == null) {
-			  //System.out.println ("returning null for view object");
+			  //System.err.println ("returning null for view object");
 				return null;
 		  }
 	    ClassProxy c = RemoteSelector.getClass(object);
@@ -73,9 +73,9 @@ public class GenerateViewObject {
 			MethodProxy viewMethod = c.getMethod(viewMethodName,
 													null);
 			if (viewMethod != null) {
-				//System.out.println("found" + viewMethod);
+				//System.err.println("found" + viewMethod);
 				Object viewObject = viewMethod.invoke(object, null);
-				//System.out.println("uigen view" + viewObject);
+				//System.err.println("uigen view" + viewObject);
 				return getViewObject (parentAdapter, viewObject, textMode, property);
 			} 
 						   
@@ -101,7 +101,7 @@ public class GenerateViewObject {
 		return getViewGroupObject(parentAdapter, object, c);
 		/*
 		
-		//System.out.println("no view method");
+		//System.err.println("no view method");
 		if (object instanceof Vector) return object;
 		if (object instanceof Hashtable) return object;
 		if (isPrimitiveClass(c)) return object;
@@ -118,7 +118,7 @@ public class GenerateViewObject {
 				return object;
 			}
 		} else {
-			//System.out.println("returning singleton property");
+			//System.err.println("returning singleton property");
 			return propertyValues.elementAt(0);
 		}
 		*/
@@ -131,7 +131,7 @@ public class GenerateViewObject {
 	  }
 	  public static Object getViewObject(CompositeAdapter parentAdapter, Object object, String property) {
 		  if (object == null) {
-			  //System.out.println ("returning null for view object");
+			  //System.err.println ("returning null for view object");
 				return null;
 		  }
 	    //Class c = object.getClass();
@@ -147,9 +147,9 @@ public class GenerateViewObject {
 													//null);
 			MethodProxy viewMethod = c.getMethod(viewMethodName);
 			if (viewMethod != null) {
-				//System.out.println("found" + viewMethod);
+				//System.err.println("found" + viewMethod);
 				Object viewObject = viewMethod.invoke(object, null);
-				//System.out.println("uigen view" + viewObject);
+				//System.err.println("uigen view" + viewObject);
 				return getViewObject (parentAdapter, viewObject, uiGenerator.textMode(), null);
 			} 
 						   
@@ -182,7 +182,7 @@ public class GenerateViewObject {
 		//return object;
 		/*
 		
-		//System.out.println("no view method");
+		//System.err.println("no view method");
 		if (object instanceof Vector) return object;
 		if (object instanceof Hashtable) return object;
 		if (isPrimitiveClass(c)) return object;
@@ -199,7 +199,7 @@ public class GenerateViewObject {
 				return object;
 			}
 		} else {
-			//System.out.println("returning singleton property");
+			//System.err.println("returning singleton property");
 			return propertyValues.elementAt(0);
 		}
 		*/
@@ -312,12 +312,12 @@ public class GenerateViewObject {
 			  return null;	
 		  //ConcreteType concreteType= ConcreteTypeRegistry.createConcreteType(RemoteSelector.getClass(realObject), realObject, parentAdapter.getUIFrame());
 		  if (!(concreteType instanceof VectorStructure)) {
-				System.out.println("E**" + realClass + " is not an indexed list");
+				System.err.println("E**" + realClass + " is not an indexed list");
 				return null;
 			}
 		  String primaryProperty = (String) cd.getPropertyAttribute(AttributeNames.ANY_ELEMENT, AttributeNames.PRIMARY_PROPERTY);
 		  if (primaryProperty == null) {
-			  System.out.println("E** no primary property  given for" + realClass);
+			  System.err.println("E** no primary property  given for" + realClass);
 			  return null;
 		  }
 		  
@@ -351,7 +351,7 @@ public class GenerateViewObject {
 			  vectorNavigatorSize = 6;
 		  //ConcreteType concreteType= ConcreteTypeRegistry.createConcreteType(RemoteSelector.getClass(realObject), realObject, parentAdapter.getUIFrame());
 		  if (!(concreteType instanceof VectorStructure)) {
-				System.out.println("E**" + realClass + " is not an indexed list");
+				System.err.println("E**" + realClass + " is not an indexed list");
 				return null;
 			}		  
 		  
@@ -386,13 +386,13 @@ public class GenerateViewObject {
 			  return null;	
 		  //ConcreteType concreteType= ConcreteTypeRegistry.createConcreteType(RemoteSelector.getClass(realObject), realObject, parentAdapter.getUIFrame());
 		  if (!(concreteType instanceof RecordStructure)) {
-				System.out.println("E**" + realClass + " is not an indexed list");
+				System.err.println("E**" + realClass + " is not an indexed list");
 				return null;
 			}
 		  RecordStructure record = (RecordStructure) concreteType;
 		  HashtableStructure hashTable = getHashtableStructure(record, parentAdapter);
 		  if (hashTable == null) {
-			  System.out.println("E** no hashtable in" + realClass);
+			  System.err.println("E** no hashtable in" + realClass);
 			  return null;
 		  }
 		  AnUnNestedRecordHTTupleList retVal = new AnUnNestedRecordHTTupleList(record, hashTable, parentAdapter.getUIFrame(), parentAdapter);
@@ -408,14 +408,14 @@ public class GenerateViewObject {
 			  return null;	
 		  //ConcreteType concreteType= ConcreteTypeRegistry.createConcreteType(RemoteSelector.getClass(realObject), realObject, parentAdapter.getUIFrame());
 		  if (!(concreteType instanceof VectorStructure)) {
-				System.out.println("E**" + realClass + " is not a matrix");
+				System.err.println("E**" + realClass + " is not a matrix");
 				return null;
 			}
 		  
 		  VectorStructure vector = (VectorStructure) concreteType;
 		  
 		  if (vector.size() == 0) {
-			  System.out.println("E*** matrix is null");
+			  System.err.println("E*** matrix is null");
 				return null;
 		  }
 		  Object origChild = vector.elementAt(0);
@@ -425,12 +425,12 @@ public class GenerateViewObject {
 		  //Class childClass = vector.addableElementType();
 		  ClassProxy childClass = RemoteSelector.getClass(child);
 		  if (childClass == null) {
-			  System.out.println("E** vector child class is null");
+			  System.err.println("E** vector child class is null");
 				return null;
 		  }
 		  ConcreteType childType= ConcreteTypeRegistry.createConcreteType(childClass, child, parentAdapter.getUIFrame());
 		  if (!(childType instanceof VectorStructure)) {
-				System.out.println("E**" + realClass + " is not a matrix");
+				System.err.println("E**" + realClass + " is not a matrix");
 				return null;
 			}
 			

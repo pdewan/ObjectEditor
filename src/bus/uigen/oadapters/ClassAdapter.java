@@ -164,7 +164,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			return record.isReadOnly(propertyName)
 					|| !record.preWrite(propertyName);
 		} catch (Exception e) {
-			// System.out.println("isReadOnly " + e);
+			// System.err.println("isReadOnly " + e);
 			e.printStackTrace();
 			return false;
 		}
@@ -181,7 +181,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			return getRecordStructure().validate(child.getPropertyName(),
 					newValue);
 		} catch (Exception e) {
-			System.out.println("isReadOnly " + e);
+			System.err.println("isReadOnly " + e);
 			return false;
 		}
 	}
@@ -190,7 +190,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		try {
 			return getRecordStructure().get(child.getPropertyName());
 		} catch (Exception e) {
-			System.out.println("get " + e);
+			System.err.println("get " + e);
 			return null;
 		}
 	}
@@ -205,7 +205,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 				return getRecordStructure()
 						.set(child.getPropertyName(), newVal);
 		} catch (Exception e) {
-			System.out.println("set " + e);
+			System.err.println("set " + e);
 			e.printStackTrace();
 			return null;
 		}
@@ -239,11 +239,11 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 
 	/*
 	 * public void oldRefreshValue(Object newValue, boolean forceUpdate) {
-	 * //System.out.println("uiClassAdapter-Set Value: " + newValue); // Use
+	 * //System.err.println("uiClassAdapter-Set Value: " + newValue); // Use
 	 * reflection to get the field/property components // and hand them down to
 	 * their corresponding widget/adaptors
 	 * 
-	 * //System.out.println("set value called on:" + this.getPath() + newValue);
+	 * //System.err.println("set value called on:" + this.getPath() + newValue);
 	 * boolean classChanged = false; if (newValue == null) return; boolean
 	 * viewDefined = getViewObject() == getRealObject();
 	 * 
@@ -253,7 +253,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 	 * this.refreshConcreteObject(viewObject);
 	 * //recordStructure.setTarget(viewObject); //Vector componentNames =
 	 * recordStructure.componentNames(); if (getRealObject() == null) { //
-	 * Temporary change System.out.println("TEMPORARY!"+newValue);
+	 * Temporary change System.err.println("TEMPORARY!"+newValue);
 	 * setRealObject(newValue);
 	 * 
 	 * this.addClassComponents(); //((Container)
@@ -262,7 +262,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 	 * setRealObject(newValue); if (!childrenCreated) return; // JTree //if
 	 * (isAtomic()) return; ClassProxy myClass = getPropertyClass(); if (myClass
 	 * == null) {
-	 * //System.out.println("uiClassAdapter: propertyClass is null for" + this);
+	 * //System.err.println("uiClassAdapter: propertyClass is null for" + this);
 	 * return; // Shouldnt happen. } Vector componentNames =
 	 * recordStructure.componentNames(); RightMenuManager.getRightMenu(myClass,
 	 * this);
@@ -280,7 +280,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 	 * null && !property.getName().equals("class")) { if (value != null) {
 	 * 
 	 * 
-	 * //System.out.println("Read "+property.getName()+" = "+value);
+	 * //System.err.println("Read "+property.getName()+" = "+value);
 	 * //uiObjectAdapter adapter = getChildAdapterMapping(property.getName());
 	 * uiObjectAdapter adapter = getChildAdapterMapping(componentName); if
 	 * (forceUpdate) adapter.setEdited(false); if (adapter != null) { Object
@@ -293,13 +293,13 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 	 * RemoteSelector.getClass(oldValue) != RemoteSelector.getClass(value)) ){
 	 * //boolean isElided = adapter.getGenericWidget().isElided(); boolean
 	 * isElided = adapter.isElided(); //boolean isElided = true; classChanged =
-	 * true; //value.getClass(); //System.out.println("Class changed from:" +
+	 * true; //value.getClass(); //System.err.println("Class changed from:" +
 	 * oldValue.getClass() + value.getClass());
 	 * 
-	 * //System.out.println ("about to replaced adapter"); uiObjectAdapter
+	 * //System.err.println ("about to replaced adapter"); uiObjectAdapter
 	 * newAdapter = this.replaceAdapter(adapter, value);
 	 * 
-	 * //System.out.println ("replaced adapter");
+	 * //System.err.println ("replaced adapter");
 	 * //this.setChildAdapterMapping(property.getName(), newAdapter);
 	 * this.setChildAdapterMapping(componentName, newAdapter); //maxLabelLength
 	 * = Math.max(maxLabelLength, a.getGenericWidget().getLabel().length());
@@ -320,10 +320,10 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 	 * newAdapter).getWidgetAdapter().setUIComponentUneditable();
 	 * //newAdapter.getWidgetAdapter().setUIComponentUneditable();
 	 * newAdapter.setUneditable(); } //till here }
-	 * //System.out.println("internal elide start"); if (isElided)
+	 * //System.err.println("internal elide start"); if (isElided)
 	 * newAdapter.internalElide(); else newAdapter.internalExpand();
 	 * 
-	 * //System.out.println("internal elide end");
+	 * //System.err.println("internal elide end");
 	 * 
 	 * } else if (! (value == null && oldValue == null)) {
 	 * adapter.refreshValue(value);
@@ -334,13 +334,13 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 	 * 
 	 * } }
 	 * 
-	 * // System.out.println("set value make column titles ended"); if
+	 * // System.err.println("set value make column titles ended"); if
 	 * (classChanged && this.getDirection().equals("horizontal") && this.parent
 	 * instanceof uiVectorAdapter) ((uiContainerAdapter)
 	 * this.parent).makeColumnTitles();
 	 * 
 	 * if (isAtomic()) setValueOfAtomicOrPrimitive(newValue);
-	 * //System.out.println("set value ended"); }
+	 * //System.err.println("set value ended"); }
 	 */
 
 	public void refreshValue(Object newValue, boolean forceUpdate) {
@@ -348,7 +348,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		/*
 		 * refreshSelf(newValue, forceUpdate); boolean classChanged =
 		 * refreshChildren(newValue, forceUpdate); //
-		 * System.out.println("set value make column titles ended"); if
+		 * System.err.println("set value make column titles ended"); if
 		 * (classChanged && this.getDirection().equals("horizontal") &&
 		 * this.parent instanceof uiVectorAdapter) ((uiContainerAdapter)
 		 * this.parent).makeColumnTitles();
@@ -361,7 +361,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			refreshAttributes();
 			attributeChangePending = false;
 		}
-		// System.out.println("set value ended");
+		// System.err.println("set value ended");
 	}
 
 	public void refreshValueButNotAtomic(Object newValue, boolean forceUpdate) {
@@ -369,7 +369,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		if (newValue == null)
 			return;
 		boolean classChanged = refreshChildren(newValue, forceUpdate);
-		// System.out.println("set value make column titles ended");
+		// System.err.println("set value make column titles ended");
 		if (classChanged && this.getDirection().equals("horizontal")
 				&& this.parent instanceof VectorAdapter)
 			((CompositeAdapter) this.parent).makeColumnTitles();
@@ -377,13 +377,13 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 	}
 
 	public void refreshSelf(Object newValue, boolean forceUpdate) {
-		// System.out.println("uiClassAdapter-Set Value: " + newValue);
+		// System.err.println("uiClassAdapter-Set Value: " + newValue);
 		// Use reflection to get the field/property components
 		// and hand them down to their corresponding widget/adaptors
 		/*
 		 * if (isAtomic()) { atomicSetValue(newValue); return; }
 		 */
-		// System.out.println("set value called on:" + this.getPath() +
+		// System.err.println("set value called on:" + this.getPath() +
 		// newValue);
 		// boolean classChanged = false;
 		if (newValue == null)
@@ -406,7 +406,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		// Vector componentNames = recordStructure.componentNames();
 		if (getRealObject() == null) {
 			// Temporary change
-			System.out.println("TEMPORARY!" + newValue);
+			System.err.println("TEMPORARY!" + newValue);
 			setRealObject(newValue);
 			/*
 			 * uiGenerator.uiAddClassComponents((Container)
@@ -436,7 +436,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		// if (isAtomic()) return;
 		ClassProxy myClass = getPropertyClass();
 		if (myClass == null) {
-			// System.out.println("uiClassAdapter: propertyClass is null for" +
+			// System.err.println("uiClassAdapter: propertyClass is null for" +
 			// this);
 			return classChanged; // Shouldnt happen.
 		}
@@ -505,7 +505,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		 * Method readMethod = property.getReadMethod();
 		 */
 		try {
-			// System.out.println("recordStructure of " + this + "is" +
+			// System.err.println("recordStructure of " + this + "is" +
 			// recordStructure);
 			// Object value = recordStructure.get(componentName);
 
@@ -523,7 +523,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			 * UnivMethodInvocation(viewObject,readMethod,null)); }
 			 */
 
-			// System.out.println("Read "+property.getName()+" = "+value);
+			// System.err.println("Read "+property.getName()+" = "+value);
 			// uiObjectAdapter adapter =
 			// getChildAdapterMapping(property.getName());
 			// ObjectAdapter adapter =
@@ -568,14 +568,14 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 				boolean isElided = adapter.isWidgetShellElided();
 				// boolean isElided = true;
 				classChanged = true;
-				// System.out.println("Class changed from:" +
+				// System.err.println("Class changed from:" +
 				// oldValue.getClass() + value.getClass());
 
-				// System.out.println ("about to replaced adapter");
+				// System.err.println ("about to replaced adapter");
 				// if (adapter.getUIComponent() != null)
 				ObjectAdapter newAdapter = this.replaceAdapter(adapter, value);
 				if (newAdapter == null)
-					return false; // System.out.println ("replaced adapter");
+					return false; // System.err.println ("replaced adapter");
 				// this.setChildAdapterMapping(property.getName(), newAdapter);
 				replaceChildInTables(componentName, adapter, newAdapter);
 				// this.setChildAdapterMapping(componentName, newAdapter);
@@ -605,7 +605,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 				 * .equals(childDesc.getBeanDescriptor().getValue("direction")))
 				 * !"horizontal".equals(newAdapter.getMergedAttributeValue(
 				 * "direction"))) foundUnlabeledComposite = true;
-				 * //System.out.println ("found composite"); }
+				 * //System.err.println ("found composite"); }
 				 */
 
 				if (recordStructure.isReadOnly(componentName)) {
@@ -621,7 +621,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 					}
 					// till here
 				}
-				// System.out.println("internal elide start");
+				// System.err.println("internal elide start");
 				// if we transformed from a null value to a non null value then
 				// expand it
 				if (isElided && newAdapter.getRealObject() != null
@@ -634,7 +634,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 				 * if (isElided) newAdapter.getGenericWidget().internalElide();
 				 * else newAdapter.getGenericWidget().internalExpand();
 				 */
-				// System.out.println("internal elide end");
+				// System.err.println("internal elide end");
 
 			}
 			// else if ( ! (value == null && oldValue == null) &&
@@ -683,9 +683,9 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			/*
 			 * } catch (IllegalStateException ise) { //ise.printStackTrace(); }
 			 * catch (InvocationTargetException ite) { //e.printStackTrace();
-			 * //System.out.println(e); Throwable actualException =
+			 * //System.err.println(e); Throwable actualException =
 			 * ite.getTargetException();
-			 * //System.out.println("Couldnt set value of property "
+			 * //System.err.println("Couldnt set value of property "
 			 * +property.getName() + ite); String s =
 			 * "Error setting property value\n"; //s = s + e + "\n" + "Object: "
 			 * + obj + "\nProperty: " + property.getName() + "\nMethod: " +
@@ -696,8 +696,8 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			 * actualException.printStackTrace(); s = s +
 			 * "\nPlease trace method"; JOptionPane.showMessageDialog(null,s );
 			 * } catch (Exception e) { //e.printStackTrace();
-			 * //System.out.println(e);
-			 * System.out.println("Couldnt set value of property "
+			 * //System.err.println(e);
+			 * System.err.println("Couldnt set value of property "
 			 * +property.getName() + e); String s =
 			 * "Error setting property value\n"; //s = s + e + "\n" + "Object: "
 			 * + obj + "\nProperty: " + property.getName() + "\nMethod: " +
@@ -718,7 +718,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 				adapter.propagatePreConditions();
 			return classChanged;
 		} catch (Exception e) {
-			System.out.println(e);
+			System.err.println(e);
 			e.printStackTrace();
 			return false;
 		}
@@ -731,7 +731,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		// and hand them down to their corresponding widget/adaptors
 		ClassProxy myClass = getPropertyClass();
 		if (myClass == null) {
-			// System.out.println("uiClassAdapter: propertyClass is null for" +
+			// System.err.println("uiClassAdapter: propertyClass is null for" +
 			// this + "adapter");
 			return null; // Shouldnt happen.
 		}
@@ -742,7 +742,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		if (source instanceof WidgetAdapterInterface) {
 			// This event came from a widget. we need to update
 			// our value
-			// System.out.println("Value is"+
+			// System.err.println("Value is"+
 			// getWidgetAdapter().getUIComponentValue());
 			// TEMP FIX
 			setRealObject(getWidgetAdapter().getUIComponentValue());
@@ -753,17 +753,17 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 	}
 
 	public void setChildAdapterMapping(String fieldName, ObjectAdapter adaptor) {
-		// System.out.println("putting in mapping" + fieldName + "adapter" +
+		// System.err.println("putting in mapping" + fieldName + "adapter" +
 		// adaptor);
 		if (adaptor == null)
 			return;
 
 		Object retVal = mapping.put(fieldName.toLowerCase(), adaptor);
-		// System.out.println("put in mapping: retVal" + retVal);
-		// System.out.println("size" + mapping.size());
+		// System.err.println("put in mapping: retVal" + retVal);
+		// System.err.println("size" + mapping.size());
 
 		// if (mapping.put(fieldName, adaptor) != null);
-		// System.out.println("PROPERTY AND FIELD WITH SAME NAME!!!");
+		// System.err.println("PROPERTY AND FIELD WITH SAME NAME!!!");
 	}
 
 	public void addChildInTables(String fieldName, ObjectAdapter adapter) {
@@ -779,7 +779,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 	}
 
 	public void removeChildInTables(String fieldName, ObjectAdapter adaptor) {
-		// System.out.println("putting in mapping" + fieldName + "adapter" +
+		// System.err.println("putting in mapping" + fieldName + "adapter" +
 		// adaptor);
 		// Object retVal = mapping.put(fieldName, adaptor);
 		Object retVal = mapping.remove(fieldName);
@@ -787,11 +787,11 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		unSetChildAdapterMapping(adaptor);
 		mapping.remove(fieldName);
 
-		// System.out.println("put in mapping: retVal" + retVal);
-		// System.out.println("size" + mapping.size());
+		// System.err.println("put in mapping: retVal" + retVal);
+		// System.err.println("size" + mapping.size());
 
 		// if (mapping.put(fieldName, adaptor) != null);
-		// System.out.println("PROPERTY AND FIELD WITH SAME NAME!!!");
+		// System.err.println("PROPERTY AND FIELD WITH SAME NAME!!!");
 	}
 
 	public void removeChildrenInTables() {
@@ -839,7 +839,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 
 	public void replaceChildInTables(String fieldName,
 			ObjectAdapter oldAdapter, ObjectAdapter newAdapter) {
-		// System.out.println("putting in mapping" + fieldName + "adapter" +
+		// System.err.println("putting in mapping" + fieldName + "adapter" +
 		// adaptor);
 		// Object retVal = mapping.put(fieldName, adaptor);
 		// Object retVal = mapping.put(fieldName, newAdapter);
@@ -851,11 +851,11 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 //		getRootAdapter().getBasicObjectRegistery().remove(oldAdapter.getRealObject());
 //		getRootAdapter().getVisitedObjects().remove(oldAdapter.getRealObject());
 //		}
-		// System.out.println("put in mapping: retVal" + retVal);
-		// System.out.println("size" + mapping.size());
+		// System.err.println("put in mapping: retVal" + retVal);
+		// System.err.println("size" + mapping.size());
 
 		// if (mapping.put(fieldName, adaptor) != null);
-		// System.out.println("PROPERTY AND FIELD WITH SAME NAME!!!");
+		// System.err.println("PROPERTY AND FIELD WITH SAME NAME!!!");
 	}
 
 	public ObjectAdapter getStaticChildAdapterMapping(String fieldName) {
@@ -911,7 +911,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		String retVal = adaptor.getPropertyName();
 		if (retVal != null)
 			return retVal;
-		System.out.println("Didnt find requested field in uiClassAdapter!!");
+		System.err.println("Didnt find requested field in uiClassAdapter!!");
 		return null;
 	}
 
@@ -1019,7 +1019,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		
 		if (childAdapter == null)
 			return false;
-		// System.out.println("component" + component);
+		// System.err.println("component" + component);
 		if (!(component instanceof VirtualContainer))
 			return false;
 		VirtualContainer container = (VirtualContainer) component;
@@ -1027,7 +1027,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			return false;
 		// why was this commented out, this is what I have gone back to.
 		// if (adapter.getChildAdapterCount() != 1) return false;
-		// System.out.println("singleton component");
+		// System.err.println("singleton component");
 		// this does not work as we dont know if we are getting a gen widget or
 		// ui component
 		// VirtualComponent child = childAdapter.getUIComponent();
@@ -1042,11 +1042,11 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			genWidget = adapter.getGenericWidget().getContainer();
 		else
 			genWidget = container;
-		// System.out.println("gen widet" + genWidget);
+		// System.err.println("gen widet" + genWidget);
 		VirtualContainer parentContainer = genWidget.getParent();
 		if (parentContainer == null)
 			return false;
-		// System.out.println("parent Container" + parentContainer);
+		// System.err.println("parent Container" + parentContainer);
 		// do this only if the child will fill up the whole window
 		if (adapter.isTopDisplayedAdapter())
 		reparentChild(parentContainer, genWidget, child);
@@ -1062,12 +1062,12 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		int position = 0;
 		VirtualComponent[] components = container.getComponents();
 		for (; position < components.length; position++) {
-			// System.out.println ("pos" + position + "comp" +
+			// System.err.println ("pos" + position + "comp" +
 			// components[position]);
 			if (component == components[position])
 				break;
 		}
-		// System.out.println("returning position" + position + "out of" +
+		// System.err.println("returning position" + position + "out of" +
 		// components.length);
 		return position;
 
@@ -1087,7 +1087,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		 parent.add(child, position);
 		 
 
-		// System.out.println("reparented");
+		// System.err.println("reparented");
 	}
 
 	public ObjectAdapter replaceAdapter(ObjectAdapter child, Object newValue) {
@@ -1116,19 +1116,19 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		 * getUIComponent()).getComponents(); Component[] components =
 		 * uiComponent.getComponents();
 		 * 
-		 * //System.out.println("componnets length" + components.length); for
+		 * //System.err.println("componnets length" + components.length); for
 		 * (position=0;position<components.length; position++) {
-		 * //System.out.println ("pos" + position + "comp" +
+		 * //System.err.println ("pos" + position + "comp" +
 		 * components[position]); //if
 		 * (child.getGenericWidget().equals(components[position])) if
 		 * (childGenericWidget== components[position]) break;
 		 * 
 		 * } if (position == components.length) {
-		 * System.out.println("Did not find component in replaceAdapter");
+		 * System.err.println("Did not find component in replaceAdapter");
 		 * return null; }
 		 * 
-		 * //System.out.println("components size before removal" +
-		 * components.length); //System.out.println("position" + position);
+		 * //System.err.println("components size before removal" +
+		 * components.length); //System.err.println("position" + position);
 		 * //((Container) getUIComponent()).remove(child.getGenericWidget());
 		 */
 		try {
@@ -1151,9 +1151,9 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			if (child.isVisible())
 			   numDisplayedStaticChildren--;
 		} catch (Exception e) {
-			System.out.println("position: " + position);
+			System.err.println("position: " + position);
 			e.printStackTrace();
-			// System.out.println(e);
+			// System.err.println(e);
 		}
 
 
@@ -1279,12 +1279,12 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		/*
 		 * components = uiComponent.getComponents(); if (components[position] !=
 		 * adapter.getGenericWidget()) {
-		 * System.out.println("Components[position]" + components[position]);
-		 * System.out.println("generic widget" + adapter.getGenericWidget()); }
+		 * System.err.println("Components[position]" + components[position]);
+		 * System.err.println("generic widget" + adapter.getGenericWidget()); }
 		 */
 		// components = ((Container) getUIComponent()).getComponents();
 
-		// System.out.println("components size after addition" +
+		// System.err.println("components size after addition" +
 		// components.length);
 		// childrenVector.setElementAt(adapter, position);
 		this.setChildAdapterMapping(adapter, position, child);
@@ -1405,7 +1405,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		}
 
 		if (generate) {
-			// System.out.println("adapter" + this + "containW" + containW);
+			// System.err.println("adapter" + this + "containW" + containW);
 			Boolean textMode = null;
 			Vector<Attribute> childAnnotationAttributes = recordStructure
 					.getComponentAttributes(componentName);
@@ -1440,9 +1440,9 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		// childAdapter.recalculateViewObject();
 		childAdapter.setIndex(childPos);
 		/*
-		 * System.out.println("Path " + a.getPath());
-		 * System.out.println("Beautified Path " + a.getBeautifiedPath());
-		 * System.out.println("Complete Path " + a.getCompletePathOnly());
+		 * System.err.println("Path " + a.getPath());
+		 * System.err.println("Beautified Path " + a.getBeautifiedPath());
+		 * System.err.println("Complete Path " + a.getCompletePathOnly());
 		 */
 		LoggableRegistry.mapLoggableToAdapter(childAdapter);
 
@@ -1520,7 +1520,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 	// public void addClassComponents(boolean doNotGenerateIfPossible) {
 	public void addClassComponents(boolean doNotGenerateIfPossible) {
 		numDisplayedStaticChildren = 0;
-		// System.out.println("add class in class adapter");
+		// System.err.println("add class in class adapter");
 		// uiFrame topFrame = this.getGenericWidget().getUIFrame();
 		// this.childrenCreated = true;
 		uiFrame topFrame = this.getUIFrame();
@@ -1550,7 +1550,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			topFrame.addClassToAttributeMenu(classname);
 			// topFrame.addClassToAttributeMenu(realClassName);
 		}
-		// System.out.println("Editor reg of" + this + "class" +
+		// System.err.println("Editor reg of" + this + "class" +
 		// EditorRegistry.getEditorClass(inputClass));
 		/*
 		 * if (EditorRegistry.getEditorClass(inputClass) != null){ //String
@@ -1631,7 +1631,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 
 	public void monolithicaddClassComponents(boolean doNotGenerateIfPossible) {
 		numDisplayedStaticChildren = 0;
-		// System.out.println("add class in class adapter");
+		// System.err.println("add class in class adapter");
 		// uiFrame topFrame = this.getGenericWidget().getUIFrame();
 		// this.childrenCreated = true;
 		uiFrame topFrame = this.getUIFrame();
@@ -1659,7 +1659,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			topFrame.addClassToAttributeMenu(classname);
 			// topFrame.addClassToAttributeMenu(realClassName);
 		}
-		// System.out.println("Editor reg of" + this + "class" +
+		// System.err.println("Editor reg of" + this + "class" +
 		// EditorRegistry.getEditorClass(inputClass));
 		/*
 		 * if (EditorRegistry.getEditorClass(inputClass) != null){ //String
@@ -1734,7 +1734,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			}
 
 			if (generate) {
-				// System.out.println("adapter" + this + "containW" + containW);
+				// System.err.println("adapter" + this + "containW" + containW);
 				Boolean textMode = null;
 				a = uiGenerator.createObjectAdapter(
 				/* containW, */
@@ -1747,9 +1747,9 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			// moving this earlier so we can use path in attributes
 			a.setIndex(i);
 			/*
-			 * System.out.println("Path " + a.getPath());
-			 * System.out.println("Beautified Path " + a.getBeautifiedPath());
-			 * System.out.println("Complete Path " + a.getCompletePathOnly());
+			 * System.err.println("Path " + a.getPath());
+			 * System.err.println("Beautified Path " + a.getBeautifiedPath());
+			 * System.err.println("Complete Path " + a.getCompletePathOnly());
 			 */
 			LoggableRegistry.mapLoggableToAdapter(a);
 
@@ -1811,14 +1811,14 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 
 		/*
 		 * 
-		 * //System.out.println("Adapter" + a + " " +
+		 * //System.err.println("Adapter" + a + " " +
 		 * a.getAttributeValue(AttributeNames.LABEL)); //maxLabelLength =
 		 * Math.max(maxLabelLength, ((String)
 		 * a.getAttributeValue(AttributeNames.LABEL)).length()); maxLabelLength
 		 * = Math.max(maxLabelLength, a.getGenericWidget().getLabel().length());
 		 * //maxLabelLength = Math.max(maxLabelLength,
 		 * a.getGenericWidget().getLabelComponent().getSize().width);
-		 * //System.out.println(maxLabelLength + " " +
+		 * //System.err.println(maxLabelLength + " " +
 		 * a.getGenericWidget().getLabel().length());
 		 * //a.setParentAdapter(adaptor); // Set the propertyFlag
 		 * a.setAdapterType(uiObjectAdapter.PROPERTY_TYPE); // Set the
@@ -1828,12 +1828,12 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		 * //a.setPreMethods(obj.getClass()); if
 		 * (recordStructure.isReadOnly(componentName)) { //if
 		 * (property.getWriteMethod() == null) {
-		 * //System.out.println("no writemethod for" + a.getBeautifiedPath());
+		 * //System.err.println("no writemethod for" + a.getBeautifiedPath());
 		 * //if (a instanceof uiPrimitiveAdapter) { if (a.isLeaf()) {
 		 * //((uiPrimitiveAdapter)
 		 * a).getWidgetAdapter().setUIComponentUneditable();
 		 * a.getWidgetAdapter().setUIComponentUneditable(); }
-		 * //System.out.println("adapter" + a + "writemethod set"); if
+		 * //System.err.println("adapter" + a + "writemethod set"); if
 		 * (a.getUIComponent() == null) {
 		 * 
 		 * String label = (String)
@@ -1850,26 +1850,26 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		 * continue; }
 		 * 
 		 * // Check if the property is editable // and set the editable
-		 * attribute to false if // it isnt. //System.out.println ("adapter" + a
+		 * attribute to false if // it isnt. //System.err.println ("adapter" + a
 		 * + " " + a.getAttributeValue(AttributeNames.LABEL));
-		 * //System.out.println(a + a.getGenericWidget().getLabel());
+		 * //System.err.println(a + a.getGenericWidget().getLabel());
 		 * //maxLabelLength = Math.max(maxLabelLength, ((String)
 		 * a.getAttributeValue(AttributeNames.LABEL)).length());
 		 * //maxLabelLength = Math.max(maxLabelLength,
 		 * a.getGenericWidget().getLabel().length());
-		 * //System.out.println(maxLabelLength + " "
+		 * //System.err.println(maxLabelLength + " "
 		 * +a.getGenericWidget().getLabel().length() ); if (!(a instanceof
 		 * uiPrimitiveAdapter)) { ViewInfo childDesc =
-		 * ClassDescriptorCache.getClassDescriptor(pcl); //System.out.println
-		 * ("non primitive adapter"); //System.out.println(childDesc);
-		 * //System.out
+		 * ClassDescriptorCache.getClassDescriptor(pcl); //System.err.println
+		 * ("non primitive adapter"); //System.err.println(childDesc);
+		 * //System.err
 		 * .println(childDesc.getBeanDescriptor().getValue("direction")); if
 		 * (childDesc.getBeanDescriptor() != null &&
 		 * !a.getGenericWidget().isLabelVisible() &&
 		 * //!"horizontal".equals(childDesc
 		 * .getBeanDescriptor().getValue("direction")))
 		 * !"horizontal".equals(a.getMergedAttributeValue("direction")))
-		 * foundUnlabeledComposite = true; //System.out.println
+		 * foundUnlabeledComposite = true; //System.err.println
 		 * ("found composite"); }
 		 * 
 		 * } }
@@ -1898,7 +1898,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 
 	public void addClassComponents(Hashtable sharedProps) {
 
-		// System.out.println("add class in class adapter");
+		// System.err.println("add class in class adapter");
 		// uiFrame topFrame = this.getGenericWidget().getUIFrame();
 		// this.childrenCreated = true;
 		uiFrame topFrame = this.getUIFrame();
@@ -1925,7 +1925,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 			topFrame.addClassToAttributeMenu(classname);
 			// topFrame.addClassToAttributeMenu(realClassName);
 		}
-		// System.out.println("Editor reg of" + this + "class" +
+		// System.err.println("Editor reg of" + this + "class" +
 		// EditorRegistry.getEditorClass(inputClass));
 		/*
 		 * if (EditorRegistry.getEditorClass(inputClass) != null){ //String
@@ -1975,11 +1975,11 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 
 			if (pobj != null)
 				pcl =  ACompositeLoggable.getTargetClass(pobj);
-			// System.out.println("adapter" + this + "containW" + containW);
+			// System.err.println("adapter" + this + "containW" + containW);
 			a = uiGenerator.createObjectAdapter(
 			// containW,
 					adaptor, pobj, pcl, count++, componentName, obj, true);
-			// System.out.println("finished uiAddComponents");
+			// System.err.println("finished uiAddComponents");
 			// adaptor.setChildAdapterMapping(property.getName(), a);
 			if (adaptor.isVisible()) {
 				addChildInTables(componentName, a);
@@ -2048,14 +2048,14 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 
 		/*
 		 * 
-		 * //System.out.println("Adapter" + a + " " +
+		 * //System.err.println("Adapter" + a + " " +
 		 * a.getAttributeValue(AttributeNames.LABEL)); //maxLabelLength =
 		 * Math.max(maxLabelLength, ((String)
 		 * a.getAttributeValue(AttributeNames.LABEL)).length()); maxLabelLength
 		 * = Math.max(maxLabelLength, a.getGenericWidget().getLabel().length());
 		 * //maxLabelLength = Math.max(maxLabelLength,
 		 * a.getGenericWidget().getLabelComponent().getSize().width);
-		 * //System.out.println(maxLabelLength + " " +
+		 * //System.err.println(maxLabelLength + " " +
 		 * a.getGenericWidget().getLabel().length());
 		 * //a.setParentAdapter(adaptor); // Set the propertyFlag
 		 * a.setAdapterType(uiObjectAdapter.PROPERTY_TYPE); // Set the
@@ -2065,12 +2065,12 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		 * //a.setPreMethods(obj.getClass()); if
 		 * (recordStructure.isReadOnly(componentName)) { //if
 		 * (property.getWriteMethod() == null) {
-		 * //System.out.println("no writemethod for" + a.getBeautifiedPath());
+		 * //System.err.println("no writemethod for" + a.getBeautifiedPath());
 		 * //if (a instanceof uiPrimitiveAdapter) { if (a.isLeaf()) {
 		 * //((uiPrimitiveAdapter)
 		 * a).getWidgetAdapter().setUIComponentUneditable();
 		 * a.getWidgetAdapter().setUIComponentUneditable(); }
-		 * //System.out.println("adapter" + a + "writemethod set"); if
+		 * //System.err.println("adapter" + a + "writemethod set"); if
 		 * (a.getUIComponent() == null) {
 		 * 
 		 * String label = (String)
@@ -2087,26 +2087,26 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		 * continue; }
 		 * 
 		 * // Check if the property is editable // and set the editable
-		 * attribute to false if // it isnt. //System.out.println ("adapter" + a
+		 * attribute to false if // it isnt. //System.err.println ("adapter" + a
 		 * + " " + a.getAttributeValue(AttributeNames.LABEL));
-		 * //System.out.println(a + a.getGenericWidget().getLabel());
+		 * //System.err.println(a + a.getGenericWidget().getLabel());
 		 * //maxLabelLength = Math.max(maxLabelLength, ((String)
 		 * a.getAttributeValue(AttributeNames.LABEL)).length());
 		 * //maxLabelLength = Math.max(maxLabelLength,
 		 * a.getGenericWidget().getLabel().length());
-		 * //System.out.println(maxLabelLength + " "
+		 * //System.err.println(maxLabelLength + " "
 		 * +a.getGenericWidget().getLabel().length() ); if (!(a instanceof
 		 * uiPrimitiveAdapter)) { ViewInfo childDesc =
-		 * ClassDescriptorCache.getClassDescriptor(pcl); //System.out.println
-		 * ("non primitive adapter"); //System.out.println(childDesc);
-		 * //System.out
+		 * ClassDescriptorCache.getClassDescriptor(pcl); //System.err.println
+		 * ("non primitive adapter"); //System.err.println(childDesc);
+		 * //System.err
 		 * .println(childDesc.getBeanDescriptor().getValue("direction")); if
 		 * (childDesc.getBeanDescriptor() != null &&
 		 * !a.getGenericWidget().isLabelVisible() &&
 		 * //!"horizontal".equals(childDesc
 		 * .getBeanDescriptor().getValue("direction")))
 		 * !"horizontal".equals(a.getMergedAttributeValue("direction")))
-		 * foundUnlabeledComposite = true; //System.out.println
+		 * foundUnlabeledComposite = true; //System.err.println
 		 * ("found composite"); }
 		 * 
 		 * } }
@@ -3012,7 +3012,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 				}
 				if (a.getGenericWidget() == null)
 					continue;
-				// System.out.println("adapter" + a + "writemethod set");
+				// System.err.println("adapter" + a + "writemethod set");
 				if (a.getUIComponent() == null) {
 
 					String label = (String) a
@@ -3039,28 +3039,28 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 				// Check if the property is editable
 				// and set the editable attribute to false if
 				// it isnt.
-				// System.out.println ("adapter" + a + " " +
+				// System.err.println ("adapter" + a + " " +
 				// a.getAttributeValue(AttributeNames.LABEL));
-				// System.out.println(a + a.getGenericWidget().getLabel());
+				// System.err.println(a + a.getGenericWidget().getLabel());
 				// maxLabelLength = Math.max(maxLabelLength, ((String)
 				// a.getAttributeValue(AttributeNames.LABEL)).length());
 				// maxLabelLength = Math.max(maxLabelLength,
 				// a.getGenericWidget().getLabel().length());
-				// System.out.println(maxLabelLength + " "
+				// System.err.println(maxLabelLength + " "
 				// +a.getGenericWidget().getLabel().length() );
 				if (!(a instanceof PrimitiveAdapter)) {
 					ClassDescriptorInterface childDesc = ClassDescriptorCache
 							.getClassDescriptor(a.getPropertyClass());
-					// System.out.println ("non primitive adapter");
-					// System.out.println(childDesc);
-					// System.out.println(childDesc.getBeanDescriptor().getValue("direction"));
+					// System.err.println ("non primitive adapter");
+					// System.err.println(childDesc);
+					// System.err.println(childDesc.getBeanDescriptor().getValue("direction"));
 					if (childDesc.getBeanDescriptor() != null
 							&& !a.getGenericWidget().isLabelVisible() &&
 							// !"horizontal".equals(childDesc.getBeanDescriptor().getValue("direction")))
 							!"horizontal".equals(a
 									.getMergedAttributeValue("direction")))
 						foundUnlabeledComposite = true;
-					// System.out.println ("found composite");
+					// System.err.println ("found composite");
 				}
 				/*
 				 * if (!(a instanceof uiPrimitiveAdapter)) {
@@ -3068,7 +3068,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 				 */
 				/*
 				 * if (property.getWriteMethod() == null) {
-				 * //System.out.println("no writemethod for" +
+				 * //System.err.println("no writemethod for" +
 				 * a.getBeautifiedPath()); //if (a instanceof
 				 * uiPrimitiveAdapter) { if (a.isLeaf()) {
 				 * //((uiPrimitiveAdapter)
@@ -3175,7 +3175,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 		 * //if (containW == null || containW instanceof JTabbedPane) return; if
 		 * (alignHorizontal) { Vector attributes = new Vector();
 		 * 
-		 * processDirection("horizontal"); //System.out.println("horizontal " +
+		 * processDirection("horizontal"); //System.err.println("horizontal " +
 		 * adaptor.getMergedAttributeValue("direction")); }
 		 * 
 		 * if (alignHorizontal)
@@ -3247,10 +3247,10 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 	 * 
 	 * classAdapter.setParentAdapter((uiContainerAdapter) adaptor);
 	 * classAdapter.setUIFrame(adaptor.getUIFrame());
-	 * //System.out.println("processing attributes of adaptor for" + obj1);
+	 * //System.err.println("processing attributes of adaptor for" + obj1);
 	 * classAdapter.processAttributeList();
 	 * 
-	 * //System.out.println("finished adding attributes of adaptor for" + obj1);
+	 * //System.err.println("finished adding attributes of adaptor for" + obj1);
 	 * if (classAdapter.getUIComponent() == null) {
 	 * 
 	 * String label = (String)
@@ -3335,7 +3335,7 @@ public class ClassAdapter extends CompositeAdapter implements ClassAdapterInterf
 	public void subPropertyChange(PropertyChangeEvent evt) {
 
 		// haveReceivedNotification();
-//		System.out.println(getRealObject().toString());
+//		System.err.println(getRealObject().toString());
 //		Tracer.info("ObjectAdapter: " + getPath() +
 //				" created for object:"	+ objectID() + 
 //				" received new value " + evt.getNewValue()

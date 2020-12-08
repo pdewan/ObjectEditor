@@ -39,7 +39,7 @@ public class UnivVectorEvent implements java.io.Serializable, UIGenLoggableEvent
 				adapter.subUpdateVector(uve);
 			}
 		} catch (Exception e) {
-			System.out.println("UnivVectorEvent.execute(): Exception "+e);
+			System.err.println("UnivVectorEvent.execute(): Exception "+e);
 			e.printStackTrace();
 		}
 	}

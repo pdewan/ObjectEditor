@@ -96,7 +96,7 @@ public class ImageShapeAdapter extends BoundedShapeAdapter implements RemoteProp
 //			imageShape.setImageData(imageFileName, icon, Common.toImage(imageFileName, object));
 			}
 //			oldImageFileName = imageFileName;
-		} catch (Exception e) {		  System.out.println("E**: exception invoking imageFileName methods");		  e.printStackTrace();
+		} catch (Exception e) {		  System.err.println("E**: exception invoking imageFileName methods");		  e.printStackTrace();
 		}	
 	  return shape;   }
   public boolean recalculateRealObject() {
@@ -107,7 +107,7 @@ public class ImageShapeAdapter extends BoundedShapeAdapter implements RemoteProp
 		    Object[] params = {text};			setTextMethod.invoke(object, params);			  */			  getConcreteImageShape().setImageFileName(imageFileName);
 			retVal = true;		  }
 		  oldImageFileName = imageFileName;			 
-		} catch (Exception e) {		  System.out.println("E**: exception invoking set imageFileName  methods");		  e.printStackTrace();
+		} catch (Exception e) {		  System.err.println("E**: exception invoking set imageFileName  methods");		  e.printStackTrace();
 		}	  return retVal;
   }
   public static ImageShapeAdapter createImageShapeAdapter (Object obj,											  Object obj1, 											  Object parentObject, 											  String name, 											  Class inputClass, 											  boolean propertyFlag, 											  ObjectAdapter adaptor)throws RemoteException  {

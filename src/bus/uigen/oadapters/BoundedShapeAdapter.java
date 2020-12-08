@@ -53,7 +53,7 @@ import bus.uigen.*;import bus.uigen.introspect.*;import bus.uigen.sadapters.Co
 	  oldHeight = shape.getHeight();	  if (obj instanceof shapes.RemoteShape) {		  RemoteShape oldShape = (RemoteShape) obj;		  oldShape.setWidth(oldWidth);		  oldShape.setHeight(oldHeight);	  }
   	} catch (Exception e) {
   		e.printStackTrace();
-  		//System.out.println(e);
+  		//System.err.println(e);
   	}
 	    }
   /*  public Object getViewObject(Object realObject) {
@@ -148,7 +148,7 @@ import bus.uigen.*;import bus.uigen.introspect.*;import bus.uigen.sadapters.Co
 //			oldWidth = width;
 //			oldHeight = height;
 		} catch (Exception e) {
-		  System.out.println("E**: exception invoking bounds methods");
+		  System.err.println("E**: exception invoking bounds methods");
 		  e.printStackTrace();
 		}	
 	  return shape;
@@ -188,7 +188,7 @@ import bus.uigen.*;import bus.uigen.introspect.*;import bus.uigen.sadapters.Co
 		  }
 		  oldWidth = width;
 		  oldHeight = height;			 
-		} catch (Exception e) {		  System.out.println("E**: exception invoking  bounds methods");		  e.printStackTrace();
+		} catch (Exception e) {		  System.err.println("E**: exception invoking  bounds methods");		  e.printStackTrace();
 		}	  return retVal;
   }  
 }

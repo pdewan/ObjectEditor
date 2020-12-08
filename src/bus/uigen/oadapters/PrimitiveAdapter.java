@@ -46,7 +46,7 @@ implements PrimitiveAdapterInterface {
 	  if (getWidgetAdapter() == null) 
 		  try {	     val = TranslatorRegistry.convert("java.lang.Object", getViewObject());		  } catch (Exception e) { val = null;}
 	  else		 val = getValue();
-	  if (val != null) {		    String valRep = val.toString();			//System.out.println(valRep.indexOf('\n'));
+	  if (val != null) {		    String valRep = val.toString();			//System.err.println(valRep.indexOf('\n'));
 			if (label.equals(""))
 			    return valRep;
 			else
@@ -110,7 +110,7 @@ implements PrimitiveAdapterInterface {
 	  setRealObject(fromText(inputText));
 	  setViewObject(computeViewObject(getParentAdapter(), getRealObject()));
 	  uiComponentValueChanged();
-	  //System.out.println("New Input:" + inputText);
+	  //System.err.println("New Input:" + inputText);
 	}
   public void setCompleteUserObject(Object object)  {
   	  inputText = (String) object;
@@ -124,7 +124,7 @@ implements PrimitiveAdapterInterface {
 	  setViewObject(computeViewObject(getParentAdapter(), getRealObject()));
 	  computeAndMaybeSetViewObject(); // side effect is to set view object
 	  uiComponentValueChanged();
-	  //System.out.println("New Input:" + inputText);
+	  //System.err.println("New Input:" + inputText);
 	}
 	public Object getUserObject(Object object)  {
 		return inputText;
@@ -205,7 +205,7 @@ implements PrimitiveAdapterInterface {
 			  getWidgetAdapter().setUIComponentValue(newValue); 
 	  } else if (!getWidgetAdapter().getUIComponentValue().equals(newValue.toString()) && !isEdited()) {
 		    getWidgetAdapter().setUIComponentValue(newValue); 
-		    //System.out.println("Replaced with "+newValue);		}
+		    //System.err.println("Replaced with "+newValue);		}
   }
   */   
   /*
@@ -222,7 +222,7 @@ implements PrimitiveAdapterInterface {
 	  //adding this may cause problems and it did	  //if (newValue1.equals(getValue())) return;
 	  // First check if the type of newValue
 	  // matches the type this attributed object represents
-	  //System.out.println("primtive set value");
+	  //System.err.println("primtive set value");
 	  //Object newValue = uiGenerator.getViewObject(newValue1);	  setRealObject(newValue1);	  setViewObject(getViewObject(newValue1));	  //if (getWidgetAdapter() == null) return;	  
 	  propagatePreConditions();	  Object newValue = getViewObject(newValue1);	  
 	  if (haveChangedClass(newValue)) {		  if (getParentAdapter() instanceof uiReplaceableChildren)
@@ -235,12 +235,12 @@ implements PrimitiveAdapterInterface {
   }
   void processNameChild(Object newValue) {	  if (isNameChild || ((keyAdapter != null) && keyAdapter.isNameKey())) {		  ((CompositeAdapter) getParentAdapter()).nameChildChanged((String) newValue);	  }
 	  
-  }    public void setIsNameChild(boolean val) {	  //System.out.println(getPath() + "name child" + this + getValue());
+  }    public void setIsNameChild(boolean val) {	  //System.err.println(getPath() + "name child" + this + getValue());
 	  isNameChild = true;  }
   
   transient boolean tried = false;
 
-  public Object getValue() {	  //System.out.println("get value called");
+  public Object getValue() {	  //System.err.println("get value called");
 	if (getRealObject() == null)
 		return null;	if (getWidgetAdapter() == null) {
 		return computeAndMaybeSetViewObject();	}
@@ -297,9 +297,9 @@ implements PrimitiveAdapterInterface {
   public boolean getDefaultExpanded() {
 	  return super.getDefaultExpanded();
 		//return true;
-	}  public void implicitRefreshOld() {	  //System.out.println("primitive refresh");
+	}  public void implicitRefreshOld() {	  //System.err.println("primitive refresh");
 	  	   Object parentObject = parent.computeAndMaybeSetViewObject();
-	  if (getAdapterType() == PROPERTY_TYPE) {		  //System.out.println("prop type");
+	  if (getAdapterType() == PROPERTY_TYPE) {		  //System.err.println("prop type");
 		  // Get the property value using a getValue() call
 		  // Find the write method of this property and
 		  // invoke this method on the parent object.		  Object newValue = get();
@@ -312,7 +312,7 @@ implements PrimitiveAdapterInterface {
 			  */				  getWidgetAdapter().setUIComponentValue(newValue);				  /*
 			  }
 			  catch (Exception e) {
-				  System.out.println("Exception occured while trying to call "+propertyReadMethod.getName()+" on "+parentObject);
+				  System.err.println("Exception occured while trying to call "+propertyReadMethod.getName()+" on "+parentObject);
 				  e.printStackTrace();
 			  }
 				  */		  }
@@ -323,15 +323,15 @@ implements PrimitiveAdapterInterface {
 			  // vector.getElementAt().
 			  Object newValue;
 			  int index;
-			  try {				  System.out.println(this.getAdapterIndex());
+			  try {				  System.err.println(this.getAdapterIndex());
 				  index = Integer.parseInt(this.getAdapterIndex());
 			  } catch (NumberFormatException e) {
-				  e.printStackTrace();//				  System.out.println("Exception");
+				  e.printStackTrace();//				  System.err.println("Exception");
 				  index = 0;
 			  }
 			  try {
 				  
-				  //System.out.println("Getting component "+index+" of vector" + parentObject);
+				  //System.err.println("Getting component "+index+" of vector" + parentObject);
 				  newValue = ((Vector) parentObject).elementAt(index);				  getWidgetAdapter().setUIComponentValue(newValue);
 			  } catch (ArrayIndexOutOfBoundsException e) {  }
 		  }		  
@@ -377,7 +377,7 @@ implements PrimitiveAdapterInterface {
       //primitiveAdapter.setViewObject(obj);
       primitiveAdapter.setRealObject(obj1);
 	  //if (obj1 instanceof shapes.ShapeModel)
-		  //System.out.println("found ShapeModel" + obj1.getClass());	  //System.out.println("setting value of" + primitiveAdapter);
+		  //System.err.println("found ShapeModel" + obj1.getClass());	  //System.err.println("setting value of" + primitiveAdapter);
       primitiveAdapter.refreshValue(obj);	  
 	  bus.uigen.uiGenerator.deepElide(primitiveAdapter);	  //primitiveAdapter.processAttributeList();
       

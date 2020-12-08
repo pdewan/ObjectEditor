@@ -25,11 +25,11 @@ public class ShapesAdapter extends WidgetAdapter implements Listener, MouseListe
   }  void removeController(SLGController controller) {  	if (controller == null) return;  	if (controllers.contains(controller))  		controllers.remove(controller);  }  void addController(SLGController controller) {  	if (controller == null) return;  	if (controllers.contains(controller)) return;  	controllers.addElement(controller);  }  public void setController() {   		  if (controller != composer.getController()) {	  	removeController(controller);		controller = composer.getController();				//controller.addSelectionListener();	  }	  if (controller == null) return;	  addController(controller);	  	  controller.setIncremental(incremental);  	  }    public void setIncremental() {  	if (controller != null)  		controller.setIncremental(incremental);   }  boolean isView(VirtualContainer container) {	  return container.getPhysicalComponent() instanceof DelegateJPanel;  }
   SLModel slModel;  public SLModel getSLModel() {	  return slModel;  }
   public void setUIComponentTypedValue(Object newval) {
-	  //System.out.println("new model value" + newval);	  slModel = (SLModel) newval;	  if (composer.getModel() != slModel) {		  if (virtualContainer != null && isView(virtualContainer))			  composer.setModel(slModel, (DelegateJPanel) virtualContainer.getPhysicalComponent());		  else
+	  //System.err.println("new model value" + newval);	  slModel = (SLModel) newval;	  if (composer.getModel() != slModel) {		  if (virtualContainer != null && isView(virtualContainer))			  composer.setModel(slModel, (DelegateJPanel) virtualContainer.getPhysicalComponent());		  else
 			  composer.setModel(slModel);				 if (!getObjectAdapter().getUIFrame().isGlassPane())		  toolTipTextRunnable.setShapesList(slModel);	  }
 	  if (view != composer.getView()) {	      view = composer.getView();	      view.getContainer().addMouseListener(this);	      getObjectAdapter().getUIFrame().addKeyListener(AWTContainer.virtualContainer(view.getContainer()));	      CompositeAdapter shapesObjectAdapter =  (CompositeAdapter) getObjectAdapter();	      getView().getShapeEventNotifier().addMouseListener(this);//		  shapesObjectAdapter.registerAsMouseClickListener(getView().getShapeEventNotifier());		  if (shapesObjectAdapter.getShapeListMouseClickListener() != null) {			  shapesObjectAdapter.registerAsMouseClickListener(getView().getShapeEventNotifier());		  }	  } else {	  	view.getContainer().repaint();	  }	  setController();	  /*	  if (controller != composer.getController()) {
 		controller = composer.getController();				//controller.addSelectionListener();
-	  }	  */	  //System.out.println("SLModel" + newval);
+	  }	  */	  //System.err.println("SLModel" + newval);
   }
   
   public Object getUIComponentValue() {	  return slModel;
@@ -41,7 +41,7 @@ public class ShapesAdapter extends WidgetAdapter implements Listener, MouseListe
 	  return view;  }    // need to move this stuff in link component and not derive top frame from frame list!
   public VirtualComponent instantiateComponent(ClassProxy cclass, ObjectAdapter adapter) {
     //uiFrame top = (uiFrame) uiFrameList.getList().elementAt(0);	  if (adapter.getUIFrame().isGlassPane()) return null;	  VirtualComponent virtualComposer = PanelSelector.createPanel();	  return virtualComposer;	  /*    uiFrame top = adapter.getUIFrame();
-    try {	  //if (slModel == null) System.out.println("Null SLModel");
+    try {	  //if (slModel == null) System.err.println("Null SLModel");
       //composer = new SLComposer(top, slModel);
 	  //composer = new SLComposer(top.getFrame(), slModel, false);      VirtualFrame vFrame = top.getFrame();      Frame frame = null;      if (vFrame != null)    	  frame = (Frame) vFrame.getPhysicalComponent();    	  	  //composer = new SLComposer((Frame) top.getFrame().getPhysicalComponent(), slModel, false);	  composer = new SLComposer(frame, slModel, false, (Container) virtualComposer.getPhysicalComponent());	  view = composer.getView();	  controller = composer.getController();	  //controller.setIncremental(true);
 	  	  virtualComposer = AWTContainer.virtualContainer(composer.getContainer());	  
@@ -55,7 +55,7 @@ public class ShapesAdapter extends WidgetAdapter implements Listener, MouseListe
   public void setUIComponentEditable() {	  SLGController controller = composer.getController();
   }
   public void setUIComponentUneditable() {
-	  System.out.println("Uneditable");	  SLGController controller = composer.getController();	  	  controller.removeComponent("Undo");	  	  controller.removeComponent("Redo");			  	  controller.removeComponent("Load");	  	  controller.removeComponent("Save");	  	  	  controller.removeComponent("Resize");
+	  System.err.println("Uneditable");	  SLGController controller = composer.getController();	  	  controller.removeComponent("Undo");	  	  controller.removeComponent("Redo");			  	  controller.removeComponent("Load");	  	  controller.removeComponent("Save");	  	  	  controller.removeComponent("Resize");
   }    Color unselectedColor;
   public void setUIComponentSelected() {	  // do we really need it to be selected
 	  // should basicall put in a selected list
@@ -66,21 +66,21 @@ public class ShapesAdapter extends WidgetAdapter implements Listener, MouseListe
   }
   
   public void linkUIComponentToMe(VirtualComponent theVirtualComponent) {
-    // Draw the clock and set up listener interface	  //System.out.println("link called");	  virtualContainer = (VirtualContainer) theVirtualComponent;	  //if (composer != null) return;	  	  	 // virtualComposer = AWTContainer.virtualContainer(composer.getContainer());
+    // Draw the clock and set up listener interface	  //System.err.println("link called");	  virtualContainer = (VirtualContainer) theVirtualComponent;	  //if (composer != null) return;	  	  	 // virtualComposer = AWTContainer.virtualContainer(composer.getContainer());
         linkUIComponentToMe();
-  }    public VirtualComponent getUIComponent() {	  return virtualContainer;  }    public void linkUIComponentToMe () {	  uiFrame top = getObjectAdapter().getUIFrame();	    try {		  //if (slModel == null) System.out.println("Null SLModel");	      //composer = new SLComposer(top, slModel);		  //composer = new SLComposer(top.getFrame(), slModel, false);	      VirtualFrame vFrame = top.getFrame();	      Frame frame = null;	      if (vFrame != null)	    	  frame = (Frame) vFrame.getPhysicalComponent();    	  		  //composer = new SLComposer((Frame) top.getFrame().getPhysicalComponent(), slModel, false);		  //passing in a null model	      if (virtualContainer == null || isView(virtualContainer))	    	  composer = new SLComposer();	      else	    	  composer = new SLComposer(frame, slModel, false, (Container) virtualContainer.getPhysicalComponent());	   // set sze etc		  super.setAttributes(virtualContainer);			      	      /*		  view = composer.getView();		  top.addKeyListener(AWTContainer.virtualContainer(view.getContainer()));		  controller = composer.getController();		  */		  //controller.setIncremental(true);		  /*	      SLModel model = composer.getModel();      	      model.addListener(this);		  view.addMouseListener(this);		  */		  /*		  //SLGController controller = composer.getController();	  		  controller.removeComponent("Clear");	  		  controller.removeComponent("Prompt");		  		  //controller.setVisibleComponent("Prompt", false);			  		  controller.removeComponent("Move");	  		  controller.removeComponent("Delete");  	  		  controller.removeComponent("Line"); 	  		  controller.removeComponent("Oval");  	  		  controller.removeComponent("Rectangle"); 		  */		  //virtualComposer = AWTContainer.virtualContainer(composer.getContainer());	      //return virtualComposer;	    } catch (Exception e) {	      e.printStackTrace();	      //return null;	    }	    }  
+  }    public VirtualComponent getUIComponent() {	  return virtualContainer;  }    public void linkUIComponentToMe () {	  uiFrame top = getObjectAdapter().getUIFrame();	    try {		  //if (slModel == null) System.err.println("Null SLModel");	      //composer = new SLComposer(top, slModel);		  //composer = new SLComposer(top.getFrame(), slModel, false);	      VirtualFrame vFrame = top.getFrame();	      Frame frame = null;	      if (vFrame != null)	    	  frame = (Frame) vFrame.getPhysicalComponent();    	  		  //composer = new SLComposer((Frame) top.getFrame().getPhysicalComponent(), slModel, false);		  //passing in a null model	      if (virtualContainer == null || isView(virtualContainer))	    	  composer = new SLComposer();	      else	    	  composer = new SLComposer(frame, slModel, false, (Container) virtualContainer.getPhysicalComponent());	   // set sze etc		  super.setAttributes(virtualContainer);			      	      /*		  view = composer.getView();		  top.addKeyListener(AWTContainer.virtualContainer(view.getContainer()));		  controller = composer.getController();		  */		  //controller.setIncremental(true);		  /*	      SLModel model = composer.getModel();      	      model.addListener(this);		  view.addMouseListener(this);		  */		  /*		  //SLGController controller = composer.getController();	  		  controller.removeComponent("Clear");	  		  controller.removeComponent("Prompt");		  		  //controller.setVisibleComponent("Prompt", false);			  		  controller.removeComponent("Move");	  		  controller.removeComponent("Delete");  	  		  controller.removeComponent("Line"); 	  		  controller.removeComponent("Oval");  	  		  controller.removeComponent("Rectangle"); 		  */		  //virtualComposer = AWTContainer.virtualContainer(composer.getContainer());	      //return virtualComposer;	    } catch (Exception e) {	      e.printStackTrace();	      //return null;	    }	    }  
   Frame f= null;	//uiFrame uiF= null;
   	
-	public Frame getFrame(Component c) {		//System.out.println("parameter" +c);
-		if (f == null) {			//System.out.println("null f");
-			while (c != null) {								//System.out.println("componnet" + c.getName());
+	public Frame getFrame(Component c) {		//System.err.println("parameter" +c);
+		if (f == null) {			//System.err.println("null f");
+			while (c != null) {								//System.err.println("componnet" + c.getName());
 				if (c instanceof Frame) {
 					f = (Frame) c;					//uiF = (uiFrame) f;					//this.getObjectAdapter().getUI
 					return f;
 				}
 				c = c.getParent();
 			}
-		}		//System.out.println("returning" + f);
+		}		//System.err.println("returning" + f);
 		return f;
 	}	ObjectAdapter getTopAdapter() {	return getObjectAdapter().getUIFrame().getOriginalAdapter();}	 public void maybeShowPopup(MouseEvent e) {//	 ObjectAdapter menuAdapter = (ObjectAdapter)  SelectionManager.getLastSelection();//	 maybeShowPopup(e, menuAdapter); }  public void mouseEntered(RemoteShape aComponent, String aToolTipText, Point aCursotPoint) {//	 if (aComponent == null)//			mouseEntered(null, getTopAdapter().getToolTipText(), aCursotPoint);	 if (!getObjectAdapter().getUIFrame().isGlassPane())	 toolTipTextRunnable.mouseEntered(aComponent, aToolTipText, aCursotPoint);	  }  public void mouseExited(RemoteShape aComponent, Point aCursorPoint) {	 if (!getObjectAdapter().getUIFrame().isGlassPane())	 toolTipTextRunnable.mouseExited(aComponent, aCursorPoint); }
   
@@ -94,7 +94,7 @@ public class ShapesAdapter extends WidgetAdapter implements Listener, MouseListe
 		}
     public void mousePressed(MouseEvent e)
     {
-		//System.out.println("Adapter heard mouse");
+		//System.err.println("Adapter heard mouse");
 	  maybeShowPopup(e);
     }
     
@@ -105,7 +105,7 @@ public class ShapesAdapter extends WidgetAdapter implements Listener, MouseListe
     public void mouseClicked(MouseEvent e)
     {		/*
 		if (!e.isPopupTrigger()) {		uiComponentFocusGained(); 
-		System.out.println("Adapter heard mouse");
+		System.err.println("Adapter heard mouse");
 		}
 		*/
     }
@@ -116,7 +116,7 @@ public class ShapesAdapter extends WidgetAdapter implements Listener, MouseListe
 	public void mouseExited(MouseEvent e)
     {//		mouseExited(null, null);
 		
-    }	boolean incremental;	public boolean processAttribute(Attribute attrib) {	    if (attrib.getName().equals("actionMode") ||	    		attrib.getName().equals(AttributeNames.INCREMENTAL)) {	      if (attrib.getValue() instanceof Boolean) {		incremental = ((Boolean) attrib.getValue()).booleanValue();		setIncremental();	      }	      return true;	    }	    else	      return super.processAttribute(attrib);	  }	public  void remove(ObjectAdapter compAdapter) {			}	@Override	public void mouseClicked(List<RemoteShape> theShapes,			RemoteShape theSmallestShape, MouseEvent mouseEvent, Point aClickPoint) {			}	@Override	public void mousePressed(List<RemoteShape> theShapes,			RemoteShape theSmallestShape, MouseEvent mouseEvent, Point aClickPoint) {		maybeShowPopup(mouseEvent, getTopAdapter());			}	@Override	public void mouseReleased(List<RemoteShape> theShapes,			RemoteShape theSmallestShape, MouseEvent mouseEvent, Point aClickPoint) {		// TODO Auto-generated method stub			}	@Override	public void mouseEntered(List<RemoteShape> theShapes,			RemoteShape theSmallestShape, MouseEvent mouseEvent, Point aClickPoint) {//		System.out.println("Mouse Entered");		 if (theSmallestShape == null && getTopAdapter() != null)				mouseEntered(null, getTopAdapter().getToolTipText(), aClickPoint);//		if (theSmallestShape == null) {//			ObjectAdapter objectAdapter = getObjectAdapter().getUIFrame().getAdapter();////			try {//				mouseEntered(theSmallestShape, getObjectAdapter().getToolTipText(), aClickPoint);////			} catch (Exception e) {}////		}//		}			}	@Override	public void mouseExited(List<RemoteShape> theShapes,			RemoteShape theSmallestShape, MouseEvent mouseEvent, Point aClickPoint) {		 if (theSmallestShape == null)			 mouseExited(null, aClickPoint);			}
+    }	boolean incremental;	public boolean processAttribute(Attribute attrib) {	    if (attrib.getName().equals("actionMode") ||	    		attrib.getName().equals(AttributeNames.INCREMENTAL)) {	      if (attrib.getValue() instanceof Boolean) {		incremental = ((Boolean) attrib.getValue()).booleanValue();		setIncremental();	      }	      return true;	    }	    else	      return super.processAttribute(attrib);	  }	public  void remove(ObjectAdapter compAdapter) {			}	@Override	public void mouseClicked(List<RemoteShape> theShapes,			RemoteShape theSmallestShape, MouseEvent mouseEvent, Point aClickPoint) {			}	@Override	public void mousePressed(List<RemoteShape> theShapes,			RemoteShape theSmallestShape, MouseEvent mouseEvent, Point aClickPoint) {		maybeShowPopup(mouseEvent, getTopAdapter());			}	@Override	public void mouseReleased(List<RemoteShape> theShapes,			RemoteShape theSmallestShape, MouseEvent mouseEvent, Point aClickPoint) {		// TODO Auto-generated method stub			}	@Override	public void mouseEntered(List<RemoteShape> theShapes,			RemoteShape theSmallestShape, MouseEvent mouseEvent, Point aClickPoint) {//		System.err.println("Mouse Entered");		 if (theSmallestShape == null && getTopAdapter() != null)				mouseEntered(null, getTopAdapter().getToolTipText(), aClickPoint);//		if (theSmallestShape == null) {//			ObjectAdapter objectAdapter = getObjectAdapter().getUIFrame().getAdapter();////			try {//				mouseEntered(theSmallestShape, getObjectAdapter().getToolTipText(), aClickPoint);////			} catch (Exception e) {}////		}//		}			}	@Override	public void mouseExited(List<RemoteShape> theShapes,			RemoteShape theSmallestShape, MouseEvent mouseEvent, Point aClickPoint) {		 if (theSmallestShape == null)			 mouseExited(null, aClickPoint);			}
 
 }
 

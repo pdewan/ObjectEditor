@@ -43,7 +43,7 @@ public class MenuDescriptorRegistry {
 				setter.init(menuDescriptor, theFrame);
 			}
 		} catch (Exception e) {
-			System.out.println("MenuDescriptorRegistry: Register All: " + e);
+			System.err.println("MenuDescriptorRegistry: Register All: " + e);
 		}
 	}
 	public static void setMenus(AMenuDescriptor menuDescriptor, uiFrame theFrame, String[] menus) {
@@ -59,7 +59,7 @@ public class MenuDescriptorRegistry {
 			}
 			
 		} catch (Exception e) {
-			System.out.println("MenuDescriptorRegistry: Register All: " + e);
+			System.err.println("MenuDescriptorRegistry: Register All: " + e);
 		}
 	}
 //	public static void setCommon(AMenuDescriptor menuDescriptor, uiFrame theFrame) {
@@ -67,7 +67,7 @@ public class MenuDescriptorRegistry {
 //			MenuDescriptorSetter setter = registry.get(AttributeNames.COMMON_MENU);
 //			setter.init(menuDescriptor, theFrame);
 //		} catch (Exception e) {
-//			System.out.println("MenuDescriptorRegistry: Register All: " + e);
+//			System.err.println("MenuDescriptorRegistry: Register All: " + e);
 //		}
 //	}
 	static {

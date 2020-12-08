@@ -59,7 +59,7 @@ import bus.uigen.sadapters.ConcreteTextShape;
 			if (arcShape.getEndAngle() != endAngle)
 				arcShape.setEndAngle(endAngle);			oldStartAngle = startAngle;
 			oldEndAngle = endAngle;
-		} catch (Exception e) {		  System.out.println("E**: exception invoking angle methods");		  e.printStackTrace();
+		} catch (Exception e) {		  System.err.println("E**: exception invoking angle methods");		  e.printStackTrace();
 		}	
 	  return shape;   }
   public boolean recalculateRealObject() {
@@ -84,7 +84,7 @@ import bus.uigen.sadapters.ConcreteTextShape;
 			retVal = true;
 		  }
 		  oldEndAngle = endAngle;	
-		} catch (Exception e) {		  System.out.println("E**: exception invoking set angle  methods");		  e.printStackTrace();
+		} catch (Exception e) {		  System.err.println("E**: exception invoking set angle  methods");		  e.printStackTrace();
 		}	  return retVal;
   }
   public static ArcAdapter createArcAdapter (Object obj,											  Object obj1, 											  Object parentObject, 											  String name, 											  Class inputClass, 											  boolean propertyFlag, 											  ObjectAdapter adaptor)throws RemoteException  {

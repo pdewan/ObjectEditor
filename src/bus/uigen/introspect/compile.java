@@ -36,7 +36,7 @@ public class compile {
       compiler = new sun.tools.javac.Main(System.err, "javac");
       compiler.compile(arguments);
     } catch (Exception e) {
-      System.out.println("Could not load the JDK compiler");
+      System.err.println("Could not load the JDK compiler");
       System.exit(1);
     }
     */
@@ -61,7 +61,7 @@ public class compile {
       setMethod.invoke(childObject, arg);
       
       Integer returnval = (Integer) getMethod.invoke(childObject, null);
-      System.out.println("Got the return value "+returnval);
+      System.err.println("Got the return value "+returnval);
 
 
     } catch (Exception e) {

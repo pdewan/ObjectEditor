@@ -27,7 +27,7 @@ public class Connections extends AListenable implements Listener {
 		}
 		} catch (Exception e) {
 			e.printStackTrace();
-			//System.out.println(e);
+			//System.err.println(e);
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class Connections extends AListenable implements Listener {
 		connection.makeConnection(sourceKey, destinationKey, connectionName);		
 		connections.addElement(connection);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.err.println(e);
 		}
 	}
 	
@@ -52,12 +52,12 @@ public class Connections extends AListenable implements Listener {
 	}
 	
 	public void reset() {
-		System.out.println("reset");
+		System.err.println("reset");
 	}
 	
 	public void update(Listenable model, Object arg)
     {  
-		System.out.println("update");		
+		System.err.println("update");		
 	
     }
 	

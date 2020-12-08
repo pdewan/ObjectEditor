@@ -18,9 +18,9 @@ public class OEBusAgent {
       localBusAgent = new BusAgentImpl(localAgentName,
 				   centralServer,
 				   rmiRegistryPort);		} catch (Exception e) {
-			System.out.println("could not create bus agent");		}
+			System.err.println("could not create bus agent");		}
       if (localBusAgent == null) {
-	System.out.println("Unable to create a local BusAgent");
+	System.err.println("Unable to create a local BusAgent");
       }
     }
   }

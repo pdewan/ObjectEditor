@@ -52,7 +52,7 @@ public class TreeView {	/*
 			topViewManager.showTreePanel();
 			uiGenerator.setTextMode(oldTextMode);
 			treeAdapter = (TreeAdapter) rootTreeNode.getWidgetAdapter();			//this.add(treePanel,BorderLayout.WEST);
-			} catch (Exception e) {				System.out.println("createTreePanel " + e);
+			} catch (Exception e) {				System.err.println("createTreePanel " + e);
 			}	}	public VirtualContainer createTreePanel() {
 		VirtualContainer treePanel = getTreePanel();
 				//Container treePanel = null;
@@ -90,16 +90,16 @@ public class TreeView {	/*
 			jTree.addTreeExpansionListener(this);   
 			treePanel.setSize((int) 200, frame.getSize().height);			//treePanelIsVisible = false;			frame.setTreePanelIsVisible(false);
 			frame.showTreePanel();			//this.add(treePanel,BorderLayout.WEST);
-			} catch (Exception e) {				System.out.println("createTreePanel " + e);
+			} catch (Exception e) {				System.err.println("createTreePanel " + e);
 			}		}			}
 	//public boolean treePanelIsVisible = false;
 	
 	
 	
 	
-	public void treeExpanded(TreeExpansionEvent event) {		//System.out.println("Tree expanded");
+	public void treeExpanded(TreeExpansionEvent event) {		//System.err.println("Tree expanded");
 	}
-	public void treeCollapsed(TreeExpansionEvent event) {		//System.out.println("tree expanded");
+	public void treeCollapsed(TreeExpansionEvent event) {		//System.err.println("tree expanded");
 	}
 	boolean treeSelected = false;	public void valueChanged(TreeSelectionEvent e)  {
 				// suppress duplicate   event from replaceTreeSelections     
@@ -108,23 +108,23 @@ public class TreeView {	/*
 			return;
 		}
 				TreePath treePath   = jTree.getSelectionPath();		TreePath eventPath = e.getNewLeadSelectionPath();		TreePath eventPathOld   = e.getOldLeadSelectionPath();
-		if (treePath == null)   {			//System.out.println("null selection");
+		if (treePath == null)   {			//System.err.println("null selection");
 			return;
 		}		uiObjectAdapter treeNode = (uiObjectAdapter) treePath.getLastPathComponent();
 		
-		uiObjectAdapter newTreeNode =   (uiObjectAdapter) eventPath.getLastPathComponent();		//System.out.println("calling   select" + treeNode);
+		uiObjectAdapter newTreeNode =   (uiObjectAdapter) eventPath.getLastPathComponent();		//System.err.println("calling   select" + treeNode);
 		TreePath[] selectedPaths = jTree.getSelectionPaths();
 		Vector selectedTreeNodes = new Vector();		for (int i = 0; i   < selectedPaths.length; i++) {
-			//System.out.println("no:" + i + "node" +   selectedPaths[i]);
+			//System.err.println("no:" + i + "node" +   selectedPaths[i]);
 			selectedTreeNodes.addElement((uiObjectAdapter)selectedPaths[i].getLastPathComponent());		}
-		//System.out.println(selectedNodes);		treeSelected = true;
+		//System.err.println(selectedNodes);		treeSelected = true;
 		uiSelectionManager.replaceSelections(selectedTreeNodes);		frame.setTitle();
 				
 		//uiSelectionManager.replaceSelections((uiObjectAdapter)createdTreePath.getLastPathComponent());		
 		
 				//uiSelectionManager.select(treeNode,   true);		//uiSelectionManager.replaceSelections(treeNode);
 		//treeNode.uiComponentFocusGained();		//replaceFrame();
-		//System.out.println("TreeNode is   " + treeNode);
+		//System.err.println("TreeNode is   " + treeNode);
 		
 			}	*/
 	public void clearTreeSelection() {
@@ -134,10 +134,10 @@ public class TreeView {	/*
 	public void setJTreeSelectionPaths(TreePath[]   selectedPaths) {		
 		
 		//jTree.clearSelection();     
-		//System.out.println("Selected Paths"   + selectedPaths);
+		//System.err.println("Selected Paths"   + selectedPaths);
 		
-		//TreePath createdTreePath = jTree.getPathForLocation(0,0);		//System.out.println(createdTreePath);		//createdTreePath.pathByAddingChild(topAdapter);
-		//System.out.println(selectedPaths[0]);
+		//TreePath createdTreePath = jTree.getPathForLocation(0,0);		//System.err.println(createdTreePath);		//createdTreePath.pathByAddingChild(topAdapter);
+		//System.err.println(selectedPaths[0]);
 		//jTree.setSelectionPaths(selectedPaths);		//jTree.setSelectionPath(createdTreePath);
 		internalTreeEvent   = true;
 				if ((jTree !=   null) && topViewManager.treePanelIsVisible())			jTree.setSelectionPaths(selectedPaths);
@@ -146,7 +146,7 @@ public class TreeView {	/*
 	/*	public void mouseClicked(MouseEvent e) {		
 		if ((e.getClickCount() == 2) ) {
 			TreePath treePath = jTree.getSelectionPath();			if (treePath == null) return;
-			System.out.println(treePath);			uiObjectAdapter treeNode = (uiObjectAdapter) treePath.getLastPathComponent();
+			System.err.println(treePath);			uiObjectAdapter treeNode = (uiObjectAdapter) treePath.getLastPathComponent();
 			if (!uiMethodInvocationManager.invokeDoubleClickMethod(treeNode))				frame.replaceFrame(treeNode);
 		}		
 		//if (listener !=   null) 

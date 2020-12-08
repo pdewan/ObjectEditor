@@ -263,8 +263,8 @@ public class ClassDescriptorCustomizer {
   public boolean writeBeanInfo() {
      //return BeanInfoWriter.writeBeanInfo(this, filename) && compile (fileName);
     //String	beanFile = cd.toShortName(cd.getRealClass().getName()) + "BeanInfo.java";;
-	  String beanFile = cd.getRealClass().getName().replace('.', '/') + "BeanInfo.java";	  System.out.println("writing to file:" + beanFile);
-	  //System.out.println("a.b.c".replace('.', '/'));
+	  String beanFile = cd.getRealClass().getName().replace('.', '/') + "BeanInfo.java";	  System.err.println("writing to file:" + beanFile);
+	  //System.err.println("a.b.c".replace('.', '/'));
 	  return BeanInfoWriter.writeBeanInfo(cd, beanFile);	   }
   public void useNewAttributeValues() {
 	  UIAttributeManager environment = AttributeManager.getEnvironment();
@@ -274,7 +274,7 @@ public class ClassDescriptorCustomizer {
   }
   public void refreshWithNewAttributeValues() {
 	  if (objectAdapter == null){
-		  System.out.println("No object was selected when customizer created");
+		  System.err.println("No object was selected when customizer created");
 		  return;
 	  }
 	  useNewAttributeValues();
@@ -299,7 +299,7 @@ public class ClassDescriptorCustomizer {
       compiler = new sun.tools.javac.Main(System.err, "javac");
       compiler.compile(arguments);	  return true;
     } catch (Exception e) {
-      System.out.println("Could not load the JDK compiler");
+      System.err.println("Could not load the JDK compiler");
       //System.exit(1);	  return false;
     }  }  */
   private Object[] helpers = null;

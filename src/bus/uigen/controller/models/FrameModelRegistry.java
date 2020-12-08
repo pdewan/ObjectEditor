@@ -58,7 +58,7 @@ public class FrameModelRegistry {
 //			}
 //			frame.displayMenuTree();
 //		} catch (Exception e) {
-//			System.out.println("ModelRegistry: Register All: " + e);
+//			System.err.println("ModelRegistry: Register All: " + e);
 //			e.printStackTrace();
 //		}	
 //	}
@@ -73,7 +73,7 @@ public class FrameModelRegistry {
 			}
 			frame.displayMenuTree();
 		} catch (Exception e) {
-			System.out.println("ModelRegistry: Register All: " + e);
+			System.err.println("ModelRegistry: Register All: " + e);
 			e.printStackTrace();
 		}	
 	}

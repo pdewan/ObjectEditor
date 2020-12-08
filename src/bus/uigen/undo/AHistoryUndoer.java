@@ -173,7 +173,7 @@ public class AHistoryUndoer implements /*ListenableUndoer, */ ListeningUndoer /*
 			nextCommandIndex = 0;
 			listener.redoHistoryEmpty(true);
 		}
-		//System.out.println("next command index " + nextCommandIndex);
+		//System.err.println("next command index " + nextCommandIndex);
         historyList.insertElementAt(c, nextCommandIndex);		
 		if (nextCommandIndex == 0) {
 			listener.undoHistoryEmpty(false);
@@ -189,7 +189,7 @@ public class AHistoryUndoer implements /*ListenableUndoer, */ ListeningUndoer /*
 			nextCommandIndex = 0;
 			notifyRedoHistoryEmpty(true);
 		}
-		//System.out.println("next command index " + nextCommandIndex);
+		//System.err.println("next command index " + nextCommandIndex);
         historyList.insertElementAt(c, nextCommandIndex);
         notifyExecuted(c, nextCommandIndex);
 		if (nextCommandIndex == 0) {
@@ -222,7 +222,7 @@ public class AHistoryUndoer implements /*ListenableUndoer, */ ListeningUndoer /*
 				notifyUndone(c, nextCommandIndex);
 				return true;
 			} catch (Exception e) {
-				System.out.println("Could not undo command: " + c);
+				System.err.println("Could not undo command: " + c);
 				return false;
 			}
 			/*
@@ -256,7 +256,7 @@ public class AHistoryUndoer implements /*ListenableUndoer, */ ListeningUndoer /*
 				notifyRedone(c, nextCommandIndex);
 				return true;
 			} catch (Exception e) {
-				System.out.println("Could not undo command: " + c);
+				System.err.println("Could not undo command: " + c);
 				return false;
 			}
 			/*

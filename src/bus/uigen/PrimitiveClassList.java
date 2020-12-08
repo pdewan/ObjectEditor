@@ -9,7 +9,7 @@ import bus.uigen.sadapters.ConcretePrimitive;import bus.uigen.sadapters.Concret
 public class PrimitiveClassList {	static ConcretePrimitive checker;	static boolean checkerInitialized = false;
   //Vector primitiveList;
   public PrimitiveClassList() {	  if (checkerInitialized) return;	  checker = (ConcretePrimitive) ConcreteTypeRegistry.createConcreteType(ConcretePrimitive.class);	  if (checker == null) {
-		  System.out.println("E** ConcretePrimitiveFactory not registered!");	  }
+		  System.err.println("E** ConcretePrimitiveFactory not registered!");	  }
 	  checkerInitialized = true;	  /*
     primitiveList = new Vector();
 

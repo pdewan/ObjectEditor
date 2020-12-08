@@ -190,8 +190,8 @@ import bus.uigen.introspect.*;import bus.uigen.controller.MethodInvocationManag
 	int sizeFromTargetSize() {		Object[] params = {};		try {
 			Object retVal = sizeMethod.invoke(targetObject, params);
 			return ((Integer) retVal).intValue();		} catch (Exception e) {
-			System.out.println(e);
-			System.out.println("Please trace size method of:" + targetObject);
+			System.err.println(e);
+			System.err.println("Please trace size method of:" + targetObject);
 			return -1;		}
 	}
 	*/	int sizeFromTargetElements() {
@@ -232,7 +232,7 @@ import bus.uigen.introspect.*;import bus.uigen.controller.MethodInvocationManag
 		try {			
 			Object[] params = {new Integer(i)};			return elementAtMethod.invoke(targetObject, params);		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Please trace elementAt method of:" + targetObject + " with index " + i);
+			System.err.println("Please trace elementAt method of:" + targetObject + " with index " + i);
 			return null;		}		
 	}
 	*/	/*
@@ -240,7 +240,7 @@ import bus.uigen.introspect.*;import bus.uigen.controller.MethodInvocationManag
 		if (elementAtMethod != null)
 			return elementAtFromTargetElementAt(i);
 		else {
-			//System.out.println("DId not find elementAt!");
+			//System.err.println("DId not find elementAt!");
 			return elementAtFromTargetElements(i);
 			
 		}
@@ -292,7 +292,7 @@ import bus.uigen.introspect.*;import bus.uigen.controller.MethodInvocationManag
 	public int indexOf(Object element) {
 		try {			
 			Object[] params = {element};			return ((Integer)(indexOfMethod.invoke(targetObject, params))).intValue();		} catch (Exception e) {
-			System.out.println(e);
+			System.err.println(e);
 			return -1;		}	}	*/
 	
 	public void setElementAt(Object element, int pos) {
@@ -487,14 +487,14 @@ import bus.uigen.introspect.*;import bus.uigen.controller.MethodInvocationManag
 				removeElement(element, commandListener);									//uiMethodInvocationManager.invokeMethod(this.getUIFrame(), parentObject, removeElementMethod, params);
 				}			}
 		catch (Exception e) {
-			System.out.println(e);
+			System.err.println(e);
 		}
 		
 	}
 	*/
 	public void setElementAt(Object element, int pos, CommandListener commandListener) {
 		if (pos == -1) { 
-			System.out.println("Unexpected negative index in setElementAt");
+			System.err.println("Unexpected negative index in setElementAt");
 			return;
 		}
 		Object params[] = {element, new Integer(pos)};
@@ -507,10 +507,10 @@ import bus.uigen.introspect.*;import bus.uigen.controller.MethodInvocationManag
 	/*
 	public  void invokeWriteMethod (Method m, Object o, Object[] params) {		try {
 			//m.invoke(o, params);			uiMethodInvocationManager.invokeMethod(o, m, params);
-		} catch (Exception e) {			System.out.println(e);
+		} catch (Exception e) {			System.err.println(e);
 		}	}	public  void invokeUndoableWriteMethod (Method m, Object o, Object[] params, CommandListener cl) {		try {
 			//m.invoke(o, params);			uiMethodInvocationManager.invokeMethod(frame, o, m, params, cl);
-		} catch (Exception e) {			System.out.println(e);
+		} catch (Exception e) {			System.err.println(e);
 		}	}	*/
 	public String getPatternName() {
 		return StructurePatternNames.VECTOR_PATTERN;		

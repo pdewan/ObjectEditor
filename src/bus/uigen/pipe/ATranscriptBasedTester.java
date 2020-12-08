@@ -199,7 +199,7 @@ public class ATranscriptBasedTester implements TranscriptBasedTester {
 	public static List<String> getSortedFiles(String aDirectory) {
 		File file = new File(aDirectory);
 		if (!file.exists()) {
-			System.out.println("Folder does not exist:" + aDirectory);
+			System.err.println("Folder does not exist:" + aDirectory);
 			return null;
 		}
 		String[] arrayChildren = file.list();
@@ -212,7 +212,7 @@ public class ATranscriptBasedTester implements TranscriptBasedTester {
 		correctLocalTraceableLists = new ArrayList();
 		List<String> sortedFiles = getSortedFiles(aCorrectDirectory);
 		if (sortedFiles == null) {
-			System.out.println("Correct directory not found");
+			System.err.println("Correct directory not found");
 			return;
 		}
 		String aGlobalTrancriptFile = AConsoleModel

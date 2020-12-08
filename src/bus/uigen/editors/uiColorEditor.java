@@ -38,11 +38,11 @@ public class uiColorEditor
 
   public void actionPerformed(ActionEvent e) {
     if (e.getSource().equals(this)) {
-      System.out.println("Showing the dialog");
+      System.err.println("Showing the dialog");
       dialog.show();
     }
     else {
-      System.out.println("Got a color selection"+chooser.getColor());
+      System.err.println("Got a color selection"+chooser.getColor());
       setUIComponentValue(chooser.getColor());
       // let the listener know that something's changed
       objectAdapter.uiComponentValueChanged(this);
