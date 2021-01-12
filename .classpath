@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/javareflectcommon"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/javareflectserver"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/remotereflect"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Shapes"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/util"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jung"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/object-diff"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/VirtualToolkit"/>
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/swt.jar"/>
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/acrobat.jar"/>
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/agent.zip"/>
@@ -20,10 +22,8 @@
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/poi-bin-3.9-20121203/poi-3.9/ooxml-lib/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/poi-bin-3.9-20121203/poi-3.9/poi-ooxml-schemas-3.9-20121203.jar"/>
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/poi-bin-3.9-20121203/poi-3.9/ooxml-lib/dom4j-1.6.1.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/jung"/>
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/collections-generic-4.01.jar" sourcepath="C:/Users/dewan/.m2/repository/net/sourceforge/collections/collections-generic/4.01/collections-generic-4.01-sources.jar"/>
 	<classpathentry kind="lib" path="D:/dewan_backup/Java/lib/logging.zip"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/object-diff"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/VirtualToolkit"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-10.0.2"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
