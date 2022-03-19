@@ -25,8 +25,8 @@ public class BarChartDrawingPanel extends JPanel implements MouseListener, Prope
 	public static int WIDTH = 5;
 	public static int PIXELS_PER_UNIT = 4;
 	protected char lastChar = ' ';
-	SquaringCounterWithButtons counter;
-	public BarChartDrawingPanel(SquaringCounterWithButtons aCounter) {
+	SquaringCounterAndRectangleWithButtons counter;
+	public BarChartDrawingPanel(SquaringCounterAndRectangleWithButtons aCounter) {
 		setBackground(AttributeNames.CAROLINA_BLUE);
 		counter = aCounter;
 		addMouseListener(this);
@@ -60,7 +60,7 @@ public class BarChartDrawingPanel extends JPanel implements MouseListener, Prope
 	
 	public static void main (String[] args) {
 		JFrame frame = new JFrame();
-		BarChartDrawingPanel aDrawer = new BarChartDrawingPanel(new SquaringCounterWithButtons());
+		BarChartDrawingPanel aDrawer = new BarChartDrawingPanel(new SquaringCounterAndRectangleWithButtons());
 		frame.setContentPane(aDrawer);
 		frame.setSize(300, 200);
 		frame.setVisible(true);

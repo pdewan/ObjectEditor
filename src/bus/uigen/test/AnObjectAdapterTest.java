@@ -2,6 +2,7 @@ package bus.uigen.test;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Vector;
 
@@ -16,6 +17,7 @@ import bus.uigen.sadapters.BeanToRecord;
 import bus.uigen.sadapters.ConcreteType;
 import bus.uigen.sadapters.RecordStructure;
 import bus.uigen.sadapters.VectorStructure;
+import bus.uigen.widgets.VirtualComponent;
 
 public class AnObjectAdapterTest {
 	public static void main (String[] args) {
@@ -46,7 +48,19 @@ public class AnObjectAdapterTest {
 		for (String componentName:componentNames) {
 			System.out.println(componentName +  ":" + concreteRecord.get(componentName));			
 		}
+		printUIComponents(dateAdapter);
 		
+	}
+	public static void printUIComponents(ClassAdapter dateAdapter) {
+		Vector<ObjectAdapter> children = dateAdapter.getChildrenVector();
+		for (ObjectAdapter aChild:children) {
+			VirtualComponent aComponent = aChild.getUIComponent();
+			if (aComponent == null) {
+				return;
+			}
+			Object aPhysicalComponent = aComponent.getPhysicalComponent();
+			System.out.println("Component:" + aComponent);
+		}
 	}
 	public static void editAndAnalyzeList() {
 		System.out.println("Displaying and Analyzing List");

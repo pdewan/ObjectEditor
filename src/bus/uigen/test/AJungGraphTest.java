@@ -32,7 +32,7 @@ import bus.uigen.shapes.OEShapeModel;
 
 public class AJungGraphTest {
 	public static void main (String[] args) {
-		SquaringCounterWithButtons counter = new SquaringCounterWithButtons();
+		SquaringCounterAndRectangleWithButtons counter = new SquaringCounterAndRectangleWithButtons();
 		AnEnumBasedBrowser browser = new AnEnumBasedBrowser();
 		JPanel counterPanel = new JPanel();
 		JPanel browserPanel = new JPanel();

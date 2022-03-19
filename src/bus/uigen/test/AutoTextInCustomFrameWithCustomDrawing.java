@@ -16,7 +16,7 @@ import bus.uigen.widgets.swing.SwingFrame;
 public class AutoTextInCustomFrameWithCustomDrawing {
 
 	public static void main (String[] args) {
-		SquaringCounterWithButtons counter = new SquaringCounterWithButtons();
+		SquaringCounterAndRectangleWithButtons counter = new SquaringCounterAndRectangleWithButtons();
 		BarChartDrawingPanel circleDrawingPanel = new BarChartDrawingPanel(counter);
 		JFrame frame=  new JFrame();
 		frame.setLayout(new GridLayout(2, 0));

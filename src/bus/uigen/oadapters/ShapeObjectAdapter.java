@@ -809,18 +809,36 @@ import bus.uigen.widgets.events.VirtualMouseEvent;
 //	  return oldZAxis;
 //   }
   
-  static final int autoZIndex = 0;
+  static boolean useTreeIndexForZIndex = true;
+  
+  public static boolean isUseTreeIndexForZIndex() {
+	return useTreeIndexForZIndex;
+}
+public static void setUseTreeIndexForZIndex(boolean useTreeIndex) {
+	ShapeObjectAdapter.useTreeIndexForZIndex = useTreeIndex;
+}
+
+static final int autoZIndex = 0;
 public int recalculateViewObjectZAxis(RemoteShape shape) {
-	  
+	 
 	  if (getTextMode()) return 0;
 //	  if (!getConcreteShape().hasZIndex()) {
 //		  return this.getIndex();
 //	  }
 	  try {
+		  int anOriginalIndex = this.zAxis;
+		  if (!isUseTreeIndexForZIndex()) {
+			  return anOriginalIndex;
+		  }
+		  
+		  if (anOriginalIndex != 0) { // overridden value
+			  return anOriginalIndex;
+		  }
 		    
 			//int zAxis = getConcreteShape().getZIndex();
 //		    int zAxis;
 		    zAxis= getTreeIndex();
+		    
 			//if (oldZAxis != zAxis)	
 //			if (oldZAxis != shape.getZIndex())
 			if (zAxis != shape.getZIndex()) // everywhere old variable is kept, but this seems best as shape has it
