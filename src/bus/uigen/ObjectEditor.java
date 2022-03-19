@@ -65,6 +65,7 @@ import bus.uigen.controller.AComponentInputter;
 import bus.uigen.controller.AToolbarManager;
 import bus.uigen.controller.ComponentInputter;
 import bus.uigen.controller.MethodInvocationManager;
+import bus.uigen.controller.MethodParameters;
 import bus.uigen.controller.menus.AMenuDescriptor;
 import bus.uigen.controller.menus.MenuSetter;
 import bus.uigen.controller.menus.VirtualMethodMenuItem;
@@ -410,6 +411,9 @@ public class ObjectEditor  implements java.io.Serializable, VirtualActionListene
 			 	MethodInvocationManager.registerParameterNames(m, parameterNames);
 			 
 			 }
+		 public static void confirmSelectedMethodParameters(boolean newValue) {
+			 MethodParameters.ConfirmOnMethod = newValue;
+		 }
 	public static void previousMainToBeDeleted(String args[]) throws Exception {		
 		register();	
 	    loadStaticState();
