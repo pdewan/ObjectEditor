@@ -791,7 +791,8 @@ import bus.uigen.widgets.events.VirtualMouseEvent;
    }
   
   int zAxis;
-//  public int recalculateViewObjectZAxis(RemoteShape shape) {
+
+  //  public int recalculateViewObjectZAxis(RemoteShape shape) {
 //	  
 //	  if (getTextMode()) return 0;
 //	  if (!getConcreteShape().hasZIndex()) {
@@ -809,7 +810,7 @@ import bus.uigen.widgets.events.VirtualMouseEvent;
 //	  return oldZAxis;
 //   }
   
-  static boolean useTreeIndexForZIndex = true;
+  static boolean useTreeIndexForZIndex = false;
   
   public static boolean isUseTreeIndexForZIndex() {
 	return useTreeIndexForZIndex;
@@ -819,6 +820,9 @@ public static void setUseTreeIndexForZIndex(boolean useTreeIndex) {
 }
 
 static final int autoZIndex = 0;
+public String toString() {
+	return super.toString();
+}
 public int recalculateViewObjectZAxis(RemoteShape shape) {
 	 
 	  if (getTextMode()) return 0;
@@ -827,17 +831,22 @@ public int recalculateViewObjectZAxis(RemoteShape shape) {
 //	  }
 	  try {
 		  int anOriginalIndex = this.zAxis;
-		  if (!isUseTreeIndexForZIndex()) {
-			  return anOriginalIndex;
-		  }
-		  
-		  if (anOriginalIndex != 0) { // overridden value
-			  return anOriginalIndex;
-		  }
+//		  if (!isUseTreeIndexForZIndex()) {
+//			  return anOriginalIndex;
+//		  }
+//		  
+//		  if (anOriginalIndex != 0) { // overridden value
+//			  return anOriginalIndex;
+//		  }
+		  if (!isUseTreeIndexForZIndex() && getConcreteShape().hasZIndex()) {
+			  zAxis = getConcreteShape().getZIndex();
+
+		  } else {
 		    
 			//int zAxis = getConcreteShape().getZIndex();
 //		    int zAxis;
 		    zAxis= getTreeIndex();
+		  }
 		    
 			//if (oldZAxis != zAxis)	
 //			if (oldZAxis != shape.getZIndex())

@@ -31,6 +31,7 @@ public class SquaringCounterAndRectangleWithToolbar  {
 		
 		// display the object after setting the attributed above
 		OEFrame oeFrame = ObjectEditor.edit(new SquaringCounterAndRectangle());
+		oeFrame.hideMainPanel();
 
 		// show the toolbar
 		oeFrame.showToolBar();
